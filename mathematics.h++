@@ -61,7 +61,7 @@ namespace LIB
 		typedef cln::cl_N number;
 	}
 	
-	namespace math = mathematics;
+	//namespace math = mathematics;
 	
 	
 	namespace numbers

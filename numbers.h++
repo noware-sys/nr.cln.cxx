@@ -18,7 +18,7 @@ namespace LIB
 		typedef mathematics::numbers::f			f;
 		typedef mathematics::numbers::rational	rational;
 		typedef mathematics::numbers::integer	integer;
-		//typedef mathematics::numbers::natural	natural;
+		typedef mathematics::numbers::natural	natural;
 	}
 }
 
