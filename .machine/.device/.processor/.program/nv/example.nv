@@ -12,8 +12,15 @@
 	Basic things.
 	{
 		Declare things.
-		Perform things.
+			Perform things. (By extension.)
 	}
+	
+	
+	()			Expression Group
+	{}[;]		Scope Declaration
+	:: 			Scope Resulution
+	
+	!Without References! (Like * or &)
 	
 	///
 	
@@ -67,16 +74,16 @@ include_once ("initialization.nv");	// Or ".ven"? No.
 		}
 	*/
 	// Declare an entity.
-	[dynamic|static] ([[variable|constant] type, ...]) function [operator]? "#" (null, null) [[variable|constant], [constant|variable]]
+	[dyn[amic]|static] ([[variable|constant] type, ...]) (function|fn|func[t]) [operator]? "#" (null, null) [[variable|constant], [constant|variable]]
 	{
 		return [null];
-	}
+	};
 	
 	// Evaluate an expression.
 	[type] function [""] ()
 	{
 		return [null];
-	}
+	};
 	
 	
 	

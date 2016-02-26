@@ -55,9 +55,9 @@
 // This library:
 //#include "../default.h++"
 #include "../name.h++"
-#include "../mathematics.h++"
-#include "../serialization.h++"
-#include "variable.h++"
+#include "../math.h++"
+#include "../serial.h++"
+#include "any.h++"
 
 // group set [a[ssociative][_]]array
 #ifndef NAME_A
@@ -68,7 +68,7 @@ namespace LIB
 {
 	namespace container
 	{
-	//template <typename Value = NAME_V, Key = NAME_V>
+	//template <typename Value = any, Key = any>
 	//struct Link
 	//{
 	//	Key key;
@@ -77,7 +77,7 @@ namespace LIB
 	//	Link * previous;
 	//};
 	//template <typename value, key> 
-	template <typename value = NAME_V, typename key = NAME_V>
+	template <typename value = noware::container::any, typename key = noware::container::any>
 	class NAME_A
 	{
 		public:
@@ -206,13 +206,13 @@ namespace LIB
 			
 			// Returns the number of present elements.
 			// Number of present elements (cardinality?):
-			//const LIB::mathematics::numbers::natural cardinality (void) const;
-			//const LIB::mathematics::numbers::natural count (void) const;
-			//const LIB::mathematics::numbers::natural maginitude (void) const;
-			//const LIB::mathematics::numbers::natural quantity (void) const;
-			const LIB::mathematics::numbers::natural size (void) const;
-			//LIB::mathematics::numbers::integer minimum (void);	// .
-			//LIB::mathematics::numbers::integer maximum (void);	// .
+			//const LIB::math::numbers::natural cardinality (void) const;
+			//const LIB::math::numbers::natural count (void) const;
+			//const LIB::math::numbers::natural maginitude (void) const;
+			//const LIB::math::numbers::natural quantity (void) const;
+			const LIB::math::numbers::natural size (void) const;
+			//LIB::math::numbers::integer minimum (void);	// .
+			//LIB::math::numbers::integer maximum (void);	// .
 			
 			// Iterators:
 			//// Element access:
@@ -296,8 +296,8 @@ namespace LIB
 			
 			// Get the N'th element from the array, regardless of the type of the key.
 			// Indexing starts at 1.
-			//key & get_key (const LIB::mathematics::numbers::natural &);
-			//value & get_value (const LIB::mathematics::numbers::natural &);
+			//key & get_key (const LIB::math::numbers::natural &);
+			//value & get_value (const LIB::math::numbers::natural &);
 			
 			// Common functionality to the stack and to the queue:
 			//key & current_key (void) const;
@@ -373,7 +373,7 @@ namespace LIB
 			//friend std::ostream & operator << (std::ostream &, const LIB::NAME_A <value, key> &, const std::string &/* indentation*/ = "")/* const*/;
 		//	friend std::ostream & operator << (std::ostream &, const LIB::container::NAME_A <value, key> &)/* const*/;
 			std::ostream & operator << (std::ostream &) const;
-			//friend std::ostream & operator << (std::ostream & os, const LIB::NAME_A <LIB::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> & val);
+			//friend std::ostream & operator << (std::ostream & os, const LIB::NAME_A <LIB::NAME_A <LIB::container::any, LIB::container::any>, LIB::container::any> & val);
 			//friend	::std::istream &	operator	>>	(::std::istream &, LIB::NAME_A &);
 	
 	};

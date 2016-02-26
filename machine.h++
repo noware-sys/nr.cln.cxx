@@ -33,12 +33,13 @@
 //// #include "../containers/entity.h++"
 ////#include "../network/ip/mpi.h++"
 #include "network/mpi.h++"
+#include "computer.h++"
 ////#include "../language/interpreter.h++"
 //#include "../communication/messaging.h++"
 //#include "../cluster/members.h++"
 ////#include "../cluster.h++"
 //#include "network.h++"
-#include ".machine/preindex.h++"
+#include ".machine/header.h++"
 //
 ////#ifndef NTT
 ////	#define NTT entity
@@ -66,7 +67,7 @@ namespace LIB
 		*/
 		
 		public:
-			#include ".machine/index.h++"
+			#include ".machine/*.h++"
 			
 			machine (void);
 			~machine (void);
@@ -76,6 +77,8 @@ namespace LIB
 			//const bool evaluate (const LIB::containers::NAME_V &);
 			const LIB::container::NAME_V evaluate (const LIB::container::NAME_V &);
 			
+			computer pc;
+			
 		// protected:
 		public:
 		//	/*LIB::machine::*/device::processor processor;
@@ -84,9 +87,9 @@ namespace LIB
 			//LIB::network::mpi mpi;
 			
 		public:
-			#include ".machine/postinnerindex.h++"
+			#include ".machine/inner footer.h++"
 	};
 }
 
-#include ".machine/postindex.h++"
+#include ".machine/footer.h++"
 

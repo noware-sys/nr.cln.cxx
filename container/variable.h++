@@ -39,7 +39,7 @@
 
 // (container of a value) all any container value category var[iable] struct[ure] class obj[ect] it[e]m 
 #if !defined (NAME_V)
-	#define NAME_V variable
+	#define NAME_V any
 #endif
 
 namespace LIB

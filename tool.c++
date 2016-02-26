@@ -21,6 +21,7 @@
 */
 //#include "./nix/unistd.h"
 
+#include "name.h++"
 #include "tool.h++"
 //#include "containers/variable.h++"
 
@@ -33,7 +34,7 @@ namespace LIB
 			if (value.empty ())
 				return false;
 
-			/*unsigned int*/LIB::mathematics::numbers::natural length = value.length ();
+			/*unsigned int*/LIB::math::numbers::natural length = value.length ();
 			bool decimal_found = false;
 			bool sign_found = false;
 			bool digit_found = false;
@@ -43,7 +44,7 @@ namespace LIB
 
 			for
 			(
-				///*unsigned long long int*/mathematics::numbers::natural i = 0;
+				///*unsigned long long int*/math::numbers::natural i = 0;
 				unsigned long long int i = 0;
 				i < length;
 				++ i
@@ -84,12 +85,12 @@ namespace LIB
 		}
 		
 		/*
-		mathematics::numbers::natural	digits		(mathematics::numbers::natural n)
+		math::numbers::natural	digits		(math::numbers::natural n)
 		{
 			if (n == 0)
 				return 1;
 
-			mathematics::numbers::natural digits = 0;
+			math::numbers::natural digits = 0;
 
 			//std::cout << n << std::endl;
 
@@ -103,27 +104,27 @@ namespace LIB
 		}
 		*/
 		
-		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::integer & n)
+		const LIB::math::numbers::natural	digits		(const LIB::math::numbers::integer & n)
 		{
 			if (n == 0)
 				return 1;	// Needed for complement ().
 
-			LIB::mathematics::numbers::natural digits = 0;
+			LIB::math::numbers::natural digits = 0;
 
 			//std::cout << n << std::endl;
 
 			while (n != 0)
 			{
 				// Finish implementation! : n = n / 10
-				//n /= (mathematics::numbers::integer) 10;
-				// n = n / (mathematics::numbers::real) 10;
+				//n /= (math::numbers::integer) 10;
+				// n = n / (math::numbers::real) 10;
 				++ digits;
 			}
 
 			return digits;
 		}
 		
-		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::real & n)
+		const LIB::math::numbers::natural	digits		(const LIB::math::numbers::real & n)
 		{
 			if (n == 0)
 				return 1;	// Needed for complement ().
@@ -132,14 +133,14 @@ namespace LIB
 			
 			/*
 			if (n < 0)	// Allow the complete range of integer numbers and of natural numbers.
-				return digits ((mathematics::numbers::integer) n) + fractions (n);
+				return digits ((math::numbers::integer) n) + fractions (n);
 			else
-				return digits ((mathematics::numbers::natural) n) + fractions (n);
+				return digits ((math::numbers::natural) n) + fractions (n);
 			return digits (n) + fractions (n);
 			*/
 			
 			
-			LIB::mathematics::numbers::natural digits = 0;
+			LIB::math::numbers::natural digits = 0;
 			
 			//std::cout << n << std::endl;
 			
@@ -151,7 +152,7 @@ namespace LIB
 			{
 				//n /= 10;
 				//n /= 10.0;
-				//n /= (mathematics::numbers::integer) 10;
+				//n /= (math::numbers::integer) 10;
 				//n = n / 10;
 				switch (no [i])
 				{
@@ -177,9 +178,9 @@ namespace LIB
 		}
 		
 		/*
-		mathematics::numbers::natural	integers	(mathematics::numbers::real n)
+		math::numbers::natural	integers	(math::numbers::real n)
 		{
-			//return digits ((mathematics::numbers::integer) n);
+			//return digits ((math::numbers::integer) n);
 			
 			if (n == 0)
 				return 1;	// Needed for complement ().
@@ -188,21 +189,21 @@ namespace LIB
 			
 			/ *
 			if (n < 0)	// Allow the complete range of integer numbers and of natural numbers.
-				return digits ((mathematics::numbers::integer) n) + fractions (n);
+				return digits ((math::numbers::integer) n) + fractions (n);
 			else
-				return digits ((mathematics::numbers::natural) n) + fractions (n);
+				return digits ((math::numbers::natural) n) + fractions (n);
 			return digits (n) + fractions (n);
 			* /
 			
 			
-			mathematics::numbers::natural digits = 0;
+			math::numbers::natural digits = 0;
 			
 			//std::cout << n << std::endl;
 			
 			while (n > 0)
 			{
 				//n /= 10;
-				//n /= (mathematics::numbers::integer) 10;
+				//n /= (math::numbers::integer) 10;
 				n = n / 10;
 				++ digits;
 			}
@@ -212,7 +213,7 @@ namespace LIB
 		*/
 		
 		// TODO: Implement (incomplete!).
-		const LIB::mathematics::numbers::integer	integers	(const /*mathematics::numbers::real*/cln::cl_R & n)
+		const LIB::math::numbers::integer	integers	(const /*math::numbers::real*/cln::cl_R & n)
 		{
 			//if (n == 0)
 			//	return 0;	// Needed for complement ().
@@ -221,21 +222,21 @@ namespace LIB
 			
 			/*
 			if (n < 0)	// Allow the complete range of integer numbers and of natural numbers.
-				return digits ((mathematics::numbers::integer) n) + fractions (n);
+				return digits ((math::numbers::integer) n) + fractions (n);
 			else
-				return digits ((mathematics::numbers::natural) n) + fractions (n);
+				return digits ((math::numbers::natural) n) + fractions (n);
 			return digits (n) + fractions (n);
 			*/
 			
 			
-			LIB::mathematics::numbers::integer integer = 0;
+			LIB::math::numbers::integer integer = 0;
 			
 			//std::cout << n << std::endl;
 			
 			while (n > 0)
 			{
 				//n /= 10;
-				//n /= (mathematics::numbers::integer) 10;
+				//n /= (math::numbers::integer) 10;
 				//n = n / 10;
 				
 				//integer = ;
@@ -246,18 +247,18 @@ namespace LIB
 		}
 		
 		// TODO: Implement (incomplete!).
-		const LIB::mathematics::numbers::natural	fractions	(const LIB::mathematics::numbers::real & n /* example: 3.2548 */)
+		const LIB::math::numbers::natural	fractions	(const LIB::math::numbers::real & n /* example: 3.2548 */)
 		{
 			if (n == 0)
 				return 1;	// Needed for complement ().
 			
-			LIB::mathematics::numbers::natural digits = 0;
-			// n = n - (mathematics::numbers::integer) n;	// 0.2548
+			LIB::math::numbers::natural digits = 0;
+			// n = n - (math::numbers::integer) n;	// 0.2548
 			
 			while (n > 0)
 			{
 				// n *= 10;	// 2.548
-				// n = n - (mathematics::numbers::integer) n;	//	0.548
+				// n = n - (math::numbers::integer) n;	//	0.548
 				
 				++ digits;
 			}
@@ -265,12 +266,12 @@ namespace LIB
 			return digits;	// 4
 		}
 		
-		const LIB::mathematics::numbers::real modulus (const LIB::mathematics::numbers::real & value)
+		const LIB::math::numbers::real modulus (const LIB::math::numbers::real & value)
 		{
 			return value < 0 ? -value : value;
 		}
 		
-		const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real & value, const LIB::mathematics::numbers::natural & radix)
+		const LIB::math::numbers::real complement (const LIB::math::numbers::real & value, const LIB::math::numbers::natural & radix)
 		{
 			/*
 				The radix complement of an n digit, positive number y, in radix b is
@@ -278,15 +279,15 @@ namespace LIB
 			 
 			*/
 			
-			//mathematics::numbers::real val = 
-			// return std::pow ((long double) radix, (long double) digits ((mathematics::numbers::real) modulus (value))) - value;
+			//math::numbers::real val = 
+			// return std::pow ((long double) radix, (long double) digits ((math::numbers::real) modulus (value))) - value;
 			return 0;
 			//return val;
 		}
 		
-		const LIB::mathematics::numbers::real exponentiation (const LIB::mathematics::numbers::real & base, LIB::mathematics::numbers::natural exponent)
+		const LIB::math::numbers::real exponentiation (const LIB::math::numbers::real & base, LIB::math::numbers::natural exponent)
 		{
-			LIB::mathematics::numbers::real result = 1;
+			LIB::math::numbers::real result = 1;
 			
 			if (exponent > 0)
 			{
@@ -374,14 +375,14 @@ namespace LIB
 			return ss.str ();
 		}
 		
-		const std::string string (const LIB::mathematics::numbers::integer & value)
+		const std::string string (const LIB::math::numbers::integer & value)
 		{
 			std::stringstream ss;
 			ss << value;
 			return ss.str ();
 		}
-		
-		const std::string string (const LIB::mathematics::numbers::real & value)
+	/*	
+		const std::string string (const LIB::math::numbers::real & value)
 		{
 			//int i = 5;
 			//std::string s;
@@ -390,8 +391,8 @@ namespace LIB
 			//s = ss.str();
 			return ss.str ();
 		}
-		
-		const std::string string (const LIB::mathematics::number & value)
+	*/	
+		const std::string string (const LIB::math::number & value)
 		{
 			//int i = 5;
 			//std::string s;
@@ -410,7 +411,8 @@ namespace LIB
 			//s = ss.str  ();
 			return ss.str ();
 		}
-
+		
+		// Just use std::string (value)
 		//std::string string (const signed char value)
 		//{
 		//	//int i = 5;
@@ -443,6 +445,13 @@ namespace LIB
 		}
 		*/
 		
+		const std::string string (const char *& value)
+		{
+			std::string txt = value;
+			
+			return txt;
+		}
+		
 		const std::string reverse (const std::string & input)
 		{
 			std::string output = "";
@@ -471,7 +480,7 @@ namespace LIB
 		
 		const std::string toggle_case (std::string value)
 		{
-			//mathematics::numbers::natural	index,
+			//math::numbers::natural	index,
 			unsigned long long int			index,
 											length = value.length ();
 			
@@ -483,10 +492,10 @@ namespace LIB
 			return value;
 		}
 		
-		const std::string multiply (const std::string & input, const LIB::mathematics::numbers::real & length)
+		const std::string multiply (const std::string & input, const LIB::math::numbers::real & length)
 		{
 			std::string output = "";
-			//mathematics::numbers::natural	i,
+			//math::numbers::natural	i,
 			unsigned long long int			i,
 											length_i,
 											remainder;
@@ -499,7 +508,7 @@ namespace LIB
 				output += input;
 			}
 
-			for (/*mathematics::numbers::natural*/unsigned long long int j = 0; j < remainder; ++ j)
+			for (/*math::numbers::natural*/unsigned long long int j = 0; j < remainder; ++ j)
 			{
 				output += input [j];
 			}
@@ -533,14 +542,14 @@ namespace LIB
 			//srand ((unsigned) time (NULL));
 		}
 
-		unsigned long long int random (const mathematics::numbers::natural & max, const mathematics::numbers::natural & min)
+		unsigned long long int random (const math::numbers::natural & max, const math::numbers::natural & min)
 		{
 			// incomplete.
 
 			// initialize random seed:
 			//srand ((unsigned) time (null));
 
-			return min + mathematics::numbers::natural ((max - min + 1) * rand () / (RAND_MAX + 1.0));
+			return min + math::numbers::natural ((max - min + 1) * rand () / (RAND_MAX + 1.0));
 		}
 	*/
 		#ifdef __cplusplus__
@@ -676,7 +685,7 @@ namespace LIB
 		}
 		
 		/*
-		void sleep (const mathematics::numbers::real & seconds)
+		void sleep (const math::numbers::real & seconds)
 		{
 			
 			boost::int64_t nanoseconds = ;
@@ -687,10 +696,10 @@ namespace LIB
 		}
 		*/
 		
-		const LIB::mathematics::numbers::real random (const LIB::mathematics::numbers::natural & maximum, const LIB::mathematics::numbers::natural & minimum)
+		const LIB::math::numbers::real random (const LIB::math::numbers::natural & maximum, const LIB::math::numbers::natural & minimum)
 		{
 			//boost::random::random_device generator;
-//			LIB::mathematics::numbers::real numerator, denominator, quotient, preparation, preparation_2, preparation_3, result;
+//			LIB::math::numbers::real numerator, denominator, quotient, preparation, preparation_2, preparation_3, result;
 //			
 //			numerator = random_number_generator ();
 //			denominator = random_number_generator.max ();
@@ -711,7 +720,7 @@ namespace LIB
 			
 			//return minimum + ((maximum - minimum + 1) * random_number_generator () / (random_number_generator.max () + 1.0));
 			
-			return minimum + ((maximum - minimum + 1) * (LIB::mathematics::numbers::real) random_number_generator () / ((LIB::mathematics::numbers::real) random_number_generator.max () + 1));
+			return minimum + ((maximum - minimum + 1) * (LIB::math::numbers::real) random_number_generator () / ((LIB::math::numbers::real) random_number_generator.max () + 1));
 			//return minimum + ((maximum - minimum + 1) * random_number_generator () / (random_number_generator.max () + 1));
 			
 			//return minimum + ((prep 3) * random_number_generator () / (random_number_generator.max () + 1.0));
@@ -719,7 +728,7 @@ namespace LIB
 			//return result;
 		}
 		
-		const LIB::mathematics::numbers::natural random (void)
+		const LIB::math::numbers::natural random (void)
 		{
 			//boost::random::random_device generator;
 			
@@ -738,7 +747,7 @@ namespace LIB
 
 		const unsigned long long int randomizer::generate (const unsigned long long int & maximum, const unsigned long long int & minimum)
 		{
-			//return minimum + mathematics::numbers::natural ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
+			//return minimum + math::numbers::natural ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
 			return minimum + ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
 		}
 		

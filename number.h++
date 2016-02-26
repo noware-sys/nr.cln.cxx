@@ -11,7 +11,7 @@
 
 namespace LIB
 {
-	typedef mathematics::number number;
+	typedef math::number number;
 }
 
 //#endif

@@ -28,12 +28,12 @@ LIB::text::text (const char *)
 	
 }*/
 
-LIB::text::operator char * (void) const
+noware::container::text::operator char * (void) const
 {
 	return value;
 }
 
-LIB::text LIB::text::operator = (const char * other)
+noware::container::text noware::container::text::operator = (const char * other)
 {
 	/*
 	try

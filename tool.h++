@@ -9,12 +9,12 @@
 //#include <boost/any.hpp>
 #include <boost/random/random_device.hpp>
 
-#include "value.h++"
-#include "mathematics.h++"
+#include "container/content/value.h++"
+#include "math.h++"
 
 //#include "Any.h"
 
-namespace LIB
+namespace noware
 {
 	namespace tool
 	{
@@ -25,19 +25,19 @@ namespace LIB
 		const bool is_number	(const std::string &);
 		//long double (const std::string &);	// Converts a string to a number.
 
-		//mathematics::number::integer	digits		(mathematics::number::integer);
-		//mathematics::number::integer	digits		(mathematics::number::real);
-		// mathematics::numbers::natural	digits		(mathematics::numbers::natural);
-		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::integer &);
-		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::real &);
-		//const LIB::mathematics::numbers::natural	integers	(const mathematics::numbers::real &);
-		const LIB::mathematics::numbers::natural	fractions	(const LIB::mathematics::numbers::real &);
+		//math::number::integer	digits		(math::number::integer);
+		//math::number::integer	digits		(math::number::real);
+		// math::numbers::natural	digits		(math::numbers::natural);
+		const noware::math::numbers::natural	digits		(const noware::math::numbers::integer &);
+		const noware::math::numbers::natural	digits		(const noware::math::numbers::real &);
+		//const noware::math::numbers::natural	integers	(const math::numbers::real &);
+		const noware::math::numbers::natural	fractions	(const noware::math::numbers::real &);
 		
-		const LIB::mathematics::numbers::integer	integers	(const /*mathematics::numbers::real*/cln::cl_R &);
+		const noware::math::numbers::integer	integers	(const /*math::numbers::real*/cln::cl_R &);
 		
-		const LIB::mathematics::numbers::real modulus (const LIB::mathematics::numbers::real &);
-		const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real &, const LIB::mathematics::numbers::natural & /* Radix. */ = 10);
-		const LIB::mathematics::numbers::real exponentiation (const LIB::mathematics::numbers::real &, LIB::mathematics::numbers::natural);
+		const noware::math::numbers::real modulus (const noware::math::numbers::real &);
+		const noware::math::numbers::real complement (const noware::math::numbers::real &, const noware::math::numbers::natural & /* Radix. */ = 10);
+		const noware::math::numbers::real exponentiation (const noware::math::numbers::real &, noware::math::numbers::natural);
 		
 		// Converts to string:
 		const std::string string	(const signed int &);
@@ -50,9 +50,10 @@ namespace LIB
 		const std::string string	(const double &);
 		const std::string string	(const long double &);
 		const std::string string	(const char &);
-		const std::string string	(const LIB::mathematics::numbers::integer &);
-		const std::string string	(const LIB::mathematics::numbers::real &);
-		const std::string string	(const LIB::mathematics::number &);
+		const std::string string	(const char *&);
+		const std::string string	(const noware::math::numbers::integer &);
+		const std::string string	(const noware::math::numbers::real &);
+		const std::string string	(const noware::math::number &);
 		//std::string String	(const signed char);
 		//std::string String	(const unsigned char);
 
@@ -61,12 +62,12 @@ namespace LIB
 		const char		toggle_case	(const char &);
 
 		// Multiply a string:
-		const std::string multiply (const std::string &, const LIB::mathematics::numbers::real &);
+		const std::string multiply (const std::string &, const noware::math::numbers::real &);
 		//stoa (const std::string); // std::string to ASCII.
 
 		const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
 		//void randomize (void);
-		//mathematics::numbers::natural random (const mathematics::numbers::natural & = RAND_MAX /* Maximum. */, const mathematics::numbers::natural & = 0 /* Minimum. */);
+		//math::numbers::natural random (const math::numbers::natural & = RAND_MAX /* Maximum. */, const math::numbers::natural & = 0 /* Minimum. */);
 		void clear_screen (void);
 		
 		#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
@@ -79,10 +80,10 @@ namespace LIB
 		const std::string lower (std::string);
 		const std::string upper (std::string);
 		
-		//void sleep (const mathematics::numbers::real &/* seconds*/);
+		//void sleep (const math::numbers::real &/* seconds*/);
 		
-		const LIB::mathematics::numbers::real random (const LIB::mathematics::numbers::natural & /* Maximum. */, const LIB::mathematics::numbers::natural & = 0 /* Minimum. */);
-		const LIB::mathematics::numbers::natural random (void);
+		const noware::math::numbers::real random (const noware::math::numbers::natural & /* Maximum. */, const noware::math::numbers::natural & = 0 /* Minimum. */);
+		const noware::math::numbers::natural random (void);
 		
 		/*
 			Pseudo-random number generator.
@@ -113,7 +114,7 @@ namespace LIB
 		
 		//boost::any run ();
 		
-		// For range-based for loops:
+	/*	// For range-based for loops:
 		class iterator
 		{
 			public:
@@ -123,7 +124,7 @@ namespace LIB
 				virtual bool operator != (const iterator & other) = 0;
 				virtual const iterator & operator ++ (void) = 0;
 		};
-	}
+	*/}
 }
 
 //#include "utilities.tpp"

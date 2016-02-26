@@ -242,9 +242,9 @@ void LIB::container::NAME_A <value, key>::save (Archive & archive, const unsigne
 		
 		/*
 		reset ();
-		LIB::mathematics::numbers::natural size = this -> size ();
+		LIB::math::numbers::natural size = this -> size ();
 		
-		for (LIB::mathematics::numbers::natural i = 0; i < size; ++ i)
+		for (LIB::math::numbers::natural i = 0; i < size; ++ i)
 		{
 			//archive << current_key ();
 			//archive << current_value ();
@@ -275,11 +275,11 @@ void LIB::container::NAME_A <value, key>::load (Archive & archive, const unsigne
 		LIB::container::NAME_A <value, key> temp;
 		//reset ();
 		//temp.clear ();
-		//LIB::mathematics::numbers::natural size = size ();
+		//LIB::math::numbers::natural size = size ();
 		// Input archive:
 		//boost::archive::text_iarchive iarchive (archive);
 		
-		//for (LIB::mathematics::numbers::natural i = 0; i < size; ++ i)
+		//for (LIB::math::numbers::natural i = 0; i < size; ++ i)
 		//{
 			//archive & current_key ();
 			//archive & current_value ();
@@ -495,9 +495,9 @@ template <typename value, typename key>
 		case typeid (signed long int):
 		case typeid (unsigned long int):
 		case typeid (signed long long int):
-		case typeid (LIB::mathematics::numbers::integer):
+		case typeid (LIB::math::numbers::integer):
 		case typeid (unsigned long long int):
-		case typeid (LIB::mathematics::numbers::natural):
+		case typeid (LIB::math::numbers::natural):
 			//ULLONG_MAX
 			for ( key i = 0; i < size () && i < ULLONG_MAX; ++ i)
 			{
@@ -534,12 +534,12 @@ template <typename value, typename key>
 			||
 			typeid (key) == typeid (signed long long int)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::integer)
+			typeid (key) == typeid (LIB::math::numbers::integer)
 			||
 			typeid (key) == typeid (unsigned long long int)
 			||
 			* /
-			typeid (key) == typeid (LIB::mathematics::numbers::natural)
+			typeid (key) == typeid (LIB::math::numbers::natural)
 			||
 			typeid (key) == typeid (LIB::variable)
 		)
@@ -699,19 +699,19 @@ const bool LIB::container::NAME_A <value, key>::key_numeric (void) const
 			||
 			typeid (key) == typeid (long double)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::natural)
+			typeid (key) == typeid (LIB::math::numbers::natural)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::integer)
+			typeid (key) == typeid (LIB::math::numbers::integer)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::f)
+			typeid (key) == typeid (LIB::math::numbers::f)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::d)
+			typeid (key) == typeid (LIB::math::numbers::d)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::rational)
+			typeid (key) == typeid (LIB::math::numbers::rational)
 			||
-			typeid (key) == typeid (LIB::mathematics::number)
+			typeid (key) == typeid (LIB::math::number)
 			||
-			typeid (key) == typeid (LIB::container::NAME_V)
+			typeid (key) == typeid (LIB::container::any)
 		)
 	;
 }
@@ -939,7 +939,7 @@ const bool LIB::container::NAME_A <value, key>::search (const key & key_, value 
 	return false;
 //	reset ();
 //
-//	for (LIB::mathematics::numbers::natural i = 0; i < size (); ++ i)
+//	for (LIB::math::numbers::natural i = 0; i < size (); ++ i)
 //	{
 //		if (current_key () == _key)
 //		{
@@ -976,7 +976,7 @@ const bool LIB::container::NAME_A <value, key>::search_key (const key & key_, ke
 	return false;
 //	reset ();
 //
-//	for (LIB::mathematics::numbers::natural i = 0; i < size (); ++ i)
+//	for (LIB::math::numbers::natural i = 0; i < size (); ++ i)
 //	{
 //		if (current_key () == _key)
 //		{
@@ -1161,31 +1161,31 @@ const bool LIB::container::NAME_A <value, key>::clear (void)
 }
 /*
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::container::NAME_A <value, key>::cardinality (void) const
+const LIB::math::numbers::natural LIB::container::NAME_A <value, key>::cardinality (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::container::NAME_A <value, key>::count (void) const
+const LIB::math::numbers::natural LIB::container::NAME_A <value, key>::count (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::container::NAME_A <value, key>::magnitude (void) const
+const LIB::math::numbers::natural LIB::container::NAME_A <value, key>::magnitude (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::container::NAME_A <value, key>::quantity (void) const
+const LIB::math::numbers::natural LIB::container::NAME_A <value, key>::quantity (void) const
 {
 	return size ();
 }
 */
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::container::NAME_A <value, key>::size (void) const
+const LIB::math::numbers::natural LIB::container::NAME_A <value, key>::size (void) const
 {
 	return content.size ();
 }
@@ -1196,10 +1196,10 @@ bool LIB::container::NAME_A <value, key>::search (const key & _key, container::_
 {
 	//container current;
 
-	LIB::mathematics::numbers::natural n = size ();
+	LIB::math::numbers::natural n = size ();
 	std::list <key>::iterator it;
 
-	//for (LIB::mathematics::numbers::natural index = 0; index < n; ++ index, current = current -> next)
+	//for (LIB::math::numbers::natural index = 0; index < n; ++ index, current = current -> next)
 	for (it = content.begin(); it != contaienr.end (); ++it)
 	{
 		if ((*it) -> _key == _key)
@@ -1277,7 +1277,7 @@ const bool LIB::container::NAME_A <value, key>::unset (const key & key_)
 	
 //	reset ();
 //	
-//	for (LIB::mathematics::numbers::natural i = 0; i < size (); ++ i)
+//	for (LIB::math::numbers::natural i = 0; i < size (); ++ i)
 //	{
 //		if (current_key () == _key)
 //		{
@@ -1317,7 +1317,7 @@ const bool LIB::container::NAME_A <value, key>::rename (const key & old, const k
 	
 //	reset ();
 //
-//	for (LIB::mathematics::numbers::natural i = 0; i < size (); ++ i)
+//	for (LIB::math::numbers::natural i = 0; i < size (); ++ i)
 //	{
 //		if (current_key () == current)
 //		{
@@ -1563,7 +1563,7 @@ const bool LIB::container::NAME_A <value, key>::operator == (const NAME_A <value
 	
 	return true;
 	
-//	mathematics::numbers::natural n = other.size ();
+//	math::numbers::natural n = other.size ();
 //
 //	if (size () != n)
 //		return false;
@@ -1571,7 +1571,7 @@ const bool LIB::container::NAME_A <value, key>::operator == (const NAME_A <value
 //	reset ();
 //	other.reset ();
 //
-//	for (mathematics::numbers::natural i = 0; i < n; ++ i)
+//	for (math::numbers::natural i = 0; i < n; ++ i)
 //	{
 //		if (current_key () != other.current_key () || current_value () != other.current_value ())
 //		{
@@ -1691,9 +1691,9 @@ std::ostream & LIB::container::NAME_A <value, key>::operator << (std::ostream & 
 }
 
 //template <typename value, typename key>
-//std::ostream & /*LIB::container::NAME_A <value, key>::*/operator << (std::ostream & os, const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> & val/*, const std::string & indentation*/)
+//std::ostream & /*LIB::container::NAME_A <value, key>::*/operator << (std::ostream & os, const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::any, LIB::container::any>, LIB::container::any> & val/*, const std::string & indentation*/)
 //{
-//	for (const typename LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V>::container & element : val)
+//	for (const typename LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::any, LIB::container::any>, LIB::container::any>::container & element : val)
 //	{
 //		//os << indentation << element.k;
 //		

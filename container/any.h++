@@ -1,13 +1,18 @@
-#ifndef ANY
-#define ANY
-
-#include <cstdarg>
-#include <sstream>
+#pragma once
+//#ifndef __VARIABLE
+//#define __VARIABLE
 
 //#include <boost/any.hpp>
 #include <string>
 #include <iostream>
-#include <fstream>
+//#include <fstream>
+#include <climits>
+#include <cfloat>
+
+//#include <sqlite3.h>
+//#include "../../sqlite/3.h"
+//#include "databases/sqlite.h"
+//#include "../../sqlite/3.c"
 
 //#include <algorithm>
 //#include <cstdlib>
@@ -21,300 +26,131 @@
 //#include <boost/shared_ptr.hpp>
 //#include <boost/enable_shared_from_this.hpp>
 
-#include <boost/any.hpp>
 //#include <boost/array.hpp>
 //#include <boost/asio.hpp>
-#include <boost/serialization/serialization.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+//#include <boost/serialization/serialization.hpp>
+//#include <boost/serialization/string.hpp>
+//#include <boost/archive/text_oarchive.hpp>
+//#include <boost/archive/text_iarchive.hpp>
+//#include <boost/operators.hpp>
 
-#include "../default.h++"
-#include "../tools.h++"
+//#include "../name.h++"
+#include "../math/number.h++"
+#include "../serial.h++"
+#include "../tool.h++"
+//#include "content/value.h++"
+//#include "text.h++"
 
-#ifndef NAME_NE
-#define NAME_NE any
-#endif
+//dynamic ~!= static
+//constant ~!= variable
 
-//#define MAXIMUM (a, b) (a > b ? a : b)
+//#define BOOST_FORCE_SYMMETRIC_OPERATORS 1
 
-namespace LIB
+namespace noware
 {
-	//template <typename type> 
-	//class container
-	//{
-	//	//container (void);
-	//	//~container (void);
-
-	//	//void * data;
-	//	type data;
-	//};
-	//http://stackoverflow.com/questions/2562176/storing-a-type-in-c
-	class Type
+	//class NAME_V;
+	
+	//typedef NAME_V var;
+	// container cont ctn ctnr ctner
+	namespace container
 	{
-		public:
-			virtual void* getObj () const=0;
-	};
-	
-	template <typename T> class TypeImpl : public Type
-	{
-		public:
-			TypeImpl (T * obj)
-			{
-				myobj=obj;
-			}
-			
-			T * getObj () const
-			{
-				return dynamic_cast <T *> (myobj);
-			}
-
-		private:
-			T* myobj;
-	};
-	
-	
-	struct Load_Interface;
-	
-	struct Loader
-	{
-	  virtual void visit(Load_Interface&) = 0;
-	};
-	
-	struct Load_Interface
-	{
-	  virtual void accept_loader(Loader& l)
+		// type: fundamental primitive built-in intrinsic basic
+		// (container of a value) all any container value category var[iable] struct[ure] class obj[ect] it[e]m 
+		class any
 		{
-			l.visit (*this);
-		}
-	};
+			public:
+				#include ".any/container.h++"
+				
+				friend class boost::serialization::access;
+				
+				const std::string serialize (void) const;
+				const bool deserialize (const std::string &);
+				
+				const container::type & type (void) const;
+				
+				//const math::number size (void) const;
+				const math::number length (void) const;
+				
+				// Return the textual representation of the content.
+				const std::string text (void) const;
+				
+				#include ".any/constructor.h++"
+				#include ".any/destructor.h++"
+				
+				#include ".any/set.h++"
+				#include ".any/conversion.h++"
+				#include ".any/comparison.h++"
+				
+				#include ".any/addition.h++"
+				#include ".any/substraction.h++"
+				//
+				#include ".any/multiplication.h++"
+				#include ".any/division.h++"
+				//
+				#include ".any/exponentiation.h++"
+				#include ".any/modulo.h++"
+				
+				#include ".any/special.h++"
+				
+				//_type GetType (void);
+
+				//bool		GetValueBoolean (void);
+				//long double	GetValueNumeric (void);
+				//::std::string	GetValueGeneric (void);
+
+				//::std::istream	&	getline (::std::istream &, const ::std::string = "\n");
+				//::std::istream	&	getline (::std::istream &, const unsigned int, const ::std::string = "\n");
+				//::std::istream	&	getline (::std::istream &, const unsigned int);
+
+				//bool	Is_Generic	(void);
+				//bool	Is_Numeric	(void);
+				//bool	Is_Boolean	(void);
+
+				// Returns a string representation of the content, whatever type it may be.
+				// const std::string to_string (void) const;
+				
+				// returns the numeric value if the content is a number, or the default numerical value, otherwise.
+				//long double		to_number	(void);
+				//bool		to_boolean	(void);
+				//noware::mathematics::numbers::natural	length		(void) const;
+				// size length
+				// const math::number size (void) const;
+				
+				template <typename archive>
+				void serialize (archive &, const unsigned int &);
+				
+				//std::ostream & operator << (std::ostream &) const;
+				//std::istream & operator >> (std::istream &);
+			protected:
+			//private:
+				container content;
+				//boost::any content;
+				
+				// Default values:
+				// type _type;	// The type of the value being stored.
+				//::std::string value;
+			
+				//void Assign (/*Container &, */const ::std::string);
+				//void Assign (/*Container &, */const long double);
+			
+				// const std::string &	to_string (void) const;
+				
+				//_type Determine (const any::any);
+				// determine specify
+			//	const type determine (const std::string &) const;
+				//_type Determine (const long double);
+			
+		};
+	}
 	
-//	class NAME_NE //: public boost::any
-//	{
-//		// std::type_info type_holder;
-//		protected:
-//		//public:
-//			/*
-//				int i = 5;
-//
-//				const std::type_info & t1 = typeid (i);
-//				cout << t1.name ();
-//			*/
-//
-//			std::type_info * type;
-//
-//			//std::string _type;
-//			//boost::any content;
-//			void * content;
-//			//std::stringstream content;
-//		public:
-//			NAME_NE ();
-//			~NAME_NE ();
-//
-//			//container <int> * data;
-//            //const std::type_info & type () const;
-//
-//			//std::type_info type;
-////			boost::any content;
-////			//void * container;
-////
-////			//template <typename ValueType> ValueType data;
-//////			template <typename ValueType = typeid (content)> ValueType get (void);
-////
-//
-//			//NAME_NE & operator = (const boost::any &);
-//			NAME_NE & operator = (/*const */void * );
-//			
-//			//template <typename type>
-//			//operator type (void);
-//			//operator NAME_NE & (void);
-//			// operator void * (void);
-//			//bool get (NAME_NE &, ...);
-//			//template <typename T>
-//			//operator T (void);
-//			// LIB::NAME_NE::operator void *& (void) const;
-//			//LIB::NAME_NE::operator std::stringstream (void) const;
-//			// std::string get (void);
-//			// int get_int (void);
-//			//operator int (void);
-//			//template <typename type>
-//			//type get (void);
-//			//template <typename type>
-//			//type LIB::NAME_NE::get (void)
-//			//{
-//			//	type variable;
-//
-//			//	try
-//			//	{
-//			//		// Get the instruction's members from the input stream:
-//			//		boost::archive::text_iarchive a (content);
-//			//		//a >> ss;
-//			//		//std::getline (content, s, '\n');
-//			//		//a >> s;
-//			//		a >> variable;
-//
-//			//	}
-//			//	catch (...)
-//			//	{
-//
-//			//	}
-//
-//			//	return variable;
-//
-//			//}
-//			
-//			//T get (void);
-//			
-//			//operator boost::any (void);
-//			//operator void * (void);
-//			//operator bool (void);
-//			//operator signed short int (void);
-//			//operator unsigned short int (void);
-//			//operator signed int (void);
-//			//operator unsigned int (void);
-//			//operator signed long int (void);
-//			//operator unsigned long int (void);
-//			//operator signed long long int (void);
-//			//operator unsigned long long int (void);
-//			//operator float (void);
-//			//operator double (void);
-//			//operator long double (void);
-//			//operator char (void);
-//			//operator signed char (void);
-//			//operator unsigned char (void);
-//			//operator std::string (void);
-//
-//
-//			//NAME_NE & operator = (void *);
-//			//operator void * (void);
-//			
-//            //virtual const std::type_info & type (void) const = 0;
-//
-//			//void f (void *, int);
-//			//operator -> ();
-//			//template <typename type> 
-//			//operator type ();
-//
-//			//void * & operator = (const void *);
-//
-			//#define _set (t) \
-			(\
-				container = t\
-			)
-
-			//#define _get () \
-			(\
-				container;\
-			)
-
-//			//NAME_NE & operator = (void *);
-//			//void *& operator = (void *);
-////			NAME_NE & set (boost::any);
-//
-//			//void * operator -> (void);
-//	};
+	//typedef any var;
+	//typedef container::any any, var;
 }
 
-//#include "any.cpp"
+std::istream & getline (std::istream &, noware::container::any &, const char = '\n');
 
-//#include <cmath>
-////#include <stdio.h>
-////#include <ctype.h>
-////#include <sstream>
-////#include <iostream>
-//#include "../default.hpp"
-//#include "any.hpp"
-////#include "../Utilities.h"
-////using namespace ::std;
-//
-//
-//LIB::NAME_NE::NAME_NE ()
-//{
-//	//_type = NULL;
-//	//_type;
-//	//type = NULL;
-//	//type (,);
-//	//*this ->
-//
-//}
-//
-//LIB::NAME_NE::~NAME_NE ()
-//{
-//	//& container;
-//	//delete _type;
-//	//delete content;
-//}
-//
-//LIB::NAME_NE & LIB::NAME_NE::operator = (boost::any value)
-////NAME_NE & NAME_NE::operator = (void * value)
-//{
-//	//type = 
-///*		if (container.empty ())
-//		return container = value;
-//	else
-//		return
-//*/	
-//	//*this -> content = ;
-//	//return container = & value;
-//	//return *this;
-//	//* _type = typeid (value);
-//	//_type = typeid (value).name ();
-//	content = value;
-//
-//	return *this;
-//}
-//
-//template <typename T>
-////NAME_NE::operator boost::any (void)
-////NAME_NE::operator T (void)
-//T LIB::NAME_NE::get (void)
-//{
-//	//return boost::any_cast <content.type ()> (content);
-//	//return boost::any_cast <const_cast <const content> (content)> (content);
-//	//return reinterpret_cast <_type> (content);
-//	//return const_cast <_type -> > (content);
-//	//return const_cast <T> (content);
-//	
-//	//return boost::any_cast <T> (content);
-//
-//	return boost::any_cast <content.type ()> (content);
-//}
-//
-//void * NAME_NE::operator -> (void)
-//{
+//std::string		tolower (const noware::container::any &);
+//std::string		toupper (const noware::container::any &);
 
-//}
-//void NAME_NE::f (void * v, int i)
-//{
+//#endif
 
-//}
-
-//NAME_NE & NAME_NE::set (boost::any val)
-//{
-//	content = val;
-
-//	return *this;
-//}
-
-//NAME_NE & NAME_NE::set (void * ne, ...)
-//{
-//	va_list arguments;
-
-//	va_start (arguments, ne);
-
-//	va_arg (arguments, void *);
-
-//	va_end (arguments);
-//}
-
-//  template <typename ValueType>
-//  ValueType get (void) //(any * operand)
-//  {
-	//return boost::any_cast <ValueType> (content);
-//      //return & static_cast <any::holder <ValueType> *> (operand -> content) -> held;
-//  }
-//virtual const std::type_info & NAME_NE::type (void) const
-//{
-//	return typeid (_type);
-//}
-
-#endif

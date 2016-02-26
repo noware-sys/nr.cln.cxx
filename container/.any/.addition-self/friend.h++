@@ -1,0 +1,20 @@
+//friend const any operator += (text &, const any &);
+friend const any operator += (std::string &, const any &);
+//friend const any operator += (char [], const any &);
+//friend const any operator += (char *&, const any &);
+friend const any operator += (char &, const any &);
+friend const any operator += (signed char &, const any &);
+friend const any operator += (unsigned char &, const any &);
+friend const any operator += (math::number &, const any &);
+friend const any operator += (long double &, const any &);
+friend const any operator += (double &, const any &);
+friend const any operator += (float &, const any &);
+friend const any operator += (signed long long int &, const any &);
+friend const any operator += (unsigned long long int &, const any &);
+friend const any operator += (signed long int &, const any &);
+friend const any operator += (unsigned long int &, const any &);
+friend const any operator += (signed int &, const any &);
+friend const any operator += (unsigned int &, const any &);
+friend const any operator += (signed short int &, const any &);
+friend const any operator += (unsigned short int &, const any &);
+
