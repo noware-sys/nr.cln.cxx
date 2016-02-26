@@ -1,5 +1,5 @@
-#ifndef TEXT
-#define TEXT
+#ifndef __TEXT
+#define __TEXT
 
 //#include <boost/any.hpp>
 #include <string>

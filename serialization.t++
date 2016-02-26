@@ -29,7 +29,7 @@ bool LIB::parse (std::string serial, type & object)
 */
 
 template <typename type>
-std::string LIB::serialize (const type & object)
+const std::string LIB::serialize (const type & object)
 {
 	try
 	{
@@ -58,7 +58,7 @@ std::string LIB::serialize (const type & object)
 }
 
 template <typename type>
-bool LIB::deserialize (const std::string & serial, type & object)
+const bool LIB::deserialize (const std::string & serial, type & object)
 {
 	try
 	{

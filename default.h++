@@ -1,8 +1,12 @@
-#ifndef DEFAULT
-#define DEFAULT
+#pragma once
+//#ifndef __DEFAULT
+//#define __DEFAULT
 
 #include <string>
-#include <cstddef>	// For NULL
+#include <cstddef>	// For NULL.
+// #include <unistd.h>	// For read (,,) in tools::pause ().
+
+//#include <cln/cln.h>
 
 /*
 	Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
@@ -15,10 +19,18 @@
 #endif
 
 //#define BOOST_EXCEPTION_DISABLE 1
+//#ifndef BOOST_DATE_TIME_HAS_NANOSECONDS
+//	#define BOOST_DATE_TIME_HAS_NANOSECONDS 1
+//#endif
 
 #ifndef LIB
-#define LIB noware
+	#define LIB noware
 #endif
+
+//typedef long double real;
+//typedef signed long long int integer;
+//typedef unsigned long long int natural;
+//typedef cln::cl_N number;
 
 namespace LIB
 {
@@ -26,14 +38,16 @@ namespace LIB
 
 	//namespace math = mathematics;
 	
-	namespace default_
+	namespace _default
 	{
 		static const std::string			GENERIC	= "";
 		static const char					CHARACTER	= '\0';
 		static const unsigned short int		NUMERIC	= 0;
-		//static const bool					BOOLEAN	= false;
+		static const bool					BOOLEAN	= false;
 	}
 	
+	namespace def = _default;	// dft ?
+	//namespace dft = default_;
 }
 
-#endif
+//#endif

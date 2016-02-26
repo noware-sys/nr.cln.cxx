@@ -1,5 +1,6 @@
-#ifndef NUMBER
-#define NUMBER
+#pragma once
+//#ifndef NUMBER
+//#define NUMBER
 
 //#include <boost/any.hpp>
 #include <string>
@@ -50,4 +51,4 @@ namespace LIB
 	};
 }
 
-#endif
+//#endif

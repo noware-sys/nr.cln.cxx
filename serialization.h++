@@ -1,12 +1,13 @@
-#ifndef SERIALIZATION
-#define SERIALIZATION
+#pragma once
+//#ifndef __SERIALIZATION
+//#define __SERIALIZATION
 
 #include <string>
 // #include <iostream>
 // #include <fstream>
 
 // This library:
-//#include "default.hpp"
+#include "default.h++"
 //#include "mathematics.hpp"
 
 //#include "Any.h"
@@ -14,10 +15,10 @@
 namespace LIB
 {
 	template <typename type>
-	std::string serialize (const type &);
+	const std::string serialize (const type &);
 	
 	template <typename type>
-	bool deserialize (const std::string &, type &);
+	const bool deserialize (const std::string &, type &);
 	
 	//template <typename type>
 	//bool unserialize (std::string, type &);
@@ -34,4 +35,4 @@ namespace LIB
 
 #include "serialization.t++"
 
-#endif
+//#endif

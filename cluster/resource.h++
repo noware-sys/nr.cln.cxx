@@ -1,5 +1,6 @@
-#ifndef RESOURCE
-#define RESOURCE
+#pragma once
+//#ifndef _DEVICE_HPP
+//#define _DEVICE_HPP
 
 /*
 // Standard:
@@ -20,36 +21,54 @@
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>	//
 #include <boost/date_time/posix_time/posix_time.hpp>
-
+*/
 // This class:
 #include "../default.h++"
-#include "../mathematics.h++"
+/*#include "../mathematics.h++"
 #include "../containers/array.h++"
 #include "../containers/variable.h++"
 #include "../tools.h++"
 #include "memory.h++"
 #include "../serialization.h++"
 */
+
+#include "../machine/resource.h++"
+
 namespace LIB
 {
 	namespace cluster
 	{
-		//public:
-			class member
+		//namespace devices
+		//{
+			class resource : public LIB::machine::resource
 			{
 				public:
-					class resources
-					{
-						public:
-							class resource
-							{
-								public:
-									//virtual std::string get (const std::string &/* name*/) = 0;
-									//virtual bool set (const std::string &/* name*/, const std::string &/* data*/) = 0;
-							};
-					};
 			};
+		//}
 	}
 }
 
+//#include "device.c++"
+/*
+#ifndef _DEVICE_CPP
+#define _DEVICE_CPP
+
+LIB::machine::device::device (void)
+{
+}
+
+LIB::machine::device::device (const device & other)
+{
+	* this = other;
+}
+
+const LIB::machine::device & LIB::machine::device::operator = (const device & other)
+{
+	t = other.t;
+	
+	return * this;
+}
+
 #endif
+*/
+//#endif

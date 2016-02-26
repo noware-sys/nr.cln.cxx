@@ -35,26 +35,33 @@ LIB::network::ip::address::address (const std::string & addr)
 	*this = addr;
 }
 
-LIB::network::ip::address & LIB::network::ip::address::operator = (const LIB::network::ip::address & other)
+LIB::network::ip::address::address (const char addr [])
+{
+	*this = addr;
+}
+
+const LIB::network::ip::address & LIB::network::ip::address::operator = (const LIB::network::ip::address & other)
 {
 	if (this != & other)
 	{
-		val = other.val;
+		//val = other.val;
 		value_ = other.value_;
-		version_ = other.version_;
+		//version_ = other.version_;
 	}
 	
-	return *this;
+	return * this;
 }
 
-const std::string LIB::network::ip::address::operator = (const std::string & addr)
+const LIB::network::ip::address & LIB::network::ip::address::operator = (const std::string & addr)
 {
-	value_test.from_string (addr, error_code_);
+	//value_test.from_string (addr, error_code_);
+	value_.from_string (addr, error_code_);
 	
+	/*
 	if (error_code_.value () == 0)
 	{
 		//value_.from_string (addr);
-		val = addr;
+		//val = addr;
 		
 		if (value_.is_v6 ())
 		{
@@ -69,46 +76,101 @@ const std::string LIB::network::ip::address::operator = (const std::string & add
 		//	version_ = 0;
 		//}
 	}
+	*/
 /*
 	else
 	{
 		version = 0;
 	}
 */
-	return (*this).to_string ();
+	return * this;
 }
 
-LIB::network::ip::address::operator std::string (void)
+const LIB::network::ip::address & LIB::network::ip::address::operator = (const char addr [])
+{
+	//return (std::string) addr;
+	return operator = ((std::string) addr);
+}
+
+/*
+const std::string LIB::network::ip::address::operator = (char addr [])
+{
+	return (std::string) addr;
+}
+*/
+
+LIB::network::ip::address::operator const std::string (void) const
 {
 	//return value_.to_string ();
-	return val;
+	return to_string ();
 }
 
-boost::system::error_code & LIB::network::ip::address::error_code (void)
+const boost::system::error_code & LIB::network::ip::address::error_code (void) const
 {
 	return error_code_;
 }
 
-boost::asio::ip::address & LIB::network::ip::address::value (void)
+const boost::asio::ip::address & LIB::network::ip::address::value (void) const
 {
 	return value_;
 }
 
 const std::string LIB::network::ip::address::to_string (void) const
 {
-	//return value_.to_string ();
-	return val;
+	return value_.to_string ();
+	//return val;
 }
 
-unsigned short int LIB::network::ip::address::version (void)
+const bool LIB::network::ip::address::is_loopback (void) const
 {
-	return version_;
+	return value_.is_loopback ();
 }
 
-LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device)
+const bool LIB::network::ip::address::is_multicast (void) const
 {
-	LIB::mathematics::numbers::natural i = 0;
+	return value_.is_multicast ();
+}
+
+const bool LIB::network::ip::address::is_unspecified (void) const
+{
+	return value_.is_unspecified ();
+}
+
+const unsigned short int LIB::network::ip::address::version (void) const
+{
+	if (value_.is_v6 ())
+	{
+		return 6;
+	}
+	else //if (value_.is_v4 ())
+	{
+		return 4;
+	}
+	//else
+	//{
+	//	return 0;
+	//}
+	
+	//return version_;
+}
+
+const std::string LIB::network::ip::address::convert (const unsigned short int & ver) const
+{
+	switch (ver)
+	{
+		case 6:
+			return value_.to_v6 ().to_string ();
+		default:
+			return value_.to_v4 ().to_string ();
+	}
+}
+
+const LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device, const bool & loopback_include)
+{
+	//LIB::mathematics::numbers::natural i;
+	address address_test;
 	LIB::NAME_A <address, LIB::mathematics::numbers::natural> addresses_;
+	//LIB::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses_;
 	
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	// Init WinSock:
@@ -140,7 +202,7 @@ LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB:
 	{
 		//std::cout << "getifaddrs (&ifaddr) == 0" << std::endl;
 		
-		for (ifa = ifaddr, i = 0; ifa != NULL; ifa = ifa -> ifa_next/*, ++ i*/)
+		for (ifa = ifaddr/*, i = 1*/; ifa != NULL; ifa = ifa -> ifa_next/*, ++ i*/)
 		{
 			//std::cout << i << ". Network device" << std::endl;
 			
@@ -157,9 +219,15 @@ LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB:
 				
 				if (s == 0)
 				{
-					addresses_ [i] = host;
-					//adr = host;
-					++ i;
+					address_test = host;
+					
+					if (loopback_include || (! loopback_include && ! address_test.is_loopback ()))
+					{
+						addresses.enqueue (host);
+						//addresses_ [i] = host;
+						//adr = host;
+						//++ i;
+					}
 				}
 				//else
 				//{
@@ -201,3 +269,8 @@ LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB:
 //}
 
 //#endif IP_CPP
+
+//LIB::network::ip::connection::connection (void)
+//{
+//	proto = protocol::tcp;
+//}

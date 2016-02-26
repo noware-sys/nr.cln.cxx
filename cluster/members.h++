@@ -1,5 +1,4 @@
-#ifndef MEMBERS
-#define MEMBERS
+#pragma once
 
 #include <string>
 #include <map>
@@ -16,17 +15,27 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "../default.h++"
-#include "../containers/variable.h++"
-#include "../containers/array.h++"
 #include "../mathematics.h++"
+#include "../serialization.h++"
+//#include "machine.h++"
+//#include "../machine/device.h++"
+//#include "../machine/resource.h++"
+//#include "../machine/resources.h++"
+#include "../containers/array.h++"
+#include "../containers/variable.h++"
+//#include "../containers/entity.h++"
 #include "../network/mpi.h++"
 #include "../network/ip.h++"
+//#include "../cluster.h++"
 
 namespace LIB
 {
-	class cluster
+	namespace cluster
 	{
-		public:
+		class cluster;
+		class machine;
+		
+		//public:
 			//class InitialBroadcast
 			//{
 			//public:
@@ -42,30 +51,55 @@ namespace LIB
 			class members
 			{
 				public:
-					members (void);
+					members (const LIB::mathematics::numbers::natural &/* keepalive time (milliseconds)*/ = 15000);
 					~members (void);
 					
+					friend class LIB::cluster::cluster;
+					
 					LIB::mathematics::numbers::natural
-						keepalive,	// Seconds between online checks among nodes.
-						timeout,	// Seconds to wait before a node is declared offline.
-						delay		// Discovery delay.
+						keepalive	// Time (milliseconds) between online checks among nodes.
+						//timeout		// Time (milliseconds) to wait before a node is declared offline.
+						//delay		// Discovery delay.
 					;
 					
 					//void Refresh (void);
-					LIB::mathematics::numbers::natural count (void) const;
-					bool empty (void) const;
-					//LIB::NAME_A <bool, std::string> * List (void);
+					const LIB::mathematics::numbers::natural cardinality (void) const;
+					const LIB::mathematics::numbers::natural count (void) const;
+					const LIB::mathematics::numbers::natural magnitude (void) const;
+					const LIB::mathematics::numbers::natural size (void) const;
 					
-					LIB::network::mpi mpi_keepalive, mpi_discovery;
+					const bool empty (void) const;
+					const bool run (const bool &/* = true*/);
+					//LIB::NAME_A <bool, std::string> * List (void);
+					const bool & active/*ning*/ (void) const;
+					
+					// LIB::network::mpi mpi_keepalive, mpi_discovery;
 					
 					//LIB::NAME_A <bool, std::string> & List (void);
+					
+					//operator;
+					const LIB::mathematics::numbers::natural local_id (void) const;
+					const LIB::cluster::machine local (void) const;
+					
+					// Dereference; get the list.
+					const LIB::NAME_A <LIB::cluster::machine, LIB::mathemathics::numbers::natural> & operator * (void);
+					const LIB::NAME_A <LIB::cluster::machine, LIB::mathemathics::numbers::natural> & operator -> (void);
+					const LIB::NAME_A <LIB::cluster::machine, LIB::mathemathics::numbers::natural> & operator () (void);
 				protected:
+					mathematics::numbers::natural * _local;	// The ID of the local (literal) machine.
+					//LIB::cluster::machine * local_machine;	// The local machine.
+					
+					// Communication interface.
+					// This should be set from LIB::cluster::cluster::cluster.
+					//LIB::network::mpi * mpi;
+					LIB::cluster::cluster * cluster;
+					
 					//std::string localhost;
 					//std::map<std::string, bool> members;
 					//bool running;
 					//std::map<std::string, bool> members;
 					// LIB::NAME_A <bool /*Value (Online/Offline)*/, std::string /*Key (IP address)*/> peers;
-					LIB::NAME_A <member /*Value ("member" entity)*//*, std::string *//*Key (Name (Unique))*/> _members;
+					LIB::NAME_A <LIB::cluster::machine /* Member. */, LIB::mathemathics::numbers::natural/* ID. */> _machines;
 					//map <std::string, bool> peers;
 					//LIB::NAME_A <std::string /*Value (IP address)*/, Mathematics::Number::Natural /*Key: Index*/> members;
 					//LIB::NAME_A <Mathematics::Number::Natural, > members;
@@ -83,7 +117,7 @@ namespace LIB
 //					boost::asio::deadline_timer * timer_discovery;
 //				
 //					//boost::asio::deadline_timer t (io);
-//				
+//					
 //					boost::thread * keepalive_thread_broadcast;
 //					boost::thread * keepalive_listener;
 //				
@@ -111,8 +145,8 @@ namespace LIB
 //					void discovery_receive (void);
 //					void discovery_listen (void);
 //					//
-					void keepalive_request (void);
-					void keepalive_respond (void);
+					// void keepalive_request (void);
+					// void keepalive_respond (void);
 //					void keepalive_ask (void);
 //					void keepalive_ask_do (void);
 //
@@ -124,8 +158,21 @@ namespace LIB
 //
 //					void act_direct_discovery (std::string /*Received message.*/);
 //					void act_broadcast_discovery (std::string /*Received message.*/);
+					
+					void distribute (void);
+					boost::thread * distribution;
+					
+					// For the keep-alive/discovery timer.
+					//boost::asio::io_service io;
+					//boost::asio::deadline_timer timer (io);
+					// In microseconds (1 µs = 0.000 001 s).
+					//boost::mutex mutex_timeout_timer;
+					//boost::condition_variable condition_variable_timeout_timer;
+					
+					bool _active;
 			};
-	};
+	}
 }
 
-#endif
+#include "../cluster.h++"
+#include "machine.h++"

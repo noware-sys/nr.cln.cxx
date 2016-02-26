@@ -1,11 +1,12 @@
-#ifndef UTILITIES
-#define UTILITIES
+#pragma once
+//#ifndef __TOOLS
+//#define __TOOLS
 
 #include <string>
 #include <iostream>
 #include <fstream>
 
-#include <boost/any.hpp>
+//#include <boost/any.hpp>
 
 #include "default.h++"
 #include "mathematics.h++"
@@ -17,43 +18,49 @@ namespace LIB
 	namespace tools
 	{
 		// Determines if a string is numeric (in base 10):
-		bool is_numeric	(const std::string &);
+		const bool is_numeric	(const std::string &);
 		//long double (const std::string &);	// Converts a string to a number.
 
 		//mathematics::number::integer	digits		(mathematics::number::integer);
 		//mathematics::number::integer	digits		(mathematics::number::real);
-		mathematics::numbers::natural	digits		(mathematics::numbers::natural);
-		mathematics::numbers::natural	digits		(mathematics::numbers::integer);
-		mathematics::numbers::natural	digits		(const mathematics::numbers::real &);
-		mathematics::numbers::natural	integers	(const mathematics::numbers::real &);
-		mathematics::numbers::natural	fractions	(mathematics::numbers::real);
-
-		mathematics::numbers::real modulus (const mathematics::numbers::real &);
-		mathematics::numbers::real complement (const mathematics::numbers::real &, const mathematics::numbers::natural & /* Radix. */ = 10);
-
+		// mathematics::numbers::natural	digits		(mathematics::numbers::natural);
+		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::integer &);
+		const LIB::mathematics::numbers::natural	digits		(const LIB::mathematics::numbers::real &);
+		//const LIB::mathematics::numbers::natural	integers	(const mathematics::numbers::real &);
+		const LIB::mathematics::numbers::natural	fractions	(const LIB::mathematics::numbers::real &);
+		
+		const LIB::mathematics::numbers::integer	integers	(const /*mathematics::numbers::real*/cln::cl_R &);
+		
+		const LIB::mathematics::numbers::real modulus (const LIB::mathematics::numbers::real &);
+		const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real &, const LIB::mathematics::numbers::natural & /* Radix. */ = 10);
+		const LIB::mathematics::numbers::real exponentiation (const LIB::mathematics::numbers::real &, LIB::mathematics::numbers::natural);
+		
 		// Converts to string:
-		std::string string	(const signed int &);
-		std::string string	(const unsigned int &);
-		std::string string	(const signed long int &);
-		std::string string	(const unsigned long int &);
-		std::string string	(const signed long long int &);
-		std::string string	(const unsigned long long int &);
-		std::string string	(const float &);
-		std::string string	(const double &);
-		std::string string	(const long double &);
-		std::string string	(const char &);
+		const std::string string	(const signed int &);
+		const std::string string	(const unsigned int &);
+		const std::string string	(const signed long int &);
+		const std::string string	(const unsigned long int &);
+		const std::string string	(const signed long long int &);
+		const std::string string	(const unsigned long long int &);
+		const std::string string	(const float &);
+		const std::string string	(const double &);
+		const std::string string	(const long double &);
+		const std::string string	(const char &);
+		const std::string string	(const LIB::mathematics::numbers::integer &);
+		const std::string string	(const LIB::mathematics::numbers::real &);
+		const std::string string	(const LIB::mathematics::number &);
 		//std::string String	(const signed char);
 		//std::string String	(const unsigned char);
 
-		std::string	reverse		(const std::string &);
-		std::string	toggle_case	(const std::string);
-		char		toggle_case	(const char &);
+		const std::string	reverse		(const std::string &);
+		const std::string	toggle_case	(const std::string);
+		const char		toggle_case	(const char &);
 
 		// Multiply a string:
-		std::string multiply (const std::string &, const mathematics::numbers::real &);
+		const std::string multiply (const std::string &, const LIB::mathematics::numbers::real &);
 		//stoa (const std::string); // std::string to ASCII.
 
-		bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+		const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
 		//void randomize (void);
 		//mathematics::numbers::natural random (const mathematics::numbers::natural & = RAND_MAX /* Maximum. */, const mathematics::numbers::natural & = 0 /* Minimum. */);
 		void clear_screen (void);
@@ -64,10 +71,12 @@ namespace LIB
 			void pause (const std::string & = "Press [Enter] to continue...");
 		#endif
 		//Call ();
-
-		std::string lower (std::string);
-		std::string upper (std::string);
-
+			
+		const std::string lower (std::string);
+		const std::string upper (std::string);
+		
+		//void sleep (const mathematics::numbers::real &/* seconds*/);
+		
 		/*
 			Pseudo-random number generator.
 			Returns natural numbers from 0 to RAND_MAX, both by default.
@@ -77,22 +86,22 @@ namespace LIB
 		class randomizer
 		{
 			protected:
-				LIB::mathematics::numbers::natural _min, _max;
-
+				unsigned long long int _min, _max;
+				
 			public:
-				randomizer (const mathematics::numbers::natural & = RAND_MAX /* Maximum. */, const mathematics::numbers::natural & = 0 /* Minimum. */);
+				randomizer (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
 				//~randomizer (void);
-
-				LIB::mathematics::numbers::natural generate (const mathematics::numbers::natural & /*= RAND_MAX*/ /* Maximum. */, const mathematics::numbers::natural &/* = 0*/ /* Minimum. */);
-				LIB::mathematics::numbers::natural generate (void);
-
+				
+				const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+				//unsigned long long int generate (void);
+				
 				// Getters:
-				LIB::mathematics::numbers::natural min (void);
-				LIB::mathematics::numbers::natural max (void);
-
+				const unsigned long long int min (void);
+				const unsigned long long int max (void);
+				
 				// Setters (these return the currently/previously set value):
-				LIB::mathematics::numbers::natural min (const mathematics::numbers::natural &);
-				LIB::mathematics::numbers::natural max (const mathematics::numbers::natural &);
+				const unsigned long long int min (const unsigned long long int &);
+				const unsigned long long int max (const unsigned long long int &);
 		};
 		
 		//boost::any run ();
@@ -112,4 +121,4 @@ namespace LIB
 
 //#include "utilities.tpp"
 
-#endif
+//#endif

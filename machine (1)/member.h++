@@ -23,11 +23,11 @@
 // This class:
 #include "../default.h++"
 #include "../mathematics.h++"
+#include "../serialization.h++"
 #include "../containers/array.h++"
 #include "../containers/variable.h++"
 #include "../tools.h++"
 //#include "memory.h++"
-#include "../serialization.h++"
 #include "resource.h++"
 #include "resources.h++"
 

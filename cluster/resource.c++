@@ -18,14 +18,19 @@
 
 #include "resource.h++"
 
+//LIB::machine::device::device (void)
+//{
+//}
 /*
-std::string LIB::machine::peer::resource::get (const std::string & name)
+LIB::machine::device::device (const device & other)
 {
-	return "";
+	* this = other;
 }
 
-bool LIB::machine::peer::resource::set (const std::string & name, const std::string & data)
+const LIB::machine::device & LIB::machine::device::operator = (const device & other)
 {
-	return true;
+	t = other.t;
+	
+	return * this;
 }
 */
