@@ -32,7 +32,7 @@
 #include "../../default.h++"
 #include "../../containers/array.h++"
 #include "../../containers/variable.h++"
-// #include "../../containers/entity.h++"
+#include "../../containers/entity.h++"
 //#include "../network/peers.h++"
 #include "../../mathematics.h++"
 #include "../../network/mpi.h++"
@@ -55,10 +55,9 @@ namespace LIB
 			{
 				public:
 					//typedef std::string value, key;
-					typedef LIB::containers::NAME_V value, key;
-					//typedef std::string key;
+					typedef std::string key;
 					//typedef boost::any value;
-					//typedef std::string value;
+					typedef std::string value;
 					//typedef std::string value_cast;
 					
 					const bool unset (const key &);
@@ -69,9 +68,8 @@ namespace LIB
 					const bool empty (void) const;
 					const bool full (void) const;
 					// In bytes.
-					const LIB::mathematics::numbers::natural capacity (void) const;	// total capacity
-					const LIB::mathematics::numbers::natural used (void) const;	// occupied used
-					//const LIB::mathematics::numbers::natural free (void) const;	// free unused
+					const LIB::mathematics::numbers::natural capacity (void) const;
+					const LIB::mathematics::numbers::natural used (void) const;
 					
 					const value & operator () (void);
 					const value & operator () (void) const;

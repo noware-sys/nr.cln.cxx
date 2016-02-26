@@ -15,7 +15,7 @@
 	Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
 */
 #ifndef _WIN32_WINNT
-#define _WIN32_WINNT 0x0610
+	#define _WIN32_WINNT 0x0610
 #endif
 
 //#define BOOST_EXCEPTION_DISABLE 1
@@ -40,13 +40,13 @@ namespace LIB
 	
 	namespace _default
 	{
-		static const std::string			GENERIC	= "";
-		static const char					CHARACTER	= '\0';
-		static const unsigned short int		NUMERIC	= 0;
-		static const bool					BOOLEAN	= false;
+		static const std::string			generic	= "";
+		static const char					character	= '\0';
+		static const unsigned short int		numeric	= 0;
+		static const bool					boolean	= false;
 	}
 	
-	namespace def = _default;	// dft ?
+	// namespace def = _default;	// dft ?
 	//namespace dft = default_;
 }
 

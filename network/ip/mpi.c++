@@ -19,8 +19,30 @@
 
 //const bool LIB::network::ip::mpi::DEFAULT_CYCLE;	// Original.
 //const static bool LIB::network::ip::mpi::DEFAULT_CYCLE;
-const static unsigned short int LIB::network::ip::mpi::DEFAULT_TCP_PORT;
-const static unsigned short int LIB::network::ip::mpi::DEFAULT_UDP_PORT;
+const static unsigned short int LIB::network::ip::mpi::default_udp_port;
+const static unsigned short int LIB::network::ip::mpi::default_tcp_port;
+
+template <typename archive>
+void LIB::network::ip::mpi::serialize (archive & arch, const unsigned int & version)
+{
+	LIB::network::connection::serialize <archive> (arch, version);
+	
+	arch & message_size;
+}
+
+const bool LIB::network::ip::mpi::operator == (const LIB::network::ip::mpi & other) const
+{
+	return message_size == other.message_size && LIB::network::connection::operator == (static_cast <LIB::network::connection> (other));
+}
+
+const LIB::network::ip::mpi & LIB::network::ip::mpi::operator = (const LIB::network::ip::mpi & other) const
+{
+	LIB::network::connection::operator = (static_cast <LIB::network::connection> (other));
+	
+	message_size = other.message_size;
+	
+	return * this;
+}
 
 LIB::network::ip::mpi::mpi (void)
 {
@@ -55,10 +77,15 @@ LIB::network::ip::mpi::mpi (void)
 	
 	//ep.address = "0.0.0.0";
 	
-	set_receive ("0.0.0.0");
-	set_transmit ("0.0.0.0");
+	// set_receive ("0.0.0.0");
+	// set_transmit ("0.0.0.0");
 	
-	tcp_port (DEFAULT_TCP_PORT);
+	// tcp_port (DEFAULT_TCP_PORT);
+	addrs.listen ["address"] = "0.0.0.0";
+	addrs.listen ["port"] = default_udp_port;
+	
+	addrs.broadcast ["address"] = "0.0.0.0";
+	addrs.broadcast ["port"] = default_udp_port;
 	
 	//udp.address = LIB::Network::IP::v4::UDP::ADDRESS;
 	//udp.port = LIB::Network::IP::v4::UDP::PORT;
@@ -66,10 +93,15 @@ LIB::network::ip::mpi::mpi (void)
 	//udp.port = 2;
 	
 	
-	set_listen ("0.0.0.0");
-	set_broadcast ("0.0.0.0");
+	// set_listen ("0.0.0.0");
+	// set_broadcast ("0.0.0.0");
 	
-	udp_port (DEFAULT_UDP_PORT);
+	// udp_port (DEFAULT_UDP_PORT);
+	addrs.reception ["address"] = "0.0.0.0";
+	addrs.reception ["port"] = default_tcp_port;
+	
+	addrs.transmission ["address"] = "0.0.0.0";
+	addrs.transmission ["port"] = default_tcp_port;
 	
 	//std::cout << (std::string) udp.address << std::endl;
 	
@@ -115,7 +147,7 @@ LIB::network::ip::mpi::~mpi (void)
 	//io.stop ();
 }
 */
-
+/*
 // Get endpoint.
 const LIB::entity <> LIB::network::ip::mpi::get_transmit (void) const
 {
@@ -123,7 +155,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_transmit (void) const
 //	
 //	try
 //	{
-//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmit);
+//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
 //	}
 //	catch (...)
 //	{
@@ -131,7 +163,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_transmit (void) const
 //	
 //	return ep;
 	
-	return addrs.transmit;
+	return addrs.transmission;
 }
 
 const LIB::entity <> LIB::network::ip::mpi::get_receive (void) const
@@ -140,7 +172,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_receive (void) const
 //	
 //	try
 //	{
-//		ep = boost::any_cast <LIB::network::endpoint> (addrs.receive);
+//		ep = boost::any_cast <LIB::network::endpoint> (addrs.reception);
 //	}
 //	catch (...)
 //	{
@@ -148,7 +180,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_receive (void) const
 //	
 //	return ep;
 	
-	return addrs.receive;
+	return addrs.reception;
 }
 
 const LIB::entity <> LIB::network::ip::mpi::get_broadcast (void) const
@@ -200,19 +232,19 @@ const LIB::NAME_A <LIB::entity <>, LIB::mathematics::numbers::natural> LIB::netw
 	
 	return eps;
 }
-*/
+* /
 
 // Set whole endpoint.
 const bool LIB::network::ip::mpi::set_transmit (LIB::entity <> & ep)
 {
 	if (ep.exist ("address"))
 	{
-		addrs.transmit ["address"] = ep ["address"] ();
+		addrs.transmission ["address"] = ep ["address"] ();
 	}
 	
 	if (ep.exist ("port"))
 	{
-		addrs.transmit ["port"] = ep ["port"] ();
+		addrs.transmission ["port"] = ep ["port"] ();
 	}
 	
 	return true;
@@ -222,12 +254,12 @@ const bool LIB::network::ip::mpi::set_receive (LIB::entity <> & ep)
 {
 	if (ep.exist ("address"))
 	{
-		addrs.receive ["address"] = ep ["address"] ();
+		addrs.reception ["address"] = ep ["address"] ();
 	}
 	
 	if (ep.exist ("port"))
 	{
-		addrs.receive ["port"] = ep ["port"] ();
+		addrs.reception ["port"] = ep ["port"] ();
 	}
 	
 	return true;
@@ -270,7 +302,7 @@ const bool LIB::network::ip::mpi::set_transmit (const std::string & address)
 //	
 //	try
 //	{
-//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmit);
+//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
 //	}
 //	catch (...)
 //	{
@@ -278,9 +310,9 @@ const bool LIB::network::ip::mpi::set_transmit (const std::string & address)
 //	
 //	ep.address = address;
 //	
-//	addrs.transmit = ep;
+//	addrs.transmission = ep;
 //	
-	addrs.transmit ["address"] = address;
+	addrs.transmission ["address"] = address;
 	
 	return true;
 }
@@ -291,7 +323,7 @@ const bool LIB::network::ip::mpi::set_receive (const std::string & address)
 	
 	//try
 	//{
-	//	ep = boost::any_cast <LIB::network::endpoint> (addrs.receive);
+	//	ep = boost::any_cast <LIB::network::endpoint> (addrs.reception);
 	//}
 	//catch (...)
 	//{
@@ -299,8 +331,8 @@ const bool LIB::network::ip::mpi::set_receive (const std::string & address)
 	
 	//ep.address = address;
 	
-	//addrs.receive = ep;
-	addrs.receive ["address"] = address;
+	//addrs.reception = ep;
+	addrs.reception ["address"] = address;
 	
 	return true;
 }
@@ -354,7 +386,7 @@ const bool LIB::network::ip::mpi::set_transmit (const unsigned short int & port)
 //	
 //	try
 //	{
-//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmit);
+//		ep = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
 //	}
 //	catch (...)
 //	{
@@ -362,9 +394,9 @@ const bool LIB::network::ip::mpi::set_transmit (const unsigned short int & port)
 //	
 //	ep.port = port;
 //	
-//	addrs.transmit = ep;
+//	addrs.transmission = ep;
 	
-	addrs.transmit ["port"] = port;
+	addrs.transmission ["port"] = port;
 	
 	return true;
 }
@@ -375,7 +407,7 @@ const bool LIB::network::ip::mpi::set_receive (const unsigned short int & port)
 //	
 //	try
 //	{
-//		ep = boost::any_cast <LIB::network::endpoint> (addrs.receive);
+//		ep = boost::any_cast <LIB::network::endpoint> (addrs.reception);
 //	}
 //	catch (...)
 //	{
@@ -383,9 +415,9 @@ const bool LIB::network::ip::mpi::set_receive (const unsigned short int & port)
 //	
 //	ep.port = port;
 //	
-//	addrs.receive = ep;
+//	addrs.reception = ep;
 	
-	addrs.receive ["port"] = port;
+	addrs.reception ["port"] = port;
 	
 	return true;
 }
@@ -431,14 +463,14 @@ const bool LIB::network::ip::mpi::set_listen (const unsigned short int & port)
 	
 	return false;
 }
-
+*/
 /*
 // Getter.
 unsigned short int LIB::network::ip::mpi::udp_port (void)
 {
 }
 */
-
+/*
 // Setter.
 const bool LIB::network::ip::mpi::udp_port (const unsigned short int & port)
 {
@@ -466,11 +498,11 @@ const bool LIB::network::ip::mpi::udp_port (const unsigned short int & port)
 	catch (...)
 	{
 	}
-	*/
+	* /
 	
 	//return true;
 }
-
+*/
 /*
 // Getter.
 unsigned short int LIB::network::ip::mpi::tcp_port (void)
@@ -485,7 +517,7 @@ unsigned short int LIB::network::ip::mpi::tcp_port (void)
 	}
 }
 */
-
+/*
 // Setter.
 const bool LIB::network::ip::mpi::tcp_port (const unsigned short int & port)
 {
@@ -493,7 +525,7 @@ const bool LIB::network::ip::mpi::tcp_port (const unsigned short int & port)
 	
 	//return true;
 }
-
+*/
 //void LIB::network::ip::mpi::stop (void)
 //{
 //	//cancel_udp ();
@@ -713,13 +745,13 @@ Receive broadcast
 
 const bool LIB::network::ip::mpi::transmit (const std::string & message)
 {
-	return transmit (message, addrs.transmit);
+	return transmit (message, addrs.transmission);
 	/*
 	LIB::network::endpoint addr;
 	
 	try
 	{
-		addr = boost::any_cast <LIB::network::endpoint> (addrs.transmit);
+		addr = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
 	}
 	catch (...)
 	{
@@ -767,9 +799,9 @@ const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::en
 {
 	//LIB::network::endpoint addr;
 	
-	if (!address.exist ("port") && addrs.transmit.exist ("port"))
+	if (!address.exist ("port") && addrs.transmission.exist ("port"))
 	{
-		address ["port"] = addrs.transmit ["port"] ();
+		address ["port"] = addrs.transmission ["port"] ();
 	}
 	
 	if (!address.exist ("address") || !address.exist ("port"))
@@ -992,7 +1024,7 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::e
 
 const std::string LIB::network::ip::mpi::receive (void)
 {
-	return receive (NULL, addrs.receive);
+	return receive (NULL, addrs.reception);
 }
 
 /*
@@ -1040,9 +1072,9 @@ const std::string LIB::network::ip::mpi::receive (LIB::entity <> & remote_endpoi
 	}
 	*/
 	
-	if (!address.exist ("port") && addrs.receive.exist ("port"))
+	if (!address.exist ("port") && addrs.reception.exist ("port"))
 	{
-		address ["port"] = addrs.receive ["port"] ();
+		address ["port"] = addrs.reception ["port"] ();
 	}
 	
 	if (!address.exist ("address") || !address.exist ("port"))

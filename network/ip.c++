@@ -223,7 +223,7 @@ const LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural
 					
 					if (loopback_include || (! loopback_include && ! address_test.is_loopback ()))
 					{
-						addresses.enqueue (host);
+						addresses.add (host);
 						//addresses_ [i] = host;
 						//adr = host;
 						//++ i;

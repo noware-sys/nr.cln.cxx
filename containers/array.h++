@@ -98,7 +98,7 @@ namespace LIB
 					operator const std::string (void) const;
 					//const NAME_A <value, key> & operator = (const std::string &);
 					const package & operator = (const std::string &);
-				protected:
+					
 					friend class boost::serialization::access;
 					
 					template <typename archive>
@@ -118,7 +118,8 @@ namespace LIB
 			
 			typedef typename std::list <package>::iterator iterator;
 			typedef typename std::list <package>::const_iterator const_iterator;
-		protected:
+			
+			
 			friend class boost::serialization::access;
 			
 			template <typename archive>
@@ -131,6 +132,7 @@ namespace LIB
 			//void load (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 			
 			
+		protected:
 			const bool search (const key &, value *&) const;
 			const bool search (const key &, key *&) const;
 			//bool search (const key &, value &) const;
@@ -206,7 +208,8 @@ namespace LIB
 			// Iterators:
 			//// Element access:
 			// Element lookup:
-			const bool exist (const key &) const; // Determines if a element exists named by the key provided.
+			const bool exists (const key &) const; // Determines if an element exists named by the key provided.
+			const bool exist (const key &) const; // Determines if an element exists named by the key provided.
 			//// Tests if the container is full.
 			const bool full (void) const;
 			//// Tests if the container is empty.
@@ -214,6 +217,7 @@ namespace LIB
 			const bool operator == (const NAME_A <value, key> &) const;
 			const bool operator != (const NAME_A <value, key> &) const;
 			
+			// These use "add ()":
 			const NAME_A <value, key>	operator + (const value &) const;
 			const NAME_A <value, key>	operator + (const NAME_A <value, key> &) const;
 			
@@ -225,13 +229,14 @@ namespace LIB
 			// This overwrites any existing keys with the provided values.
 			const bool add (const NAME_A <value, key> &);
 			
-			// These are used as "enqueue" and as "push".
+			// These are used as "add", as "enqueue" and as "push".
 			const bool append (const value &);
-			// This gives back the key that was used.
+			// Gives back the key that was used.
 			const bool append (const value &, key &);
-			// This reindexes any existing keys with the provided values.
+			// Uses new keys for any existing ones rather than the provided values.
 			const bool append (const NAME_A <value, key> &);
 			
+			// These use "add ()":
 			// Setter (append) (one value).
 			/*value &*/ const NAME_A <value, key> &	/*operator []*/operator +=/*enqueue*//*add*//*append*/ (/*void*/ const value &/*, key & = NULL*/);
 			// Setter (append) (another array (of the same type)).
@@ -286,14 +291,17 @@ namespace LIB
 			//const bool append (const value &);
 			//const bool append (const value &, key &);
 			
+			const key least_numeric_key (void) const;
+			const key greatest_numeric_key (void) const;
+			
 			// Queue functionality:
 			const bool enqueue (const value &);
 			const bool enqueue (const value &, key &);
 			const bool dequeue (void);
 			//const key front_key (void) const;
-			const package & beginning (void) const;
+			const package & beginning (void)/* const*/;
 			//const key rear_key (void) const;
-			const package & ending (void) const;
+			const package & ending (void)/* const*/;
 			
 			// Stack functionality:
 			const bool push (const value &);
@@ -304,7 +312,11 @@ namespace LIB
 			//const key bottom_key (void) const;
 			//const value bottom (void) const;
 			
+			// Is the type of the key numeric?
+			const bool numeric_key (void) const;
 			// Return the next available unique value in the sequence (ID).
+			const key sequence_next_available (void) const;
+			// Return the next greatest unique value in the sequence (ID).
 			const key sequence_next (void) const;
 			
 			// For range-based (for) looping:

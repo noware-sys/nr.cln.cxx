@@ -17,10 +17,10 @@
 #include "../mathematics.h++"
 //#include "../machine/resource.h++"
 
-//#ifndef NTT
-//	#define NTT entity
-//#endif
-#include "entity-pre.h++"
+#ifndef NTT
+	#define NTT entity
+#endif
+//#include "entity-pre.h++"
 
 namespace LIB
 {
@@ -216,11 +216,12 @@ namespace LIB
 				const NTT <value, key> & operator [] (const key &) const;
 				
 				const bool unset (const key &);
+				const bool exists (const key &, const bool &/* recursive*/ = false) const;
 				const bool exist (const key &, const bool &/* recursive*/ = false) const;
 				const bool clear (void);
 				const bool empty (void) const;
 				const bool full (void) const;
-				const LIB::mathematics::numbers::natural size (const bool &/* recursive*/ = false, const bool &/* grouped (consider a group as an item, in addition to its children) (only considered if recursive == true)*/ = false) const;
+				const LIB::mathematics::numbers::natural size (const bool &/* recursive*/ = false, const bool &/* grouped/inclusive (consider a group as an item, in addition to its children) (only considered if recursive == true)*/ = false) const;
 				const bool rename (const key &/* old*/, const key &/* new*/);
 				
 				//const key * & get_key (void);
@@ -233,6 +234,10 @@ namespace LIB
 				const value & operator -> (void) const;
 				const value & operator () (void);
 				const value & operator () (void) const;
+				const value & value (void);
+				const value & value (void) const;
+				const value & get_value (void);
+				const value & get_value (void) const;
 				
 				const bool operator == (const NTT <value, key> &) const;
 				const bool operator != (const NTT <value, key> &) const;

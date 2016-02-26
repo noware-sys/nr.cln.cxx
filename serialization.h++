@@ -14,23 +14,26 @@
 
 namespace LIB
 {
-	template <typename type>
-	const std::string serialize (const type &);
-	
-	template <typename type>
-	const bool deserialize (const std::string &, type &);
-	
-	//template <typename type>
-	//bool unserialize (std::string, type &);
-	
-	//template <typename type>
-	//bool parse (const std::string &, type &);
-	
-	// template <typename type>
-	// bool parse (std::string, type &);
-	
-	//template <typename type>
-	//std::string serialize (const type &);
+	//namespace tools
+	//{
+		template <typename type>
+		const std::string serialize (const type &);
+
+		template <typename type>
+		const bool deserialize (const std::string &, type &);
+
+		//template <typename type>
+		//bool unserialize (std::string, type &);
+
+		//template <typename type>
+		//bool parse (const std::string &, type &);
+
+		// template <typename type>
+		// bool parse (std::string, type &);
+
+		//template <typename type>
+		//std::string serialize (const type &);
+	//}
 }
 
 #include "serialization.t++"

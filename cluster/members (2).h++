@@ -64,19 +64,58 @@ namespace LIB
 					//template <typename Archive>
 					//void load (Archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 					
+					// For resolving ID conflicts.
+					class conflict
+					{
+						public:
+							conflict (void);
+							~conflict (void);
+							
+							bool response;
+							boost::asio::deadline_timer * timer;
+							
+							//LIB::NAME_A <LIB::NAME_A <bool, std::string>, LIB::mathematics::numbers::natural> response;
+							//LIB::NAME_A <LIB::NAME_A <boost::asio::io_service, std::string>, LIB::mathematics::numbers::natural> io;
+							//LIB::NAME_A <LIB::NAME_A <boost::asio::deadline_timer *, std::string>, LIB::mathematics::numbers::natural> timer;
+						//protected:
+							boost::asio::io_service io;
+					};
+					/*
+					// For resolving ID conflicts.
+					class conflict
+					{
+						public:
+							conflict (void);
+							~conflict (void);
+							
+							LIB::NAME_A <bool, std::string> response;
+							LIB::NAME_A <boost::asio::io_service, std::string> io;
+							LIB::NAME_A <boost::asio::deadline_timer *, std::string> timer;
+
+							//LIB::NAME_A <LIB::NAME_A <bool, std::string>, LIB::mathematics::numbers::natural> response;
+							//LIB::NAME_A <LIB::NAME_A <boost::asio::io_service, std::string>, LIB::mathematics::numbers::natural> io;
+							//LIB::NAME_A <LIB::NAME_A <boost::asio::deadline_timer *, std::string>, LIB::mathematics::numbers::natural> timer;
+					};
+					*/
+					class communication
+					{
+						public:
+							~communication (void);
+							
+							std::mutex lock;
+							LIB::NTT <> data;
+					};
+					
 					members (void/*const LIB::mathematics::numbers::natural &*//* keepalive time (milliseconds)*//* = 15000*/);
 					~members (void);
-					
-					const static unsigned short int default_udp_port = 6;
-					const static unsigned short int default_tcp_port = 7;
 					
 					//friend class LIB::cluster::cluster;
 					
 					LIB::mathematics::numbers::natural
-						//keepalive// = 10	// Time (seconds) between online checks among nodes.
-						timeout		// Time (seconds) to wait before a node is declared offline (after it fails to respond).
+						keepalive = 15000,	// Time (milliseconds) between online checks among nodes.
+						//timeout		// Time (milliseconds) to wait before a node is declared offline.
 						//delay		// Discovery delay.
-						//delay_max = 3 // seconds
+						delay_max = 3000 // milliseconds
 					;
 					
 					//void Refresh (void);
@@ -99,24 +138,22 @@ namespace LIB
 					//const LIB::cluster::machine local (void) const;
 					
 					// Dereference; get the list.
-					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator * (void) const;
-					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator -> (void) const;
-					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator () (void) const;
+					const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator * (void) const;
+					const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator -> (void) const;
+					const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator () (void) const;
 					const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & list (void) const;
 					
 					
-					void manage (LIB::entity <>/* remote_endpoint*/, const LIB::communication::message &/* message*/);
-					//void dummy (void) const;
+					void input (LIB::entity <>/* remote_endpoint*/, const std::string &/* message*/);
+					void dummy (void) const;
 					
-					//LIB::tools::randomizer randomizer;
+					LIB::tools::randomizer randomizer;
 				protected:
 					LIB::mathematics::numbers::natural local;	// The ID of the local (literal) machine.
 					//LIB::cluster::machine * local_machine;	// The local machine.
 					
-					//LIB::NAME_A <conflict, LIB::mathematics::numbers::natural> conflicts;
-					//LIB::NAME_A <communication, LIB::mathematics::numbers::natural> communications;
-					
-					const LIB::mathematics::numbers::natural generate_id (void) const;
+					LIB::NAME_A <conflict, LIB::mathematics::numbers::natural> conflicts;
+					LIB::NAME_A <communication, LIB::mathematics::numbers::natural> communications;
 					
 					// Communication interface.
 					// This should be set from LIB::cluster::cluster::cluster.
@@ -129,14 +166,14 @@ namespace LIB
 					//bool running;
 					//std::map<std::string, bool> members;
 					// LIB::NAME_A <bool /*Value (Online/Offline)*/, std::string /*Key (IP address)*/> peers;
-					LIB::NAME_A <LIB::cluster::member /* Member. */, LIB::mathemathics::numbers::natural/* ID. */> __members;
+					LIB::NAME_A <LIB::cluster::member /* Member. */, LIB::mathemathics::numbers::natural/* ID. */> _members;
 					//map <std::string, bool> peers;
 					//LIB::NAME_A <std::string /*Value (IP address)*/, Mathematics::Number::Natural /*Key: Index*/> members;
 					//LIB::NAME_A <Mathematics::Number::Natural, > members;
 					// bool confirm;
 					// string answer;
 					
-					// LIB::NAME_A <LIB::NAME_A <conflict, std::string>, LIB::mathematics::numbers::natural> conflicts;
+					LIB::NAME_A <LIB::NAME_A <conflict, std::string>, LIB::mathematics::numbers::natural> conflicts;
 					
 					//bool copy;
 					//std::string delimiter;			// Delimits parts of the message
@@ -192,10 +229,9 @@ namespace LIB
 //					void act_broadcast_discovery (std::string /*Received message.*/);
 					
 					void distribute (void);
-					boost::thread * distribution;
-					//boost::thread distribution (boost::bind (& LIB::cluster::members::distribute, this));
+					//boost::thread * distribution;
+					boost::thread distribution (boost::bind (& LIB::cluster::members::distribute, this));
 					
-					const bool broadcast (const LIB::communication::message &) const;
 					// For the keep-alive/discovery timer.
 					//boost::asio::io_service io;
 					//boost::asio::deadline_timer timer (io);

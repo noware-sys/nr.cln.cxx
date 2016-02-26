@@ -34,7 +34,6 @@
 #include "../../containers/array.h++"
 #include "../../containers/variable.h++"
 #include "../../containers/entity.h++"
-//#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
 // #include "../../network/mpi.h++"
 //#include "../network/ip.h++"
@@ -48,11 +47,39 @@
 
 namespace LIB
 {
+	namespace cluster
+	{
+		class cluster;
+	}
+
+	//namespace machine
+	//{
+		//class NTT;
+		
+//		class container
+//		{
+//			public:
+//				container (void);
+//				~ container (void);
+//				
+//				//std::string text;
+//				//bool reference;
+//				LIB::NAME_V literal;
+//				
+//				LIB::array <LIB::NTT, LIB::NAME_V> group;
+//		};
+		
+	//template <typename value = LIB::NAME_V, typename key = LIB::NAME_V>
+	//class NTT;
+	
 	namespace machine
 	{
 		namespace resources
 		{
-			class memory : LIB::machine::resource, LIB::communication::messaging //, LIB::NTT <value, key>
+			//typedef std::string key, value;
+			
+			//template <typename Value = std::string, Key = std::string>
+			class memory : public resource//, public LIB::communication::messaging //, LIB::NTT <value, key>
 			{
 				public:
 					//typedef std::string value, key;
@@ -63,14 +90,14 @@ namespace LIB
 					
 					//typedef NTT registry, directory, folder;
 					
-					// friend class LIB::cluster::cluster;
+					friend class LIB::cluster::cluster;
 					//friend class LIB::cluster::members;
 					
 					class keys //: LIB::NTT <value, key>::container
 					{
 						public:
-							//friend class memory;
-							//friend class LIB::NTT <>;
+							friend class memory;
+							friend class LIB::NTT <>;
 							
 							keys (void);
 							keys (const keys &);
@@ -116,6 +143,34 @@ namespace LIB
 					//typedef container value;
 					typedef keys key;
 					
+					// Used when searching for data:
+					class research
+					{
+						public:
+							class response
+							{
+								public:
+									response (void);
+									
+									bool found;
+									bool responded;
+							};
+							
+							//research (void);
+							~research (void);
+							
+							std::mutex lock;
+							//value data;
+							const LIB::NAME_A <LIB::cluster::machine, LIB::mathematics::numbers::natural> owners (void) const;
+							//const LIB::cluster::machine owner (void) const;
+							
+							const bool found (void) const;
+							const bool responded (void) const;
+							
+							// List of machines which should respond.
+							LIB::NAME_A <response, LIB::mathematics::numbers::natural/* id*/> machines;
+							//LIB::NAME_A <response, LIB::cluster::machine> machines;
+					};
 					
 //					//template <typename v = value, typename k = key>
 //					class NTT :/* public*/ LIB::NTT <value, key>
@@ -227,19 +282,16 @@ namespace LIB
 					
 					//boost::thread * listener, * receiver;
 					
-					LIB::NAME_A <search, LIB::mathematics::numbers::natural> searches;
+					LIB::NAME_A <research, LIB::mathematics::numbers::natural> searches;
 					
 					// std::string delimiter;	// Delimits parts of the request message 
 					// std::string action_delimiter;	// Delimits parts of the response message 
 					//std::string partner;	// Only valid and only used when "copy == true", as this variable holds the localhost's redundant host to pair with.
-					
-					// The container.
-					LIB::NAME_A <value, key> variables;
-					
+					LIB::NAME_A <value, key> variables;	// The container.
 					//LIB::NAME_A<LIB::NAME_A<std::string, Mathematics::Number::Natural>/*Value*/, Mathematics::Number::Natural/*Key*/> redundancyGroups, stripedGroups;
 					
 					
-					//bool _active;
+					bool _active;
 					//boost::thread * listener_broadcast;
 					//boost::thread * listener_direct;
 					
@@ -258,7 +310,7 @@ namespace LIB
 					
 					// const bool search (const key &/* name*/, /*value*/LIB::mathematics::numbers::natural &, const key &/* group*/ = "") const;
 					// const bool search (const key &/* name*/, LIB::cluster::machine &/* machine*/, const key &/* group*/ = "") const;
-					const bool _search (const key &, LIB::cluster::machine &/* machine*/) const;
+					const bool search (const key &, LIB::cluster::machine &/* machine*/) const;
 					//bool search (const key, value &, std::string &/*IP address of the host which has the variable.*/);
 					
 					memory & _get_all (key);
@@ -267,7 +319,7 @@ namespace LIB
 					//std::string _local_address;
 					
 					// LIB::network::mpi * mpi;
-					//LIB::cluster::cluster * cluster;
+					LIB::cluster::cluster * cluster;
 					//LIB::Cluster::Peers peers;
 					// LIB::cluster::members * machines;
 				public:
@@ -282,7 +334,7 @@ namespace LIB
 					
 					memory (void);
 					memory (const memory &/* other*/);
-					//memory (const LIB::cluster::cluster * &);
+					memory (const LIB::cluster::cluster * &);
 					~memory (void);
 					
 					// General purpose functions:
@@ -292,12 +344,11 @@ namespace LIB
 					//bool/*Success/Failure*/ Synchronize (const NAME_V/*One variable in memory.*/);
 					
 					// Set the activity state.
-					//const bool run (const bool &/* active(_running)_state*/ = true);
+					const bool run (const bool &/* active(_running)_state*/ = true);
 					//const bool & run (void) const;
 					
 					//Value & operator [] (const Key &);
 					const bool exist (const key &) const;
-					const bool exists (const key &) const;
 					
 					memory & get_all (const key &);
 					const memory & get_all (const key &) const;
@@ -338,7 +389,7 @@ namespace LIB
 	}
 }
 
-//#include "../../cluster.h++"
+#include "../../cluster.h++"
 
 //template <typename Value, Key>
 //LIB::Cluster::Memory<Value, Key>::Memory (void)

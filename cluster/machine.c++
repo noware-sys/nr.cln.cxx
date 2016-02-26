@@ -7,13 +7,13 @@
 LIB::cluster::machine::machine (const LIB::mathematics::numbers::natural & to)
 //LIB::cluster::machine::machine (void)
 {
-	t = type::reference;
-	_active = false;
-	mpi = NULL;
+	//t = type::reference;
+	//_active = false;
+	//mpi = NULL;
 	
 	//// Needed?
 	//id = 0;
-	id = NULL;
+	//id = NULL;
 	
 	/*
 	scanning = NULL;
@@ -40,8 +40,8 @@ LIB::cluster::machine::machine (const LIB::mathematics::numbers::natural & to)
 	//error.set ((std::string) "message", "");
 	//error.set ((std::string) "code", "0");
 	
-	rsrc ["memory"] = new LIB::machine::resources::memory ();
-	rsrc ["processor"] = new LIB::machine::resources::processor ();
+	// rsrc ["memory"] = new LIB::machine::resources::memory ();
+	// rsrc ["processor"] = new LIB::machine::resources::processor ();
 }
 
 LIB::cluster::machine::machine (const std::string & serial)
@@ -370,7 +370,7 @@ const LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural
 	return LIB::network::ip::addresses ();
 }
 */
-
+/*
 void LIB::cluster::machine::clear (void)
 {
 	for (auto & rsc : rsrc)
@@ -381,9 +381,9 @@ void LIB::cluster::machine::clear (void)
 	rsrc.clear ();
 	//machines_clear ();
 }
-
-const bool LIB::cluster::machine::operator == (const machine & other) const
-{
-	//return rsrc == other.rsrc;
-	return false;
-}
+*/
+//const bool LIB::cluster::machine::operator == (const machine & other) const
+//{
+//	//return rsrc == other.rsrc;
+//	return false;
+//}

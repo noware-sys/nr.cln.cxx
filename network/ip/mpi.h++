@@ -116,11 +116,17 @@ namespace LIB
 							// // void receive_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 							// // void listen_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 						public:
+							template <typename archive>
+							virtual void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
+
+							virtual const bool operator = (const mpi &);
+							virtual const bool operator == (const mpi &);
+							
 							//const statuc std::string DEFAULT_ADDRESS = "0.0.0.0";
 							//const static unsigned short int DEFAULT_IP_ADDRESS_VERSION = 4;
 							// const static bool DEFAULT_CYCLE = true;
-							const static unsigned short int DEFAULT_TCP_PORT = 3;
-							const static unsigned short int DEFAULT_UDP_PORT = 2;
+							const static unsigned short int default_udp_port = 2;
+							const static unsigned short int default_tcp_port = 3;
 
 							// std::string multicast_group_listen;
 							// std::string multicast_group_broadcast;
@@ -133,7 +139,7 @@ namespace LIB
 							// LIB::network::endpoint tcp_receive;	// Binding endpoint.
 							// LIB::network::endpoint tcp_transmit;	// Destination endpoint.
 							
-							// Getters:
+							/*// Getters:
 							const LIB::NTT <> get_transmit (void) const;
 							const LIB::NTT <> get_receive (void) const;
 							const LIB::NTT <> get_broadcast (void) const;
@@ -141,11 +147,11 @@ namespace LIB
 							const LIB::NTT <> get_listen (void) const;
 							// Setters:
 								// Whole endpoint.
-							const bool set_transmit (LIB::NTT <> &);
-							const bool set_receive (LIB::NTT <> &);
-							const bool set_broadcast (LIB::NTT <> &);
-							const bool set_listen (LIB::NTT <> &);
-								// Address:
+							const bool set_transmit (const LIB::NTT <> &);
+							const bool set_receive (const LIB::NTT <> &);
+							const bool set_broadcast (const LIB::NTT <> &);
+							const bool set_listen (const LIB::NTT <> &);
+							*//*	// Address:
 							const bool set_transmit (const std::string &);
 							const bool set_receive (const std::string &);
 							const bool set_broadcast (const std::string &);
@@ -155,7 +161,7 @@ namespace LIB
 							const bool set_receive (const unsigned short int &);
 							const bool set_broadcast (const unsigned short int &);
 							const bool set_listen (const unsigned short int &);
-							
+							*/
 							// For multicasting (both sending and receiving):
 							// Default: Connection udp ("239.255.0.1", 30001);
 							//static Connection udp;

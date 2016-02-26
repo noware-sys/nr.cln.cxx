@@ -1,6 +1,8 @@
 // This file includes all other header files within this library.
 #pragma once
 
+//#include <typeinfo>
+
 #include "default.h++"
 #include "mathematics.h++"
 #include "serialization.h++"
@@ -22,7 +24,7 @@
 #include "network/ip/mpi.h++"
 //#include "language/resource.h++"
 #include "language/interpreter.h++"
-#include "communication/message.h++"
+#include "communication/messaging.h++"
 //#include "machine/network/node.h++"
 //#include "machine/network/nodes.h++"
 #include "machine/resource.h++"

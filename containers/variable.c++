@@ -833,19 +833,27 @@ namespace LIB
 	//{
 	//	return value.Generic;
 	//}
+	
+	const bool NAME_V::is_string (void) const
+	{
+		return is_generic ();
+	}
 
-/*
-	bool NAME_V::is_generic (void) const
+	const bool NAME_V::is_text (void) const
+	{
+		return is_generic ();
+	}
+	
+	const bool NAME_V::is_generic (void) const
 	{
 		return _type == type::GENERIC;
 	}
-
-	bool NAME_V::is_numeric (void) const
+	
+	const bool NAME_V::is_numeric (void) const
 	{
 		return _type == type::NUMERIC;
 	}
-*/
-
+	
 	NAME_V				NAME_V::operator	+	(const NAME_V & val)
 	{
 		//NAME_V var;

@@ -22,16 +22,16 @@
 #include "../containers/variable.h++"
 #include "../mathematics.h++"	// "mathematics.h++" should be included after "array.h++" in this "machine.h++" file.
 #include "../machine/resource.h++"
-//#include "../machine/resources/memory.h++"
-//#include "../machine/resources/processor.h++"
 //#include "../machine/resources.h++"
+#include "../machine/resources/memory.h++"
+#include "../machine/resources/processor.h++"
 //#include "members.h++"
 // #include "../containers/entity.h++"
 //#include "../network/ip/mpi.h++"
 #include "../network/mpi.h++"
 //#include "../language/interpreter.h++"
-#include "../communication/message.h++"
-// #include "../cluster/members.h++"
+#include "../communication/messaging.h++"
+#include "../cluster/members.h++"
 //#include "../cluster.h++"
 
 //#ifndef NTT
@@ -40,36 +40,36 @@
 
 namespace LIB
 {
-	namespace machine
+	/*namespace machine
 	{
 		namespace resources
 		{
 			class memory;
 			class processor;
 		}
-	}
+	}*/
 	
 	//template <typename value = LIB::NAME_V, typename key = LIB::NAME_V>
 	//class NTT;
 	
 	namespace cluster
 	{
-		class cluster;
-		class members;
+		//class cluster;
+		//class members;
 		
 		class machine
 		{
 			public:
-				machine (const mathematics::numbers::natural &/* timeout (milliseconds) */ = 10000);
+				machine (const mathematics::numbers::natural &/* timeout (milliseconds)*/ = 10000);
 				//machine (void);
-				machine (const std::string &);
-				machine (const machine &);
+				machine (const std::string &/* serial*/);
+				machine (const machine &/* other*/);
 				~machine (void);
 			//protected:
 				friend class boost::serialization::access;
-				friend class LIB::cluster::cluster;
-				friend class LIB::cluster::members;
-			public:	
+				//friend class LIB::cluster::cluster;
+				//friend class LIB::cluster::members;
+			public:
 				template <typename archive>
 				void serialize (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 				
@@ -85,15 +85,17 @@ namespace LIB
 				const std::string serialize (void);
 				const bool deserialize (const std::string &);
 				
-				const machine & operator = (const machine &);
+				// const machine & operator = (const machine &);
 				
-				const bool operator == (const machine &) const;
+				// const bool operator == (const machine &) const;
 				
+				/*
 				enum type
 				{
 					literal,
 					reference
 				};
+				*/
 				
 				//enum operation
 				//{
@@ -177,33 +179,35 @@ namespace LIB
 				//const machine * & operator [] (const mathematics::numbers::natural &);
 				// const LIB::NAME_A <LIB::NAME_V, mathematics::numbers::natural> & addresses (void);
 				
-				const type & get_type (void) const;
-				const bool run (const bool & = true);
+				// const type & get_type (void) const;
+				// const bool run (const bool & = true);
 				
 				//// Allow access to "mpi".
 				//friend class LIB::machine::resource;
 				// const LIB::network::mpi * & get_mpi (void) const;
 				
-				const bool & active/*run*//*ning*/ (void) const;
+				// const bool & active/*run*//*ning*/ (void) const;
 				
-				// Time (milliseconds) to wait before the machine is declared unavailable.
-				LIB::mathematics::numbers::natural timeout;
+				//// Time (milliseconds) to wait before the machine is declared unavailable.
+				//LIB::mathematics::numbers::natural timeout;
 			protected:
-				type t;
+				// type t;
 				
-				bool
-					_active
+				//bool
+				//	_active
 					//,
 					//* main_timeout_timer_running
-				;
+				//;
+				
+				//members _members;
 				
 				// Communication interface.
 				// This should be set from LIB::cluster::cluster::members.
-				LIB::network::mpi * mpi;
-				LIB::cluster::cluster * cluster;
+				// LIB::network::mpi * mpi;
+				// LIB::cluster::cluster * cluster;
 				
 				// Resources (local and remote?).
-				LIB::NAME_A <LIB::machine::resource *, std::string> rsrc;
+				LIB::NAME_A <LIB::machine::resource *, std::string> _resources;
 				// LIB::entity <boost::any, std::string> entities;
 				//LIB::entity <container, std::string> entities;
 				
@@ -211,7 +215,7 @@ namespace LIB
 				// LIB::NAME_A <std::string, std::string> error;
 				
 				// Unique identifier.
-				mathematics::numbers::natural * id;
+			//	mathematics::numbers::natural * id;
 				
 				// Peers (which are directly connected and indirectly connected to this machine).
 				//LIB::NAME_A <machine *, mathematics::numbers::natural> * machines;
@@ -224,7 +228,7 @@ namespace LIB
 				// It lists the steps to get to it from the owner of the object.
 				//LIB::NAME_A <LIB::NAME_V, mathematics::numbers::natural> path;
 				//LIB::NAME_A <LIB::NTT <>, mathematics::numbers::natural> path;
-				LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::mathematics::numbers::natural>, mathematics::numbers::natural> path;
+			//	LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::mathematics::numbers::natural>, mathematics::numbers::natural> path;
 				
 				// Get the next available unique ID.
 				//mathematics::numbers::natural next_id (void) const;
@@ -256,9 +260,9 @@ namespace LIB
 }
 
 //#include "../containers/entity.h++"
-#include "../cluster.h++"
-#include "../machine/resources/memory.h++"
-#include "../machine/resources/processor.h++"
-#include "../cluster/members.h++"
+// #include "../cluster.h++"
+//#include "../machine/resources/memory.h++"
+//#include "../machine/resources/processor.h++"
+// #include "../cluster/members.h++"
 
 //#endif

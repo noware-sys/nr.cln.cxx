@@ -69,12 +69,12 @@ void LIB::machine::resources::processor::instruction::serialize (archive & arch,
 		//archive & next_instruction;
 
 		//archive & inputs;
-		archive & input [0];
-		archive & input [1];
+		arch & input [0];
+		arch & input [1];
 
-		archive & output;
+		arch & output;
 
-		archive & action;
+		arch & action;
 
 		//archive & user;
 	//}
@@ -87,14 +87,16 @@ void LIB::machine::resources::processor::instruction::serialize (archive & arch,
 	//}
 }
 
-LIB::machine::resources::processor::instruction::operator const std::string (void)
+LIB::machine::resources::processor::instruction::operator const std::string (void) const
 {
 	return LIB::serialize <LIB::machine::resources::processor::instruction> (*this);
 }
 
 //LIB::machine::resources::processor::instruction
-std::string LIB::machine::resources::processor::instruction::operator = (const std::string & serial)
+LIB::machine::resources::processor::instruction LIB::machine::resources::processor::instruction::operator = (const std::string & serial)
 {
+	LIB::deserialize <LIB::machine::resources::processor::instruction> (serial, *this);
+	/*
 	if (LIB::deserialize <LIB::machine::resources::processor::instruction> (serial, *this))
 	{
 		//return *this;
@@ -104,13 +106,15 @@ std::string LIB::machine::resources::processor::instruction::operator = (const s
 	{
 		return "";
 	}
+	*/
+	return *this;
 }
 
 LIB::machine::resources::processor::instruction LIB::machine::resources::processor::instruction::operator = (const LIB::machine::resources::processor::instruction & other)
 {
 	input [0] = other.input [0];
 	input [1] = other.input [1];
-
+	
 	output = other.output;
 	
 	action = other.action;
@@ -118,7 +122,7 @@ LIB::machine::resources::processor::instruction LIB::machine::resources::process
 	//next_instruction = other.next_instruction;
 	
 	//user = other.user;
-
+	
 	return *this;
 }
 
@@ -196,23 +200,24 @@ LIB::machine::resources::processor::instructions LIB::machine::resources::proces
 //	return *this;
 //}
 
-LIB::machine::resources::processor::core::core (void /*const bool & _run*/)
-{
-	thread = NULL;
+//LIB::machine::resources::processor::core::core (void /*const bool & _run*/)
+//{
+	// thread = NULL;
 	
 	// thread = new boost::thread (boost::bind (LIB::machine::resources::processor::perform, processor));
 	
-	processor = NULL;
+	// processor = NULL;
 	
 	//ended = false;
 	
 	//run (_run);
-}
+//}
 
-LIB::machine::resources::processor::core::~core (void)
-{
+//LIB::machine::resources::processor::core::~core (void)
+//{
 	//if (thread != NULL/* && !ended*/)
 	
+	/*
 	if (thread != NULL)
 	{
 		//try
@@ -232,16 +237,16 @@ LIB::machine::resources::processor::core::~core (void)
 
 		//}
 	}
-	
-	if (processor != NULL)
-	{
-		processor = NULL;	// Prevent recursion, as the next line triggers this function.
-		processor -> cores.unset (boost::this_thread::get_id ());
-	}
+	*/
+	//if (processor != NULL)
+	//{
+	//	processor = NULL;	// Prevent recursion, as the next line triggers this function.
+	//	processor -> cores.unset (boost::this_thread::get_id ());
+	//}
 	
 	//run (_run);
-}
-
+//}
+/*
 const bool & LIB::machine::resources::processor::core::active (void) const
 {
 	return _active;
@@ -249,7 +254,7 @@ const bool & LIB::machine::resources::processor::core::active (void) const
 
 const bool LIB::machine::resources::processor::core::run (const bool & state)
 {
-	if (processor != NULL && state && ! _active)
+	if (processor != NULL && state && !_active)
 	{
 		thread = new boost::thread (boost::bind (LIB::machine::resources::processor::perform, processor));
 		
@@ -268,15 +273,16 @@ const bool LIB::machine::resources::processor::core::run (const bool & state)
 	
 	return true;
 }
-
+*/
+/*
 const LIB::machine::resources::processor::core & LIB::machine::resources::processor::core::operator = (const LIB::machine::resources::processor::core & other)
 {
-	processor = other.processor;
+	//processor = other.processor;
 	thread = other.thread;
 	
 	return *this;
 }
-
+*/
 //void LIB::machine::resources::processor::/*process::*/run (const bool & value)
 /*
 {
@@ -288,17 +294,18 @@ const LIB::machine::resources::processor::core & LIB::machine::resources::proces
 	running_condition_variable.notify_all ();
 }
 */
-//void LIB::machine::resources::processor::/*process::*/pause (void)
 /*
+void LIB::machine::resources::processor::pause (void) const
 {
 	boost::unique_lock <boost::mutex> lock (running_mutex);
-
+	
 	while (! running)
 	{
 		running_condition_variable.wait (lock);
 	}
 }
 */
+
 // Processor.
 
 LIB::machine::resources::processor::processor (const bool & state)
@@ -310,7 +317,8 @@ LIB::machine::resources::processor::processor (const bool & state)
 
 	//timeout = 4;
 	// running_main = true;
-
+	running = state;
+	
 	run (state);
 	
 	//last_instruction = "";
@@ -328,15 +336,22 @@ LIB::machine::resources::processor::processor (const bool & state)
 
 	//#pragma omp parallel for private (temp_platform)
 	//{
-	//	mathematics::numbers::natural n = omp_get_thread_num ();
-
-	//	for (mathematics::numbers::natural i = 0; i < n; ++ i/*, ++ threads*/)
-	//	{
-	//		temp_platform.thread = new boost::thread (boost::bind (& LIB::machine::resources::processor::perform, this));
-	//		//temp_platform.thread = new boost::thread (*this);
+	//	LIB::mathematics::numbers::natural n = omp_get_thread_num ();
+		LIB::mathematics::numbers::natural n;
+		n =
+				////omp_get_num_procs ()
+				//boost::thread::hardware_concurrency ()
+				1
+			;
+		
+		for (LIB::mathematics::numbers::natural i = 1; i <= n; ++ i/*, ++ threads*/)
+		{
+			// temp_platform.thread = new boost::thread (boost::bind (& LIB::machine::resources::processor::perform, this));
+			cores [i];
+			//temp_platform.thread = new boost::thread (*this);
 
 	//		threads [temp_platform.thread -> get_id ()] = temp_platform;
-	//	}
+		}
 	//}
 
 	//if (! memory.search ("queue"))	// If "queue" does not exist.
@@ -347,59 +362,6 @@ LIB::machine::resources::processor::processor (const bool & state)
 	//processor_randomizer.max (cores.size ());
 	
 	//std::cout << "Created threads." << std::endl;
-}
-const bool & LIB::machine::resources::processor::active (void) const
-{
-	return !cores.empty ();
-}
-
-const bool LIB::machine::resources::processor::run (const bool & state)
-{
-	if (state && !active ())
-	{
-		// Start.
-		
-		LIB::machine::resources::processor::core temp_core;
-		LIB::mathematics::numbers::natural n;
-		n =
-				////omp_get_num_procs ()
-				//boost::thread::hardware_concurrency ()
-				1
-			;
-		//threads.begin ();	// Reset the iterator to the beginning (for *this.enqueue ()).
-		
-		for (LIB::mathematics::numbers::natural i = 0; i < n; ++ i/*, ++ threads*/)
-		{
-			//temp_core.thread = new boost::thread (boost::bind (& LIB::machine::resources::processor::perform, this));
-			temp_core.processor = this;
-			//temp_platform.thread = new boost::thread (*this);
-			
-			temp_core.run ();
-			
-			if (temp_core.active ())
-			{
-				//temp_platform.thread -> detach ();
-				cores [temp_core.thread -> get_id ()] = temp_core;
-			}
-		}
-		
-		// This is important, so that its destructor does not delete the thread, if that thread is valid.
-		temp_core.thread = NULL;
-		
-		unsigned long long int count;
-		std::stringstream ss;
-		ss << cores.size ();
-		ss >> count;
-		processor_randomizer.max (count);
-	}
-	else if (!state && active ())
-	{
-		// Stop.
-		
-		cores.clear ();
-	}
-	
-	return true;
 }
 
 LIB::machine::resources::processor::~processor (void)
@@ -412,7 +374,7 @@ LIB::machine::resources::processor::~processor (void)
 		and so that they do not remain blocked, if they are paused.
 	*/
 	//run (true);
-	run (false);
+	// run (false);
 
 	// Wait for other threads to finish?
 	//io.reset ();
@@ -429,6 +391,84 @@ LIB::machine::resources::processor::~processor (void)
 	//}
 }
 
+const bool LIB::machine::resources::processor::active (void) const
+{
+	//return !cores.empty ();
+	return running;
+}
+
+void LIB::machine::resources::processor::pause (void) const
+{
+	//boost::unique_lock <boost::mutex> lock (running_mutex);
+	std::unique_lock<std::mutex> lock (running_mutex);
+	
+	running_condition_variable.wait (lock, [] { return running; });
+}
+
+const bool LIB::machine::resources::processor::run (const bool & value)
+{
+	{
+		//boost::unique_lock <boost::mutex> lock (running_mutex);
+		std::unique_lock <std::mutex> lock (running_mutex);
+		running = value;
+	}
+	
+	running_condition_variable.notify_all ();
+	
+	//return true;
+	
+	//if (value && !active ())
+	//{
+		// Start.
+		/*
+		LIB::machine::resources::processor::core temp_core;
+		LIB::mathematics::numbers::natural n;
+		n =
+				////omp_get_num_procs ()
+				//boost::thread::hardware_concurrency ()
+				1
+			;
+		//threads.begin ();	// Reset the iterator to the beginning (for *this.enqueue ()).
+		
+		for (LIB::mathematics::numbers::natural i = 0; i < n; ++ i)
+		{
+			//temp_core.thread = new boost::thread (boost::bind (& LIB::machine::resources::processor::perform, this));
+			// temp_core.processor = this;
+			//temp_platform.thread = new boost::thread (*this);
+			
+			// temp_core.run ();
+			
+			//if (temp_core.active ())
+			//{
+				//temp_platform.thread -> detach ();
+				//cores [temp_core.thread -> get_id ()] = temp_core;
+				cores.add (temp_core);
+			//}
+		}
+		
+		// This is important, so that its destructor does not delete the thread, if that thread is valid.
+		temp_core.thread = NULL;
+		
+		unsigned long long int count;
+		std::stringstream ss;
+		ss << cores.size ();
+		ss >> count;
+		processor_randomizer.max (count);
+		*/
+		
+		
+	//}
+	//else if (!value && active ())
+	//{
+		// Stop.
+		
+		//cores.clear ();
+		
+		//std::unique_lock <std::mutex> lock (activity);
+	//}
+	
+	return true;
+}
 
 //void LIB::machine::resources::processor::run (const bool value)
 //{
@@ -910,8 +950,8 @@ void LIB::machine::resources::processor::perform (void)
 	//++ threads;
 	//boost::thread::id id = threads.current_key ();
 	
-	std::string instruction;
-	instruction _instruction;
+	//std::string instruction;
+	//instruction instr;
 
 	
 	// boost::thread::id id = boost::this_thread::get_id ();	// Select a random processor from the avaiable ones.
@@ -930,9 +970,12 @@ void LIB::machine::resources::processor::perform (void)
 	
 	while (true)
 	{
-		instruction = dequeue ();
+		pause ();
+		
+		//instruction = dequeue ();
 
-		while (! instruction.empty ())
+		//while (! instruction.empty ())
+		while (!queue_empty ())
 		{
 			// Wait if we are paused;
 			// pause ();
@@ -958,14 +1001,15 @@ void LIB::machine::resources::processor::perform (void)
 			//if (! next_instruction.empty ())
 			//{
 				//instruction _instruction;
-
+			
 				//_instruction = dequeue ();
-				_instruction = instruction;
-
-				if (_instruction.action != operation::none)
-				{
-					execute (_instruction);
-				}
+				//instr = instruction;
+				//instr = beginning ();
+				execute (beginning ());
+				//if (instr.action != operation::none)
+				//{
+				//	execute (instr);
+				//}
 
 	//			// If execution succeeded.
 	//			if (_instruction.action != operation::none && execute (_instruction))
@@ -1008,16 +1052,17 @@ void LIB::machine::resources::processor::perform (void)
 			//}
 
 			//next_instruction = _memory.get ("Next", "Instructions");
-			instruction = dequeue ();
+			//instruction = dequeue ();
+			dequeue ();
 		}
 		
-		boost::this_thread::sleep (boost::posix_time::minutes (1));
+		//boost::this_thread::sleep (boost::posix_time::minutes (1));
 	}
 }
 
-bool LIB::machine::resources::processor::execute (LIB::machine::resources::processor::instruction _instruction)
+const bool LIB::machine::resources::processor::execute (LIB::machine::resources::processor::instruction & instr)
 {
-	switch (_instruction.action)
+	switch (instr.action)
 	{
 		case LIB::machine::resources::processor::operation::addition:
 		case LIB::machine::resources::processor::operation::substraction:
@@ -1026,44 +1071,44 @@ bool LIB::machine::resources::processor::execute (LIB::machine::resources::proce
 		case LIB::machine::resources::processor::operation::modulo:
 		case LIB::machine::resources::processor::operation::exponentiation:
 			// For variable variables.
-			while (((std::string) _instruction.input [0]) [0] == '$')
+			while (((std::string) instr.input [0]) [0] == '$')
 			{
-				_instruction.input [0] = _memory.get (_instruction.input [0]);
+				_instruction.input [0] = _memory.get (instr.input [0]);
 			}
 			
-			while (((std::string) _instruction.input [1]) [0] == '$')
+			while (((std::string) instr.input [1]) [0] == '$')
 			{
-				_instruction.input [1] = _memory.get (_instruction.input [1]);
+				_instruction.input [1] = _memory.get (instr.input [1]);
 			}
 			
-			switch (_instruction.action)
+			switch (instr.action)
 			{
 				case LIB::machine::resources::processor::operation::addition:
-					return _memory.set (_instruction.output, (LIB::NAME_V) _instruction.input [0] + _instruction.input [1]);
+					return _memory.set (instr.output, (LIB::NAME_V) instr.input [0] + instr.input [1]);
 					
 					//break;
 
 				case LIB::machine::resources::processor::operation::substraction:
-					return _memory.set (_instruction.output, _instruction.input [0] - _instruction.input [1]);
+					return _memory.set (instr.output, instr.input [0] - instr.input [1]);
 					
 					//break;
 
 				case LIB::machine::resources::processor::operation::multiplication:
-					return _memory.set (_instruction.output, (LIB::NAME_V) _instruction.input [0] * (LIB::NAME_V) _instruction.input [1]);
+					return _memory.set (instr.output, (LIB::NAME_V) instr.input [0] * (LIB::NAME_V) instr.input [1]);
 					
 					//break;
 
 				case LIB::machine::resources::processor::operation::division:
-					return _memory.set (_instruction.output, (LIB::NAME_V) _instruction.input [0] / _instruction.input [1]);
+					return _memory.set (instr.output, (LIB::NAME_V) instr.input [0] / instr.input [1]);
 					
 					//break;
 
 				case LIB::machine::resources::processor::operation::modulo:
-					return _memory.set (_instruction.output, (LIB::NAME_V) _instruction.input [0] % _instruction.input [1]);
+					return _memory.set (instr.output, (LIB::NAME_V) instr.input [0] % instr.input [1]);
 					
 					//break;
 				case LIB::machine::resources::processor::operation::exponentiation:
-					return _memory.set (_instruction.output, (LIB::NAME_V) (_instruction.input [0] ^ _instruction.input [1]));
+					return _memory.set (instr.output, (LIB::NAME_V) (instr.input [0] ^ instr.input [1]));
 					
 					//break;
 			}
@@ -1071,15 +1116,15 @@ bool LIB::machine::resources::processor::execute (LIB::machine::resources::proce
 			//break;
 			
 		case LIB::machine::resources::processor::operation::output:
-			if ((std::string) _instruction.input [0] == "endl")
+			if ((std::string) instr.input [0] == "endl")
 			{
 				std::cout << std::endl;
 			}
-			else if ((std::string) _instruction.input [0] == "tab")
+			else if ((std::string) instr.input [0] == "tab")
 			{
 				std::cout << '\t';
 			}
-			else if (((std::string) _instruction.input [0]) [0] == '$')
+			else if (((std::string) instr.input [0]) [0] == '$')
 			{
 				//while (((std::string) _instruction.inputs [0]) [0] == '$')
 				//{
@@ -1088,37 +1133,37 @@ bool LIB::machine::resources::processor::execute (LIB::machine::resources::proce
 
 				//std::string op = mem.get (_instruction.inputs [0]);
 				//std::cout << op;
-				std::cout << _memory.get (_instruction.input [0]);
+				std::cout << _memory.get (instr.input [0]);
 			}
 			else
 			{
 				//std::string str = _instruction.inputs [0];
 				//std::cout << str;
-				std::cout << _instruction.input [0];
+				std::cout << instr.input [0];
 			}
 			
-			std::cout.flush ();
+			//std::cout.flush ();
 			
 			return true;
 			//break;
 
 		case LIB::machine::resources::processor::operation::modulus:
-			return _memory.set (_instruction.output, (LIB::NAME_V) LIB::tools::modulus (_instruction.input [0]));
+			return _memory.set (instr.output, (LIB::NAME_V) LIB::tools::modulus (instr.input [0]));
 			
 			//break;
 			
 		case LIB::machine::resources::processor::operation::complement:
-			return _memory.set (_instruction.output, (LIB::NAME_V) LIB::tools::complement (_instruction.input [0]));
+			return _memory.set (instr.output, (LIB::NAME_V) LIB::tools::complement (instr.input [0]));
 			
 			//break;
 			
 		case LIB::machine::resources::processor::operation::assignment:
-			while (((std::string) _instruction.input [0]) [0] == '$')
+			while (((std::string) instr.input [0]) [0] == '$')
 			{
-				_instruction.input [0] = _memory.get (_instruction.input [0]);
+				instr.input [0] = _memory.get (instr.input [0]);
 			}
 			
-			return _memory.set (_instruction.output, _instruction.input [0]);
+			return _memory.set (instr.output, instr.input [0]);
 			
 			//break;
 		//default:
@@ -1132,6 +1177,12 @@ bool LIB::machine::resources::processor::execute (LIB::machine::resources::proce
 bool LIB::machine::resources::processor::enqueue (const LIB::machine::resources::processor::instruction _instruction, LIB::machine::resources::memory & _memory)
 {
 
+}
+*/
+/*
+void LIB::machine::resources::processor::pause (void) const
+{
+	condition_variable.wait (lock, [] { return ready; });
 }
 */
 const LIB::mathematics::numbers::natural LIB::machine::resources::processor::random_processor ()

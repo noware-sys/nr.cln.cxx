@@ -14,7 +14,7 @@
 #include "ip.h++"
 #include "mpi.h++"
 
-const static bool LIB::network::mpi::DEFAULT_CYCLE;
+const static bool LIB::network::mpi::default_cycle;
 
 LIB::network::mpi::mpi (void)
 {
@@ -46,7 +46,7 @@ LIB::network::mpi::~mpi (void)
 
 const bool LIB::network::mpi::transmit (const std::string & message)
 {
-	return transmit (message, addrs.transmit);
+	return transmit (message, addrs.transmission);
 }
 
 const bool LIB::network::mpi::transmit (const std::string & message, LIB::entity <> address)
@@ -199,17 +199,17 @@ void LIB::network::mpi::stop (void)
 // Receive asynchronously.
 bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler)
 {
-	return receive_async (handler, addrs.receive, DEFAULT_CYCLE);
+	return receive_async (handler, addrs.reception, default_cycle);
 }
 
 bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler, LIB::entity <> & address)
 {
-	return receive_async (handler, address, DEFAULT_CYCLE);
+	return receive_async (handler, address, default_cycle);
 }
 
 bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler, const bool & cycle)
 {
-	return receive_async (handler, addrs.receive, cycle);
+	return receive_async (handler, addrs.reception, cycle);
 }
 
 bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler, LIB::entity <> & address, const bool & cycle)
@@ -236,7 +236,7 @@ bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::e
 // Stop receiving asynchronously.
 bool LIB::network::mpi::receive_async_stop (void)
 {
-	return receive_async_stop (addrs.receive);
+	return receive_async_stop (addrs.reception);
 }
 
 bool LIB::network::mpi::receive_async_stop (const LIB::entity <> & address)
@@ -271,12 +271,12 @@ bool LIB::network::mpi::receive_async_stop (const LIB::entity <> & address)
 // Listen asynchronously.
 bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler)
 {
-	return listen_async (handler, addrs.listen, DEFAULT_CYCLE);
+	return listen_async (handler, addrs.listen, default_cycle);
 }
 
 bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler, const LIB::entity <> & address)
 {
-	return listen_async (handler, address, DEFAULT_CYCLE);
+	return listen_async (handler, address, default_cycle);
 }
 
 bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::entity <> &, const std::string &)> & handler, const bool & cycle)

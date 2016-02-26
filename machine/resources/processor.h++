@@ -5,11 +5,13 @@
 // Standard:
 #include <string>
 #include <queue>
-#include <stack>
+//#include <stack>
+#include <mutex>
+#include <condition_variable>
 
 // Boost:
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/condition_variable.hpp>
+//#include <boost/thread/mutex.hpp>
+//#include <boost/thread/condition_variable.hpp>
 #include <boost/serialization/serialization.hpp>
 
 // Boost serialization:
@@ -92,8 +94,8 @@ namespace LIB
 							// operator instruction (void);
 							
 							// Overwrite this instruction by the one parsed from the string.
-							const std::string operator = (const std::string &);
-							const instruction operator = (const instruction &);
+							const instruction operator = (const std::string &/* serial*/);
+							const instruction operator = (const instruction &/* other*/);
 							
 							
 							// bool active;	// If the instruction should be processed.
@@ -105,7 +107,7 @@ namespace LIB
 								instructions [1] == Next instruction, if any.
 							*/
 							// std::string prerequisite_instruction;
-							std::string next;
+							// std::string next;
 							// std::string id;
 							//std::string next_sequence;
 							
@@ -196,7 +198,7 @@ namespace LIB
 					//		template <typename std::string>
 					//		void serialize (std::string &/*, const unsigned int version*/);
 					//};
-				
+					/*
 					// Computational platform.
 					class core
 					{
@@ -204,12 +206,12 @@ namespace LIB
 							//bool ended;
 						
 						public:
-							core (void /*const bool & = false*/);
+							core (void /*const bool & = false* /);
 							~core (void);
 							
-							const core operator = (const core &);
+							// const core operator = (const core &);
 							
-							const bool & active (void) const;
+							//const bool active (void) const;
 							
 							// Non-blocking:
 							// To control the state.
@@ -217,34 +219,43 @@ namespace LIB
 							
 							// Blocking:
 							// To pause the target/worker thread until it is set to `run ([true])` again.
-							//void pause (void);
+							void pause (void);
 						protected:
 							boost::thread * thread;
+							//boost::thread thread (boost::bind (& LIB::machine::resources::processor::perform, this));
 							
-							LIB::machine::resources::processor * processor;
+							// LIB::machine::resources::processor * processor;
 							
-							bool _active;
+							//bool _active;
+							// Activity's state.
+							//std::mutex activity;
 							
 							// LIB::Pointer <boost::thread> thread;
 							//LIB::NAME_A <LIB::machine::devices::processor::instruction, LIB::mathematics::numbers::natural> queue;
 							// std::queue <instruction> queue;
 					};
-					
+					*/
 				protected:
+					std::mutex running_mutex;
+					std::condition_variable running_condition_variable;
+					
+					bool running;
 					// bool running, running_main;
 					//std::string last_instruction;	// Name of the location of the last instruction which has been enqueued.
-					const std::string next_available_instruction_location (void) const;	// Get the next available name for an instruction.
+					//const std::string next_available_instruction_location (void) const;	// Get the next available name for an instruction.
+					//const std::string next_available_instruction (void) const;	// Get the next available name for an instruction.
 					
 					// boost::mutex running_mutex;
 					// boost::condition_variable running_condition_variable;
 					
-					LIB::NAME_A <core, boost::thread::id> cores;
+					//LIB::NAME_A <core, boost::thread::id> cores;
 					//LIB::NAME_A <core, LIB::mathematics::numbers::natural> cores;
+					LIB::NAME_A <boost::thread (boost::bind (& LIB::machine::resources::processor::perform, this)), LIB::mathematics::numbers::natural> cores;
 					//LIB::NAME_A <LIB::machine::devices::processor::platform, mathematics::numbers::natural> threads;
 					//LIB::mathematics::numbers::real _do (const LIB::machine::devices::processor::instruction) const;
 					void perform (void);
 					const bool execute (const instruction &);
-					// void pause (void);
+					void pause (void) const;
 					//LIB::NAME_A <LIB::mathematics::numbers::real, mathematics::numbers::natural> _results;
 					
 					// Get a random processor from the available ones.
@@ -264,9 +275,11 @@ namespace LIB
 					//LIB::machine::devices::processor::instructions _queue;
 					
 				public:
-					processor (const bool & /* Run. */ = false);
+					processor (const bool & /* Run. */ = true);
 					~processor (void);
 					
+					const LIB::mathematics::numbers::natural queue_size (void) const;
+					const bool queue_empty (void) const;
 					//const instruction beginning (void);
 					//const bool dequeue (void);
 					const instruction beginning (void) const;
@@ -287,7 +300,7 @@ namespace LIB
 					//void initialize (std::string);
 					//LIB::mathematics::numbers::real Do (const LIB::machine::devices::processor::instruction) const;
 					//LIB::NAME_V Do (const LIB::machine::devices::processor::instruction) const;
-					LIB::machine::resources::memory * _memory;
+					LIB::machine::resources::memory _memory;
 					//bool parse (const std::string);
 					// Results:
 					//bool result_exists (const LIB::mathematics::numbers::natural);

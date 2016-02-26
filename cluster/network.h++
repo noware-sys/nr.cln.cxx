@@ -50,7 +50,7 @@ namespace LIB
 			//	void operator () (void);
 			//};
 		
-			class members : public LIB::communication::messaging
+			class network
 			{
 				public:
 					friend class boost::serialization::access;
@@ -64,8 +64,8 @@ namespace LIB
 					//template <typename Archive>
 					//void load (Archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 					
-					members (void/*const LIB::mathematics::numbers::natural &*//* keepalive time (milliseconds)*//* = 15000*/);
-					~members (void);
+					network (void/*const LIB::mathematics::numbers::natural &*//* keepalive time (milliseconds)*//* = 15000*/);
+					~network (void);
 					
 					const static unsigned short int default_udp_port = 6;
 					const static unsigned short int default_tcp_port = 7;

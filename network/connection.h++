@@ -28,23 +28,52 @@ namespace LIB
 		class connection
 		{
 			public:
+				friend class boost::serialization::access;
+				
+				template <typename archive>
+				virtual void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
+				
+				const std::string serialize (void) const;
+				const bool deserialize (const std::string &);
+				
+				operator const std::string (void) const;
+				const bool operator = (const std::string &);
+				
+				virtual const bool operator = (const connection &);
+				virtual const bool operator == (const connection &);
+				
+				class addresses
+				{
+					public:
+						friend class boost::serialization::access;
+						
+						template <typename archive>
+						void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
+						
+						const std::string serialize (void) const;
+						const bool deserialize (const std::string &);
+						
+						operator const std::string (void) const;
+						const bool operator = (const std::string &);
+						
+						const bool operator = (const addresses &);
+						const bool operator == (const addresses &);
+						
+						//boost::any
+						LIB::NTT <>
+						//std::string
+							transmission, broadcast, reception, listen;
+							//transmit, broadcast, receive, listen;
+						//LIB::NAME_A <boost::any, mathematics::numbers::natural> broadcast;
+				};
+				
 				//connection (void);
-				//connection (const connection &);
+				connection (const connection &);
 				//connection (const std::string &);
 				virtual ~ connection (void);
 				
 				//connection & operator = (const connection &);
 				//const std::string operator = (const std::string &);
-				
-				class addresses
-				{
-					public:
-						//boost::any
-						LIB::NTT <>
-						//std::string
-							transmit, broadcast, receive, listen;
-						//LIB::NAME_A <boost::any, mathematics::numbers::natural> broadcast;
-				};
 				
 				addresses addrs;
 				
@@ -81,7 +110,7 @@ namespace LIB
 				//virtual const std::string listen (LIB::entity <> & /* remote endpoint */) = 0;
 				// Listen only to this address.
 				//virtual const std::string listen (LIB::entity <> /* address */) = 0;
-				// Listen only to this address; Give back information about remote endpoint.
+				// Listen only to this address; Give back information about the remote endpoint.
 				virtual const std::string listen (LIB::NTT <> & /* remote endpoint */, LIB::NTT <> /* address */) = 0;
 				//virtual std::string listen (const unsigned short int &/* port*/);
 				//virtual std::string listen (const std::string &/* address*/, const unsigned short int &/* port*/) = 0;

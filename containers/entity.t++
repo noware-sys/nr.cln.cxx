@@ -759,6 +759,12 @@ const bool LIB::NTT <value, key>::unset (const key & _k)
 }
 
 template <typename value, typename key>
+const bool LIB::NTT <value, key>::exists (const key & _k, const bool & recursive) const
+{
+	return exist (_k, recusive);
+}
+
+template <typename value, typename key>
 const bool LIB::NTT <value, key>::exist (const key & _k, const bool & recursive) const
 {
 	switch (content.t)
@@ -792,7 +798,7 @@ const LIB::mathematics::numbers::natural LIB::NTT <value, key>::size (const bool
 	switch (content.t)
 	{
 		case container::type::literal:
-			return 1;
+			return 0;
 		default:
 			if (recursive)
 			{
@@ -979,6 +985,30 @@ LIB::NTT <value, key>::operator value & (void)
 
 template <typename value, typename key>
 LIB::NTT <value, key>::operator const value & (void) const
+{
+	return (* this) ();
+}
+
+template <typename value, typename key>
+value & LIB::NTT <value, key>::value (void)
+{
+	return (* this) ();
+}
+
+template <typename value, typename key>
+const value & LIB::NTT <value, key>::value (void) const
+{
+	return (* this) ();
+}
+
+template <typename value, typename key>
+value & LIB::NTT <value, key>::get_value (void)
+{
+	return (* this) ();
+}
+
+template <typename value, typename key>
+const value & LIB::NTT <value, key>::get_value (void) const
 {
 	return (* this) ();
 }

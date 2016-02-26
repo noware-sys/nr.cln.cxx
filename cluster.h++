@@ -23,7 +23,7 @@
 #include "containers/entity.h++"
 //#include "../network/ip/mpi.h++"
 #include "network/mpi.h++"
-#include "communication/message.h++"
+#include "communication/messaging.h++"
 #include "language/interpreter.h++"
 
 namespace LIB

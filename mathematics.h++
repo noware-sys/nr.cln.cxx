@@ -30,6 +30,8 @@ namespace LIB
 			//static const bool _default = false;	// false, 0;
 		}
 		
+		//namespace number = numbers;
+		
 		//typedef int Integer, Number;
 		//typedef numbers::real number;
 		typedef cln::cl_N number;

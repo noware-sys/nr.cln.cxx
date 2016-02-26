@@ -153,8 +153,10 @@ namespace LIB
 			const std::string substr (const unsigned long long int &/* Beginning character. */, const unsigned long long int &/* Length to retrieve. */);
 			
 			const bool empty		(void) const;
-			//bool is_generic (void) const;
-			//bool is_numeric (void) const;
+			const bool is_string (void) const;
+			const bool is_text (void) const;
+			const bool is_generic (void) const;
+			const bool is_numeric (void) const;
 
 			// Operations for the same type:
 			// NAME_V + Something
