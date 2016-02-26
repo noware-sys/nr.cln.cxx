@@ -24,11 +24,11 @@
 //#include <boost/thread/detail/thread.hpp>
 
 // // This class:
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
-#include "../containers/entity.h++"
-//#include "../../../containers/array.h++"
-// #include "../containers/variable.h++"
+#include "../container/entity.h++"
+//#include "../../../container/array.h++"
+// #include "../container/variable.h++"
 // #include "../tools.h++"
 //#include "memory.h++"
 // #include "../serialization.h++"
@@ -72,7 +72,7 @@ namespace LIB
 
 				//// Analogous to nouns and to adjectives.
 				//LIB::NAME_A <> content;
-				LIB::containers::NTT <> content;
+				LIB::container::NTT <> content;
 
 
 				friend class boost::serialization::access;

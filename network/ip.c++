@@ -45,16 +45,16 @@ const boost::asio::ip::address LIB::network::ip::network (const boost::asio::ip:
 	}
 }
 
-//const LIB::containers::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device, const bool & loopback_include)
-//const LIB::containers::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device, const bool & loopback_include)
-const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> LIB::network::ip::addresses (/*const LIB::mathematics::numbers::natural & device, const bool & loopback_include*/void)
+//const LIB::container::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device, const bool & loopback_include)
+//const LIB::container::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> LIB::network::ip::addresses (const LIB::mathematics::numbers::natural & device, const bool & loopback_include)
+const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> LIB::network::ip::addresses (/*const LIB::mathematics::numbers::natural & device, const bool & loopback_include*/void)
 {
 	//LIB::mathematics::numbers::natural i;
 	//address address_test;
 	boost::asio::ip::address _address;
-	//LIB::containers::NAME_A <address, LIB::mathematics::numbers::natural> addresses_;
-	//LIB::containers::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> _addresses;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> _addresses;
+	//LIB::container::NAME_A <address, LIB::mathematics::numbers::natural> addresses_;
+	//LIB::container::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> _addresses;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> _addresses;
 	LIB::mathematics::numbers::natural version;
 	std::string broadcast_name;
 	
@@ -264,20 +264,20 @@ const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A 
 //	proto = protocol::tcp;
 //}
 
-//std::ostream & /*LIB::containers::NAME_A <value, key>::*/operator << (std::ostream & stream, const LIB::network::ip::address & address/*, const std::string & indentation*/)
+//std::ostream & /*LIB::container::NAME_A <value, key>::*/operator << (std::ostream & stream, const LIB::network::ip::address & address/*, const std::string & indentation*/)
 //{
 //	return stream << address.to_string ();
 //}
 
-const LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> LIB::network::ip::networks (void)
+const LIB::container::NAME_A <std::string, LIB::mathematics::numbers::natural> LIB::network::ip::networks (void)
 {
-	LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> nets;
+	LIB::container::NAME_A <std::string, LIB::mathematics::numbers::natural> nets;
 	
-	for (const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string>::container & interface : addresses ())
+	for (const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string>::container & interface : addresses ())
 	{
-		for (const LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>::container & version : interface.v)
+		for (const LIB::container::NAME_A <LIB::container::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>::container & version : interface.v)
 		{
-			//for (const LIB::containers::NAME_A <std::string, std::string>::container & attributes : version.v)
+			//for (const LIB::container::NAME_A <std::string, std::string>::container & attributes : version.v)
 			//{
 				if (version.v.exists ("network"))
 				{

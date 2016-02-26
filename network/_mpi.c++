@@ -143,12 +143,12 @@ const bool LIB::network::_mpi::transmit (const std::string & message, const bool
 	return transmit (message, _reliable ? transmission.reliable : transmission.unreliable, _reliable);
 }
 
-const bool LIB::network::_mpi::transmit (const std::string & message, const LIB::containers::NTT <> & address)
+const bool LIB::network::_mpi::transmit (const std::string & message, const LIB::container::NTT <> & address)
 {
 	return transmit (message, address, reliable);
 }
 
-const bool LIB::network::_mpi::transmit (const std::string & message, LIB::containers::NTT <> address, const bool & _reliable)
+const bool LIB::network::_mpi::transmit (const std::string & message, LIB::container::NTT <> address, const bool & _reliable)
 {
 	return false;
 }
@@ -183,12 +183,12 @@ const bool LIB::network::_mpi::broadcast (const std::string & message, const boo
 	return broadcast (message, _reliable ? multicast.reliable : multicast.unreliable, _reliable);
 }
 
-const bool LIB::network::_mpi::broadcast (const std::string & message, const LIB::containers::NTT <> & addresses)
+const bool LIB::network::_mpi::broadcast (const std::string & message, const LIB::container::NTT <> & addresses)
 {
 	return broadcast (message, addresses, reliable);
 }
 
-const bool LIB::network::_mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses, const bool & _reliable)
+const bool LIB::network::_mpi::broadcast (const std::string & message, LIB::container::NTT <> addresses, const bool & _reliable)
 {
 	return false;
 }
@@ -226,26 +226,26 @@ std::string LIB::network::_mpi::receive (void)
 */
 const std::string LIB::network::_mpi::receive (void)
 {
-	LIB::containers::NTT <> remote_endpoint;
+	LIB::container::NTT <> remote_endpoint;
 	
 	return receive (remote_endpoint, reliable ? reception.reliable : reception.unreliable, reliable);
 }
 
 const std::string LIB::network::_mpi::receive (const bool & _reliable)
 {
-	LIB::containers::NTT <> remote_endpoint;
+	LIB::container::NTT <> remote_endpoint;
 	
 	return receive (remote_endpoint, _reliable ? reception.reliable : reception.unreliable, _reliable);
 }
 
-const std::string LIB::network::_mpi::receive (LIB::containers::NTT <> address, const bool & _reliable)
+const std::string LIB::network::_mpi::receive (LIB::container::NTT <> address, const bool & _reliable)
 {
-	LIB::containers::NTT <> remote_endpoint;
+	LIB::container::NTT <> remote_endpoint;
 	
 	return receive (remote_endpoint, address, _reliable);
 }
 
-const std::string LIB::network::_mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address, const bool & _reliable)
+const std::string LIB::network::_mpi::receive (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address, const bool & _reliable)
 {
 	return "";
 }
@@ -275,7 +275,7 @@ std::string LIB::network::_mpi::listen (const unsigned short int & port, const s
 }
 */
 
-const LIB::communication::message prepare (LIB::communication::message message)
+const LIB::communication::message LIB::network::_mpi::prepare (LIB::communication::message message)
 {
 	return message;
 }

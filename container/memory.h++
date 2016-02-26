@@ -41,12 +41,12 @@
 #include <Poco/Util/TimerTaskAdapter.h>
 */
 
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
 #include "../serialization.h++"
-#include "../containers/array.h++"
-#include "../containers/variable.h++"
-//#include "../containers/entity.h++"
+#include "array.h++"
+#include "variable.h++"
+//#include "../container/entity.h++"
 //#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
 // #include "../../network/mpi.h++"
@@ -54,22 +54,22 @@
 //#include "../threads.h++"
 //#include "../cluster/machine.h++"
 //#include "../machine/resource.h++"
-#include "../containers/databases/sqlite.h++"
+#include "database/sql.h++"
 
 //typedef std::string value, key;
 
-//#include "../../containers/entity-pre.h++"
+//#include "../../container/entity-pre.h++"
 
 namespace LIB
 {
-	namespace containers
+	namespace container
 	{
 		//namespace database
 		//{
 		class memory
 		{
 			public:
-				typedef LIB::containers::NAME_V key, value;
+				typedef LIB::container::NAME_V key, value;
 				//typedef container value;
 
 				//#include "entity.h++"
@@ -98,12 +98,12 @@ namespace LIB
 						const bool operator != (const iterator &) const;
 						const iterator & operator ++ (void);
 						const iterator & operator -- (void);
-						const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::package & operator * (void) const;
+						const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V>::container & operator * (void) const;
 						
-						//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> list;
+						//LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> list;
 						//bool set;	// If "this -> list" is already populated/set.
 						
-						typename LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::iterator iter;
+						typename LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V>::iterator iter;
 				};
 				/*
 				// Relations used when dealing with the self object.
@@ -142,7 +142,7 @@ namespace LIB
 				
 				BOOST_SERIALIZATION_SPLIT_MEMBER ();
 				
-				//memory (const LIB::databases::sqlite *& = NULL, const LIB::memory::key &/* current_group*/ = default_group, const LIB::memory::key &/* previous_group*/ = default_previous_group, const LIB::memory::key &/* previous_name*/ = default_name, const std::string &/* _database_name*/ = default_database_name);
+				//memory (const LIB::database::sqlite *& = NULL, const LIB::memory::key &/* current_group*/ = default_group, const LIB::memory::key &/* previous_group*/ = default_previous_group, const LIB::memory::key &/* previous_name*/ = default_name, const std::string &/* _database_name*/ = default_database_name);
 				//memory (void);
 				memory (const std::string & = default_database_name);
 				//memory (const memory &/* other*/, const std::string &/* _database_name*/ = default_database_name);
@@ -157,13 +157,13 @@ namespace LIB
 				// const memory & operator = (const memory &);
 				//const memory & operator = (const value &);
 
-				const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> list (void) const;
+				const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> list (void) const;
 
 				//const bool set (const key &/* name*/, const value &);
 				// Set a value.
 				//const bool set (const key &/* group*/, const key &/* name*/, const key &/* new group*/, const key &/* new name*/, const value &/* name: type*/ = 0, const value &/* content: type*/ = 0, const value *&/* value*/ = NULL);
-				const bool set (const key &/* name*/, const LIB::containers::NAME_A <LIB::containers::NAME_V, value> &/* values*/, const key &/* group*/ = default_group);
-				//const bool set (const LIB::containers::NAME_A <LIB::containers::NAME_V, value> &/* new values*/);
+				const bool set (const key &/* name*/, const LIB::container::NAME_A <LIB::container::NAME_V, value> &/* values*/, const key &/* group*/ = default_group);
+				//const bool set (const LIB::container::NAME_A <LIB::container::NAME_V, value> &/* new values*/);
 				const bool set (const key &/* name*/, const key &/* group*/ = default_group);	// Uses default values.
 				//const bool set_value (const key &/* group*/, const key &/* name*/, const value &/* name: type*/ = 0, const value &/* content: type*/ = 0, const value *&/* value*/ = & default_value);
 				// const bool set/*_literal*/ (const memory &/* other*/);
@@ -174,7 +174,7 @@ namespace LIB
 				//const bool set_group (const key &/* name*//* = default_value*/, const key &);
 
 				// Get the columns.
-				const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> get (const key &/* name*/, const key &/* group*/ = default_group) const;
+				const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> get (const key &/* name*/, const key &/* group*/ = default_group) const;
 				//// Get the value from the named group.
 				//memory get (const key &/* name*/) const;
 				//const memory & get (const key &/* name*/) const;
@@ -218,7 +218,7 @@ namespace LIB
 				// This gives back the key which was used.
 				const bool add (key &/* used_group*/, const key &/* name*/, const value &/* content*/ = default_value);
 				//// This overwrites any existing keys with the provided values.
-				//const bool add (const LIB::containers::NAME_A <value, key> &);
+				//const bool add (const LIB::container::NAME_A <value, key> &);
 				// const bool add (const memory &);
 				
 				// These are used as "add", as "enqueue", and as "push".
@@ -231,8 +231,8 @@ namespace LIB
 				
 				const LIB::mathematics::numbers::integer key_group_integral_min (void) const;
 				const LIB::mathematics::numbers::integer key_group_integral_max (void) const;
-				const LIB::mathematics::numbers::integer key_name_integral_min (const LIB::containers::memory::key &/* group*/ = default_group) const;
-				const LIB::mathematics::numbers::integer key_name_integral_max (const LIB::containers::memory::key &/* group*/ = default_group) const;
+				const LIB::mathematics::numbers::integer key_name_integral_min (const LIB::container::memory::key &/* group*/ = default_group) const;
+				const LIB::mathematics::numbers::integer key_name_integral_max (const LIB::container::memory::key &/* group*/ = default_group) const;
 				
 				// Queue functionality:
 				const bool enqueue (key &, const key &, const value & = default_value);
@@ -250,9 +250,9 @@ namespace LIB
 				
 				// Common functionality to queue and to stack.
 				//const key front_key (void) const;
-				const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> beginning (void) const;
+				const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> beginning (void) const;
 				//const key rear_key (void) const;
-				const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> ending (void) const;
+				const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> ending (void) const;
 				
 				//// Is the type of the key numeric?
 				//const bool integral_key (void) const;
@@ -260,8 +260,8 @@ namespace LIB
 				const mathematics::numbers::natural sequence_group_next_available (void) const;
 				// Return the next greatest unique value in the sequence (ID).
 				const mathematics::numbers::natural sequence_group_next (void) const;
-				const mathematics::numbers::natural sequence_name_next_available (const LIB::containers::memory::key &/* group*/ = default_group) const;
-				const mathematics::numbers::natural sequence_name_next (const LIB::containers::memory::key &/* group*/ = default_group) const;
+				const mathematics::numbers::natural sequence_name_next_available (const LIB::container::memory::key &/* group*/ = default_group) const;
+				const mathematics::numbers::natural sequence_name_next (const LIB::container::memory::key &/* group*/ = default_group) const;
 				
 				// For range-based (for) loop:
 				/*
@@ -301,17 +301,17 @@ namespace LIB
 				const bool refresh_list (void);
 				
 				// Get the container.
-				LIB::databases::sqlite & database (void);
+				LIB::container::database::sql::sqlite & database (void);
 				
 				const std::string & database_name (void) const;
 			protected:
-				//const bool initialize (const LIB::databases::sqlite *& = NULL, const LIB::memory::key &/* current_group*/ = default_group, const LIB::memory::key &/* previous_group*/ = default_previous_group, const LIB::memory::key &/* previous_name*/ = default_name, const std::string &/* _database_name*/ = default_database_name);
+				//const bool initialize (const LIB::database::sqlite *& = NULL, const LIB::memory::key &/* current_group*/ = default_group, const LIB::memory::key &/* previous_group*/ = default_previous_group, const LIB::memory::key &/* previous_name*/ = default_name, const std::string &/* _database_name*/ = default_database_name);
 				const bool initialize (const std::string &/* _database_name*/ = default_database_name);
 				const bool _set (const key &, const key &, const value & = default_value);
 				const bool finalize (void);
 				
 				// The container.
-				LIB::databases::sqlite * db;
+				LIB::container::database::sql::sqlite * db;
 				
 				//// The group in the table which is represented by the current instance of this object.
 				//key group;
@@ -322,10 +322,10 @@ namespace LIB
 				// The database which is used.
 				std::string _database_name;
 				
-				LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> _list;
+				LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> _list;
 		};
 		//}
 	}
 	
-	//typedef containers/*::database*/::memory memory;
+	//typedef container/*::database*/::memory memory;
 }

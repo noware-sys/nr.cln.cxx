@@ -39,12 +39,12 @@
 #include <Poco/Util/TimerTaskAdapter.h>
 */
 
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
-#include "../containers/array.h++"
-#include "../containers/variable.h++"
-// #include "../containers/entity.h++"
-#include "../containers/memory.h++"
+#include "../container/array.h++"
+#include "../container/variable.h++"
+// #include "../container/entity.h++"
+#include "../container/memory.h++"
 //#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
 // #include "../../network/mpi.h++"
@@ -52,15 +52,15 @@
 //#include "../threads.h++"
 // #include "../cluster/machine.h++"
 // #include "../machine/resource.h++"
-// #include "../containers/databases/sqlite.h++"
+// #include "../container/databases/sqlite.h++"
 
 //typedef std::string value, key;
 
-//#include "../../containers/entity-pre.h++"
+//#include "../../container/entity-pre.h++"
 
 namespace LIB
 {
-	namespace containers
+	namespace container
 	{
 		class entity_2
 		{
@@ -90,12 +90,12 @@ namespace LIB
 						const bool operator != (const iterator &) const;
 						const iterator & operator ++ (void);
 						const iterator & operator -- (void);
-						const LIB::containers::NAME_A <LIB::containers::entity_2 *, LIB::containers::memory::key>::package & operator * (void) const;
+						const LIB::container::NAME_A <LIB::container::entity_2 *, LIB::container::memory::key>::container & operator * (void) const;
 						
-						//LIB::containers::NAME_A <LIB::containers::entity_2, LIB::containers::memory::key> list;
+						//LIB::container::NAME_A <LIB::container::entity_2, LIB::container::memory::key> list;
 						//bool set;
 						
-						typename LIB::containers::NAME_A <LIB::containers::entity_2 *, LIB::containers::memory::key>::iterator iter;
+						typename LIB::container::NAME_A <LIB::container::entity_2 *, LIB::container::memory::key>::iterator iter;
 				};
 				
 				// Relations used when dealing with this/the self object.
@@ -137,7 +137,7 @@ namespace LIB
 				
 				BOOST_SERIALIZATION_SPLIT_MEMBER ();
 				
-				//typedef LIB::containers::NAME_V key, value;
+				//typedef LIB::container::NAME_V key, value;
 				//typedef container value;
 				
 				entity_2 (const entity_2 * = NULL, const memory::key & = default_name, const memory::key &/* previous_group*/ = memory::default_group, const std::string &/* database*/ = memory::default_database_name);
@@ -157,7 +157,7 @@ namespace LIB
 				const memory::value & operator = (const memory::value &);
 				
 				const bool refresh_list (void);
-				const LIB::containers::NAME_A <LIB::containers::entity_2 *, LIB::containers::memory::key> & list (void) const;
+				const LIB::container::NAME_A <LIB::container::entity_2 *, LIB::container::memory::key> & list (void) const;
 				
 				//const bool set (const key &/* name*/, const value &);
 				// Set a literal value.
@@ -210,9 +210,9 @@ namespace LIB
 				// This gives back the key that was used.
 				const bool add (const memory::value &, memory::key &);
 				// This adds the provided values.
-			//	const bool add (const LIB::containers::NAME_A <value, key> &);
+			//	const bool add (const LIB::container::NAME_A <value, key> &);
 				// This overwrites any existing keys with the provided values.
-			//	const bool set (const LIB::containers::NAME_A <value, key> &);
+			//	const bool set (const LIB::container::NAME_A <value, key> &);
 				// To add:
 				// Add (entity).
 				// Set (entity).
@@ -223,7 +223,7 @@ namespace LIB
 				// Gives back the key that was used.
 				const bool append (const memory::value &, memory::key &);
 				// Uses new keys for any existing ones rather than the provided values.
-				//const bool append (const LIB::containers::NAME_A <value, key> &);
+				//const bool append (const LIB::container::NAME_A <value, key> &);
 				
 				const LIB::mathematics::numbers::integer key_integral_min (void) const;
 				const LIB::mathematics::numbers::integer key_integral_max (void) const;
@@ -303,7 +303,7 @@ namespace LIB
 				bool tolerant;
 				
 				// Get the container.
-				LIB::containers::memory & memory (void);
+				LIB::container::memory & memory (void);
 			protected:
 				const bool initialize (const entity_2 * = NULL, const memory::key & = default_name, const memory::key &/* previous_group*/ = memory::default_group, const std::string &/* database*/ = memory::default_database_name);
 				const bool finalize (void);
@@ -320,17 +320,17 @@ namespace LIB
 				// Returned if the value is not literal if boolean == false.
 				static const memory::value backup;
 				
-				static LIB::containers::NAME_A <LIB::mathematics::numbers::natural, LIB::containers::memory *> instances;
+				static LIB::container::NAME_A <LIB::mathematics::numbers::natural, LIB::container::memory *> instances;
 				
-				LIB::containers::NAME_A <LIB::containers::entity_2 *, LIB::containers::memory::key> _list;
+				LIB::container::NAME_A <LIB::container::entity_2 *, LIB::container::memory::key> _list;
 				//const bool clear_literal (void);
 				//const bool clear_group (void);
 				const bool _add (const memory::value &, memory::key &, const memory::key &);
 			//private:
 				// The container.
-				LIB::containers::memory * _memory;
+				LIB::container::memory * _memory;
 		};
 	}
 	
-	//typedef containers::entity_2 entity_2;
+	//typedef container::entity_2 entity_2;
 }

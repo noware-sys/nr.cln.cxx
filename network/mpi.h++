@@ -21,12 +21,12 @@
 
 // This library:
 // #include "../../mathematics.h++"
-#include "../default.h++"
+#include "../value.h++"
 //#include "endpoint.h++"
 #include "_mpi.h++"
 #include "ip/mpi.h++"
-#include "../containers/array.h++"
-//#include "../containers/variable.h++"
+#include "../container/array.h++"
+//#include "../container/variable.h++"
 //#include "../communication/messaging.h++"
 
 //#include "NoWare/Network/TCP.hpp"
@@ -84,7 +84,7 @@ namespace LIB
 						protected:
 						//public:
 							// Available connections.
-							LIB::containers::NAME_A <LIB::network::_mpi */*, unsigned short int*/> _connections;
+							LIB::container::NAME_A <LIB::network::_mpi */*, unsigned short int*/> _connections;
 							
 							// Keep track of the number of instances, to avoid multiple instantiation.
 							// 
@@ -101,29 +101,29 @@ namespace LIB
 							//// This is the index for the "_connections" array from above.
 							//unsigned int connection;
 							
-							LIB::containers::NAME_A <boost::thread *, unsigned long int> handlers;
+							LIB::container::NAME_A <boost::thread *, unsigned long int> handlers;
 						public:
 							//const bool transmit (const std::string & /* message */);
-							///const bool transmit (const std::string & /* message */, LIB::containers::NTT <> /* address */);
+							///const bool transmit (const std::string & /* message */, LIB::container::NTT <> /* address */);
 							//
 							//const bool broadcast (const std::string & /* message */);
-							//const bool broadcast (const std::string & /* message */, LIB::containers::NTT <> /* addresses */);
+							//const bool broadcast (const std::string & /* message */, LIB::container::NTT <> /* addresses */);
 							//
 							//const std::string receive (void);
-							//const std::string receive (LIB::containers::NTT <> &/* remote_endpoint*/, LIB::containers::NTT <> /* address */);
+							//const std::string receive (LIB::container::NTT <> &/* remote_endpoint*/, LIB::container::NTT <> /* address */);
 							//
 							//const std::string listen (void);
-							//const std::string listen (LIB::containers::NTT <> &/* remote_endpoint*/, LIB::containers::NTT <> /* address*/);
+							//const std::string listen (LIB::container::NTT <> &/* remote_endpoint*/, LIB::container::NTT <> /* address*/);
 							
 							// Get the connections.
-							const LIB::containers::NAME_A <LIB::network::_mpi */*, unsigned short int*/> & connections (void) const;
+							const LIB::container::NAME_A <LIB::network::_mpi */*, unsigned short int*/> & connections (void) const;
 						protected:
-							//LIB::containers::NAME_A <NAME_A <boost::asio::io_service, unsigned long long int>, unsigned long int> handlers;
-							// LIB::containers::NAME_A <boost::thread *, unsigned long int> handlers;
-							//LIB::containers::NAME_A <handlers, unsigned long int> handlers;
-							//LIB::containers::NAME_A <boost::shared_ptr <boost::asio::io_service>, mathematics::numbers::natural> receivers;	// The last spawned threads for receiving TCP.
-							//LIB::containers::NAME_A <boost::shared_ptr <boost::asio::io_service>, unsigned long int> receivers;	// The last spawned threads for receiving TCP.
-							//LIB::containers::NAME_A <NAME_A <mathematics::numbers::natural, unsigned long int>, unsigned long int> listeners;	// The last spawned threads for UDP listening.
+							//LIB::container::NAME_A <NAME_A <boost::asio::io_service, unsigned long long int>, unsigned long int> handlers;
+							// LIB::container::NAME_A <boost::thread *, unsigned long int> handlers;
+							//LIB::container::NAME_A <handlers, unsigned long int> handlers;
+							//LIB::container::NAME_A <boost::shared_ptr <boost::asio::io_service>, mathematics::numbers::natural> receivers;	// The last spawned threads for receiving TCP.
+							//LIB::container::NAME_A <boost::shared_ptr <boost::asio::io_service>, unsigned long int> receivers;	// The last spawned threads for receiving TCP.
+							//LIB::container::NAME_A <NAME_A <mathematics::numbers::natural, unsigned long int>, unsigned long int> listeners;	// The last spawned threads for UDP listening.
 
 							//std::map <unsigned short int, std::string> ports;	// Valid communication ports.
 							//std::string local;	// The local host's address.
@@ -132,7 +132,7 @@ namespace LIB
 
 							// Common to all of the functions.
 							// boost::asio::io_service io/*, io_udp*/;
-							//LIB::containers::NAME_A <> sockets_udp_receive;
+							//LIB::container::NAME_A <> sockets_udp_receive;
 							//boost::asio::ip::tcp::socket * socket_tcp_receive;
 							//boost::asio::ip::udp::socket * socket_udp_receive;
 							//boost::asio::ip::tcp::acceptor * receive_acceptor;
@@ -148,8 +148,8 @@ namespace LIB
 							
 							// void receive_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 							// void listen_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
-							void receive_async_handler (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &/* handler*/, LIB::containers::NTT <> &/* address*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
-							void listen_async_handler (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &/* handler*/, LIB::containers::NTT <> &/* address*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
+							void receive_async_handler (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &/* handler*/, LIB::container::NTT <> &/* address*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
+							void listen_async_handler (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &/* handler*/, LIB::container::NTT <> &/* address*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 						public:
 							//const statuc std::string DEFAULT_ADDRESS = "0.0.0.0";
 							//const static unsigned short int DEFAULT_IP_ADDRESS_VERSION = 4;
@@ -187,32 +187,35 @@ namespace LIB
 							// void stop_tcp (void);
 							
 							
-							const bool receive_async (const boost::function <void (const LIB::containers::NTT <> &/* remote_endpoint*/, const std::string &/* address*/)> &);
-							const bool receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, LIB::containers::NTT <> &/* address*/);
-							const bool receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const bool &/* cycle*/);
-							const bool receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, LIB::containers::NTT <> &/* address*/, const bool &/* cycle*/);
-							const bool receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const bool &/* cycle*/, LIB::containers::NTT <> &/* address*/);
+							//const bool receive_async (const boost::function <void (const LIB::container::NTT <> &/* remote_endpoint*/, const std::string &/* address*/)> &/* handler*/);
+							const bool receive_async (const boost::function <void (const LIB::container::NTT <> &/* remote_endpoint*/, const std::string &/* address*/)> &/* handler*/);
+							const bool receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, LIB::container::NTT <> &/* address*/);
+							const bool receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const bool &/* cycle*/);
+							const bool receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, LIB::container::NTT <> &/* address*/, const bool &/* cycle*/);
+							const bool receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const bool &/* cycle*/, LIB::container::NTT <> &/* address*/);
 							
 							const bool receive_async_stop (void);
-							const bool receive_async_stop (const LIB::containers::NTT <> &/* address*/);
+							const bool receive_async_stop (const LIB::container::NTT <> &/* address*/);
+							//const bool receive_async_stop (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const LIB::container::NTT <> &/* address*/);
 							
-							const bool listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &);
-							const bool listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const LIB::containers::NTT <> &/* address*/);
-							const bool listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const bool &/* cycle*/);
-							const bool listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const LIB::containers::NTT <> &/* address*/, const bool &/* cycle*/);
-							const bool listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> &, const bool &/* cycle*/, const LIB::containers::NTT <> &/* address*/);
+							const bool listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &);
+							const bool listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const LIB::container::NTT <> &/* address*/);
+							const bool listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const bool &/* cycle*/);
+							const bool listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const LIB::container::NTT <> &/* address*/, const bool &/* cycle*/);
+							const bool listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const bool &/* cycle*/, const LIB::container::NTT <> &/* address*/);
 							
 							const bool listen_async_stop (void);
-							const bool listen_async_stop (const LIB::containers::NTT <> &/* address*/);
+							const bool listen_async_stop (const LIB::container::NTT <> &/* address*/);
+							//const bool listen_async_stop (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> &, const LIB::container::NTT <> &/* address*/);
 							
 							
 							using LIB::network::_mpi::transmit;
 							using LIB::network::_mpi::broadcast;
 							using LIB::network::_mpi::receive;
 							
-							const bool transmit (const std::string & /* message */, LIB::containers::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
-							const bool broadcast (const std::string &/* message*/, LIB::containers::NTT <>/* address/addresses */, const bool &/* reliable */);
-							const std::string receive (LIB::containers::NTT <> & /* remote endpoint */, LIB::containers::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
+							const bool transmit (const std::string & /* message */, LIB::container::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
+							const bool broadcast (const std::string &/* message*/, LIB::container::NTT <>/* address/addresses */, const bool &/* reliable */);
+							const std::string receive (LIB::container::NTT <> & /* remote endpoint */, LIB::container::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
 					};
 				//}
 				/*

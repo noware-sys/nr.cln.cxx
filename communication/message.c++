@@ -19,13 +19,14 @@ void LIB::communication::message::serialize (archive & _archive, const unsigned 
 //template <typename value, typename key>
 const std::string LIB::communication::message::serialize (void) const
 {
-	return LIB::serialize <LIB::communication::message> (* this);
+
+	return LIB::serialize <LIB::communication::message> (*this);
 }
 
 //template <typename value, typename key>
 const bool LIB::communication::message::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::communication::message> (serial, * this);
+	return LIB::deserialize <LIB::communication::message> (serial, *this);
 }
 
 //template <typename value, typename key>

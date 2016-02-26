@@ -9,8 +9,8 @@
 
 //#include <cln/cln.h>
 
-//#include "mathematics.h++"
-#include "library.h++"
+#include "mathematics.h++"
+#include "name.h++"
 
 /*
 	Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
@@ -50,9 +50,10 @@ namespace LIB
 		*/
 		//static const std::string								general	= "";
 		static const std::string								text	= "";	// generic, text
+		static const std::string								generic	= "";	// to be removed
 		static const char										character	= ' ';	// '\0', ' '
-		static const /*LIB::*/mathematics::numbers::natural		numeric	= 0;
-		//static const unsigned short int						numeric	= 0;
+		//static const LIB::mathematics::numbers::natural			numeric	= 0;
+		static const unsigned short int							numeric	= 0;
 		static const bool										boolean	= false;
 	}
 	
@@ -61,3 +62,4 @@ namespace LIB
 }
 
 //#endif
+

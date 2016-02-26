@@ -4,60 +4,60 @@
 //#include <boost/mem_fn.hpp>
 //#include <boost/ref.hpp>
 
-const std::string LIB::containers::memory::default_database_name = ":memory:";
-const LIB::containers::memory::key LIB::containers::memory::default_group = "";
-//const LIB::containers::memory::value LIB::containers::memory::default_name;
-const LIB::containers::memory::value LIB::containers::memory::default_value = "";
+const std::string LIB::container::memory::default_database_name = ":memory:";
+const LIB::container::memory::key LIB::container::memory::default_group = 0;
+//const LIB::container::memory::value LIB::container::memory::default_name;
+const LIB::container::memory::value LIB::container::memory::default_value = "";
 
 // Memory: Iterator:
 
-LIB::containers::memory::iterator::iterator (void)
+LIB::container::memory::iterator::iterator (void)
 {
 	//set = false;
 }
 
-LIB::containers::memory::iterator::iterator (const LIB::containers::memory::iterator & other)
+LIB::container::memory::iterator::iterator (const LIB::container::memory::iterator & other)
 {
 	operator = (other);
 }
 /*
-LIB::containers::memory::iterator::~iterator (void)
+LIB::container::memory::iterator::~iterator (void)
 {
 }
 */
-const LIB::containers::memory::iterator & LIB::containers::memory::iterator::operator = (const LIB::containers::memory::iterator & other)
+const LIB::container::memory::iterator & LIB::container::memory::iterator::operator = (const LIB::container::memory::iterator & other)
 {
 	iter = other.iter;
 	
 	return *this;
 }
 
-const bool LIB::containers::memory::iterator::operator == (const iterator & other) const
+const bool LIB::container::memory::iterator::operator == (const iterator & other) const
 {
 	return iter == other.iter;
 	//return false;
 }
 
-const bool LIB::containers::memory::iterator::operator != (const iterator & other) const
+const bool LIB::container::memory::iterator::operator != (const iterator & other) const
 {
 	return ! (operator == (other));
 }
 
-const LIB::containers::memory::iterator & LIB::containers::memory::iterator::operator ++ (void)
+const LIB::container::memory::iterator & LIB::container::memory::iterator::operator ++ (void)
 {
 	++ iter;
 	
 	return * this;
 }
 
-const LIB::containers::memory::iterator & LIB::containers::memory::iterator::operator -- (void)
+const LIB::container::memory::iterator & LIB::container::memory::iterator::operator -- (void)
 {
 	-- iter;
 	
 	return * this;
 }
 
-const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::package & LIB::containers::memory::iterator::operator * (void) const
+const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V>::container & LIB::container::memory::iterator::operator * (void) const
 {
 	//return * (iter -> v);
 	//return iter -> v;
@@ -66,21 +66,21 @@ const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V,
 
 // Memory:
 
-//static const std::string LIB::containers::memory::default_database_name;
-//static const std::string LIB::containers::memory::default_group;
-////static const std::string LIB::containers::memory::default_name;
-//static const std::string LIB::containers::memory::default_value;
+//static const std::string LIB::container::memory::default_database_name;
+//static const std::string LIB::container::memory::default_group;
+////static const std::string LIB::container::memory::default_name;
+//static const std::string LIB::container::memory::default_value;
 //
-//const bool LIB::containers::memory::initialize (const LIB::database::sqlite *& _db, const LIB::containers::memory::key & grp, const LIB::containers::memory::key & previous_grp, const LIB::containers::memory::key & nm, const std::string & __database_name)
+//const bool LIB::container::memory::initialize (const LIB::database::sqlite *& _db, const LIB::container::memory::key & grp, const LIB::container::memory::key & previous_grp, const LIB::container::memory::key & nm, const std::string & __database_name)
 //{
 //}
 
-const bool LIB::containers::memory::initialize (const std::string & __database_name)
+const bool LIB::container::memory::initialize (const std::string & __database_name)
 {
 	//std::cout << std::endl << default_database_name << std::endl;
 	_database_name = __database_name;
 	
-	db = new LIB::databases::sqlite (_database_name);
+	db = new LIB::container::database::sql::sqlite (_database_name);
 	
 	if (! db -> query ("BEGIN"))
 		return false;
@@ -124,7 +124,7 @@ const bool LIB::containers::memory::initialize (const std::string & __database_n
 	return db -> query ("COMMIT");
 }
 
-LIB::containers::memory::memory (const std::string & __database_name)
+LIB::container::memory::memory (const std::string & __database_name)
 {
 //	db = other.db;
 //	group = other.group;
@@ -135,7 +135,7 @@ LIB::containers::memory::memory (const std::string & __database_name)
 	//_database_name = __database_name;
 }
 /*
-LIB::containers::memory::memory (const memory & other, const std::string & __database_name)
+LIB::container::memory::memory (const memory & other, const std::string & __database_name)
 {
 //	db = other.db;
 //	group = other.group;
@@ -147,7 +147,7 @@ LIB::containers::memory::memory (const memory & other, const std::string & __dat
 	operator = (other);
 }
 */
-LIB::containers::memory::~memory (void)
+LIB::container::memory::~memory (void)
 {
 	//if (db != NULL && group == default_group)
 	//{
@@ -156,7 +156,7 @@ LIB::containers::memory::~memory (void)
 	//}
 }
 
-const bool LIB::containers::memory::finalize (void)
+const bool LIB::container::memory::finalize (void)
 {
 	try
 	{
@@ -175,40 +175,40 @@ const bool LIB::containers::memory::finalize (void)
 }
 
 template <typename archive>
-void LIB::containers::memory::save (archive & arch, const unsigned int & version) const
+void LIB::container::memory::save (archive & arch, const unsigned int & version) const
 {
 }
 
 template <typename archive>
-void LIB::containers::memory::load (archive & arch, const unsigned int & version)
+void LIB::container::memory::load (archive & arch, const unsigned int & version)
 {
 }
 
-/*const bool LIB::containers::memory::query (LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> & result, const std::string & qry, const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> & arguments)
+/*const bool LIB::container::memory::query (LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> & result, const std::string & qry, const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> & arguments)
 {
 	return db -> query (result, qry, arguments);
 }*/
 
-const std::string & LIB::containers::memory::database_name (void) const
+const std::string & LIB::container::memory::database_name (void) const
 {
 	return _database_name;
 }
 
-LIB::databases::sqlite & LIB::containers::memory::database (void)
+LIB::container::database::sql::sqlite & LIB::container::memory::database (void)
 {
 	// It should always be safe to dereference,
 	// because the constructors should normally ensure that an object is present.
 	return * db;
 }
 
-//const LIB::containers::memory::relation LIB::containers::memory::relate (const LIB::containers::memory::memory & other) const
+//const LIB::container::memory::relation LIB::container::memory::relate (const LIB::container::memory::memory & other) const
 //{
 //	relation rel/* = relation::self*/;
 //	
 //	return rel;
 //}
 /*
-const bool LIB::containers::memory::operator == (const LIB::containers::memory & other) const
+const bool LIB::container::memory::operator == (const LIB::container::memory & other) const
 {
 	//typeid ();
 	if (db == other.db)	// Is this everything which is needed?
@@ -217,33 +217,33 @@ const bool LIB::containers::memory::operator == (const LIB::containers::memory &
 	return false;
 }
 
-const bool LIB::containers::memory::operator != (const LIB::containers::memory & other) const
+const bool LIB::container::memory::operator != (const LIB::container::memory & other) const
 {
 	return ! (operator == (other));
 }
 */
 /*
-const bool LIB::containers::memory::operator == (const LIB::containers::memory::value & other) const
+const bool LIB::container::memory::operator == (const LIB::container::memory::value & other) const
 {
 	return false;
 }
 
-const bool LIB::containers::memory::operator != (const LIB::containers::memory::value & other) const
+const bool LIB::container::memory::operator != (const LIB::container::memory::value & other) const
 {
 	return ! operator == (other);
 }
 */
 /*
-const LIB::containers::memory & LIB::containers::memory::operator = (const LIB::containers::memory & other)
+const LIB::container::memory & LIB::container::memory::operator = (const LIB::container::memory & other)
 {
 	return * this;
 }
 */
-//const LIB::containers::memory & LIB::containers::memory::operator = (const LIB::containers::memory::value & val)
+//const LIB::container::memory & LIB::container::memory::operator = (const LIB::container::memory::value & val)
 //{
 //	if (clear ())
 //	{
-//		LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//		LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //		
 //		arguments [1] = group;
 //		arguments [2] = 0;
@@ -257,10 +257,10 @@ const LIB::containers::memory & LIB::containers::memory::operator = (const LIB::
 //	return * this;
 //}
 
-const LIB::mathematics::numbers::natural LIB::containers::memory::size (void) const
+const LIB::mathematics::numbers::natural LIB::container::memory::size (void) const
 {
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT COUNT (*)\n\
@@ -270,12 +270,12 @@ const LIB::mathematics::numbers::natural LIB::containers::memory::size (void) co
 	return result [1] [1];
 }
 
-const bool LIB::containers::memory::size_group (const LIB::containers::memory::key & group)
+const LIB::mathematics::numbers::natural LIB::container::memory::size_group (const LIB::container::memory::key & group) const
 {
 	return false;
 }
 
-const bool LIB::containers::memory::clear (void)
+const bool LIB::container::memory::clear (void)
 {
 	return
 	db -> query ("\
@@ -284,31 +284,31 @@ const bool LIB::containers::memory::clear (void)
 		");
 }
 
-const bool LIB::containers::memory::clear_group (const LIB::containers::memory::key & group)
+const bool LIB::container::memory::clear_group (const LIB::container::memory::key & group)
 {
 	return false;
 }
 
-const bool LIB::containers::memory::empty (void) const
+const bool LIB::container::memory::empty (void) const
 {
 	return ! (size () > 0);
 }
 
-const bool LIB::containers::memory::empty_group (const LIB::containers::memory::key & group)
+const bool LIB::container::memory::empty_group (const LIB::container::memory::key & group) const
 {
 	return false;
 }
 
-const bool LIB::containers::memory::full (void) const
+const bool LIB::container::memory::full (void) const
 {
 	return false;
 }
 
-const bool LIB::containers::memory::exists (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const bool LIB::container::memory::exists (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	//key grp;
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	/*
 	
 	arguments [1] = group;
@@ -350,16 +350,16 @@ const bool LIB::containers::memory::exists (const LIB::containers::memory::key &
 	return result [1] [1] > 0;
 }
 
-//const bool LIB::containers::memory::exists (const LIB::containers::memory::key & name) const
+//const bool LIB::container::memory::exists (const LIB::container::memory::key & name) const
 //{
 //	return exist (name);
 //}
 /*
-const LIB::containers::memory LIB::containers::memory::operator + (const LIB::containers::memory::value & val) const
+const LIB::container::memory LIB::container::memory::operator + (const LIB::container::memory::value & val) const
 {}
 */
 /*
-const LIB::containers::memory LIB::containers::memory::operator + (const LIB::containers::memory & other) const
+const LIB::container::memory LIB::container::memory::operator + (const LIB::container::memory & other) const
 {
 	memory aggregate (* this); // use the default_database_name
 	
@@ -369,49 +369,49 @@ const LIB::containers::memory LIB::containers::memory::operator + (const LIB::co
 }
 */
 /*
-const LIB::containers::memory & LIB::containers::memory::operator += (const LIB::containers::memory::value & val)
+const LIB::container::memory & LIB::container::memory::operator += (const LIB::container::memory::value & val)
 {}
 */
 /*
-const LIB::containers::memory & LIB::containers::memory::operator += (const LIB::containers::memory & other)
+const LIB::container::memory & LIB::container::memory::operator += (const LIB::container::memory & other)
 {
 	return * this;
 }
 */
-const bool LIB::containers::memory::add (const LIB::containers::memory::key & k, const LIB::containers::memory::value & val)
+const bool LIB::container::memory::add (const LIB::container::memory::key & k, const LIB::container::memory::value & val)
 {
 	key used_group;
 	
 	return add (used_group, k, val);
 }
 
-const bool LIB::containers::memory::add (LIB::containers::memory::key & used_group, const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::add (LIB::container::memory::key & used_group, const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	used_group = sequence_group_next_available ();
 	
 	return _set (used_group, k, v);
 }
 /*
-const bool LIB::containers::memory::add (const LIB::containers::memory & other)
+const bool LIB::container::memory::add (const LIB::container::memory & other)
 {
 	return false;
 }
 */
-const bool LIB::containers::memory::append (const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::append (const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	key used_group;
 	
 	return append (used_group, k, v);
 }
 
-const bool LIB::containers::memory::append (LIB::containers::memory::key & used_group, const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::append (LIB::container::memory::key & used_group, const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	used_group = sequence_group_next ();
 	
 	return _set (used_group, k, v);
 }
 
-const bool LIB::containers::memory::_set (const LIB::containers::memory::key & used_group, const LIB::containers::memory::key & k, const LIB::containers::memory::value & val)
+const bool LIB::container::memory::_set (const LIB::container::memory::key & used_group, const LIB::container::memory::key & k, const LIB::container::memory::value & val)
 {
 	if (! db -> query ("BEGIN"))
 		return false;
@@ -431,8 +431,8 @@ const bool LIB::containers::memory::_set (const LIB::containers::memory::key & u
 	return true;
 	*/
 	
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	//LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	//used_group = sequence_group_next ();
 	
@@ -468,28 +468,28 @@ const bool LIB::containers::memory::_set (const LIB::containers::memory::key & u
 	return db -> query ("COMMIT");
 }
 /*
-const bool LIB::containers::memory::append (const LIB::containers::memory & other)
+const bool LIB::container::memory::append (const LIB::container::memory & other)
 {}
 */
-const bool LIB::containers::memory::push (const LIB::containers::memory::key & k, const LIB::containers::memory::value & val)
+const bool LIB::container::memory::push (const LIB::container::memory::key & k, const LIB::container::memory::value & val)
 {
 	key used_group;
 	
 	return push (used_group, k, val);
 }
 
-const bool LIB::containers::memory::push (LIB::containers::memory::key & used_group, const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::push (LIB::container::memory::key & used_group, const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	return append (used_group, k, v);
 }
 
-const bool LIB::containers::memory::pop (void)
+const bool LIB::container::memory::pop (void)
 {
 	if (! db -> query ("BEGIN"))
 		return false;
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	//LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	if (! db -> query ("\
 		DELETE FROM \"Entities\"\n\
@@ -504,7 +504,7 @@ const bool LIB::containers::memory::pop (void)
 	return db -> query ("COMMIT");
 }
 
-const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_integral_min (void) const
+const LIB::mathematics::numbers::integer LIB::container::memory::key_group_integral_min (void) const
 {
 	/*
 	key i = key_group_integral_max ();
@@ -520,8 +520,8 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_inte
 	return i;
 	*/
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT COALESCE (MIN (\"Group\"), 0)\n\
@@ -535,12 +535,12 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_inte
 //	}
 //	else
 //	{
-		// There should always be a result, because of the coalesce function.
+		// ? There should always be a result, because of the coalesce function.
 		return result [1] [1];
 //	}
 }
 
-const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_integral_max (void) const
+const LIB::mathematics::numbers::integer LIB::container::memory::key_group_integral_max (void) const
 {
 	/*
 	key i = 1;
@@ -556,8 +556,8 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_inte
 	return i;
 	*/
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT COALESCE (MAX (\"Group\"), 0)\n\
@@ -571,15 +571,15 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_group_inte
 //	}
 //	else
 //	{
-		// There should always be a result, because of the coalesce function.
+		// ? There should always be a result, because of the coalesce function.
 		return result [1] [1];
 //	}
 }
 
-const LIB::mathematics::numbers::integer LIB::containers::memory::key_name_integral_min (const LIB::containers::memory::key & group) const
+const LIB::mathematics::numbers::integer LIB::container::memory::key_name_integral_min (const LIB::container::memory::key & group) const
 {
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	arguments.append (group);
 	
@@ -602,10 +602,10 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_name_integ
 	return result [1] [1];
 }
 
-const LIB::mathematics::numbers::integer LIB::containers::memory::key_name_integral_max (const LIB::containers::memory::key & group) const
+const LIB::mathematics::numbers::integer LIB::container::memory::key_name_integral_max (const LIB::container::memory::key & group) const
 {
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	arguments.append (group);
 	
@@ -628,25 +628,25 @@ const LIB::mathematics::numbers::integer LIB::containers::memory::key_name_integ
 	return result [1] [1];
 }
 
-const bool LIB::containers::memory::enqueue (const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::enqueue (const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	key used_group;
 	
 	return enqueue (used_group, k, v);
 }
 
-const bool LIB::containers::memory::enqueue (LIB::containers::memory::key & used_group, const LIB::containers::memory::key & k, const LIB::containers::memory::value & v)
+const bool LIB::container::memory::enqueue (LIB::container::memory::key & used_group, const LIB::container::memory::key & k, const LIB::container::memory::value & v)
 {
 	return append (used_group, k, v);
 }
 
-const bool LIB::containers::memory::dequeue (void)
+const bool LIB::container::memory::dequeue (void)
 {
 	if (! db -> query ("BEGIN"))
 		return false;
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	//LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	if (! db -> query ("\
 		DELETE FROM \"Entities\"\n\
@@ -675,48 +675,48 @@ const bool LIB::containers::memory::dequeue (void)
 	return db -> query ("COMMIT");
 }
 
-const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::containers::memory::beginning (void) const
+const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> LIB::container::memory::beginning (void) const
 {
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n\
 		FROM \"Entities\"\n\
-		WHERE \"Group\" = (SELECT COALESCE (MIN (\"Group\"), '') FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		WHERE \"Group\" = (SELECT COALESCE (MIN (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
 		");
 	
 	return result [1];
 }
 
-const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::containers::memory::ending (void) const
+const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> LIB::container::memory::ending (void) const
 {
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n\
 		FROM \"Entities\"\n\
-		WHERE \"Group\" = (SELECT COALESCE (MAX (\"Group\"), '') FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		WHERE \"Group\" = (SELECT COALESCE (MAX (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
 		");
 	
 	return result [1];
 }
 
 /*
-const bool LIB::containers::memory::push (const LIB::containers::memory::value & val)
+const bool LIB::container::memory::push (const LIB::container::memory::value & val)
 {}
 
-const bool LIB::containers::memory::push (const LIB::containers::memory::value & val, LIB::containers::memory::key & used_key)
+const bool LIB::container::memory::push (const LIB::container::memory::value & val, LIB::container::memory::key & used_key)
 {}
 
-const bool LIB::containers::memory::pop (void)
+const bool LIB::container::memory::pop (void)
 {}
 */
-//const bool LIB::containers::memory::integral_key (void) const
+//const bool LIB::container::memory::integral_key (void) const
 //{}
 
-const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_group_next_available (void) const
+const LIB::mathematics::numbers::natural LIB::container::memory::sequence_group_next_available (void) const
 {
 	/*
 	for (key i = 1; i <= size (); ++ i)
@@ -728,8 +728,8 @@ const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_group
 	}
 	*/
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	db -> query (result, "\
 		SELECT DISTINCT\n\
@@ -787,20 +787,21 @@ const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_group
 	//return 1;
 }
 
-const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_group_next (void) const
+const LIB::mathematics::numbers::natural LIB::container::memory::sequence_group_next (void) const
 {
 	return key_group_integral_max () + 1;
 }
 
-const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_name_next_available (const LIB::containers::memory::key & group) const
+const LIB::mathematics::numbers::natural LIB::container::memory::sequence_name_next_available (const LIB::container::memory::key & group) const
 {
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	
 	arguments.append (group);
 	arguments.append (group);
 	
-	_memory -> database ().query
+	//_memory -> database ().query
+	db -> query
 	(
 		result,
 		"\
@@ -864,29 +865,29 @@ const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_name_
 	return result [1] [1];
 }
 
-const LIB::mathematics::numbers::natural LIB::containers::memory::sequence_name_next (void) const
+const LIB::mathematics::numbers::natural LIB::container::memory::sequence_name_next (const LIB::container::memory::key & group) const
 {
-	return key_name_integral_max () + 1;
+	return key_name_integral_max (group) + 1;
 }
 
-const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> LIB::containers::memory::list (void) const
+const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> LIB::container::memory::list (void) const
 {
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
-	//LIB::containers::NAME_A <LIB::containers::memory, LIB::containers::memory::key> entities;
+	//LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
+	//LIB::container::NAME_A <LIB::container::memory, LIB::container::memory::key> entities;
 	
 	//arguments [1] = group;
 	//db -> query (result, "SELECT \"Name\", \"Content\" FROM \"Entities\" WHERE \"Group\" = ?", arguments);
 	db -> query (result, "SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\" FROM \"Entities\"");
 	
-//	for (LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::container & row : result)
+//	for (LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V>::container & row : result)
 //	{
-//		//for (LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>::container & column : row.v)
+//		//for (LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>::container & column : row.v)
 //		//{
 //		//	// This loop should last for only one (1) iteration.
 //		//}
 //		{
-//			LIB::containers::memory mem (db, row.v [2], group, row.v [1]);
+//			LIB::container::memory mem (db, row.v [2], group, row.v [1]);
 //			
 //			entities [row.v [1]] = mem;
 //		}
@@ -896,18 +897,18 @@ const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V,
 	return result;
 }
 
-const bool LIB::containers::memory::refresh_list (void)
+const bool LIB::container::memory::refresh_list (void)
 {
 	_list = list ();
 	
 	return true;
 }
 
-const LIB::containers::memory::iterator LIB::containers::memory::begin (void) const
+const LIB::container::memory::iterator LIB::container::memory::begin (void) const
 {
 	//return _list.begin ();
 	
-	LIB::containers::memory::iterator iter;
+	LIB::container::memory::iterator iter;
 	/*
 	if (! iter.set)
 	{
@@ -929,11 +930,11 @@ const LIB::containers::memory::iterator LIB::containers::memory::begin (void) co
 	return iter;
 }
 
-const LIB::containers::memory::iterator LIB::containers::memory::end (void) const
+const LIB::container::memory::iterator LIB::container::memory::end (void) const
 {
 	//return _list.end ();
 	
-	LIB::containers::memory::iterator iter;
+	LIB::container::memory::iterator iter;
 	/*
 	if (! iter.set)
 	{
@@ -955,14 +956,14 @@ const LIB::containers::memory::iterator LIB::containers::memory::end (void) cons
 	return iter;
 }
 
-const std::string LIB::containers::memory::serialize (void) const
+const std::string LIB::container::memory::serialize (void) const
 {
-	return LIB::serialize <LIB::containers::memory> (* this);
+	return LIB::serialize <LIB::container::memory> (* this);
 }
 
-const bool LIB::containers::memory::deserialize (const std::string & serial)
+const bool LIB::container::memory::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::containers::memory> (serial, * this);
+	return LIB::deserialize <LIB::container::memory> (serial, * this);
 }
 
 /*operator const std::string (void) const
@@ -970,18 +971,18 @@ const bool LIB::containers::memory::deserialize (const std::string & serial)
 	return serialize ();
 }
 
-const LIB::containers::memory & operator = (const std::string & serial)
+const LIB::container::memory & operator = (const std::string & serial)
 {
 	deserialize (serial);
 	return *this;
 }*/
 
-//LIB::containers::memory::operator const value (void) const
+//LIB::container::memory::operator const value (void) const
 //{
 //	return get ();
 //}
 
-//LIB::containers::memory LIB::containers::memory::operator [] (const key & name)
+//LIB::container::memory LIB::container::memory::operator [] (const key & name)
 //{
 //	if (! exists (name))
 //	{
@@ -991,20 +992,20 @@ const LIB::containers::memory & operator = (const std::string & serial)
 //	return get (name);
 //}
 
-/*const LIB::containers::memory & LIB::containers::memory::operator [] (const key & name) const
+/*const LIB::container::memory & LIB::container::memory::operator [] (const key & name) const
 {
 	return *this;
 }*/
 
-//const LIB::containers::memory::value LIB::containers::memory::get (void) const
+//const LIB::container::memory::value LIB::container::memory::get (void) const
 //{
 //	// Set "Reference" to "false" and "Content/Content" to ""
 //	// if the name which is being
 //	
 //	//content_clear_group ();
 //	
-//	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
-//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
+//	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //	
 //	arguments [1] = previous_group;
 //	arguments [2] = previous_name;
@@ -1038,13 +1039,13 @@ const LIB::containers::memory & operator = (const std::string & serial)
 //	//return mem;
 //}
 //
-//const LIB::containers::memory LIB::containers::memory::get (const LIB::containers::memory::key & nm) const
+//const LIB::container::memory LIB::container::memory::get (const LIB::container::memory::key & nm) const
 //{
 //	//content_clear_literal (nm/* the new, inexistent, (sub-)name*/);
 //	
 //	key grp;
-//	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
-//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
+//	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //	/*
 //	
 //	arguments [1] = group;
@@ -1119,14 +1120,14 @@ const LIB::containers::memory & operator = (const std::string & serial)
 //	//return result;
 //}
 
-//const bool LIB::containers::memory::set/*_literal*/ (const LIB::containers::memory::value & val)
+//const bool LIB::container::memory::set/*_literal*/ (const LIB::container::memory::value & val)
 //{
 //	if (! clear ())
 //	{
 //		return false;
 //	}
 //	
-//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //	
 //	//arguments [1] = 0;
 //	arguments [1] = val;
@@ -1142,19 +1143,19 @@ const LIB::containers::memory & operator = (const std::string & serial)
 //			", arguments);
 //}
 
-const bool LIB::containers::memory::set (const LIB::containers::memory::key & name, const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::memory::value> & values, const LIB::containers::memory::key & group)
+const bool LIB::container::memory::set (const LIB::container::memory::key & name, const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::memory::value> & values, const LIB::container::memory::key & group)
 {
 	//if (! values.exists ("Group") || ! values.exists ("Name"))
 	//{
 	//	return false;
 	//}
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_V, value> columns;
+	//LIB::container::NAME_A <LIB::container::NAME_V, value> columns;
 	
-	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	//LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 	
-	LIB::containers::NAME_A <> cols;
+	LIB::container::NAME_A <> cols;
 	
 	std::string column_names = "\"Group\", \"Name\"", column_placeholders = "?, ?";
 	
@@ -1167,9 +1168,9 @@ const bool LIB::containers::memory::set (const LIB::containers::memory::key & na
 	cols.append ("Content: Type");
 	cols.append ("Content");
 	
-	//LIB::containers::NAME_V val;
+	//LIB::container::NAME_V val;
 	
-	for (const LIB::containers::NAME_A <>::package & column_name : cols)
+	for (const LIB::container::NAME_A <>::container & column_name : cols)
 	{
 		column_names += ", \"" + column_name.v.to_string () + '\"';
 		column_placeholders += ", ?";
@@ -1225,34 +1226,34 @@ const bool LIB::containers::memory::set (const LIB::containers::memory::key & na
 //			WHERE \"Group\" = ? AND \"Name\" = ?;
 }
 
-const bool LIB::containers::memory::set (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group)
+const bool LIB::container::memory::set (const LIB::container::memory::key & name, const LIB::container::memory::key & group)
 {
-	const LIB::containers::NAME_A <LIB::containers::NAME_V, value> values;
+	const LIB::container::NAME_A <LIB::container::NAME_V, value> values;
 	
 	return set (name, values, group);
 }
 /*
-const bool LIB::containers::memory::set (const LIB::containers::memory & other)
+const bool LIB::container::memory::set (const LIB::container::memory & other)
 {
 	operator = (other);
 	
 	return true;
 }
 */
-//const bool LIB::containers::memory::set_group (const LIB::containers::memory::key & name)
+//const bool LIB::container::memory::set_group (const LIB::container::memory::key & name)
 //{
 //	key used_group;
 //	return set_group (name, used_group);
 //}
 //
-//const bool LIB::containers::memory::set_group (const LIB::containers::memory::key & name, const LIB::containers::memory::key & used_group)
+//const bool LIB::container::memory::set_group (const LIB::container::memory::key & name, const LIB::container::memory::key & used_group)
 //{
 //	if (! clear ())
 //	{
 //		return false;
 //	}
 //	
-//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //	
 //	//key grp = sequence_group_next_available ();
 //	used_group =  sequence_group_next_available ();
@@ -1300,14 +1301,14 @@ const bool LIB::containers::memory::set (const LIB::containers::memory & other)
 //	return db -> query (NULL, "COMMIT", NULL);
 //}
 //
-//const bool LIB::containers::memory::set_group (void)
+//const bool LIB::container::memory::set_group (void)
 //{
 //	if (! clear ())
 //	{
 //		return false;
 //	}
 //	
-//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 //	
 //	arguments [1] = 1;
 //	arguments [2] = previous_group;
@@ -1322,13 +1323,13 @@ const bool LIB::containers::memory::set (const LIB::containers::memory & other)
 //			", arguments);
 //}
 
-const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::containers::memory::get (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> LIB::container::memory::get (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	// This is the default, backup variable:
-	const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> columns;
+	const LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> columns;
 	
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
 	
 	arguments [1] = group;
 	arguments [2] = name;
@@ -1351,16 +1352,16 @@ const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>
 		// There should always be one row present because of the (unique) index, if there is anything present.
 		// Return the first (and only) row.
 		// 
-		// Use the fact that "LIB::containers::memory::value == LIB::containers::NAME_V", for now.
+		// Use the fact that "LIB::container::memory::value == LIB::container::NAME_V", for now.
 		return result [1];
 	}
 }
 
-const bool LIB::containers::memory::is_name_literal (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const bool LIB::container::memory::is_name_literal (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	//key grp;
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	/*
 	
 	arguments [1] = group;
@@ -1402,16 +1403,16 @@ const bool LIB::containers::memory::is_name_literal (const LIB::containers::memo
 	return result [1] [1] == 0;
 }
 /*
-const bool LIB::containers::memory::is_name_group (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const bool LIB::container::memory::is_name_group (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	return ! is_name_literal (name, group);
 }
 */
-const bool LIB::containers::memory::is_content_literal (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const bool LIB::container::memory::is_content_literal (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	//key grp;
-	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
-	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> arguments;
+	LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> result;
 	/*
 	
 	arguments [1] = group;
@@ -1453,7 +1454,7 @@ const bool LIB::containers::memory::is_content_literal (const LIB::containers::m
 	return result [1] [1] == 0;
 }
 /*
-const bool LIB::containers::memory::is_value_group (const LIB::containers::memory::key & name, const LIB::containers::memory::key & group) const
+const bool LIB::container::memory::is_value_group (const LIB::container::memory::key & name, const LIB::container::memory::key & group) const
 {
 	return ! is_content_literal (name, group);
 }

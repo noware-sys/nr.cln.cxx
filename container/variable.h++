@@ -37,7 +37,8 @@
 #include "../serialization.h++"
 #include "../tool.h++"
 
-#if !defined NAME_V
+// (container of a value) all any container value category var[iable] struct[ure] class obj[ect] it[e]m 
+#if !defined (NAME_V)
 	#define NAME_V variable
 #endif
 
@@ -46,7 +47,8 @@ namespace LIB
 	//class NAME_V;
 	
 	//typedef NAME_V var;
-	namespace containers
+	// container cont ctn ctnr ctner
+	namespace container
 	{
 	class NAME_V
 	{
@@ -58,7 +60,7 @@ namespace LIB
 				//number,
 				//text
 			};
-
+			
 			class container
 			{
 				protected:
@@ -82,13 +84,13 @@ namespace LIB
 					const std::string serialize (void) const;
 					const bool deserialize (const std::string &);
 			};
-
+			
 			const std::string serialize (void) const;
 			const bool deserialize (const std::string &);
 		protected:
 			friend class boost::serialization::access;
 			// friend std::ostream & operator << (std::ostream &, const instruction &);
-
+			
 			//template <typename Archive>
 			//void serialize (Archive &, const unsigned int);
 			template <typename Archive> 
@@ -98,16 +100,16 @@ namespace LIB
 			// Default values:
 			type _type;	// The type of the value being stored.
 			//::std::string value;
-
+			
 			//void Assign (/*Container &, */const ::std::string);
 			//void Assign (/*Container &, */const long double);
-
+			
 			// const std::string &	to_string (void) const;
-
+			
 			//_type Determine (const NAME_V::NAME_V);
 			const type determine (const std::string &) const;
 			//_type Determine (const long double);
-
+			
 		public:
 			const type & get_type (void) const;
 			
@@ -912,12 +914,12 @@ namespace LIB
 	}
 	
 	//typedef NAME_V var;
-	//typedef containers::NAME_V NAME_V, var;
+	//typedef container::NAME_V NAME_V, var;
 }
 
-std::istream &	getline (std::istream &, LIB::containers::NAME_V &, const char = '\n');
+std::istream &	getline (std::istream &, LIB::container::NAME_V &, const char = '\n');
 
-std::string		tolower (const LIB::containers::NAME_V &);
-std::string		toupper (const LIB::containers::NAME_V &);
+std::string		tolower (const LIB::container::NAME_V &);
+std::string		toupper (const LIB::container::NAME_V &);
 
 //#endif

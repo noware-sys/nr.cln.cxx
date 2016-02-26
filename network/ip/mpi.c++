@@ -27,7 +27,7 @@ const unsigned short int LIB::network::ip::mpi::default_tcp_port = 1;
 const bool LIB::network::ip::mpi::default_reliable = true;
 const bool LIB::network::ip::mpi::default_receive_self = false;
 //const static unsigned short int LIB::network::ip::mpi::default_message_size;
-const unsigned short int LIB::network::ip::mpi::default_message_size = 128;
+const unsigned short int LIB::network::ip::mpi::default_message_size = 4096;
 
 template <typename archive>
 void LIB::network::ip::mpi::serialize (archive & _archive, const unsigned int & version)
@@ -94,6 +94,7 @@ LIB::network::ip::mpi::mpi (void)
 	// addrs.listen ["address"] = "0.0.0.0";
 	// addrs.listen ["port"] = default_udp_port;
 	
+	// For broadcast transmissions.
 	multicast.reliable ["address"] = "0.0.0.0";
 	multicast.reliable ["port"] = default_tcp_port;
 	multicast.unreliable ["address"] = "0.0.0.0";
@@ -117,7 +118,7 @@ LIB::network::ip::mpi::mpi (void)
 	transmission.reliable ["address"] = "0.0.0.0";
 	transmission.reliable ["port"] = default_tcp_port;
 	transmission.unreliable ["address"] = "0.0.0.0";
-	transmission.unreliable["port"] = default_udp_port;
+	transmission.unreliable ["port"] = default_udp_port;
 	
 	//std::cout << (std::string) udp.address << std::endl;
 	
@@ -165,7 +166,7 @@ LIB::network::ip::mpi::~mpi (void)
 */
 /*
 // Get endpoint.
-const LIB::containers::NTT <> LIB::network::ip::mpi::get_transmit (void) const
+const LIB::container::NTT <> LIB::network::ip::mpi::get_transmit (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -182,7 +183,7 @@ const LIB::containers::NTT <> LIB::network::ip::mpi::get_transmit (void) const
 	return addrs.transmission;
 }
 
-const LIB::containers::NTT <> LIB::network::ip::mpi::get_receive (void) const
+const LIB::container::NTT <> LIB::network::ip::mpi::get_receive (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -199,7 +200,7 @@ const LIB::containers::NTT <> LIB::network::ip::mpi::get_receive (void) const
 	return addrs.reception;
 }
 
-const LIB::containers::NTT <> LIB::network::ip::mpi::get_broadcast (void) const
+const LIB::container::NTT <> LIB::network::ip::mpi::get_broadcast (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -216,7 +217,7 @@ const LIB::containers::NTT <> LIB::network::ip::mpi::get_broadcast (void) const
 	return addrs.broadcast;
 }
 
-const LIB::containers::NTT <> LIB::network::ip::mpi::get_listen (void) const
+const LIB::container::NTT <> LIB::network::ip::mpi::get_listen (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -234,13 +235,13 @@ const LIB::containers::NTT <> LIB::network::ip::mpi::get_listen (void) const
 }
 
 /*
-const LIB::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural> LIB::network::ip::mpi::get_broadcast_multiple (void)
+const LIB::NAME_A <LIB::container::NTT <>, LIB::mathematics::numbers::natural> LIB::network::ip::mpi::get_broadcast_multiple (void)
 {
-	LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> eps;
+	LIB::NAME_A <LIB::container::NTT <>, mathematics::numbers::natural> eps;
 	
 	try
 	{
-		eps = boost::any_cast <LIB::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural>> (addrs.broadcast);
+		eps = boost::any_cast <LIB::NAME_A <LIB::container::NTT <>, LIB::mathematics::numbers::natural>> (addrs.broadcast);
 	}
 	catch (...)
 	{
@@ -251,7 +252,7 @@ const LIB::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural> 
 * /
 
 // Set whole endpoint.
-const bool LIB::network::ip::mpi::set_transmit (LIB::containers::NTT <> & ep)
+const bool LIB::network::ip::mpi::set_transmit (LIB::container::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -266,7 +267,7 @@ const bool LIB::network::ip::mpi::set_transmit (LIB::containers::NTT <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_receive (LIB::containers::NTT <> & ep)
+const bool LIB::network::ip::mpi::set_receive (LIB::container::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -281,7 +282,7 @@ const bool LIB::network::ip::mpi::set_receive (LIB::containers::NTT <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_broadcast (LIB::containers::NTT <> & ep)
+const bool LIB::network::ip::mpi::set_broadcast (LIB::container::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -296,7 +297,7 @@ const bool LIB::network::ip::mpi::set_broadcast (LIB::containers::NTT <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_listen (LIB::containers::NTT <> & ep)
+const bool LIB::network::ip::mpi::set_listen (LIB::container::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -802,7 +803,7 @@ Receive broadcast
 //	return transmit (message, address, tcp_transmit.port);
 //}
 /*
-const bool LIB::network::ip::mpi::transmit (const std::string & message, const LIB::containers::NTT <> & address)
+const bool LIB::network::ip::mpi::transmit (const std::string & message, const LIB::container::NTT <> & address)
 {
 	LIB::network::endpoint addr;
 	
@@ -830,13 +831,13 @@ const bool LIB::network::ip::mpi::transmit (const std::string & message, const u
 }
 */
 
-//const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::containers::NTT <> address)
+//const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::container::NTT <> address)
 //{
 //	return transmit (message, address, reliable);
 //}
 
 // const bool LIB::network::ip::mpi::transmit (const std::string & message, const std::string & address, const unsigned short int & port)
-const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::containers::NTT <> address, const bool & _reliable)
+const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::container::NTT <> address, const bool & _reliable)
 {
 	//LIB::network::endpoint addr;
 	
@@ -950,7 +951,7 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, const 
 	return broadcast (message, address, udp_broadcast.port);
 }
 
-const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> & addresses)
+const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::container::NTT <>, mathematics::numbers::natural> & addresses)
 {
 	return false;
 }
@@ -966,24 +967,24 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, const 
 }
 */
 
-//const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses)
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::container::NTT <> addresses)
 //{
 //	return broadcast (message, addresses, reliable);
 //}
 
 // const bool LIB::network::ip::mpi::broadcast (const std::string & message, const std::string & address, const unsigned short int & port)
-//const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> & addresses)
-const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses, const bool & _reliable)
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::container::NTT <>, mathematics::numbers::natural> & addresses)
+const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::container::NTT <> addresses, const bool & _reliable)
 {
 	// bool multiple = false;
 	// LIB::network::endpoint addr;
-	// LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> _addrs;
+	// LIB::NAME_A <LIB::container::NTT <>, mathematics::numbers::natural> _addrs;
 	//LIB::NAME_A <LIB::network::endpoint, mathematics::numbers::natural> addrs2;
 	
 	/*
 	try
 	{
-		_addrs = boost::any_cast <LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural>> (addresses);
+		_addrs = boost::any_cast <LIB::NAME_A <LIB::container::NTT <>, mathematics::numbers::natural>> (addresses);
 		
 		//for (auto & element : addresses)
 		//{
@@ -1022,9 +1023,9 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::c
 		{
 			bool success = true;
 			
-			for (const LIB::containers::NTT <> & address : addresses ["addresses"])
+			for (const LIB::container::NTT <> & address : addresses ["addresses"])
 			{
-				if (!/* transmit*/ broadcast (message, address, _reliable) && success)
+				if (!/* transmit*/ broadcast (message, address, _reliable)/* && success*/)
 				{
 					success = false;
 				}
@@ -1037,9 +1038,9 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::c
 			if (addresses.is_literal ())
 			{
 				if (addresses.get_value ().is_numeric ())
-					addresses ["port"] = addresses;
-				else
-					addresses ["address"] = addresses;
+					addresses ["port"] = LIB::container::NAME_V (addresses);
+				else if (!addresses.get_value ().empty ())
+					addresses ["address"] = LIB::container::NAME_V (addresses);
 			}
 			
 			/*
@@ -1151,18 +1152,18 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::c
 
 //const std::string LIB::network::ip::mpi::receive (void)
 //{
-//	LIB::containers::NTT <> remote_endpoint;
+//	LIB::container::NTT <> remote_endpoint;
 //	return receive (remote_endpoint, reliable ? reception.reliable : reception.unreliable, reliable);
 //}
 //
 //const std::string LIB::network::ip::mpi::receive (const bool & _reliable)
 //{
-//	LIB::containers::NTT <> remote_endpoint;
+//	LIB::container::NTT <> remote_endpoint;
 //	return receive (remote_endpoint, _reliable ? reception.reliable : reception.unreliable, _reliable);
 //}
 
 /*
-std::string LIB::network::ip::mpi::receive (const LIB::containers::NTT <> & address)
+std::string LIB::network::ip::mpi::receive (const LIB::container::NTT <> & address)
 {
 	std::string addr;
 	
@@ -1189,12 +1190,12 @@ std::string LIB::network::ip::mpi::receive (const unsigned short int & port, con
 }
 */
 
-//const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address)
+//const std::string LIB::network::ip::mpi::receive (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address)
 //{
 //	return receive (remote_endpoint, address, reliable);
 //}
 
-const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address, const bool & _reliable)
+const std::string LIB::network::ip::mpi::receive (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address, const bool & _reliable)
 // std::string LIB::network::ip::mpi::receive (const std::string & address, const unsigned short int & port)
 //std::string LIB::Network::mpi::Receive ()
 {
@@ -1310,7 +1311,7 @@ const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remo
 			//{
 				boost::asio::ip::tcp::endpoint remote_ep = socket.remote_endpoint ();
 
-				remote_endpoint ["address"] = (LIB::containers::NAME_V) remote_ep.address ().to_string ();
+				remote_endpoint ["address"] = (LIB::container::NAME_V) remote_ep.address ().to_string ();
 				remote_endpoint ["port"] = remote_ep.port ();
 			//}
 
@@ -1454,7 +1455,7 @@ const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remo
 			//{
 				//boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
 				
-				remote_endpoint ["address"] = (LIB::containers::NAME_V) sender_endpoint.address ().to_string ();
+				remote_endpoint ["address"] = (LIB::container::NAME_V) sender_endpoint.address ().to_string ();
 				remote_endpoint ["port"] = sender_endpoint.port ();
 			//}
 			
@@ -2015,7 +2016,7 @@ const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remo
 // UDP:
 
 /*
-const std::string LIB::network::ip::mpi::listen (const LIB::containers::NTT <> & address)
+const std::string LIB::network::ip::mpi::listen (const LIB::container::NTT <> & address)
 {
 	std::string addr;
 	
@@ -2050,7 +2051,7 @@ std::string LIB::network::ip::mpi::listen (const unsigned short int & port, cons
 //}
 //
 ////const std::string LIB::network::ip::mpi::listen (const std::string & address, const unsigned short int & port)
-//const std::string LIB::network::ip::mpi::listen (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address)
+//const std::string LIB::network::ip::mpi::listen (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address)
 //{
 //	/*
 //	LIB::network::endpoint addr;

@@ -1,4 +1,5 @@
 #pragma once
+/*
 //#ifndef __MEMORY
 //#define __MEMORY
 
@@ -7,10 +8,10 @@
 //#include <stdio.h>
 // #include <sqlite3.h>
 
-#include "../../default.h++"
+#include "../../value.h++"
 #include "../../mathematics.h++"
-#include "../../containers/array.h++"
-#include "../../containers/variable.h++"
+#include "../../container/array.h++"
+#include "../../container/variable.h++"
 //#include "../../containers/entity.h++"
 //#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
@@ -19,7 +20,9 @@
 //#include "../threads.h++"
 //#include "../../cluster/machine.h++"
 //#include "../resource.h++"
-#include "sql/index-pre.h"
+*/
+#include "../../name.h++"
+#include ".sql/preindex.h++"
 
 // Custom SQLite.
 //#include "sqlite.h"
@@ -37,13 +40,18 @@ namespace LIB
 			class sql
 			{
 				public:
-					#include "sql/index.h"
+					#include ".sql/index.h++"
 					
 					//sql (void);
 					//~ sql (void);
+				public:
+					#include ".sql/postinnerindex.h++"
 			};
 		}
 	}
 	
 	//namespace database = container::database;
 }
+
+#include ".sql/postindex.h++"
+

@@ -19,7 +19,8 @@ static const bool LIB::network::mpi::default_cycle;
 LIB::network::mpi::mpi (void)
 {
 	//_connections [1] = new LIB::network::ip::mpi ();
-	_connections.add (new LIB::network::ip::mpi ());
+	//_connections.add (new LIB::network::ip::mpi ());
+	_connections ["ip"] = new LIB::network::ip::mpi ();
 }
 
 LIB::network::mpi::~mpi (void)
@@ -51,10 +52,10 @@ LIB::network::mpi::~mpi (void)
 
 //const bool LIB::network::mpi::transmit (const std::string & message)
 //{
-//	return transmit (message, addrs.transmission);
+//	return transmit (message, transmission.reliable);
 //}
 
-const bool LIB::network::mpi::transmit (const std::string & message, LIB::containers::NTT <> address, const bool & _reliable)
+const bool LIB::network::mpi::transmit (const std::string & message, LIB::container::NTT <> address, const bool & _reliable)
 {
 	// Using logical OR.
 	
@@ -90,7 +91,7 @@ const bool LIB::network::mpi::broadcast (const std::string & message)
 	return success;
 }
 */
-const bool LIB::network::mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses, const bool & _reliable)
+const bool LIB::network::mpi::broadcast (const std::string & message, LIB::container::NTT <> addresses, const bool & _reliable)
 {
 	// Using logical OR.
 	
@@ -127,7 +128,7 @@ const std::string LIB::network::mpi::receive (void)
 	return current;
 }
 */
-const std::string LIB::network::mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address, const bool & _reliable)
+const std::string LIB::network::mpi::receive (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address, const bool & _reliable)
 {
 	// Using logical OR.
 	
@@ -164,7 +165,7 @@ const std::string LIB::network::mpi::listen (void)
 	return current;
 }
 
-const std::string LIB::network::mpi::listen (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address)
+const std::string LIB::network::mpi::listen (LIB::container::NTT <> & remote_endpoint, LIB::container::NTT <> address)
 {
 	// Using logical OR.
 	// To be refined!: First one (current) Versus All at once (to be done).
@@ -202,22 +203,22 @@ void LIB::network::mpi::stop (void)
 }
 
 // Receive asynchronously.
-bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler)
+const bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler)
 {
-	return receive_async (handler, addrs.reception, default_cycle);
+	return receive_async (handler, reception.reliable, default_cycle);
 }
 
-bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, LIB::container::NTT <> & address)
 {
 	return receive_async (handler, address, default_cycle);
 }
 
-bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const bool & cycle)
+const bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const bool & cycle)
 {
-	return receive_async (handler, addrs.reception, cycle);
+	return receive_async (handler, reception.reliable, cycle);
 }
 
-bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, LIB::containers::NTT <> & address, const bool & cycle)
+const bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, LIB::container::NTT <> & address, const bool & cycle)
 {
 	unsigned long int hash = 0;
 	
@@ -233,18 +234,18 @@ bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::c
 	return true;
 }
 
-bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const bool & cycle, LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::receive_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const bool & cycle, LIB::container::NTT <> & address)
 {
 	return receive_async (handler, address, cycle);
 }
 
 // Stop receiving asynchronously.
-bool LIB::network::mpi::receive_async_stop (void)
+const bool LIB::network::mpi::receive_async_stop (void)
 {
-	return receive_async_stop (addrs.reception);
+	return receive_async_stop (reception.reliable);
 }
 
-bool LIB::network::mpi::receive_async_stop (const LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::receive_async_stop (const LIB::container::NTT <> & address)
 {
 	//if (handler != NULL)
 	//{
@@ -276,22 +277,22 @@ bool LIB::network::mpi::receive_async_stop (const LIB::containers::NTT <> & addr
 }
 
 // Listen asynchronously.
-bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler)
+const bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler)
 {
-	return listen_async (handler, addrs.listen, default_cycle);
+	return listen_async (handler, reception.unreliable, default_cycle);
 }
 
-bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const LIB::container::NTT <> & address)
 {
 	return listen_async (handler, address, default_cycle);
 }
 
-bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const bool & cycle)
+const bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const bool & cycle)
 {
-	return listen_async (handler, addrs.listen, cycle);
+	return listen_async (handler, reception.unreliable, cycle);
 }
 
-bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const LIB::containers::NTT <> & address, const bool & cycle)
+const bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const LIB::container::NTT <> & address, const bool & cycle)
 {
 	unsigned long int hash = 0;
 	
@@ -307,18 +308,18 @@ bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::co
 	return true;
 }
 
-bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, const bool & cycle, const LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::listen_async (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, const bool & cycle, const LIB::container::NTT <> & address)
 {
 	return listen_async (handler, address, cycle);
 }
 
 // Stop listening asynchronously.
-bool LIB::network::mpi::listen_async_stop (void)
+const bool LIB::network::mpi::listen_async_stop (void)
 {
-	return listen_async_stop (addrs.listen);
+	return listen_async_stop (reception.unreliable);
 }
 
-bool LIB::network::mpi::listen_async_stop (const LIB::containers::NTT <> & address)
+const bool LIB::network::mpi::listen_async_stop (const LIB::container::NTT <> & address)
 {
 	//if (handler != NULL)
 	//{
@@ -347,13 +348,13 @@ bool LIB::network::mpi::listen_async_stop (const LIB::containers::NTT <> & addre
 	return true;
 }
 
-void LIB::network::mpi::receive_async_handler (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, LIB::containers::NTT <> & address, const bool & cycle, const unsigned long int & hash)
+void LIB::network::mpi::receive_async_handler (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, LIB::container::NTT <> & address, const bool & cycle, const unsigned long int & hash)
 {
 	if (handler != NULL)
 	{
-		LIB::containers::NTT <> endpoint;
+		LIB::container::NTT <> endpoint;
 		
-		handler (endpoint, receive (endpoint, address));
+		handler (endpoint, receive (endpoint, address, true));
 		
 		if (cycle)
 		{
@@ -367,13 +368,14 @@ void LIB::network::mpi::receive_async_handler (const boost::function <void (cons
 	}
 }
 
-void LIB::network::mpi::listen_async_handler (const boost::function <void (const LIB::containers::NTT <> &, const std::string &)> & handler, LIB::containers::NTT <> & address, const bool & cycle, const unsigned long int & hash)
+void LIB::network::mpi::listen_async_handler (const boost::function <void (const LIB::container::NTT <> &, const std::string &)> & handler, LIB::container::NTT <> & address, const bool & cycle, const unsigned long int & hash)
 {
 	if (handler != NULL)
 	{
-		LIB::containers::NTT <> endpoint;
+		LIB::container::NTT <> endpoint;
 		
-		handler (endpoint, listen (endpoint, address));
+		//handler (endpoint, listen (endpoint, address));
+		handler (endpoint, receive (endpoint, address, false));
 		
 		if (cycle)
 		{
@@ -387,7 +389,8 @@ void LIB::network::mpi::listen_async_handler (const boost::function <void (const
 	}
 }
 
-const LIB::containers::NAME_A <LIB::network::connection *, unsigned short int> & LIB::network::mpi::connections (void) const
+//const LIB::container::NAME_A <LIB::network::connection *, unsigned short int> & LIB::network::mpi::connections (void) const
+const LIB::container::NAME_A <LIB::network::_mpi */*, unsigned short int*/> & LIB::network::mpi::connections (void) const
 {
 	return _connections;
 }

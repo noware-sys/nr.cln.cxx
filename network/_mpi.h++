@@ -5,17 +5,17 @@
 //#include <boost/any.hpp>
 #include <boost/asio.hpp>
 
-#include "../default.h++"
-//#include "../containers/array.h++"
+#include "../value.h++"
+//#include "../container/array.h++"
 #include "../mathematics.h++"
-#include "../containers/entity.h++"
+#include "../container/entity.h++"
 #include "../communication/message.h++"
 
-//#include "../containers/entity-pre.h++"
+//#include "../container/entity-pre.h++"
 
 namespace LIB
 {
-	//template <typename value = LIB::containers::NAME_V, typename key = LIB::containers::NAME_V>
+	//template <typename value = LIB::container::NAME_V, typename key = LIB::container::NAME_V>
 	//class NTT;
 	
 	namespace network
@@ -61,13 +61,13 @@ namespace LIB
 						const bool operator == (const address &) const;
 						
 						//boost::any
-						LIB::containers::NTT <>
+						LIB::container::NTT <>
 						//std::string
 							//transmission, broadcast, reception, listen
 							//transmission, reception
 							reliable, unreliable
 						;
-						//LIB::containers::NAME_A <boost::any, mathematics::numbers::natural> broadcast;
+						//LIB::container::NAME_A <boost::any, mathematics::numbers::natural> broadcast;
 				};
 				
 				static const bool default_reliable = true;
@@ -93,19 +93,19 @@ namespace LIB
 				const bool transmit (const std::string &/* message*/);
 				const bool transmit/* unicast*/ (const std::string & /* message */, const bool &/* reliable*//* = default_reliable*/);
 				// Transmit to this address(/to these addresses?).
-				const bool transmit (const std::string &/* message*/, const LIB::containers::NTT <> &/* address*/);
-				virtual const bool transmit (const std::string & /* message */, LIB::containers::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
+				const bool transmit (const std::string &/* message*/, const LIB::container::NTT <> &/* address*/);
+				virtual const bool transmit (const std::string & /* message */, LIB::container::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
 				//virtual const bool transmit (const std::string &/* message */, const unsigned short int &/* port */);
 				//virtual const bool transmit (const std::string &/* message */, const std::string &/* address */, const unsigned short int &/* port */) = 0;
 				//virtual const bool transmit (const std::string &/* message */, const unsigned short int &/* port */, const std::string &/* address */);
 				
 				// Broadcast only to these addresses.
-				// virtual const bool multicast (const std::string & /* message */, LIB::containers::NTT <> /* addresses */, const bool &/* reliable*/ = default_reliable) = 0;
+				// virtual const bool multicast (const std::string & /* message */, LIB::container::NTT <> /* addresses */, const bool &/* reliable*/ = default_reliable) = 0;
 				// Transmit to every receiver.
 				const bool broadcast (const std::string &/* message*/);
 				const bool broadcast (const std::string & /* message */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
-				const bool broadcast (const std::string &/* message*/, const LIB::containers::NTT <> &/* address/addresses */);
-				virtual const bool broadcast (const std::string &/* message*/, LIB::containers::NTT <>/* address/addresses */, const bool &/* reliable */);
+				const bool broadcast (const std::string &/* message*/, const LIB::container::NTT <> &/* address/addresses */);
+				virtual const bool broadcast (const std::string &/* message*/, LIB::container::NTT <>/* address/addresses */, const bool &/* reliable */);
 				//virtual const bool broadcast (const std::string &/* message */, const std::string &/* address */) = 0;
 				//virtual const bool broadcast (const std::string &/* message */, const unsigned short int &/* port */);
 				//virtual const bool broadcast (const std::string &/* message */, const std::string &/* address */, const unsigned short int &/* port */) = 0;
@@ -115,14 +115,14 @@ namespace LIB
 				const std::string receive (void);
 				const std::string receive (const bool &/* reliable*//* = default_reliable*/);
 				// Give back information about remote endpoint.
-				//virtual const std::string receive (LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> & /* remote endpoint */) = 0;
+				//virtual const std::string receive (LIB::container::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V> & /* remote endpoint */) = 0;
 				// Receive only from this address.
-				//virtual const std::string receive (LIB::containers::NTT <> /* address */) = 0;
-				const std::string receive (LIB::containers::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/);
+				//virtual const std::string receive (LIB::container::NTT <> /* address */) = 0;
+				const std::string receive (LIB::container::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/);
 				// Receive only from this address.
 				// Give back information about the remote endpoint.
-				const std::string receive (LIB::containers::NTT <> & /* remote_endpoint */, const LIB::containers::NTT <> &/* address*/);
-				virtual const std::string receive (LIB::containers::NTT <> & /* remote endpoint */, LIB::containers::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
+				const std::string receive (LIB::container::NTT <> & /* remote_endpoint */, const LIB::container::NTT <> &/* address*/);
+				virtual const std::string receive (LIB::container::NTT <> & /* remote endpoint */, LIB::container::NTT <> /* address */, const bool &/* reliable*//* = default_reliable*/)/* = 0*/;
 				//virtual std::string receive (const unsigned short int &/* port */);
 				//virtual std::string receive (const std::string &/* address */, const unsigned short int &/* port */) = 0;
 				//virtual std::string receive (const unsigned short int &/* port */, const std::string &/* address */);
@@ -131,12 +131,12 @@ namespace LIB
 				// virtual const std::string listen (void) = 0;
 				
 				// Give back information about remote endpoint.
-				//virtual const std::string listen (LIB::containers::NTT <> & /* remote endpoint */) = 0;
+				//virtual const std::string listen (LIB::container::NTT <> & /* remote endpoint */) = 0;
 				// Listen only to this address.
-				//virtual const std::string listen (LIB::containers::NTT <> /* address */) = 0;
+				//virtual const std::string listen (LIB::container::NTT <> /* address */) = 0;
 				
 				//// Listen only to this address; Give back information about the remote endpoint.
-				// virtual const std::string listen (LIB::containers::NTT <> & /* remote endpoint */, LIB::containers::NTT <> /* address */) = 0;
+				// virtual const std::string listen (LIB::container::NTT <> & /* remote endpoint */, LIB::container::NTT <> /* address */) = 0;
 				
 				//virtual std::string listen (const unsigned short int &/* port*/);
 				//virtual std::string listen (const std::string &/* address*/, const unsigned short int &/* port*/) = 0;
@@ -147,4 +147,4 @@ namespace LIB
 	}
 }
 
-//#include "../containers/entity.h++"
+//#include "../container/entity.h++"

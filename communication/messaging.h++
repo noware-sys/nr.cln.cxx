@@ -24,11 +24,11 @@
 //#include <boost/thread/detail/thread.hpp>
 
 // // This class:
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
-#include "../containers/entity.h++"
-#include "../containers/array.h++"
-// #include "../containers/variable.h++"
+#include "../container/entity.h++"
+#include "../container/array.h++"
+// #include "../container/variable.h++"
 // #include "../tools.h++"
 //#include "memory.h++"
 // #include "../serialization.h++"
@@ -36,6 +36,7 @@
 // #include "resources.h++"
 #include "../network/mpi.h++"
 //#include "../network/ip.h++"
+#include "transmission.h++"
 
 namespace LIB
 {
@@ -95,7 +96,7 @@ namespace LIB
 						direction _direction;
 						
 						// The path itself.
-						LIB::containers::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural> _path;
+						LIB::container::NAME_A <LIB::container::NTT <>, LIB::mathematics::numbers::natural> _path;
 				};
 				
 				messaging (void);
@@ -109,9 +110,9 @@ namespace LIB
 				LIB::network::mpi mpi;
 				
 				//virtual void manage (LIB::NTT <>/* remote_endpoint*/, const std::string &/* message*/);
-				virtual void manage (LIB::containers::NTT <>/* remote_endpoint*/, const message &/* message*/);
+				virtual void manage (LIB::container::NTT <>/* remote_endpoint*/, const message &/* message*/);
 				//virtual void receive (LIB::NTT <>/* remote_endpoint*/, const std::string &/* message*/);
-				void __receive (LIB::containers::NTT <>/* remote_endpoint*/, const std::string &/* message*/);
+				void __receive (LIB::container::NTT <>/* remote_endpoint*/, const std::string &/* message*/);
 				
 				// Manage outbound point-to-point message.
 				const bool transmit (const message &, const path &/* Machine. */) const;
@@ -135,7 +136,7 @@ namespace LIB
 				const message & prepare (/*const*/ message &/* message*/) const;
 				const bool validate (const message &) const;
 			protected:
-				LIB::containers::NAME_A <transmission, LIB::mathematics::numbers::natural> transmissions;
+				LIB::container::NAME_A <transmission, LIB::mathematics::numbers::natural> transmissions;
 				//LIB::NAME_A <LIB::NAME_A <transmission, LIB::NTT <>>, LIB::mathematics::numbers::natural> transmissions;
 				//LIB::NAME_A <LIB::NAME_A <transmission, LIB::mathematics::numbers::natural>, path> transmissions;
 

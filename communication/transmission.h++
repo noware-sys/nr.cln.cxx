@@ -24,11 +24,11 @@
 //#include <boost/thread/detail/thread.hpp>
 
 // // This class:
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
-#include "../containers/entity.h++"
-//#include "../../../containers/array.h++"
-// #include "../containers/variable.h++"
+#include "../container/entity.h++"
+#include "../container/array.h++"
+// #include "../container/variable.h++"
 // #include "../tools.h++"
 //#include "memory.h++"
 // #include "../serialization.h++"
@@ -66,7 +66,7 @@ namespace LIB
 				//LIB::NTT <> data;
 				std::string data;
 
-				void terminate (LIB::NAME_A <transmission, LIB::mathematics::numbers::natural> &/* transmissions*/, const LIB::mathematics::numbers::natural &/* key*/, const LIB::mathematics::numbers::natural &/* timeout, total*/) const;
+				void terminate (LIB::container::NAME_A <transmission, LIB::mathematics::numbers::natural> &/* transmissions*/, const LIB::mathematics::numbers::natural &/* key*/, const LIB::mathematics::numbers::natural &/* timeout, total*/) const;
 				boost::thread * terminator;
 		};
 	}

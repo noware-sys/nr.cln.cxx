@@ -18,11 +18,12 @@
 ////#include "Lexical_Analyzer"
 //#include "../default.h++"
 #include "name.h++"
+#include "cotainer/null.h++"
 ////#include "peers.h++"
 //#include "../containers/array.h++"
-#include "../container/variable.h++"
+#include "container/variable.h++"
 //#include "../containers/memory.h++"
-#include "../container/entity_2.h++"
+#include "container/entity_2.h++"
 //#include "../mathematics.h++"	// "mathematics.h++" should be included after "array.h++" in this "machine.h++" file.
 //#include "../machine/resource.h++"
 ////#include "../machine/resources.h++"
@@ -37,7 +38,7 @@
 //#include "../cluster/members.h++"
 ////#include "../cluster.h++"
 //#include "network.h++"
-#include ".machine/index-pre.h++"
+#include ".machine/preindex.h++"
 //
 ////#ifndef NTT
 ////	#define NTT entity
@@ -45,6 +46,9 @@
 
 namespace LIB
 {
+	// awareness consciousness [artificial/synthetic]intelligence
+	// computer machine robot
+	// device
 	class machine
 	{
 		/*
@@ -72,11 +76,17 @@ namespace LIB
 			//const bool evaluate (const LIB::containers::NAME_V &);
 			const LIB::container::NAME_V evaluate (const LIB::container::NAME_V &);
 			
-		protected:
-			/*LIB::machine::*/resource::processor processor;
+		// protected:
+		public:
+		//	/*LIB::machine::*/device::processor processor;
 				//LIB::container::memory memory;
 			//	LIB::container::entity_2 memory;
 			//LIB::network::mpi mpi;
+			
+		public:
+			#include ".machine/postinnerindex.h++"
 	};
 }
+
+#include ".machine/postindex.h++"
 

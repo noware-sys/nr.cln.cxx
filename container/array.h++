@@ -54,18 +54,19 @@
 
 // This library:
 //#include "../default.h++"
-#include "../library.h++"
+#include "../name.h++"
 #include "../mathematics.h++"
 #include "../serialization.h++"
 #include "variable.h++"
 
+// group set [a[ssociative][_]]array
 #ifndef NAME_A
 	#define NAME_A array
 #endif
 
 namespace LIB
 {
-	namespace containers
+	namespace container
 	{
 	//template <typename Value = NAME_V, Key = NAME_V>
 	//struct Link
@@ -91,7 +92,7 @@ namespace LIB
 					container (void);
 					container (const NAME_A <value, key>::container &);
 					container (const key &, const value &);
-					~ container ();
+					~container (void);
 					
 					const bool operator == (const container &/* other*/) const;
 					const bool operator == (const value &/* other*/) const;
@@ -118,12 +119,12 @@ namespace LIB
 					//template <typename Archive>
 					//void load (Archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 			};
-			
+		protected:
 			std::list <container> content;
 			//std::list <container *> content_pointer;
 			
 			//std::unordered_map <key, value> container;
-			
+		public:
 			typedef typename std::list <container>::iterator iterator;
 			//typedef typename std::list <container>::const_iterator const_iterator;
 			
@@ -228,6 +229,8 @@ namespace LIB
 			// These use "add ()":
 			const NAME_A <value, key>	operator + (const value &) const;
 			const NAME_A <value, key>	operator + (const NAME_A <value, key> &) const;
+			//const NAME_A <value, key>	operator - (const value &) const;
+			const NAME_A <value, key>	operator - (const NAME_A <value, key> &) const;
 			
 			// Modifiers.
 			
@@ -249,6 +252,8 @@ namespace LIB
 			/*value &*/ const NAME_A <value, key> &	/*operator []*/operator +=/*enqueue*//*add*//*append*/ (/*void*/ const value &/*, key & = NULL*/);
 			// Setter (append) (another array (of the same type)).
 			const NAME_A <value, key> &	operator += (const NAME_A <value, key> &);
+			//const NAME_A <value, key> &	operator -= (const value &);
+			const NAME_A <value, key> &	operator -= (const NAME_A <value, key> &);
 			
 			//const bool	add (const NAME_A <value, key> &);				// Setter (append): another array (of the same type).
 			//value &	operator [] (void);				// Setter (Append).
@@ -263,7 +268,7 @@ namespace LIB
 			//bool set (const key &, const value *&, const bool /* tolerant */= true);	// Adds a new element.
 			
 			// Get all the matching keys.
-			const NAME_A <value, key> get_all (const key &) const;
+			//const NAME_A <value, key> get_all (const value &) const;
 			
 			//bool set (const key &, const value *&);	// Adds a new element.
 			const bool set (const key &, const value &);	// Adds a new element.
@@ -273,6 +278,8 @@ namespace LIB
 			const bool rename (const key &/* Current name. */, const key &/* New name. */, const bool/* tolerant*/);	// Renames an existing element.
 			const bool rename (const key &/* Current name. */, const key &/* New name. */);	// Renames an existing element, using the default value for "tolerant".
 			const NAME_A <value, key> & operator = (const NAME_A <value, key> &);
+			//friend const NAME_A <value, key> & operator = (const NAME_A <value, key> &, const NAME_A <value, key> &);
+			//friend const NAME_A & operator = (const NAME_A &, const NAME_A &);
 			//void Set (LIB::Mathematics::Number::Natural, bool = false);
 			
 			// iterator & current_package (void);
@@ -361,18 +368,19 @@ namespace LIB
 			operator const std::string (void) const;
 			// Serialize
 			const NAME_A <value, key> & operator = (const std::string &);
+			//inline friend const NAME_A <value, key> & operator = (const std::string &);
 			
 			//friend std::ostream & operator << (std::ostream &, const LIB::NAME_A <value, key> &, const std::string &/* indentation*/ = "")/* const*/;
-		//	friend std::ostream & operator << (std::ostream &, const LIB::containers::NAME_A <value, key> &)/* const*/;
+		//	friend std::ostream & operator << (std::ostream &, const LIB::container::NAME_A <value, key> &)/* const*/;
 			std::ostream & operator << (std::ostream &) const;
-			//friend std::ostream & operator << (std::ostream & os, const LIB::NAME_A <LIB::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> & val);
+			//friend std::ostream & operator << (std::ostream & os, const LIB::NAME_A <LIB::NAME_A <LIB::container::NAME_V, LIB::container::NAME_V>, LIB::container::NAME_V> & val);
 			//friend	::std::istream &	operator	>>	(::std::istream &, LIB::NAME_A &);
 	
 	};
 	}
 	
 	//template <typename value, typename key>
-	//using NAME_A = containers::NAME_A <value, key>;
+	//using NAME_A = container::NAME_A <value, key>;
 }
 
 #include "array.t++"

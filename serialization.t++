@@ -10,6 +10,7 @@
 #include <boost/archive/text_iarchive.hpp>
 //#include <boost/archive/binary_oarchive.hpp>
 //#include <boost/archive/binary_iarchive.hpp>
+#include <boost/serialization/utility.hpp>
 #include <boost/serialization/array.hpp>
 #include <boost/serialization/bitset.hpp>
 //#include <boost/serialization/hash_map.hpp>
@@ -22,6 +23,10 @@
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/version.hpp>
 #include <boost/serialization/split_member.hpp>
+
+#include "serialization/cln/complex.h++"
+#include "serialization/cln/real.h++"
+#include "serialization/cln/integer.h++"
 
 /*template <typename type>
 bool LIB::parse (std::string serial, type & object)

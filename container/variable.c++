@@ -13,11 +13,11 @@
 
 namespace LIB
 {
-	namespace containers
+	namespace container
 	{
 	/*
 	template <typename Archive>
-	void LIB::containers::NAME_V::serialize (Archive & destination, const unsigned int version)
+	void LIB::container::NAME_V::serialize (Archive & destination, const unsigned int version)
 	{
 		destination & value;
 		destination & _type;
@@ -28,7 +28,7 @@ namespace LIB
 	void NAME_V::container::serialize (Archive & archive, const unsigned int & version)
 	{
 		archive & Generic;
-		//archive & numeric;
+		archive & numeric;
 	}
 	
 	/*
@@ -56,22 +56,22 @@ namespace LIB
 	
 	const std::string NAME_V::container::serialize (void) const
 	{
-		return LIB::serialize <LIB::containers::NAME_V::container> (* this);
+		return LIB::serialize <LIB::container::NAME_V::container> (* this);
 	}
 	
 	const bool NAME_V::container::deserialize (const std::string & serial)
 	{
-		return LIB::deserialize <LIB::containers::NAME_V::container> (serial, * this);
+		return LIB::deserialize <LIB::container::NAME_V::container> (serial, * this);
 	}
 	
 	const std::string NAME_V::serialize (void) const
 	{
-		return LIB::serialize <LIB::containers::NAME_V> (* this);
+		return LIB::serialize <LIB::container::NAME_V> (* this);
 	}
 	
 	const bool NAME_V::deserialize (const std::string & serial)
 	{
-		return LIB::deserialize <LIB::containers::NAME_V> (serial, * this);
+		return LIB::deserialize <LIB::container::NAME_V> (serial, * this);
 	}
 	
 	// LIB::default constructor:
@@ -102,6 +102,7 @@ namespace LIB
 
 	NAME_V::NAME_V (const unsigned short int & val)
 	{
+		//_type = type::NUMERIC;
 		*this = (long double) val;
 	}
 
@@ -120,6 +121,7 @@ namespace LIB
 
 	NAME_V::NAME_V (const unsigned int & val)
 	{
+		//_type = type::NUMERIC;
 		*this = (long double) val;
 	}
 
@@ -155,10 +157,10 @@ namespace LIB
 
 	NAME_V::NAME_V (const long double & val)
 	{
-		value.Generic	= LIB::_default::generic;
+		value.Generic	= LIB::defaults::generic;
 		// value.numeric	= (mathematics::numbers::real) val;
 		//value.numeric	= val;
-		value.numeric	= LIB::tools::string (val).c_str ();
+		value.numeric	= LIB::tool::string (val).c_str ();
 		//value.Boolean	= LIB::default::BOOLEAN;
 
 		_type	= type::NUMERIC;
@@ -166,7 +168,7 @@ namespace LIB
 
 	NAME_V::NAME_V (const char & val)
 	{
-		*this = LIB::tools::string (val);
+		*this = LIB::tool::string (val);
 	}
 
 	//NAME_V::NAME_V (const signed char val)
@@ -288,8 +290,8 @@ namespace LIB
 		else
 		{
 			// To ASCII?
-			//return mathematics::numbers::_default;
-			return LIB::_default::numeric;
+			//return mathematics::numbers::defaults;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -308,7 +310,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	
@@ -327,7 +329,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -346,7 +348,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -365,7 +367,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -384,7 +386,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -403,7 +405,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -422,7 +424,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 
@@ -441,7 +443,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	
@@ -460,7 +462,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	
@@ -479,7 +481,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	/*
@@ -511,7 +513,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	
@@ -531,7 +533,7 @@ namespace LIB
 		{
 			// To ASCII?
 			//return mathematics::numbers::default_;
-			return LIB::_default::numeric;
+			return LIB::defaults::numeric;
 		}
 	}
 	
@@ -554,7 +556,7 @@ namespace LIB
 		
 		if (val__.size () < 1)
 		{
-			return LIB::_default::character;
+			return LIB::defaults::character;
 		}
 		else
 		{
@@ -651,7 +653,7 @@ namespace LIB
 		switch (_type)
 		{
 			case type::NUMERIC:
-				return LIB::tools::digits ((long double) value.numeric);
+				return LIB::tool::digits ((long double) value.numeric);
 			default:
 				return value.Generic.length ();
 		}
@@ -671,11 +673,11 @@ namespace LIB
 		switch (_type)
 		{
 			case type::NUMERIC:
-				// return LIB::tools::digits ((long double) value.numeric);
+				// return LIB::tool::digits ((long double) value.numeric);
 				ss << value.numeric;
 				ss >> n;
-				//return LIB::tools::digits (value.numeric);
-				return LIB::tools::digits (n);
+				//return LIB::tool::digits (value.numeric);
+				return LIB::tool::digits (n);
 				//return 0;
 			default:
 				return value.Generic.length ();
@@ -728,7 +730,7 @@ namespace LIB
 
 	const NAME_V::type NAME_V::determine (const std::string & val) const
 	{
-		if (LIB::tools::is_numeric (val))
+		if (LIB::tool::is_numeric (val))
 		{
 			return type::NUMERIC;
 		}
@@ -895,7 +897,7 @@ namespace LIB
 					case type::NUMERIC:
 						//var = value.numeric + val.value.numeric;
 						//std::cout << value.numeric << '|' << val.value.numeric << std::endl;
-						return value.numeric + val.value.numeric;
+						return NAME_V (value.numeric + val.value.numeric);
 						//break;
 					//case type::BOOLEAN:
 					//	var = value.numeric + val.value.Boolean;
@@ -904,8 +906,8 @@ namespace LIB
 						//var = ::std::to_string (value.numeric) + val;
 						// Test this case!
 						//return std::to_string (value.numeric) + val.value.Generic;
-						//std::cout << LIB::tools::string (value.numeric) + val.value.Generic << std::endl;
-						return LIB::tools::string (value.numeric) + val.value.Generic;
+						//std::cout << LIB::tool::string (value.numeric) + val.value.Generic << std::endl;
+						return LIB::tool::string (value.numeric) + val.value.Generic;
 
 						// Gives string or number.
 				}
@@ -930,7 +932,7 @@ namespace LIB
 						}
 						else	// string + number
 						{
-							return value.Generic + LIB::tools::string (val.value.numeric);
+							return value.Generic + LIB::tool::string (val.value.numeric);
 						}
 						//break;
 					//case type::BOOLEAN:
@@ -983,7 +985,7 @@ namespace LIB
 						//var = ::std::to_string (value.numeric) + val;
 						// Test this case!
 						//return std::to_string (value.numeric) + val.value.Generic;
-						return LIB::tools::string (value.numeric) + val.value.Generic;
+						return LIB::tool::string (value.numeric) + val.value.Generic;
 						
 						// Gives string or number.
 				}
@@ -1008,7 +1010,7 @@ namespace LIB
 						}
 						else	// string + number
 						{
-							return value.Generic + LIB::tools::string (val.value.numeric);
+							return value.Generic + LIB::tool::string (val.value.numeric);
 						}
 						//break;
 					//case type::BOOLEAN:
@@ -1290,7 +1292,7 @@ namespace LIB
 	//	return (long double) val1 + val2;
 	//}
 
-	// Friends: internal_type + NAME_V
+	// Friends: other_type + NAME_V
 	NAME_V		operator	+	(const signed short int & val1, const NAME_V & val2)
 	{
 		//return (long double) val1 + val2;
@@ -1370,7 +1372,7 @@ namespace LIB
 		////	return ::std::to_string (val1) + val2.value.Generic;
 		////}
 
-		//if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type == LIB::container::NAME_V::type::NUMERIC)
 		//	return val1 + val2.value.numeric;
 		//else
 		//	return val1;
@@ -1426,7 +1428,7 @@ namespace LIB
 	{
 		switch (_type)
 		{
-		case LIB::containers::NAME_V::type::NUMERIC:
+		case LIB::container::NAME_V::type::NUMERIC:
 			return -value.numeric;
 			//break;
 		default:	// type::GENERIC	// More of an abnormal inversion:
@@ -1435,7 +1437,7 @@ namespace LIB
 			//else	// Cannot "normally" negate/invert.
 			//{
 			//	// reverse the string (reading it from the end to the beginning instead of reading it from the beginning to the end):
-				return LIB::tools::reverse (value.Generic);
+				return LIB::tool::reverse (value.Generic);
 				//return *this;
 			//}
 		}
@@ -1708,8 +1710,8 @@ namespace LIB
 				ss << value.numeric;
 				ss >> n;
 				
-				//return LIB::tools::multiply (val.value.Generic, value.numeric);
-				return LIB::tools::multiply (val.value.Generic, n);
+				//return LIB::tool::multiply (val.value.Generic, value.numeric);
+				return LIB::tool::multiply (val.value.Generic, n);
 			}
 		default:
 			switch (val._type)
@@ -1727,8 +1729,8 @@ namespace LIB
 				ss << val.value.numeric;
 				ss >> n;
 				
-				//return LIB::tools::multiply (value.Generic, val.value.numeric);
-				return LIB::tools::multiply (value.Generic, n);
+				//return LIB::tool::multiply (value.Generic, val.value.numeric);
+				return LIB::tool::multiply (value.Generic, n);
 			default:
 				return value.Generic;
 				//return LIB::default::GENERIC;
@@ -1905,8 +1907,8 @@ namespace LIB
 				ss << val.value.numeric;
 				ss >> n;
 				
-				//return LIB::tools::multiply (value.Generic, 1 / val.value.numeric);
-				return LIB::tools::multiply (value.Generic, 1 / n);
+				//return LIB::tool::multiply (value.Generic, 1 / val.value.numeric);
+				return LIB::tool::multiply (value.Generic, 1 / n);
 				//if (value.Generic.length () == 1 && val.value.numeric != 0)
 				//	return value.Generic [0] / val.value.numeric;
 				//else
@@ -2067,7 +2069,7 @@ namespace LIB
 	{
 		switch (val2._type)
 		{
-		case LIB::containers::NAME_V::type::NUMERIC:
+		case LIB::container::NAME_V::type::NUMERIC:
 			//return val1 / val2.value.numeric;
 			// return (mathematics::numbers::real) val1 / val2.value.numeric;
 			return (NAME_V) val1 / val2.value.numeric;
@@ -2208,43 +2210,43 @@ namespace LIB
 	
 	NAME_V		NAME_V::operator	%	(const signed short int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const unsigned short int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const signed int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const unsigned int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const signed long int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const unsigned long int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const signed long long int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 
 		//switch (_type)
 		//{
@@ -2269,25 +2271,25 @@ namespace LIB
 
 	NAME_V		NAME_V::operator	%	(const unsigned long long int & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const float & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const double & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
 	NAME_V		NAME_V::operator	%	(const long double & val)
 	{
-		return *this % (LIB::containers::NAME_V) val;
+		return *this % (LIB::container::NAME_V) val;
 		//return *this % (signed long long int) val;
 	}
 
@@ -2296,8 +2298,8 @@ namespace LIB
 		//NAME_V tmp = val;	// Convert to number, if possible.
 
 		//return *this % tmp;
-		return *this % (LIB::containers::NAME_V) val;
-		//return *this % (LIB::containers::NAME_V) tmp;
+		return *this % (LIB::container::NAME_V) val;
+		//return *this % (LIB::container::NAME_V) tmp;
 		//return *this % (signed long long int) val;
 	}
 	
@@ -2310,9 +2312,9 @@ namespace LIB
 	{
 		//NAME_V tmp = val;	// Convert to number, if possible.
 
-		//return *this % (LIB::containers::NAME_V) tmp;
-		return *this % (LIB::containers::NAME_V) val;
-		//return *this % (LIB::containers::NAME_V) tmp;
+		//return *this % (LIB::container::NAME_V) tmp;
+		return *this % (LIB::container::NAME_V) val;
+		//return *this % (LIB::container::NAME_V) tmp;
 		//return *this % (signed long long int) val;
 	}
 
@@ -2430,8 +2432,8 @@ namespace LIB
 					ss << value.numeric;
 					ss >> n1;
 					
-					//return LIB::tools::exponentiation (value.numeric, val.value.numeric);
-					return LIB::tools::exponentiation (n1, n2);
+					//return LIB::tool::exponentiation (value.numeric, val.value.numeric);
+					return LIB::tool::exponentiation (n1, n2);
 				default:
 					ss << value.numeric;
 					ss >> r;
@@ -2449,8 +2451,8 @@ namespace LIB
 					return r;
 					//return val.value.numeric;
 				default:
-					//return mathematics::numbers::_default;
-					return LIB::_default::numeric;
+					//return mathematics::numbers::defaults;
+					return LIB::defaults::numeric;
 			}
 		}
 	}
@@ -2611,10 +2613,10 @@ namespace LIB
 				ss << value.numeric;
 				ss >> n;
 				
-				//return LIB::tools::complement (value.numeric);
-				return LIB::tools::complement (n);
+				//return LIB::tool::complement (value.numeric);
+				return LIB::tool::complement (n);
 			default:
-				return LIB::tools::toggle_case (value.Generic);
+				return LIB::tool::toggle_case (value.Generic);
 		}
 	}
 
@@ -2753,8 +2755,8 @@ namespace LIB
 	{
 		//value.Boolean	= LIB::default::BOOLEAN;
 		//value.numeric	= val;
-		value.numeric	= LIB::tools::string (val).c_str ();
-		value.Generic	= LIB::_default::generic;
+		value.numeric	= LIB::tool::string (val).c_str ();
+		value.Generic	= LIB::defaults::generic;
 		
 		_type = type::NUMERIC;
 
@@ -2763,7 +2765,7 @@ namespace LIB
 
 	NAME_V &			NAME_V::operator	=	(const char & val)
 	{
-		*this = LIB::tools::string (val);
+		*this = LIB::tool::string (val);
 		
 		return *this;
 	}
@@ -2777,7 +2779,7 @@ namespace LIB
 
 	NAME_V &			NAME_V::operator	=	(const unsigned char & val)
 	{
-		*this = LIB::tools::string ((char) val);
+		*this = LIB::tool::string ((char) val);
 		
 		return *this;
 	}
@@ -2803,7 +2805,7 @@ namespace LIB
 	{
 		_type = type::NUMERIC;
 		
-		value.Generic = LIB::_default::generic;
+		value.Generic = LIB::defaults::generic;
 		value.numeric = val;
 		
 		return * this;
@@ -2813,7 +2815,7 @@ namespace LIB
 	{
 		_type = type::NUMERIC;
 		
-		value.Generic = LIB::_default::generic;
+		value.Generic = LIB::defaults::generic;
 		value.numeric = val;
 		
 		return *this;
@@ -2825,7 +2827,7 @@ namespace LIB
 	//	
 	//	value.Generic = LIB::default_::GENERIC;
 	//	//value.numeric = val;
-	//	value.numeric = LIB::tools::string (val).c_str ();
+	//	value.numeric = LIB::tool::string (val).c_str ();
 	//	
 	//	return * this;
 	//}
@@ -2859,7 +2861,7 @@ namespace LIB
 		default:
 			value.Generic	= val;
 			//value.numeric	= mathematics::numbers::default_;
-			value.numeric	= LIB::_default::numeric;
+			value.numeric	= LIB::defaults::numeric;
 			//value.Boolean	= LIB::default::BOOLEAN;
 
 			//_type = type::GENERIC;	// Assign GENERIC, because it could have also been type::BOOLEAN (from default: case).
@@ -2888,7 +2890,7 @@ namespace LIB
 				return value.numeric < val.value.numeric;
 			default:
 				// return ::std::to_string (value.numeric) < val.value.Generic;
-				return LIB::tools::string (value.numeric) < val.value.Generic;
+				return LIB::tool::string (value.numeric) < val.value.Generic;
 				//if (val.value.Generic.length () == 1)
 				//	return value.numeric < val.value.Generic [0];
 				//else
@@ -2899,8 +2901,8 @@ namespace LIB
 			{
 			case type::NUMERIC:
 				// return value.Generic < ::std::to_string (val.value.numeric);
-				// return value.Generic < LIB::tools::string (val.value.numeric);
-				return value.Generic < LIB::tools::string (val.value.numeric);
+				// return value.Generic < LIB::tool::string (val.value.numeric);
+				return value.Generic < LIB::tool::string (val.value.numeric);
 				//if (value.Generic.length () == 1)
 				//	return value.Generic [0] < val.value.numeric;
 				//else
@@ -2932,7 +2934,7 @@ namespace LIB
 				return value.numeric < val.value.numeric;
 			default:
 				// return ::std::to_string (value.numeric) < val.value.Generic;
-				return LIB::tools::string (value.numeric) < val.value.Generic;
+				return LIB::tool::string (value.numeric) < val.value.Generic;
 				//if (val.value.Generic.length () == 1)
 				//	return value.numeric < val.value.Generic [0];
 				//else
@@ -2943,8 +2945,8 @@ namespace LIB
 			{
 			case type::NUMERIC:
 				// return value.Generic < ::std::to_string (val.value.numeric);
-				// return value.Generic < LIB::tools::string (val.value.numeric);
-				return value.Generic < LIB::tools::string (val.value.numeric);
+				// return value.Generic < LIB::tool::string (val.value.numeric);
+				return value.Generic < LIB::tool::string (val.value.numeric);
 				//if (value.Generic.length () == 1)
 				//	return value.Generic [0] < val.value.numeric;
 				//else
@@ -3520,8 +3522,8 @@ namespace LIB
 	
 	const long double &		operator	+=	(long double & val1, const NAME_V & val2)
 	{
-		//if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
-		if (val2._type == /*LIB::containers::*/NAME_V::type::NUMERIC)
+		//if (val2._type == LIB::container::NAME_V::type::NUMERIC)
+		if (val2._type == /*LIB::container::*/NAME_V::type::NUMERIC)
 		{
 			//val1 = (NAME_V) val1 + (NAME_V) val2.value.numeric;
 			val1 = val1 + val2;
@@ -3536,8 +3538,8 @@ namespace LIB
 	
 	const mathematics::numbers::real &		operator	+=	(LIB::mathematics::numbers::real & val1, const NAME_V & val2)
 	{
-		//if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
-		if (val2._type == /*LIB::containers::*/NAME_V::type::NUMERIC)
+		//if (val2._type == LIB::container::NAME_V::type::NUMERIC)
+		if (val2._type == /*LIB::container::*/NAME_V::type::NUMERIC)
 		{
 			//val1 = (NAME_V) val1 + (NAME_V) val2.value.numeric;
 			val1 += val2.value.numeric;
@@ -3553,8 +3555,8 @@ namespace LIB
 	
 	const LIB::mathematics::numbers::integer &		operator	+=	(LIB::mathematics::numbers::integer & val1, NAME_V & val2)
 	{
-		//if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
-		if (val2._type == /*LIB::containers::*/NAME_V::type::NUMERIC)
+		//if (val2._type == LIB::container::NAME_V::type::NUMERIC)
+		if (val2._type == /*LIB::container::*/NAME_V::type::NUMERIC)
 		{
 			//val1 = (NAME_V) val1 + (NAME_V) val2.value.numeric;
 			val1 += /*(mathematics::numbers::integer) */val2.value.numeric;
@@ -3763,7 +3765,7 @@ namespace LIB
 
 	long double		operator	-=	(long double val1, const NAME_V val2)
 	{
-		if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
+		if (val2._type == LIB::container::NAME_V::type::NUMERIC)
 		{
 			val1 = (NAME_V) val1 - (NAME_V) val2.value.numeric;
 		}
@@ -3924,7 +3926,7 @@ namespace LIB
 
 	long double		operator	*=	(long double val1, const NAME_V val2)
 	{
-		if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
+		if (val2._type == LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) val1 * (NAME_V) val2.value.numeric;
 		//else
 
@@ -4089,7 +4091,7 @@ namespace LIB
 
 	long double		operator	/=	(long double val1, const NAME_V val2)
 	{
-		//if (val2._type == LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type == LIB::container::NAME_V::type::NUMERIC)
 		//	val1 = val1 / val2.value.numeric;
 		////else
 
@@ -4204,7 +4206,7 @@ namespace LIB
 		return *this;
 		//NAME_V tmp = val;	// Convert to number if possible.
 
-		////if (tmp._type = LIB::containers::NAME_V::type::NUMERIC)
+		////if (tmp._type = LIB::container::NAME_V::type::NUMERIC)
 		//return *this %= tmp;
 
 		////return to_number ();
@@ -4217,7 +4219,7 @@ namespace LIB
 		return *this;
 		//NAME_V tmp = val;	// Convert to number if possible.
 
-		////if (tmp._type = LIB::containers::NAME_V::type::NUMERIC)
+		////if (tmp._type = LIB::container::NAME_V::type::NUMERIC)
 		//return *this %= tmp;
 
 		////return to_number ();
@@ -4226,7 +4228,7 @@ namespace LIB
 	// %= Left side (friends):
 	signed long long int		operator	%=	(signed short int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4234,7 +4236,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(unsigned short int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4242,7 +4244,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(signed int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4250,7 +4252,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(unsigned int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4258,7 +4260,7 @@ namespace LIB
 
 	signed long long int		operator	%=	 (signed long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4266,7 +4268,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(unsigned long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4274,7 +4276,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(signed long long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4282,7 +4284,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(unsigned long long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4290,7 +4292,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(float & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4298,7 +4300,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(double & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4306,7 +4308,7 @@ namespace LIB
 
 	signed long long int		operator	%=	(long double & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = val1 % val2;
 
 		return val1;
@@ -4428,7 +4430,7 @@ namespace LIB
 	// %= Left side (friends):
 	signed long long int		operator	^=	(signed short int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4436,7 +4438,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(unsigned short int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4444,7 +4446,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(signed int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4452,7 +4454,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(unsigned int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4460,7 +4462,7 @@ namespace LIB
 
 	signed long long int		operator	^=	 (signed long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4468,7 +4470,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(unsigned long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4476,7 +4478,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(signed long long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4484,7 +4486,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(unsigned long long int & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4492,7 +4494,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(float & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4500,7 +4502,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(double & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4508,7 +4510,7 @@ namespace LIB
 
 	signed long long int		operator	^=	(long double & val1, const NAME_V val2)
 	{
-		//if (val2._type = LIB::containers::NAME_V::type::NUMERIC)
+		//if (val2._type = LIB::container::NAME_V::type::NUMERIC)
 			val1 = (NAME_V) ((NAME_V) val1 ^ val2);
 
 		return val1;
@@ -4519,7 +4521,7 @@ namespace LIB
 	//	return LIB::string (val1) %= val2;
 	//	//NAME_V tmp = val1;
 
-	//	//if (tmp._type = LIB::containers::NAME_V::type::NUMERIC)
+	//	//if (tmp._type = LIB::container::NAME_V::type::NUMERIC)
 	//	//	tmp %= val2;
 
 	//	//return tmp.to_number ();
@@ -4529,7 +4531,7 @@ namespace LIB
 	//{
 	//	NAME_V tmp = val1;
 
-	//	if (tmp._type = LIB::containers::NAME_V::type::NUMERIC)
+	//	if (tmp._type = LIB::container::NAME_V::type::NUMERIC)
 	//		tmp %= val2;
 
 	//	return tmp.to_number ();
@@ -5833,7 +5835,7 @@ namespace LIB
 	}
 }
 
-std::string tolower (LIB::containers::NAME_V & val)
+std::string tolower (LIB::container::NAME_V & val)
 {
 	//::std::string _val = val.to_string ();
 	//::std::string s = val.to_string ();
@@ -5848,7 +5850,7 @@ std::string tolower (LIB::containers::NAME_V & val)
 	return s;
 }
 
-std::string toupper (LIB::containers::NAME_V & val)
+std::string toupper (LIB::container::NAME_V & val)
 {
 	std::string s = val;
 	//::std::string s = "";
@@ -5862,7 +5864,7 @@ std::string toupper (LIB::containers::NAME_V & val)
 	return s;
 }
 
-std::istream & getline (::std::istream & is, LIB::containers::NAME_V & val, const char delimiter)
+std::istream & getline (::std::istream & is, LIB::container::NAME_V & val, const char delimiter)
 {
 	std::string temp;
 	std::getline (is, temp, delimiter);

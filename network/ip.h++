@@ -8,9 +8,9 @@
 //#include <boost/asio.hpp>
 #include <boost/asio/ip/address.hpp>
 
-#include "../default.h++"
+#include "../value.h++"
 #include "../mathematics.h++"
-#include "../containers/array.h++"
+#include "../container/array.h++"
 //#include "endpoint.h++"
 
 namespace LIB
@@ -27,7 +27,7 @@ namespace LIB
 					const boost::asio::ip::address network (const boost::asio::ip::address &/* address*/, const boost::asio::ip::address &/* mask*/);
 					
 					// The networks which this machine is connected to.
-					const LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> networks (void);
+					const LIB::container::NAME_A <std::string, LIB::mathematics::numbers::natural> networks (void);
 					
 					//enum version {v6, v4};
 
@@ -41,9 +41,9 @@ namespace LIB
 						//- Latest version to the oldest version;
 						//- Latest local version to the oldest local version;
 					*/
-					//const LIB::containers::NAME_A <address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
-					//const LIB::containers::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
-					const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> addresses (void); //(const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					//const LIB::container::NAME_A <address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					//const LIB::container::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					const LIB::container::NAME_A <LIB::container::NAME_A <LIB::container::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> addresses (void); //(const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
 					//const LIB::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include local. */ = true);
 					
 					

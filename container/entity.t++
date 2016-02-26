@@ -16,8 +16,8 @@
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::containers::NTT <value, key>::container::serialize (archive & arch, const unsigned int & version)
-//LIB::containers::NAME_A<container::value, container::key>::NAME_A (void)
+void LIB::container::NTT <value, key>::container::serialize (archive & arch, const unsigned int & version)
+//LIB::container::NAME_A<container::value, container::key>::NAME_A (void)
 {
 	arch & t;
 	arch & lit;
@@ -27,7 +27,7 @@ void LIB::containers::NTT <value, key>::container::serialize (archive & arch, co
 /*
 template <typename value, typename key>
 template <typename archive>
-void LIB::containers::NTT <value, key>::container::save (archive & arch, const unsigned int & version) const
+void LIB::container::NTT <value, key>::container::save (archive & arch, const unsigned int & version) const
 {
 	arch << t;
 	arch << lit;
@@ -36,7 +36,7 @@ void LIB::containers::NTT <value, key>::container::save (archive & arch, const u
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::containers::NTT <value, key>::container::load (archive & archive, const unsigned int & version)
+void LIB::container::NTT <value, key>::container::load (archive & archive, const unsigned int & version)
 {
 	arch >> t;
 	arch >> lit;
@@ -45,59 +45,59 @@ void LIB::containers::NTT <value, key>::container::load (archive & archive, cons
 */
 
 template <typename value, typename key>
-const std::string LIB::containers::NTT <value, key>::container::serialize (void) const
+const std::string LIB::container::NTT <value, key>::container::serialize (void) const
 {
-	return LIB::serialize <LIB::containers::NTT <value, key>::container> (* this);
+	return LIB::serialize <LIB::container::NTT <value, key>::container> (* this);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::deserialize (const std::string & serial)
+const bool LIB::container::NTT <value, key>::container::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::containers::NTT <value, key>::container> (serial, * this);
+	return LIB::deserialize <LIB::container::NTT <value, key>::container> (serial, * this);
 }
 
 template <typename value, typename key>
-const std::string LIB::containers::NTT <value, key>::serialize (void) const
+const std::string LIB::container::NTT <value, key>::serialize (void) const
 {
-	return LIB::serialize <LIB::containers::NTT <value, key>> (* this);
+	return LIB::serialize <LIB::container::NTT <value, key>> (* this);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::deserialize (const std::string & serial)
+const bool LIB::container::NTT <value, key>::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::containers::NTT <value, key>> (serial, * this);
+	return LIB::deserialize <LIB::container::NTT <value, key>> (serial, * this);
 }
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::containers::NTT <value, key>::serialize (archive & arch, const unsigned int & version)
-//LIB::containers::NAME_A<container::value, container::key>::NAME_A (void)
+void LIB::container::NTT <value, key>::serialize (archive & arch, const unsigned int & version)
+//LIB::container::NAME_A<container::value, container::key>::NAME_A (void)
 {
 	arch & content;
 }
 
 /*
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::iterator_const & LIB::containers::NTT <value, key>::begin (void) const
+const typename LIB::container::NTT <value, key>::iterator_const & LIB::container::NTT <value, key>::begin (void) const
 {
 	return content.grp.begin ();
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::iterator_const & LIB::containers::NTT <value, key>::end (void) const
+const typename LIB::container::NTT <value, key>::iterator_const & LIB::container::NTT <value, key>::end (void) const
 {
 	return content.grp.end ();
 }
 */
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::container (void)
+LIB::container::NTT <value, key>::container::container (void)
 {
 	t = type::literal;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::~container (void)
+LIB::container::NTT <value, key>::container::~container (void)
 {
 	if (t == type::group)
 	{
@@ -108,47 +108,50 @@ LIB::containers::NTT <value, key>::container::~container (void)
 				try
 				{
 					delete element.v;
+					//element.v = NULL;
 				}
 				catch (...)
 				{
 				}
+				
+				element.v = NULL;
 			}
 		}
 	}
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::container (const container & other)
+LIB::container::NTT <value, key>::container::container (const container & other)
 {
 	* this = other;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::container (const LIB::containers::NTT <value, key> & other)
+LIB::container::NTT <value, key>::container::container (const LIB::container::NTT <value, key> & other)
 {
 	* this = other;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::container (const LIB::containers::NAME_A <value, key> & other)
+LIB::container::NTT <value, key>::container::container (const LIB::container::NAME_A <value, key> & other)
 {
 	* this = other;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::container::container (const value & other)
+LIB::container::NTT <value, key>::container::container (const value & other)
 {
 	* this = other;
 }
 
 template <typename value, typename key>
-typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <value, key>::container::operator = (const container & other)
+typename LIB::container::NTT <value, key>::container & LIB::container::NTT <value, key>::container::operator = (const LIB::container::NTT <value, key>::container & other)
 {
 	t = other.t;
 	lit = other.lit;
 	//group = other.group;	// Would be recursive.
 	//content.content_clear_group ();
-	for (const typename LIB::containers::NAME_A <NTT <value, key> *, key>::container & element : grp)
+	for (const typename LIB::container::NAME_A <NTT <value, key> *, key>::container & element : grp)
 	{
 		if (element.v != NULL)
 		{
@@ -164,12 +167,13 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 	grp.clear ();
 	
 	NTT <value, key> * ntt;
-	//LIB::containers::NAME_A <NTT *, container::key>::package pack;
-	for (const typename LIB::containers::NAME_A <NTT <value, key> *, key>::container & element : other.grp)
+	//LIB::container::NAME_A <NTT *, container::key>::package pack;
+	for (const typename LIB::container::NAME_A <NTT <value, key> *, key>::container & element : other.grp)
 	{
 		grp [element.k] = ntt = new NTT <value, key> ();
 		
 		// Copy value, not pointer.
+		/*
 		if (element.v -> content.t == container::type::literal)
 		{
 			ntt -> content.lit = element.v -> content.lit;
@@ -178,8 +182,10 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 		else
 		{
 			//group = (* element).value.group;
-			ntt -> content.grp = element.v -> content.grp;	// Is this recursive?
+			ntt -> content.grp = element.v -> content.grp;	// Is this recursive? No.
 		}
+		*/
+		*ntt = *element.v;
 		
 		//group [(*element).k] = ntt = new NTT ();
 		//group [element.k] = ntt = new NTT ();
@@ -190,7 +196,7 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 }
 
 template <typename value, typename key>
-typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <value, key>::container::operator = (const /*LIB::containers::*/NTT <value, key> & other)
+typename LIB::container::NTT <value, key>::container & LIB::container::NTT <value, key>::container::operator = (const LIB::container::NTT <value, key> & other)
 {
 	// t = other.content.t;
 	// lit = other.content.lit;
@@ -208,12 +214,12 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 	/*
 	other.content.content_clear_group ();
 	
-	for (const typename LIB::containers::NAME_A <NTT <value, key> *, key>::container & element : other.content.grp)
+	for (const typename LIB::container::NAME_A <NTT <value, key> *, key>::container & element : other.content.grp)
 	{
 		// grp.operator [] (* (element.get_key ())) = ntt = new NTT <value, key> (element);
 		grp.operator [] (element.k) = /*ntt = * /new NTT <value, key> (element.v);
 		
-		////* ntt = /*(LIB::containers::NTT) * /element.v;
+		////* ntt = /*(LIB::container::NTT) * /element.v;
 		////ntt -> k = grp.operator [] (* (element.get_key ())) -> grp.get_key (* (element.get_key ()));
 		////ntt -> k = ntt -> get_key (* (element.get_key ()));
 		
@@ -224,7 +230,7 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 }
 
 template <typename value, typename key>
-typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <value, key>::container::operator = (const LIB::containers::NAME_A <value, key> & other)
+typename LIB::container::NTT <value, key>::container & LIB::container::NTT <value, key>::container::operator = (const LIB::container::NAME_A <value, key> & other)
 {
 	content_clear_literal ();
 	
@@ -238,7 +244,7 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 	{
 		grp.operator [] (element.k) = ntt = new NTT <value, key> (element.v);
 		
-		////* ntt = /*(LIB::containers::NTT) */element.v;
+		////* ntt = /*(LIB::container::NTT) */element.v;
 		
 		// ntt -> k = grp.get_key (element.k);
 	}
@@ -247,7 +253,7 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 }
 
 template <typename value, typename key>
-typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <value, key>::container::operator = (const value & other)
+typename LIB::container::NTT <value, key>::container & LIB::container::NTT <value, key>::container::operator = (const value & other)
 {
 	content_clear_group ();
 	
@@ -255,13 +261,13 @@ typename LIB::containers::NTT <value, key>::container & LIB::containers::NTT <va
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::container::type LIB::containers::NTT <value, key>::container::get_type () const
+const typename LIB::container::NTT <value, key>::container::type LIB::container::NTT <value, key>::container::get_type () const
 {
 	return t;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator == (const container & other) const
+const bool LIB::container::NTT <value, key>::container::operator == (const container & other) const
 {
 	if (t != other.t)
 		return false;
@@ -276,13 +282,13 @@ const bool LIB::containers::NTT <value, key>::container::operator == (const cont
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator != (const container & other) const
+const bool LIB::container::NTT <value, key>::container::operator != (const container & other) const
 {
 	return !(*this == other);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator == (const LIB::containers::NAME_A <value, key> & other) const
+const bool LIB::container::NTT <value, key>::container::operator == (const LIB::container::NAME_A <value, key> & other) const
 {
 	if (t != type::group // We are comparing a single value to a list, which, normally, should be considered uncomparable.
 			|| size () != other.size ())
@@ -309,25 +315,25 @@ const bool LIB::containers::NTT <value, key>::container::operator == (const LIB:
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator == (const LIB::containers::NTT <value, key> & other) const
+const bool LIB::container::NTT <value, key>::container::operator == (const LIB::container::NTT <value, key> & other) const
 {
 	return * this == other.content;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator != (const LIB::containers::NTT <value, key> & other) const
+const bool LIB::container::NTT <value, key>::container::operator != (const LIB::container::NTT <value, key> & other) const
 {
 	return ! (operator == (other));
 }
 
 //template <typename value, typename key>
-//const bool LIB::containers::NTT <value, key>::container::operator == (const LIB::containers::NAME_A <value, key> & other) const
+//const bool LIB::container::NTT <value, key>::container::operator == (const LIB::container::NAME_A <value, key> & other) const
 //{
 //	return ! (* this == other);
 //}
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator == (const value & other) const
+const bool LIB::container::NTT <value, key>::container::operator == (const value & other) const
 {
 	if (t != type::literal)
 	{
@@ -338,7 +344,7 @@ const bool LIB::containers::NTT <value, key>::container::operator == (const valu
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::operator != (const value & other) const
+const bool LIB::container::NTT <value, key>::container::operator != (const value & other) const
 {
 	return ! (* this != other);
 }
@@ -346,7 +352,7 @@ const bool LIB::containers::NTT <value, key>::container::operator != (const valu
 // Iterator
 // Default constructor.
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::iterator::iterator (void)
+LIB::container::NTT <value, key>::iterator::iterator (void)
 {
 	//reference = NULL;
 	//iter = NULL;
@@ -354,7 +360,7 @@ LIB::containers::NTT <value, key>::iterator::iterator (void)
 
 // Copy constructor.
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::iterator::iterator (const iterator & other)
+LIB::container::NTT <value, key>::iterator::iterator (const iterator & other)
 {
 	iter = other.iter;
 	//parent = other.parent;
@@ -362,20 +368,20 @@ LIB::containers::NTT <value, key>::iterator::iterator (const iterator & other)
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::iterator::operator == (const iterator & other) const
+const bool LIB::container::NTT <value, key>::iterator::operator == (const iterator & other) const
 {
 	//return reference == other.reference;
 	return iter == other.iter;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::iterator::operator != (const iterator & other) const
+const bool LIB::container::NTT <value, key>::iterator::operator != (const iterator & other) const
 {
 	return !(*this == other);
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::iterator & LIB::containers::NTT <value, key>::iterator::operator ++ (void)
+const typename LIB::container::NTT <value, key>::iterator & LIB::container::NTT <value, key>::iterator::operator ++ (void)
 {
 	//++ reference;
 	//if (iter != NULL && parent != NULL)
@@ -395,7 +401,13 @@ const typename LIB::containers::NTT <value, key>::iterator & LIB::containers::NT
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::iterator::operator * (void) const
+const key & LIB::container::NTT <value, key>::iterator::k (void) const
+{
+	return iter -> k;
+}
+
+template <typename value, typename key>
+LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::iterator::operator * (void) const
 {
 	//return ** reference;
 	return * (iter -> v);
@@ -421,7 +433,7 @@ LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::iterator:
 // Constant Iterator
 // Default constructor.
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::const_iterator::const_iterator (void)
+LIB::container::NTT <value, key>::const_iterator::const_iterator (void)
 {
 	//reference = NULL;
 	//iter = NULL;
@@ -429,7 +441,7 @@ LIB::containers::NTT <value, key>::const_iterator::const_iterator (void)
 
 // Copy constructor.
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::const_iterator::const_iterator (const const_iterator & other)
+LIB::container::NTT <value, key>::const_iterator::const_iterator (const const_iterator & other)
 {
 	iter = other.iter;
 	//parent = other.parent;
@@ -437,20 +449,20 @@ LIB::containers::NTT <value, key>::const_iterator::const_iterator (const const_i
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::const_iterator::operator == (const const_iterator & other) const
+const bool LIB::container::NTT <value, key>::const_iterator::operator == (const const_iterator & other) const
 {
 	//return reference == other.reference;
 	return iter == other.iter;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::const_iterator::operator != (const const_iterator & other) const
+const bool LIB::container::NTT <value, key>::const_iterator::operator != (const const_iterator & other) const
 {
 	return !(*this == other);
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::const_iterator & LIB::containers::NTT <value, key>::const_iterator::operator ++ (void)
+const typename LIB::container::NTT <value, key>::const_iterator & LIB::container::NTT <value, key>::const_iterator::operator ++ (void)
 {
 	//++ reference;
 	//if (iter != NULL && parent != NULL)
@@ -470,7 +482,7 @@ const typename LIB::containers::NTT <value, key>::const_iterator & LIB::containe
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::const_iterator::operator * (void) const
+LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::const_iterator::operator * (void) const
 {
 	//return ** reference;
 	return * (iter -> v);
@@ -495,41 +507,41 @@ LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::const_ite
 */
 // Entity
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::NTT (void)
+LIB::container::NTT <value, key>::NTT (void)
 {
 	//k = NULL;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::NTT (const NTT <value, key> & other)
-{
-	//k = NULL;
-	
-	* this = other;
-}
-
-template <typename value, typename key>
-LIB::containers::NTT <value, key>::NTT (const LIB::containers::NAME_A <value, key> & other)
+LIB::container::NTT <value, key>::NTT (const LIB::container::NTT <value, key> & other)
 {
 	//k = NULL;
 	
-	* this = other;
+	*this = other;
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::NTT (const value & other)
+LIB::container::NTT <value, key>::NTT (const LIB::container::NAME_A <value, key> & other)
 {
-	* this = other;
+	//k = NULL;
+	
+	*this = other;
+}
+
+template <typename value, typename key>
+LIB::container::NTT <value, key>::NTT (const value & other)
+{
+	*this = other;
 }
 
 /*template <typename value, typename key>
-LIB::containers::NTT <value, key>::NTT (const machine::resources::memory::key & key)
+LIB::container::NTT <value, key>::NTT (const machine::resources::memory::key & key)
 {
 	* this = key;
 }*/
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::iterator LIB::containers::NTT <value, key>::begin (void)
+const typename LIB::container::NTT <value, key>::iterator LIB::container::NTT <value, key>::begin (void)
 {
 	NTT <value, key>::iterator iter;
 	
@@ -545,7 +557,7 @@ const typename LIB::containers::NTT <value, key>::iterator LIB::containers::NTT 
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::iterator LIB::containers::NTT <value, key>::end (void)
+const typename LIB::container::NTT <value, key>::iterator LIB::container::NTT <value, key>::end (void)
 {
 	NTT <value, key>::iterator iter;
 	
@@ -562,7 +574,7 @@ const typename LIB::containers::NTT <value, key>::iterator LIB::containers::NTT 
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::/*const_*/iterator LIB::containers::NTT <value, key>::begin (void) const
+const typename LIB::container::NTT <value, key>::/*const_*/iterator LIB::container::NTT <value, key>::begin (void) const
 {
 	//NTT <value, key>::const_iterator iter;
 	NTT <value, key>::iterator iter;
@@ -579,7 +591,7 @@ const typename LIB::containers::NTT <value, key>::/*const_*/iterator LIB::contai
 }
 
 template <typename value, typename key>
-const typename LIB::containers::NTT <value, key>::/*const_*/iterator LIB::containers::NTT <value, key>::end (void) const
+const typename LIB::container::NTT <value, key>::/*const_*/iterator LIB::container::NTT <value, key>::end (void) const
 {
 	//NTT <value, key>::const_iterator iter;
 	NTT <value, key>::iterator iter;
@@ -597,7 +609,7 @@ const typename LIB::containers::NTT <value, key>::/*const_*/iterator LIB::contai
 }
 
 template <typename value, typename key>
-const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator = (const NTT <value, key> & other)
+const LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator = (const NTT <value, key> & other)
 {
 	content = other/*.content*/;
 	
@@ -605,7 +617,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 }
 
 template <typename value, typename key>
-const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator = (const LIB::containers::NAME_A <value, key> & other)
+const LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator = (const LIB::container::NAME_A <value, key> & other)
 {
 	// content.t = container::type::group;
 	
@@ -618,7 +630,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 }
 
 template <typename value, typename key>
-const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator = (const value & other)
+const LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator = (const value & other)
 {
 	// content.t = container::type::literal;
 	
@@ -627,8 +639,8 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 	/*
 	try
 	{
-		//container::value.literal = const_cast <LIB::NAME> (* (static_cast <const LIB::containers::NAME_V *> (val)));
-		value.literal = * (static_cast <const LIB::containers::NAME_V *> (val));
+		//container::value.literal = const_cast <LIB::NAME> (* (static_cast <const LIB::container::NAME_V *> (val)));
+		value.literal = * (static_cast <const LIB::container::NAME_V *> (val));
 	}
 	catch (...)
 	{
@@ -642,7 +654,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 	//return container::value.literal;
 }
 /*
-const LIB::containers::NAME_V & LIB::containers::NTT::operator = (const LIB::containers::NAME_V val)
+const LIB::container::NAME_V & LIB::container::NTT::operator = (const LIB::container::NAME_V val)
 {
 	t = type::literal;
 	
@@ -652,7 +664,7 @@ const LIB::containers::NAME_V & LIB::containers::NTT::operator = (const LIB::con
 }
 */
 /*
-const LIB::containers::NAME_A <LIB::containers::NTT *, LIB::containers::NTT::container::key> & LIB::containers::NTT::operator = (const LIB::containers::NAME_A <NTT *, container::key> & group)
+const LIB::container::NAME_A <LIB::container::NTT *, LIB::container::NTT::container::key> & LIB::container::NTT::operator = (const LIB::container::NAME_A <NTT *, container::key> & group)
 {
 	value.t = container::type::group;
 	
@@ -662,7 +674,7 @@ const LIB::containers::NAME_A <LIB::containers::NTT *, LIB::containers::NTT::con
 }
 */
 template <typename value, typename key>
-LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator [] (const key & _k)
+LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator [] (const key & _k)
 {
 	content.t = container::type::group;
 	
@@ -696,13 +708,13 @@ LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator 
 ////	{
 ////		std::cerr << "Exception occurred: " << e.what () << std::endl;
 ////		
-////		container::value.group.operator [] (container::key) = ntt = new LIB::containers::NTT ();
+////		container::value.group.operator [] (container::key) = ntt = new LIB::container::NTT ();
 ////		
 ////		return * ntt;
 ////	}
 //	catch (...)
 //	{
-//		container::value.group.operator [] (container::key) = ntt = new LIB::containers::NTT ();
+//		container::value.group.operator [] (container::key) = ntt = new LIB::container::NTT ();
 //		
 //		//return * ntt;
 //	}
@@ -711,7 +723,7 @@ LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator 
 }
 
 template <typename value, typename key>
-const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator [] (const key & _k) const
+const LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator [] (const key & _k) const
 {
 	//content.t = container::type::group;
 	
@@ -721,7 +733,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 	
 	if (exist (_k))
 	{
-		return * (const_cast <const LIB::containers::NTT <value, key> *> (content.grp.operator [] (_k)));
+		return * (const_cast <const LIB::container::NTT <value, key> *> (content.grp.operator [] (_k)));
 	}
 	else
 	{
@@ -741,13 +753,13 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 ////	{
 ////		std::cerr << "Exception occurred: " << e.what () << std::endl;
 ////		
-////		container::value.group.operator [] (container::key) = ntt = new LIB::containers::NTT ();
+////		container::value.group.operator [] (container::key) = ntt = new LIB::container::NTT ();
 ////		
 ////		return * ntt;
 ////	}
 //	catch (...)
 //	{
-//		container::value.group.operator [] (container::key) = ntt = new LIB::containers::NTT ();
+//		container::value.group.operator [] (container::key) = ntt = new LIB::container::NTT ();
 //		
 //		//return * ntt;
 //	}
@@ -756,7 +768,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::unset (const key & _k)
+const bool LIB::container::NTT <value, key>::unset (const key & _k)
 {
 	content.t = container::type::group;
 	
@@ -766,13 +778,13 @@ const bool LIB::containers::NTT <value, key>::unset (const key & _k)
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::exists (const key & _k, const bool & recursive) const
+const bool LIB::container::NTT <value, key>::exists (const key & _k, const bool & recursive) const
 {
 	return exist (_k, recursive);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::exist (const key & _k, const bool & recursive) const
+const bool LIB::container::NTT <value, key>::exist (const key & _k, const bool & recursive) const
 {
 	switch (content.t)
 	{
@@ -800,7 +812,7 @@ const bool LIB::containers::NTT <value, key>::exist (const key & _k, const bool 
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::containers::NTT <value, key>::size (const bool & recursive, const bool & grouped) const
+const LIB::mathematics::numbers::natural LIB::container::NTT <value, key>::size (const bool & recursive, const bool & grouped) const
 {
 	switch (content.t)
 	{
@@ -827,7 +839,7 @@ const LIB::mathematics::numbers::natural LIB::containers::NTT <value, key>::size
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::clear (void)
+const bool LIB::container::NTT <value, key>::clear (void)
 {
 	switch (content.t)
 	{
@@ -839,7 +851,7 @@ const bool LIB::containers::NTT <value, key>::clear (void)
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::rename (const key & current, const key & _new)
+const bool LIB::container::NTT <value, key>::rename (const key & current, const key & _new)
 {
 	content.t = container::type::group;
 	
@@ -849,31 +861,31 @@ const bool LIB::containers::NTT <value, key>::rename (const key & current, const
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator == (const NTT <value, key> & other) const
+const bool LIB::container::NTT <value, key>::operator == (const NTT <value, key> & other) const
 {
 	return content == other.content;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator != (const NTT <value, key> & other) const
+const bool LIB::container::NTT <value, key>::operator != (const NTT <value, key> & other) const
 {
 	return !(* this == other);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator == (const value & other) const
+const bool LIB::container::NTT <value, key>::operator == (const value & other) const
 {
 	return content == other;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator != (const value & other) const
+const bool LIB::container::NTT <value, key>::operator != (const value & other) const
 {
 	return ! (* this == other);
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator == (const LIB::containers::NAME_A <value, key> & other) const
+const bool LIB::container::NTT <value, key>::operator == (const LIB::container::NAME_A <value, key> & other) const
 {
 	/*
 	if (content.t == container::type::literal // We are comparing a single value to a list, which, normally, should be considered uncomparable.
@@ -904,13 +916,13 @@ const bool LIB::containers::NTT <value, key>::operator == (const LIB::containers
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator != (const LIB::containers::NAME_A <value, key> & other) const
+const bool LIB::container::NTT <value, key>::operator != (const LIB::container::NAME_A <value, key> & other) const
 {
 	return ! (* this == other);
 }
 
 /*template <typename value, typename key>
-const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::operator = (const machine::resources::memory::key & key) const
+const LIB::container::NTT <value, key> & LIB::container::NTT <value, key>::operator = (const machine::resources::memory::key & key) const
 {
 	operator [] ("name") = key.name;
 	operator [] ("group") = key.group;
@@ -920,7 +932,7 @@ const LIB::containers::NTT <value, key> & LIB::containers::NTT <value, key>::ope
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator == (const machine::resources::memory::key & key) const
+const bool LIB::container::NTT <value, key>::operator == (const machine::resources::memory::key & key) const
 {
 	if (! exist ("name") || operator [] ("name") != key.name)
 		return false;
@@ -935,13 +947,13 @@ const bool LIB::containers::NTT <value, key>::operator == (const machine::resour
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::operator != (const machine::resources::memory::key & key) const
+const bool LIB::container::NTT <value, key>::operator != (const machine::resources::memory::key & key) const
 {
 	return ! (operator == (key));
 }*/
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator () (void)
+const value & LIB::container::NTT <value, key>::operator () (void)
 {
 	content.t = container::type::literal;
 	
@@ -951,7 +963,7 @@ const value & LIB::containers::NTT <value, key>::operator () (void)
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator () (void) const
+const value & LIB::container::NTT <value, key>::operator () (void) const
 {
 	//content.t = container::type::literal;
 	
@@ -961,67 +973,87 @@ const value & LIB::containers::NTT <value, key>::operator () (void) const
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator * (void)
+const value & LIB::container::NTT <value, key>::operator * (void)
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator * (void) const
+const value & LIB::container::NTT <value, key>::operator * (void) const
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator -> (void)
+const value & LIB::container::NTT <value, key>::operator -> (void)
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::operator -> (void) const
+const value & LIB::container::NTT <value, key>::operator -> (void) const
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::operator const value & (void)
+LIB::container::NTT <value, key>::operator const LIB::container::NAME_A <value, key> (void) const
+{
+	LIB::container::NAME_A <value, key> temp;
+	
+	if (is_literal ())
+	{
+		temp.add ((*this) ());
+	}
+	else
+	{
+		for (const auto & element : content.grp)
+		{
+			temp [element.k] = *(element.v);
+		}
+	}
+	
+	return temp;
+}
+
+template <typename value, typename key>
+LIB::container::NTT <value, key>::operator const value & (void)
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-LIB::containers::NTT <value, key>::operator const value & (void) const
+LIB::container::NTT <value, key>::operator const value & (void) const
 {
 	return (* this) ();
 }
 /*
 template <typename value, typename key>
-value & LIB::containers::NTT <value, key>::value (void)
+value & LIB::container::NTT <value, key>::value (void)
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::value (void) const
+const value & LIB::container::NTT <value, key>::value (void) const
 {
 	return (* this) ();
 }
 */
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::get_value (void)
+const value & LIB::container::NTT <value, key>::get_value (void)
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const value & LIB::containers::NTT <value, key>::get_value (void) const
+const value & LIB::container::NTT <value, key>::get_value (void) const
 {
 	return (* this) ();
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::content_clear_literal (void)
+const bool LIB::container::NTT <value, key>::container::content_clear_literal (void)
 {
 	lit = "";
 	
@@ -1029,7 +1061,7 @@ const bool LIB::containers::NTT <value, key>::container::content_clear_literal (
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::content_clear_group (void)
+const bool LIB::container::NTT <value, key>::container::content_clear_group (void)
 {
 	for (auto & element : grp)
 	{
@@ -1049,7 +1081,7 @@ const bool LIB::containers::NTT <value, key>::container::content_clear_group (vo
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::empty (void) const
+const bool LIB::container::NTT <value, key>::container::empty (void) const
 {
 	if (t == type::literal)
 	{
@@ -1062,31 +1094,31 @@ const bool LIB::containers::NTT <value, key>::container::empty (void) const
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::container::full (void) const
+const bool LIB::container::NTT <value, key>::container::full (void) const
 {
 	return false;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::empty (void) const
+const bool LIB::container::NTT <value, key>::empty (void) const
 {
 	return content.empty ();
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::full (void) const
+const bool LIB::container::NTT <value, key>::full (void) const
 {
 	return false;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::is_literal (void) const
+const bool LIB::container::NTT <value, key>::is_literal (void) const
 {
 	return content.t == container::type::literal;
 }
 
 template <typename value, typename key>
-const bool LIB::containers::NTT <value, key>::is_group (void) const
+const bool LIB::container::NTT <value, key>::is_group (void) const
 {
 	return content.t == container::type::group;
 }

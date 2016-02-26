@@ -7,7 +7,7 @@
 //#include <string>
 //#include <stddef.h>	// For NULL.
 
-#include "library.h++"
+#include "name.h++"
 
 namespace LIB
 {
@@ -23,7 +23,7 @@ namespace LIB
 			
 			
 			// An abstract class.
-			typedef cln::cl_R real;
+			typedef cln::cl_R real;	// To be removed.
 			
 			// Initial/Non-recomputed/Non-"lazy recomputation",
 			// Unlimited-precision,
