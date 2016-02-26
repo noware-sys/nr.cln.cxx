@@ -52,8 +52,8 @@ namespace LIB
 					
 					enum location	// location, distance
 					{
-						local,	// literal, local
-						remote	// reference, remote
+						literal,	// literal, local
+						reference	// reference, remote
 					};
 					
 					enum type
@@ -72,13 +72,13 @@ namespace LIB
 					virtual const location get_location (void) const;
 					virtual const type get_type (void) const;
 					virtual const bool operator== (const resource &/* other*/) const/* = 0*/;
-					virtual const bool run (const bool &/* active(_running)_state*/ = true)/* = 0*/;
-					virtual const bool active/*ning*/ (void) const;
+					//virtual const bool run (const bool &/* active(_running)_state*/ = true)/* = 0*/;
+					//virtual const bool active/*ning*/ (void) const;
 				protected:
 					type t;
 					location l;
 					
-					bool _active;
+					//bool _active;
 					// LIB::cluster::machine * machine;	// Needed?
 			};
 		//}

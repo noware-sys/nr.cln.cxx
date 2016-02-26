@@ -7,6 +7,7 @@
 #include <fstream>
 
 //#include <boost/any.hpp>
+#include <boost/random/random_device.hpp>
 
 #include "default.h++"
 #include "mathematics.h++"
@@ -17,8 +18,11 @@ namespace LIB
 {
 	namespace tools
 	{
+		static boost::random::random_device random_number_generator;
+		
 		// Determines if a string is numeric (in base 10):
 		const bool is_numeric	(const std::string &);
+		const bool is_number	(const std::string &);
 		//long double (const std::string &);	// Converts a string to a number.
 
 		//mathematics::number::integer	digits		(mathematics::number::integer);
@@ -76,6 +80,9 @@ namespace LIB
 		const std::string upper (std::string);
 		
 		//void sleep (const mathematics::numbers::real &/* seconds*/);
+		
+		const LIB::mathematics::numbers::real random (const LIB::mathematics::numbers::natural & /* Maximum. */, const LIB::mathematics::numbers::natural & = 0 /* Minimum. */);
+		const LIB::mathematics::numbers::natural random (void);
 		
 		/*
 			Pseudo-random number generator.

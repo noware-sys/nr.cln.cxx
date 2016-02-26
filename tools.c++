@@ -35,6 +35,8 @@ namespace LIB
 
 			/*unsigned int*/LIB::mathematics::numbers::natural length = value.length ();
 			bool decimal_found = false;
+			bool sign_found = false;
+			bool digit_found = false;
 
 			//if (s[0] != '+' || s[0] != '-' || !isdigit(s[0]))
 				//return false;
@@ -52,17 +54,33 @@ namespace LIB
 				//	/*continue*/;
 				//}
 				//else 
-					if (value [i] == '.' && !decimal_found)
+					if (value [i] == '.'/* && ! decimal_found*/)
 				{
+					if (decimal_found)
+						return false;
+					
 					decimal_found = true;
 				}
-				else if (!isdigit (value [i]))
+				else if ((value [i] == '+' || value [i] == '-')/* && ! sign_found*/)
+				{
+					sign_found = true;
+				}
+				else if (! isdigit (value [i]))
 				{
 					return false;
 				}
+				else
+				{
+					digit_found = true;
+				}
 			}
-
-			return true;
+			
+			return digit_found;
+		}
+		
+		const bool is_number (const std::string & value)
+		{
+			return is_numeric (value);
 		}
 		
 		/*
@@ -668,6 +686,45 @@ namespace LIB
 			io.run ();
 		}
 		*/
+		
+		const LIB::mathematics::numbers::real random (const LIB::mathematics::numbers::natural & maximum, const LIB::mathematics::numbers::natural & minimum)
+		{
+			//boost::random::random_device generator;
+//			LIB::mathematics::numbers::real numerator, denominator, quotient, preparation, preparation_2, preparation_3, result;
+//			
+//			numerator = random_number_generator ();
+//			denominator = random_number_generator.max ();
+//			denominator =  + 1;
+//			quotient = numerator / denominator;
+//			
+//			preparation_3 = maximum;
+//			preparation_3 = preparation_3 - minimum;
+//			preparation_3 = preparation_3 + 1;
+//			
+//			preparation_2 = preparation_3;
+//			preparation_2 = preparation_2 * ;
+//			
+//			//preparation = minimum;
+//			//preparation = preparation + preparation_2;
+			
+			//result = minimum + preparation_2;
+			
+			//return minimum + ((maximum - minimum + 1) * random_number_generator () / (random_number_generator.max () + 1.0));
+			
+			return minimum + ((maximum - minimum + 1) * (LIB::mathematics::numbers::real) random_number_generator () / ((LIB::mathematics::numbers::real) random_number_generator.max () + 1));
+			//return minimum + ((maximum - minimum + 1) * random_number_generator () / (random_number_generator.max () + 1));
+			
+			//return minimum + ((prep 3) * random_number_generator () / (random_number_generator.max () + 1.0));
+			//return  + ((maximum - minimum + 1) * quotient);
+			//return result;
+		}
+		
+		const LIB::mathematics::numbers::natural random (void)
+		{
+			//boost::random::random_device generator;
+			
+			return random_number_generator ();
+		}
 		
 		randomizer::randomizer (const unsigned long long int & maximum, const unsigned long long int & minimum)
 		{

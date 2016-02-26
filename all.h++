@@ -1,8 +1,9 @@
 // This file includes all other header files within this library.
-#pragma once
+//#pragma once
 
 //#include <typeinfo>
 
+//#include "library.h++"
 #include "default.h++"
 #include "mathematics.h++"
 #include "serialization.h++"
@@ -13,13 +14,16 @@
 //#include "containers/dynamic.h++"
 //#include "containers/pointer.h++"
 #include "containers/entity.h++"
+#include "containers/databases/sqlite.h++"
+#include "containers/memory.h++"
+#include "containers/entity_2.h++"
 //#include "containers/any.h++"
 #include "network/ip.h++"
 //#include "network/ip/tcp.h++"
 //#include "network/ip/udp.h++"
-#include "network/endpoint.h++"
+//#include "network/endpoint.h++"
 //#include "network/messaging.h++"
-#include "network/connection.h++"
+#include "network/_mpi.h++"
 #include "network/mpi.h++"
 #include "network/ip/mpi.h++"
 //#include "language/resource.h++"

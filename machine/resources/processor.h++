@@ -30,7 +30,8 @@
 #include "../../containers/variable.h++"
 #include "../../tools.h++"
 #include "../resource.h++"
-#include "memory.h++"
+//#include "memory.h++"
+#include "../../cluster/entity.h++"
 #include "../../serialization.h++"
 
 namespace LIB
@@ -41,7 +42,7 @@ namespace LIB
 		{
 			//class processor;
 			
-			class processor : public LIB::machine::resource
+			class processor : /*public */LIB::machine::resource
 			{
 				public:
 					//class parser
@@ -55,7 +56,7 @@ namespace LIB
 					//		void parse (const std::string, std::queue <LIB::machine::devices::processor::instruction> &);
 					//};
 					
-					enum /*class */operation
+					enum/* class*/ operation
 					{
 						none,
 						// For controlling the flow of the execution:
@@ -71,18 +72,19 @@ namespace LIB
 						exponentiation,
 						assignment,
 						//jump,
-						output	// Or "echo".
+						output	// output set echo
 					};
 					
 					class instruction
 					{
-						protected:
+						public:
+						//protected:
 							friend class boost::serialization::access;
 							// friend std::ostream & operator << (std::ostream &, const instruction &);
 							
 							template <typename archive>
 							void serialize (archive &, const unsigned int &/* version*/);
-						public:
+						//public:
 							instruction (void);
 							instruction (const instruction &/* other*/);
 							instruction (const std::string &/* serial representation; text archive*/);
@@ -278,6 +280,10 @@ namespace LIB
 					processor (const bool & /* Run. */ = true);
 					~processor (void);
 					
+					// Get the number of processors (cores).
+					const LIB::mathematics::numbers::natural size (void) const;
+					//const LIB::mathematics::numbers::natural concurrency (void) const;
+					
 					const LIB::mathematics::numbers::natural queue_size (void) const;
 					const bool queue_empty (void) const;
 					//const instruction beginning (void);
@@ -287,10 +293,14 @@ namespace LIB
 					const bool enqueue (const instructions &);
 					const bool enqueue (const instruction &);
 					
+					
 					//void operator () (void);
-					const bool run (const bool & = true);
+					// Active state getter.
 					const bool active (void) const;
+					// Active state setter.
+					const bool run (const bool & = true);
 					//std::string execute (LIB::machine::devices::processor::instruction);
+					
 					
 					// Queue instructions.
 					//bool enqueue (LIB::machine::devices::processor::instructions);
@@ -300,12 +310,16 @@ namespace LIB
 					//void initialize (std::string);
 					//LIB::mathematics::numbers::real Do (const LIB::machine::devices::processor::instruction) const;
 					//LIB::NAME_V Do (const LIB::machine::devices::processor::instruction) const;
-					LIB::machine::resources::memory _memory;
 					//bool parse (const std::string);
 					// Results:
 					//bool result_exists (const LIB::mathematics::numbers::natural);
 					//mathematics::numbers::real get_result (const LIB::mathematics::numbers::natural);
 					//mathematics::numbers::real delete_result (const LIB::mathematics::numbers::natural);
+					
+					// The previous way:
+					//LIB::machine::resources::memory memory;
+					// The new way?:
+					LIB::cluster::entity memory;
 			};
 		}
 	}

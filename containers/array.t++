@@ -6,9 +6,18 @@
 
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::package::operator == (const package & other) const
-//LIB::NAME_A<value, key>::NAME_A (void)
+value LIB::containers::NAME_A <value, key>::_value;
+
+template <typename value, typename key>
+key LIB::containers::NAME_A <value, key>::_k;
+
+template <typename value, typename key>
+const bool LIB::containers::NAME_A <value, key>::container::operator == (const container & other) const
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
+	if (this == & other)
+		return true;
+	
 	// The type of value may not have the operator == defined, so comparing them may fail:
 	try
 	{
@@ -23,7 +32,14 @@ const bool LIB::NAME_A <value, key>::package::operator == (const package & other
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::package::operator = (const package & other)
+const bool LIB::containers::NAME_A <value, key>::container::operator == (const value & other) const
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
+{
+	return v == other;
+}
+
+template <typename value, typename key>
+const typename LIB::containers::NAME_A <value, key>::container & LIB::containers::NAME_A <value, key>::container::operator = (const container & other)
 {
 	
 	// The type of value may not have the operator = defined, so comparing them may fail:
@@ -44,8 +60,8 @@ const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::pac
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::NAME_A <value, key>::package::serialize (archive & arch, const unsigned int & version)
-//LIB::NAME_A<value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::container::serialize (archive & arch, const unsigned int & version)
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
 	//value temp_value;
 	
@@ -93,8 +109,8 @@ void LIB::NAME_A <value, key>::package::serialize (archive & arch, const unsigne
 /*
 template <typename value, typename key>
 template <typename archive>
-void LIB::NAME_A <value, key>::package::save (archive & arch, const unsigned int & version) const
-//LIB::NAME_A<value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::container::save (archive & arch, const unsigned int & version) const
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
 	archive << k;
 	archive << v;
@@ -104,8 +120,8 @@ void LIB::NAME_A <value, key>::package::save (archive & arch, const unsigned int
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::NAME_A <value, key>::package::load (archive & arch, const unsigned int & version)
-//LIB::NAME_A<value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::container::load (archive & arch, const unsigned int & version)
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
 	value temp_value;
 	
@@ -143,19 +159,19 @@ void LIB::NAME_A <value, key>::package::load (archive & arch, const unsigned int
 }
 */
 template <typename value, typename key>
-const std::string LIB::NAME_A <value, key>::package::serialize (void) const
+const std::string LIB::containers::NAME_A <value, key>::container::serialize (void) const
 {
-	return LIB::serialize <LIB::NAME_A <value, key>::package> (* this);
+	return LIB::serialize <LIB::containers::NAME_A <value, key>::container> (* this);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::package::deserialize (const std::string & serial)
+const bool LIB::containers::NAME_A <value, key>::container::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::NAME_A <value, key>::package> (serial, * this);
+	return LIB::deserialize <LIB::containers::NAME_A <value, key>::container> (serial, * this);
 }
-
+/*
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::package::operator = (const std::string & serial)
+const typename LIB::containers::NAME_A <value, key>::container & LIB::containers::NAME_A <value, key>::container::operator = (const std::string & serial)
 {
 	deserialize (serial);
 	
@@ -163,13 +179,27 @@ const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::pac
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::package::operator const std::string (void) const
+LIB::containers::NAME_A <value, key>::container::operator const std::string (void) const
 {
 	return serialize ();
 }
+*/
+template <typename value, typename key>
+const value & LIB::containers::NAME_A <value, key>::container::operator = (const value & val)
+{
+	v = val;
+	
+	return val;
+}
 
 template <typename value, typename key>
-const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::operator = (const std::string & serial)
+LIB::containers::NAME_A <value, key>::container::operator const value (void) const
+{
+	return v;
+}
+
+template <typename value, typename key>
+const LIB::containers::NAME_A <value, key> & LIB::containers::NAME_A <value, key>::operator = (const std::string & serial)
 {
 	deserialize (serial);
 	
@@ -177,18 +207,18 @@ const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::operator = (const std
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::operator const std::string (void) const
+LIB::containers::NAME_A <value, key>::operator const std::string (void) const
 {
 	return serialize ();
 }
 
 template <typename value, typename key>
 template <typename archive>
-void LIB::NAME_A <value, key>::serialize (archive & arch, const unsigned int & version)
-//LIB::NAME_A<value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::serialize (archive & arch, const unsigned int & version)
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
 	arch & tolerant;
-	arch & container;
+	arch & content;
 	
 	//boost::serialization::split_member (archive, * this, version);
 }
@@ -196,10 +226,10 @@ void LIB::NAME_A <value, key>::serialize (archive & arch, const unsigned int & v
 /*
 template <typename value, typename key>
 template <typename Archive>
-void LIB::NAME_A <value, key>::save (Archive & archive, const unsigned int & version) const
-//LIB::NAME_A<value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::save (Archive & archive, const unsigned int & version) const
+//LIB::containers::NAME_A<value, key>::NAME_A (void)
 {
-	//archive << container;
+	//archive << content;
 	//archive << tolerant;
 	try
 	{
@@ -235,14 +265,14 @@ void LIB::NAME_A <value, key>::save (Archive & archive, const unsigned int & ver
 
 template <typename value, typename key>
 template <typename Archive>
-void LIB::NAME_A <value, key>::load (Archive & archive, const unsigned int & version)
-//LIB::NAME_A <value, key>::NAME_A (void)
+void LIB::containers::NAME_A <value, key>::load (Archive & archive, const unsigned int & version)
+//LIB::containers::NAME_A <value, key>::NAME_A (void)
 {
-	//archive >> container;
+	//archive >> content;
 	//archive >> tolerant;
 	try
 	{
-		LIB::NAME_A <value, key> temp;
+		LIB::containers::NAME_A <value, key> temp;
 		//reset ();
 		//temp.clear ();
 		//LIB::mathematics::numbers::natural size = size ();
@@ -261,7 +291,7 @@ void LIB::NAME_A <value, key>::load (Archive & archive, const unsigned int & ver
 		
 		//key k;
 		//value v;
-		package pack;
+		container pack;
 		
 		//archive >> k;
 		//archive >> v;
@@ -297,19 +327,19 @@ void LIB::NAME_A <value, key>::load (Archive & archive, const unsigned int & ver
 */
 
 template <typename value, typename key>
-const std::string LIB::NAME_A <value, key>::serialize (void) const
+const std::string LIB::containers::NAME_A <value, key>::serialize (void) const
 {
-	return LIB::serialize <LIB::NAME_A <value, key>> (* this);
+	return LIB::serialize <LIB::containers::NAME_A <value, key>> (* this);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::deserialize (const std::string & serial)
+const bool LIB::containers::NAME_A <value, key>::deserialize (const std::string & serial)
 {
-	return LIB::deserialize <LIB::NAME_A <value, key>> (serial, * this);
+	return LIB::deserialize <LIB::containers::NAME_A <value, key>> (serial, * this);
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::NAME_A (/*const bool _tolerant*/void)
+LIB::containers::NAME_A <value, key>::NAME_A (/*const bool _tolerant*/void)
 {
 	//_size = 0;
 	//tolerant = _tolerant;
@@ -317,46 +347,46 @@ LIB::NAME_A <value, key>::NAME_A (/*const bool _tolerant*/void)
 
 	// Add a default value to be returned when one is searched by a key which does not exist.
 	//std::pair <key, value> _pair;
-	//container.insert (_pair);
+	//content.insert (_pair);
 }
 
 /*
 // One element.
 template <typename value, typename key>
-LIB::NAME_A <value, key>::NAME_A (const value & lmn/* eLeMeNt * /)
+LIB::containers::NAME_A <value, key>::NAME_A (const value & lmn/* eLeMeNt * /)
 {
 	// Call the default constructor.
-	LIB::NAME_A ();
+	LIB::containers::NAME_A ();
 	
 	enqueue (lmn);
 }
 */
 // Copy constructor.
 template <typename value, typename key>
-LIB::NAME_A <value, key>::NAME_A (const LIB::NAME_A <value, key> & other)
+LIB::containers::NAME_A <value, key>::NAME_A (const LIB::containers::NAME_A <value, key> & other)
 {
 	* this = other;
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::package::package (void)
+LIB::containers::NAME_A <value, key>::container::container (void)
 {
 	//v = NULL;
 	//v = new value ();
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::package::package (const NAME_A <value, key>::package & other)
+LIB::containers::NAME_A <value, key>::container::container (const NAME_A <value, key>::container & other)
 {
 	k = other.k;
 	v = other.v;
 	//std::swap (k, const_cast <key> (other.k));
 	//std::swap (v, const_cast <value> (other.v));
-	// std::swap (this, const_cast <LIB::NAME_A <value, key>::package *> (& other));
+	// std::swap (this, const_cast <LIB::containers::NAME_A <value, key>::container *> (& other));
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::package::package (const key & key_, const value & value_)
+LIB::containers::NAME_A <value, key>::container::container (const key & key_, const value & value_)
 {
 	k = key_;
 	//v = new value ();
@@ -365,7 +395,7 @@ LIB::NAME_A <value, key>::package::package (const key & key_, const value & valu
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::package::~ package (void)
+LIB::containers::NAME_A <value, key>::container::~ container (void)
 {
 	/*
 	if (v != NULL)
@@ -385,32 +415,32 @@ LIB::NAME_A <value, key>::package::~ package (void)
 // Default destructor:
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::~ NAME_A (void)
+LIB::containers::NAME_A <value, key>::~ NAME_A (void)
 {
 	//Link * current;
 	//tempSize = size ();
-	//LIB::NAME_A<value, key>::Clear ();
+	//LIB::containers::NAME_A<value, key>::Clear ();
 	//clear ();
 	//_size = 0;
 }
 
 template <typename value, typename key>
-LIB::NAME_A <value, key>::NAME_A (const std::string & serial)
+LIB::containers::NAME_A <value, key>::NAME_A (const std::string & serial)
 {
 	deserialize (serial);
 }
 
 // Setter
 //template <typename value, typename key>
-//value & LIB::NAME_A<value, key>::operator [] (const key key)
+//value & LIB::containers::NAME_A<value, key>::operator [] (const key key)
 //{
 //	//return values;
 //}
 
 template <typename value, typename key>
-const LIB::NAME_A <value, key> LIB::NAME_A <value, key>::operator + (const value & other) const
+const LIB::containers::NAME_A <value, key> LIB::containers::NAME_A <value, key>::operator + (const value & other) const
 {
-	LIB::NAME_A <value, key> temp;
+	LIB::containers::NAME_A <value, key> temp;
 	
 	temp = *this;
 	temp.add (other);
@@ -419,9 +449,9 @@ const LIB::NAME_A <value, key> LIB::NAME_A <value, key>::operator + (const value
 }
 
 template <typename value, typename key>
-const LIB::NAME_A <value, key> LIB::NAME_A <value, key>::operator + (const NAME_A <value, key> & other) const
+const LIB::containers::NAME_A <value, key> LIB::containers::NAME_A <value, key>::operator + (const NAME_A <value, key> & other) const
 {
-	LIB::NAME_A <value, key> temp;
+	LIB::containers::NAME_A <value, key> temp;
 	
 	temp = *this;
 	temp.add (other);
@@ -432,7 +462,7 @@ const LIB::NAME_A <value, key> LIB::NAME_A <value, key>::operator + (const NAME_
 // Setter.
 
 template <typename value, typename key>
-/*value &*/ const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::/*operator []*/operator +=/*enqueue*//*add*//*append*/ (const value & value_/*, key & _key_*/)
+/*value &*/ const LIB::containers::NAME_A <value, key> & LIB::containers::NAME_A <value, key>::/*operator []*/operator +=/*enqueue*//*add*//*append*/ (const value & value_/*, key & _key_*/)
 {
 	add (value_);
 	
@@ -520,7 +550,7 @@ template <typename value, typename key>
 }
 
 template <typename value, typename key>
-const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::operator += (const NAME_A <value, key> & other)
+const LIB::containers::NAME_A <value, key> & LIB::containers::NAME_A <value, key>::operator += (const NAME_A <value, key> & other)
 {
 	add (other);
 	
@@ -528,9 +558,9 @@ const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::operator += (const NA
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::add (const value & other)
+const bool LIB::containers::NAME_A <value, key>::add (const value & other)
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return false;
 	
 	operator [] (sequence_next_available ()) = other;
@@ -539,9 +569,9 @@ const bool LIB::NAME_A <value, key>::add (const value & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::add (const value & other, key & used_key)
+const bool LIB::containers::NAME_A <value, key>::add (const value & other, key & used_key)
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return false;
 	
 	used_key = sequence_next_available ();
@@ -551,7 +581,7 @@ const bool LIB::NAME_A <value, key>::add (const value & other, key & used_key)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::add (const NAME_A <value, key> & other)
+const bool LIB::containers::NAME_A <value, key>::add (const NAME_A <value, key> & other)
 {
 	for (auto & element : other)
 	{
@@ -562,9 +592,9 @@ const bool LIB::NAME_A <value, key>::add (const NAME_A <value, key> & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::append (const value & other)
+const bool LIB::containers::NAME_A <value, key>::append (const value & other)
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return false;
 	
 	operator [] (sequence_next ()) = other;
@@ -573,9 +603,9 @@ const bool LIB::NAME_A <value, key>::append (const value & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::append (const value & other, key & used_key)
+const bool LIB::containers::NAME_A <value, key>::append (const value & other, key & used_key)
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return false;
 	
 	used_key = sequence_next ();
@@ -585,9 +615,9 @@ const bool LIB::NAME_A <value, key>::append (const value & other, key & used_key
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::append (const NAME_A <value, key> & other)
+const bool LIB::containers::NAME_A <value, key>::append (const NAME_A <value, key> & other)
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return false;
 	
 	for (auto & element : other)
@@ -606,11 +636,11 @@ const bool LIB::NAME_A <value, key>::append (const NAME_A <value, key> & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::numeric_key (void) const
+const bool LIB::containers::NAME_A <value, key>::key_numeric (void) const
 {
 	return
 		(
-			/*
+			
 			typeid (key) == typeid (signed short int)
 			||
 			typeid (key) == typeid (unsigned short int)
@@ -629,34 +659,48 @@ const bool LIB::NAME_A <value, key>::numeric_key (void) const
 			||
 			typeid (key) == typeid (signed long long int)
 			||
-			typeid (key) == typeid (LIB::mathematics::numbers::integer)
-			||
 			typeid (key) == typeid (unsigned long long int)
 			||
-			*/
+			typeid (key) == typeid (float)
+			||
+			typeid (key) == typeid (double)
+			||
+			typeid (key) == typeid (long double)
+			||
 			typeid (key) == typeid (LIB::mathematics::numbers::natural)
 			||
-			typeid (key) == typeid (LIB::NAME_V)
+			typeid (key) == typeid (LIB::mathematics::numbers::integer)
+			||
+			typeid (key) == typeid (LIB::mathematics::numbers::f)
+			||
+			typeid (key) == typeid (LIB::mathematics::numbers::d)
+			||
+			typeid (key) == typeid (LIB::mathematics::numbers::rational)
+			||
+			typeid (key) == typeid (LIB::mathematics::number)
+			||
+			typeid (key) == typeid (LIB::containers::NAME_V)
 		)
 	;
 }
 
 template <typename value, typename key>
-const key LIB::NAME_A <value, key>::sequence_next_available (void) const
+const key LIB::containers::NAME_A <value, key>::sequence_next_available (void) const
 {
 	if
 		(
-			numeric_key ()
+			key_numeric ()
 		)
 	{
+		key i = 1;
 		//ULLONG_MAX
-		for (key i = 1; i <= size ()/* && i < ULLONG_MAX*/; ++ i)
+		//for (key i = 1; i <= size ()/* && i < ULLONG_MAX*/; ++ i)
+		while (exists (i))
 		{
-			if (! exist (i))
-			{
-				return i;
-			}
+			++ i;
 		}
+		
+		return i;
 	}
 	else
 	{
@@ -665,15 +709,15 @@ const key LIB::NAME_A <value, key>::sequence_next_available (void) const
 }
 
 template <typename value, typename key>
-const key LIB::NAME_A <value, key>::sequence_next (void) const
+const key LIB::containers::NAME_A <value, key>::sequence_next (void) const
 {
 	if
 		(
-			numeric_key ()
+			key_numeric ()
 		)
 	{
 		//ULLONG_MAX
-		return greatest_numeric_key () + 1;
+		return key_numeric_max () + 1;
 		
 	}
 	else
@@ -684,12 +728,12 @@ const key LIB::NAME_A <value, key>::sequence_next (void) const
 }
 
 template <typename value, typename key>
-const key LIB::NAME_A <value, key>::greatest_numeric_key (void) const
+const key LIB::containers::NAME_A <value, key>::key_numeric_max (void) const
 {
-	if (!numeric_key ())
+	if (!key_numeric ())
 		return _k;
 	
-	key i = 1;
+	key i = 0;
 	
 	for (auto & element : *this)
 	{
@@ -703,9 +747,9 @@ const key LIB::NAME_A <value, key>::greatest_numeric_key (void) const
 }
 
 template <typename value, typename key>
-const key LIB::NAME_A <value, key>::least_numeric_key (void) const
+const key LIB::containers::NAME_A <value, key>::key_numeric_min (void) const
 {
-	key i = greatest_numeric_key ();
+	key i = key_numeric_max ();
 	
 	for (auto & element: *this)
 	{
@@ -721,14 +765,14 @@ const key LIB::NAME_A <value, key>::least_numeric_key (void) const
 // Getter and Setter.
 
 template <typename value, typename key>
-value & LIB::NAME_A <value, key>::operator [] (const key & key_)
-//value & LIB::NAME_A <value, key>::operator [] (const value & v)
+value & LIB::containers::NAME_A <value, key>::operator [] (const key & key_)
+//value & LIB::containers::NAME_A <value, key>::operator [] (const value & v)
 {
-	//std::unordered_map <key, value>::const_iterator found = container.find (_key);
-	//std::unordered_map <key, value>::iterator found = container.find (_key);
+	//std::unordered_map <key, value>::const_iterator found = content.find (_key);
+	//std::unordered_map <key, value>::iterator found = content.find (_key);
 
 	//return get (_key/*, tolerant*/);	// Not necessarily a setter in all cases.
-	value * value_ = NULL;
+	value * value_/* = NULL*/;
 	
 	if (search (key_, value_))
 	{
@@ -804,8 +848,8 @@ value & LIB::NAME_A <value, key>::operator [] (const key & key_)
 
 // Getter:
 template <typename value, typename key>
-const value & LIB::NAME_A <value, key>::operator [] (const key & _key) const
-//value & LIB::NAME_A <value, key>::operator [] (const value & v)
+const value & LIB::containers::NAME_A <value, key>::operator [] (const key & _key) const
+//value & LIB::containers::NAME_A <value, key>::operator [] (const value & v)
 {
 	value * temp/* = NULL*/;
 	
@@ -820,8 +864,8 @@ const value & LIB::NAME_A <value, key>::operator [] (const key & _key) const
 }
 
 //template <typename value, typename key>
-//value & LIB::NAME_A <value, key>::operator [] (const key & _key, const bool tolerant)
-////value & LIB::NAME_A <value, key>::operator [] (const value & v)
+//value & LIB::containers::NAME_A <value, key>::operator [] (const key & _key, const bool tolerant)
+////value & LIB::containers::NAME_A <value, key>::operator [] (const value & v)
 //{
 //	bool strict_local = tolerant;
 //	tolerant = ! tolerant;
@@ -834,12 +878,18 @@ const value & LIB::NAME_A <value, key>::operator [] (const key & _key) const
 //}
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::search (const key & key_, value *& value_) const
+const bool LIB::containers::NAME_A <value, key>::search (const key & key_, value *& value_) const
 {
 	//for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end() ; ++it)
 	//	std::cout << ' ' << *it;
-	
+	//{
+	//	typename std::list <container>::const_iterator element = content.cbegin ();
+	//	typename std::list <container>::const_iterator ending = content.cend ();
+	//	++ element;
+	//}
 	for (auto & element : * this)
+	//for (const LIB::containers::NAME_A <value, key>::container & element : * this)
+	//for (const_iterator element = begin (), ending = end (); element != ending; ++ element)
 	{
 		if (element.k == key_)
 		{
@@ -871,7 +921,7 @@ const bool LIB::NAME_A <value, key>::search (const key & key_, value *& value_) 
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::search (const key & key_, key *& k) const
+const bool LIB::containers::NAME_A <value, key>::search_key (const key & key_, key *& k) const
 {
 	//for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end() ; ++it)
 	//	std::cout << ' ' << *it;
@@ -908,12 +958,12 @@ const bool LIB::NAME_A <value, key>::search (const key & key_, key *& k) const
 }
 
 template <typename value, typename key>
-/*value &*/ const bool LIB::NAME_A <value, key>::insert (const key & key_, /*const */value *& value_)
+/*value &*/ const bool LIB::containers::NAME_A <value, key>::insert (const key & key_, /*const */value *& value_)
 {
 	//(* _value_) = "TEMP";
 	
-	package * temp = new package ();
-	//package temp;
+	container * temp = new container ();
+	//container temp;
 	
 	temp -> k = key_;
 	//temp -> v = /** */value_;
@@ -921,26 +971,26 @@ template <typename value, typename key>
 	//* (temp.v) = * value_;
 	// value_ = temp.v;
 	//  temp.v = new value ();
-	//temp.v = NULL;	// Prevent the destructor of the class "package" to delete "temp" when "temp" reaches the end of its scope.
+	//temp.v = NULL;	// Prevent the destructor of the class "container" to delete "temp" when "temp" reaches the end of its scope.
 	
 	//value_ = & (temp -> v);
 	//value_ = const_cast <value *> (& ((* temp).v));
 	
 	//value_ = get (key_);
 	
-	container.push_back (* temp);
-	//container.push_back (* (new package (key, )));
-	//container.push_back (temp);
+	content.push_back (* temp);
+	//content.push_back (* (new container (key, )));
+	//content.push_back (temp);
 	
 	search (key_, value_);
 	
 	//return temp -> v;
 	return true;
-	//return container.back ().v;
+	//return content.back ().v;
 }
 
 //template <typename value, typename key>
-///*value &*/ bool LIB::NAME_A <value, key>::add (const key & _key)
+///*value &*/ bool LIB::containers::NAME_A <value, key>::add (const key & _key)
 //{
 //	//value * _value_ = new value ();
 //
@@ -949,7 +999,7 @@ template <typename value, typename key>
 //}
 
 //template <typename value, typename key>
-///*value & */bool LIB::NAME_A <value, key>::set (const key & _key, const value *& _value_/*, const bool _tolerant*/)
+///*value & */bool LIB::containers::NAME_A <value, key>::set (const key & _key, const value *& _value_/*, const bool _tolerant*/)
 //{
 ///*
 //	value * temp;
@@ -990,7 +1040,7 @@ template <typename value, typename key>
 //}
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::set (const key & _key, const value & value_)
+const bool LIB::containers::NAME_A <value, key>::set (const key & _key, const value & value_)
 {
 	value * temp;
 	
@@ -1008,7 +1058,7 @@ const bool LIB::NAME_A <value, key>::set (const key & _key, const value & value_
 }
 
 template <typename value, typename key>
-value & LIB::NAME_A <value, key>::get (const key & _key/*, const bool _tolerant*/)
+value & LIB::containers::NAME_A <value, key>::get (const key & _key/*, const bool _tolerant*/)
 {
 	value * temp/* = NULL*/;
 
@@ -1037,7 +1087,7 @@ value & LIB::NAME_A <value, key>::get (const key & _key/*, const bool _tolerant*
 }
 
 template <typename value, typename key>
-const value & LIB::NAME_A <value, key>::get (const key & _key) const
+const value & LIB::containers::NAME_A <value, key>::get (const key & _key) const
 {
 	value * temp/* = NULL*/;
 	
@@ -1053,11 +1103,11 @@ const value & LIB::NAME_A <value, key>::get (const key & _key) const
 }
 
 template <typename value, typename key>
-const key & LIB::NAME_A <value, key>::get_key (const key & _key) const
+const key & LIB::containers::NAME_A <value, key>::get_key (const key & _key) const
 {
 	key * temp/* = NULL*/;
 	
-	if (search (_key, temp))
+	if (search_key (_key, temp))
 	{
 		return * temp;
 	}
@@ -1069,54 +1119,54 @@ const key & LIB::NAME_A <value, key>::get_key (const key & _key) const
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::clear (void)
+const bool LIB::containers::NAME_A <value, key>::clear (void)
 {
-	container.clear ();
+	content.clear ();
 
 	return true;
 }
 /*
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::cardinality (void) const
+const LIB::mathematics::numbers::natural LIB::containers::NAME_A <value, key>::cardinality (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::count (void) const
+const LIB::mathematics::numbers::natural LIB::containers::NAME_A <value, key>::count (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::magnitude (void) const
+const LIB::mathematics::numbers::natural LIB::containers::NAME_A <value, key>::magnitude (void) const
 {
 	return size ();
 }
 
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::quantity (void) const
+const LIB::mathematics::numbers::natural LIB::containers::NAME_A <value, key>::quantity (void) const
 {
 	return size ();
 }
 */
 template <typename value, typename key>
-const LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::size (void) const
+const LIB::mathematics::numbers::natural LIB::containers::NAME_A <value, key>::size (void) const
 {
-	return container.size ();
+	return content.size ();
 }
 
 /*
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::search (const key & _key, package::_value & v) const
+bool LIB::containers::NAME_A <value, key>::search (const key & _key, container::_value & v) const
 {
-	//package current;
+	//container current;
 
 	LIB::mathematics::numbers::natural n = size ();
 	std::list <key>::iterator it;
 
 	//for (LIB::mathematics::numbers::natural index = 0; index < n; ++ index, current = current -> next)
-	for (it = container.begin(); it != contaienr.end (); ++it)
+	for (it = content.begin(); it != contaienr.end (); ++it)
 	{
 		if ((*it) -> _key == _key)
 		{
@@ -1131,23 +1181,23 @@ bool LIB::NAME_A <value, key>::search (const key & _key, package::_value & v) co
  */
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::exists (const key & _key) const
+const bool LIB::containers::NAME_A <value, key>::exists (const key & _key) const
 {
-	//std::unordered_map <key, value>::const_iterator found = container.find (_key);
+	//std::unordered_map <key, value>::const_iterator found = content.find (_key);
 
-	//return found != container.end ();
-	//return container.count (_key) > 0;
+	//return found != content.end ();
+	//return content.count (_key) > 0;
 	// return false;
 	return exist (_key);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::exist (const key & _key) const
+const bool LIB::containers::NAME_A <value, key>::exist (const key & _key) const
 {
-	//std::unordered_map <key, value>::const_iterator found = container.find (_key);
+	//std::unordered_map <key, value>::const_iterator found = content.find (_key);
 
-	//return found != container.end ();
-	//return container.count (_key) > 0;
+	//return found != content.end ();
+	//return content.count (_key) > 0;
 	// return false;
 	value * temp;
 
@@ -1155,7 +1205,7 @@ const bool LIB::NAME_A <value, key>::exist (const key & _key) const
 }
 
 //template <typename value, typename key>
-//bool LIB::NAME_A<value, key>::New (const key, const value)
+//bool LIB::containers::NAME_A<value, key>::New (const key, const value)
 //{
 //	if (Exists (key))
 //	{
@@ -1170,7 +1220,7 @@ const bool LIB::NAME_A <value, key>::exist (const key & _key) const
 //
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::unset (const key & key_)
+const bool LIB::containers::NAME_A <value, key>::unset (const key & key_)
 {
 	auto it = begin ();
 	
@@ -1179,8 +1229,8 @@ const bool LIB::NAME_A <value, key>::unset (const key & key_)
 		if (element.k == key_)
 		{
 			//_value = & current_value ();
-			container.erase (it);
-			//container.erase (&& element);
+			content.erase (it);
+			//content.erase (&& element);
 			
 			return true;
 		}
@@ -1188,7 +1238,7 @@ const bool LIB::NAME_A <value, key>::unset (const key & key_)
 		++ it;
 	}
 	
-	//container.remove (_key);
+	//content.remove (_key);
 	return false;
 	
 //	reset ();
@@ -1198,7 +1248,7 @@ const bool LIB::NAME_A <value, key>::unset (const key & key_)
 //		if (current_key () == _key)
 //		{
 //			//_value = & current_value ();
-//			container.erase (list_iterator);
+//			content.erase (list_iterator);
 //
 //			return true;
 //		}
@@ -1206,12 +1256,12 @@ const bool LIB::NAME_A <value, key>::unset (const key & key_)
 //		next ();
 //	}
 //
-//	//container.remove (_key);
+//	//content.remove (_key);
 //	return false;
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::rename (const key & old, const key & val /* New name. */, const bool _tolerant)
+const bool LIB::containers::NAME_A <value, key>::rename (const key & old, const key & val /* New name. */, const bool _tolerant)
 {
 	if (/*! exist (current) || */(! _tolerant /* If not permitted to overwrite the new value... */ && exist (val) /* ...and if the new value exists. */))
 		return false;
@@ -1239,7 +1289,7 @@ const bool LIB::NAME_A <value, key>::rename (const key & old, const key & val /*
 //		{
 //			current_key_internal () = val;
 //			//_value = & current_value ();
-//			//container.erase (list_iterator);
+//			//content.erase (list_iterator);
 //
 //			return true;
 //		}
@@ -1268,64 +1318,64 @@ const bool LIB::NAME_A <value, key>::rename (const key & old, const key & val /*
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
+const bool LIB::containers::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
 {
 	return rename (current, new_val, tolerant /* Use the externally-settable variable. */);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::full (void) const
+const bool LIB::containers::NAME_A <value, key>::full (void) const
 {
 	//return size () <= 0;
 	return false;
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::empty (void) const
+const bool LIB::containers::NAME_A <value, key>::empty (void) const
 {
 	//return size () <= 0;
-	return container.empty ();
+	return content.empty ();
 }
 
 template <typename value, typename key>
-const LIB::NAME_A <value, key> & LIB::NAME_A <value, key>::operator = (const LIB::NAME_A <value, key> & other)
+const LIB::containers::NAME_A <value, key> & LIB::containers::NAME_A <value, key>::operator = (const LIB::containers::NAME_A <value, key> & other)
 {
-	//return container = val.container;
+	//return content = val.content;
 	if (this != & other)
-		container = other.container;
+		content = other.content;
 
 	return * this;
 }
 
 /*
 template <typename value, typename key>
-key & LIB::NAME_A <value, key>::current_key_internal (void)
+key & LIB::containers::NAME_A <value, key>::current_key_internal (void)
 {
 	return list_iterator -> k;
 }
 
 template <typename value, typename key>
-key LIB::NAME_A <value, key>::current_key (void)
+key LIB::containers::NAME_A <value, key>::current_key (void)
 {
 	return current_key_internal ();
 }
 
 template <typename value, typename key>
-value & LIB::NAME_A <value, key>::current_value (void)
+value & LIB::containers::NAME_A <value, key>::current_value (void)
 {
 	return * (list_iterator -> v);
 }
 
 template <typename value, typename key>
-typename LIB::NAME_A <value, key>::iterator & LIB::NAME_A <value, key>::current_package (void)
+typename LIB::containers::NAME_A <value, key>::iterator & LIB::containers::NAME_A <value, key>::current_package (void)
 {
 	return list_iterator;
 }
 
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::next (void)
+bool LIB::containers::NAME_A <value, key>::next (void)
 {
-	if (list_iterator == container.end ())
+	if (list_iterator == content.end ())
 	{
 		reset ();
 	}
@@ -1338,11 +1388,11 @@ bool LIB::NAME_A <value, key>::next (void)
 }
 
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::previous (void)
+bool LIB::containers::NAME_A <value, key>::previous (void)
 {
-	if (list_iterator == container.begin ())
+	if (list_iterator == content.begin ())
 	{
-		list_iterator = container.end ();
+		list_iterator = content.end ();
 	}
 	else
 	{
@@ -1353,11 +1403,11 @@ bool LIB::NAME_A <value, key>::previous (void)
 }
 
 template <typename value, typename key>
-LIB::NAME_A::iterator LIB::NAME_A <value, key>::previous (const iterator & it)
+LIB::containers::NAME_A::iterator LIB::containers::NAME_A <value, key>::previous (const iterator & it)
 {
-	if (it == container.begin ())
+	if (it == content.begin ())
 	{
-		it = container.end ();
+		it = content.end ();
 	}
 	else
 	{
@@ -1368,11 +1418,11 @@ LIB::NAME_A::iterator LIB::NAME_A <value, key>::previous (const iterator & it)
 }
 
 template <typename value, typename key>
-LIB::NAME_A::iterator LIB::NAME_A <value, key>::previous (const iterator & it) const
+LIB::containers::NAME_A::iterator LIB::containers::NAME_A <value, key>::previous (const iterator & it) const
 {
-	if (it == container.begin ())
+	if (it == content.begin ())
 	{
-		it = container.end ();
+		it = content.end ();
 	}
 	else
 	{
@@ -1383,61 +1433,73 @@ LIB::NAME_A::iterator LIB::NAME_A <value, key>::previous (const iterator & it) c
 }
 
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::reset (void)
+bool LIB::containers::NAME_A <value, key>::reset (void)
 {
-	list_iterator = container.begin ();
+	list_iterator = content.begin ();
 
 	return true;
 }
 
 template <typename value, typename key>
-LIB::NAME_A::iterator LIB::NAME_A <value, key>::reset (void/*const iterator & it* /) const
+LIB::containers::NAME_A::iterator LIB::containers::NAME_A <value, key>::reset (void/*const iterator & it* /) const
 {
-	return container.begin ();
+	return content.begin ();
 }
 */
 /*
 template <typename value, typename key>
-void LIB::NAME_A <value, key>::start (void)
+void LIB::containers::NAME_A <value, key>::start (void)
 {
-	list_iterator = container.begin ();
+	list_iterator = content.begin ();
 }
 
 template <typename value, typename key>
-void LIB::NAME_A <value, key>::end (void)
+void LIB::containers::NAME_A <value, key>::end (void)
 {
-	list_iterator = container.end ();
+	list_iterator = content.end ();
 }
  */
-
+/*
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::iterator & LIB::NAME_A <value, key>::begin (void)
+const typename LIB::containers::NAME_A <value, key>::iterator LIB::containers::NAME_A <value, key>::begin (void)
 {
-	return container.begin ();
+	return content.begin ();
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::iterator & LIB::NAME_A <value, key>::end (void)
+const typename LIB::containers::NAME_A <value, key>::iterator LIB::containers::NAME_A <value, key>::end (void)
 {
-	return container.end ();
+	return content.end ();
+}
+*/
+template <typename value, typename key>
+const typename LIB::containers::NAME_A <value, key>::iterator LIB::containers::NAME_A <value, key>::begin (void)
+{
+	return content.begin ();
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::const_iterator & LIB::NAME_A <value, key>::begin (void) const
+const typename LIB::containers::NAME_A <value, key>::iterator LIB::containers::NAME_A <value, key>::end (void)
 {
-	return container.cbegin ();
+	return content.end ();
+}
+/*
+template <typename value, typename key>
+const typename LIB::containers::NAME_A <value, key>::const_iterator LIB::containers::NAME_A <value, key>::cbegin (void) const
+{
+	return content.cbegin ();
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::const_iterator & LIB::NAME_A <value, key>::end (void) const
+const typename LIB::containers::NAME_A <value, key>::const_iterator LIB::containers::NAME_A <value, key>::cend (void) const
 {
-	return container.cend ();
+	return content.cend ();
 }
-
+*/
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::operator == (const NAME_A <value, key> & other) const
+const bool LIB::containers::NAME_A <value, key>::operator == (const NAME_A <value, key> & other) const
 {
-	if (this == other)
+	if (this == & other)
 		return true;
 	else if (size () != other.size ())
 		return false;
@@ -1483,13 +1545,13 @@ const bool LIB::NAME_A <value, key>::operator == (const NAME_A <value, key> & ot
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::operator != (const NAME_A <value, key> & other) const
+const bool LIB::containers::NAME_A <value, key>::operator != (const NAME_A <value, key> & other) const
 {
 	return ! operator == (other);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::enqueue (const value & other)
+const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other)
 {
 	key _k;
 	
@@ -1497,9 +1559,9 @@ const bool LIB::NAME_A <value, key>::enqueue (const value & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::enqueue (const value & other, key & k)
+const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other, key & k)
 {
-	if (! numeric_key ())
+	if (! key_numeric ())
 		return false;
 	
 	k = sequence_next ();
@@ -1510,16 +1572,16 @@ const bool LIB::NAME_A <value, key>::enqueue (const value & other, key & k)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::dequeue (void)
+const bool LIB::containers::NAME_A <value, key>::dequeue (void)
 {
-	if (empty () || !numeric_key ())
+	if (empty () || !key_numeric ())
 		return false;
 	
-	return unset (least_numeric_key ());
+	return unset (key_numeric_min ());
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::push (const value & other)
+const bool LIB::containers::NAME_A <value, key>::push (const value & other)
 {
 	key _k;
 	
@@ -1527,34 +1589,74 @@ const bool LIB::NAME_A <value, key>::push (const value & other)
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::push (const value & other, key & k)
+const bool LIB::containers::NAME_A <value, key>::push (const value & other, key & k)
 {
 	return enqueue (other, k);
 }
 
 template <typename value, typename key>
-const bool LIB::NAME_A <value, key>::pop (void)
+const bool LIB::containers::NAME_A <value, key>::pop (void)
 {
-	if (empty () || !numeric_key ())
+	if (empty () || !key_numeric ())
 		return false;
 	
-	return unset (greatest_numeric_key ());
+	return unset (key_numeric_max ());
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::beginning (void)
+const typename LIB::containers::NAME_A <value, key>::container & LIB::containers::NAME_A <value, key>::beginning (void)
 {
-	if (empty () || !numeric_key ())
+	if (empty () || !key_numeric ())
 		return NULL;
 	
-	return operator [] (least_numeric_key ());
+	return operator [] (key_numeric_min ());
 }
 
 template <typename value, typename key>
-const typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::ending (void)
+const typename LIB::containers::NAME_A <value, key>::container & LIB::containers::NAME_A <value, key>::ending (void)
 {
-	if (empty () || !numeric_key ())
+	if (empty () || !key_numeric ())
 		return NULL;
 	
-	return operator [] (greatest_numeric_key ());
+	return operator [] (key_numeric_max ());
 }
+
+//template <typename value, typename key>
+//std::ostream & /*LIB::containers::*/NAME_A <value, key>::operator << (std::ostream & stream, const LIB::containers::NAME_A <value, key> & val/*, const std::string & indentation*/)
+//{
+//	for (const typename LIB::containers::NAME_A <value, key>::container & element : val)
+//	{
+//		//os << indentation << element.k;
+//		
+//		//operator << (os, val, indenation + "\t");
+//		stream/* << indentation*/ << '[' << element.k << "] => [" << element.v << ']' << std::endl;
+//	}
+//	
+//	return stream;
+//}
+//
+template <typename value, typename key>
+std::ostream & LIB::containers::NAME_A <value, key>::operator << (std::ostream & stream) const
+{
+	for (const typename /*LIB::containers::*/NAME_A <value, key>::container & element : * this)
+	{
+		//os << indentation << element.k;
+		
+		//operator << (os, val, indenation + "\t");
+		stream/* << indentation*/ << '[' << element.k << "] => [" << element.v << ']' << std::endl;
+	}
+	
+	return stream;
+}
+
+//template <typename value, typename key>
+//std::ostream & /*LIB::containers::NAME_A <value, key>::*/operator << (std::ostream & os, const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> & val/*, const std::string & indentation*/)
+//{
+//	for (const typename LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::container & element : val)
+//	{
+//		//os << indentation << element.k;
+//		
+//		//operator << (os, val, indenation + "\t");
+//		os/* << indentation*/ << '[' << element.k << "] => [" << element.v << ']' << std::endl;
+//	}
+//}

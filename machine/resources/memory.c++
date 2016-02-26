@@ -1,1359 +1,1412 @@
+//#include <iostream>
 #include "memory.h++"
-#include "../../network/ip.h++"
-#include <boost/mem_fn.hpp>
-#include <boost/ref.hpp>
+//#include "../../network/ip.h++"
+//#include <boost/mem_fn.hpp>
+//#include <boost/ref.hpp>
 
+//const std::string LIB::machine::resources::memory::default_database_name = ":memory:";
+//const LIB::machine::resources::memory::key LIB::machine::resources::memory::default_group = "";
+////const LIB::machine::resources::memory::value LIB::machine::resources::memory::default_name;
+//const LIB::machine::resources::memory::value LIB::machine::resources::memory::default_value = "";
+
+// Memory: Iterator:
 /*
-LIB::machine::resources::memory::NTT::NTT (void)
+LIB::machine::resources::memory::iterator::iterator (void)
 {
-	//current_group = "";
+	//set = false;
 }
 
-NTT & LIB::machine::resources::memory::NTT::operator [] (const key &)
+LIB::machine::resources::memory::iterator::iterator (const LIB::machine::resources::memory::iterator & other)
 {
-	
-}
-
-const NTT & LIB::machine::resources::memory::NTT::operator [] (const key &) const
-{
-	
+	operator = (other);
 }
 */
-LIB::machine::resources::memory::keys::keys (void)
+/*
+LIB::machine::resources::memory::iterator::~iterator (void)
 {
-	grouped = false;
+}
+*/
+/*
+const LIB::machine::resources::memory::iterator & LIB::machine::resources::memory::iterator::operator = (const LIB::machine::resources::memory::iterator & other)
+{
+	iter = other.iter;
 	
-	name = "";
-	group = "";
+	return *this;
 }
 
-LIB::machine::resources::memory::keys::keys (const keys & other)
+const bool LIB::machine::resources::memory::iterator::operator == (const iterator & other) const
 {
-	grouped = other.grouped;
+	return iter == other.iter;
+	//return false;
+}
+
+const bool LIB::machine::resources::memory::iterator::operator != (const iterator & other) const
+{
+	return ! (operator == (other));
+}
+
+const LIB::machine::resources::memory::iterator & LIB::machine::resources::memory::iterator::operator ++ (void)
+{
+	++ iter;
 	
-	name = other.name;
-	group = other.group;
+	return * this;
 }
 
-LIB::machine::resources::memory::keys::operator== (const keys & other) const
+const LIB::machine::resources::memory::iterator & LIB::machine::resources::memory::iterator::operator -- (void)
 {
-	if (grouped || other.grouped)
-		return group == other.group;
-	else
-		return name == other.name && group == other.group;
-}
-
-LIB::machine::resources::memory::keys::operator!= (const keys & other) const
-{
-	return !operator== (other);
-}
-
-LIB::machine::resources::memory::research::response::response (void)
-{
-	found = false;
-	responded = false;
-}
-
-
-const LIB::NAME_A <LIB::mathematics::numbers::natural, LIB::mathematics::numbers::natural> LIB::machine::resources::memory::research::owners (void) const
-{
-	LIB::NAME_A <LIB::mathematics::numbers::natural, LIB::mathematics::numbers::natural> list;
+	-- iter;
 	
-	for (auto & mach : machines)
+	return * this;
+}
+
+const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::package & LIB::machine::resources::memory::iterator::operator * (void) const
+{
+	//return * (iter -> v);
+	//return iter -> v;
+	return *iter;
+}
+*/
+
+// Memory:
+
+//static const std::string LIB::machine::resources::memory::default_database_name;
+//static const std::string LIB::machine::resources::memory::default_group;
+////static const std::string LIB::machine::resources::memory::default_name;
+//static const std::string LIB::machine::resources::memory::default_value;
+//
+//const bool LIB::machine::resources::memory::initialize (const LIB::database::sqlite *& _db, const LIB::machine::resources::memory::key & grp, const LIB::machine::resources::memory::key & previous_grp, const LIB::machine::resources::memory::key & nm, const std::string & __database_name)
+//{
+//}
+
+const bool LIB::machine::resources::memory::initialize (const std::string & __database_name)
+{
+	//std::cout << std::endl << default_database_name << std::endl;
+	//_database_name = __database_name;
+	
+	try
 	{
-		if (mach.v.found)
+		container = new LIB::containers::memory (__database_name);
+		
+		return true;
+	}
+	catch (...)
+	{
+		return false;
+	}
+}
+/*
+LIB::machine::resources::memory::memory (const std::string & __database_name)
+{
+//	db = other.db;
+//	group = other.group;
+//	previous_group = other.previous_group;
+//	previous_name = other.previous_name;
+	
+	initialize (__database_name);
+	//_database_name = __database_name;
+}
+*/
+/*
+LIB::machine::resources::memory::memory (const memory & other, const std::string & __database_name)
+{
+//	db = other.db;
+//	group = other.group;
+//	previous_group = other.previous_group;
+//	previous_name = other.previous_name;
+	
+	initialize (__database_name);
+	
+	operator = (other);
+}
+*/
+/*
+LIB::machine::resources::memory::~memory (void)
+{
+	//if (db != NULL && group == default_group)
+	//{
+		finalize ();
+	//	db = NULL;
+	//}
+}
+*/
+
+const bool LIB::machine::resources::memory::finalize (void)
+{
+	try
+	{
+	//if (db != NULL && group == default_group)
+	//{
+		delete container;
+	//	db = NULL;
+	//}
+		
+		return true;
+	}
+	catch (...)
+	{
+		return false;
+	}
+}
+
+template <typename archive>
+void LIB::machine::resources::memory::save (archive & arch, const unsigned int & version) const
+{
+}
+
+template <typename archive>
+void LIB::machine::resources::memory::load (archive & arch, const unsigned int & version)
+{
+}
+
+/*const bool LIB::machine::resources::memory::query (LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> & result, const std::string & qry, const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> & arguments)
+{
+	return db -> query (result, qry, arguments);
+}*/
+
+const std::string & LIB::machine::resources::memory::database_name (void) const
+{
+	return container -> database_name ();
+}
+
+LIB::databases::sqlite & LIB::machine::resources::memory::database (void)
+{
+	// It should always be safe to dereference,
+	// because the constructors should normally ensure that an object is present.
+	return container -> database ();
+}
+
+//const LIB::machine::resources::memory::relation LIB::machine::resources::memory::relate (const LIB::machine::resources::memory::memory & other) const
+//{
+//	relation rel/* = relation::self*/;
+//	
+//	return rel;
+//}
+/*
+const bool LIB::machine::resources::memory::operator == (const LIB::machine::resources::memory & other) const
+{
+	//typeid ();
+	if (container == other.container)	// Is this everything which is needed?
+		return true;
+	
+	return false;
+}
+*/
+/*
+const bool LIB::machine::resources::memory::operator != (const LIB::machine::resources::memory & other) const
+{
+	return ! (operator == (other));
+}
+*/
+/*
+const bool LIB::machine::resources::memory::operator == (const LIB::machine::resources::memory::value & other) const
+{
+	return false;
+}
+
+const bool LIB::machine::resources::memory::operator != (const LIB::machine::resources::memory::value & other) const
+{
+	return ! operator == (other);
+}
+*/
+/*
+const LIB::machine::resources::memory & LIB::machine::resources::memory::operator = (const LIB::machine::resources::memory & other)
+{
+	// Do not do anything.
+	
+	return * this;
+}
+*/
+//const LIB::machine::resources::memory & LIB::machine::resources::memory::operator = (const LIB::machine::resources::memory::value & val)
+//{
+//	if (clear ())
+//	{
+//		LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//		
+//		arguments [1] = group;
+//		arguments [2] = 0;
+//		arguments [3] = previous_name;
+//		arguments [4] = 0;
+//		arguments [5] = val;
+//		
+//		db -> query ("INSERT OR REPLACE INTO \"Entities\" (\"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\") VALUES (?, ?, ?, ?, ?)", arguments);
+//	}
+//	
+//	return * this;
+//}
+
+const LIB::mathematics::numbers::natural LIB::machine::resources::memory::size (void) const
+{
+	return 0;
+}
+
+const bool LIB::machine::resources::memory::size_group (const LIB::machine::resources::memory::key & group)
+{
+	return 0;
+}
+
+const bool LIB::machine::resources::memory::clear (void)
+{
+	return false;
+}
+
+const bool LIB::machine::resources::memory::clear_group (const LIB::machine::resources::memory::key & group)
+{
+	return false;
+}
+
+const bool LIB::machine::resources::memory::empty (void) const
+{
+	return ! (size () > 0);
+}
+
+const bool LIB::machine::resources::memory::empty_group (const LIB::machine::resources::memory::key & group)
+{
+	return ! (size_group (group) > 0);
+}
+
+const bool LIB::machine::resources::memory::full (void) const
+{
+	return false;
+}
+
+const bool LIB::machine::resources::memory::exists (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
+{
+	LIB::mathematics::numbers::natural count = 0;
+	
+	if (container -> exists (name, group))
+		return true;
+	else if (members.empty ())
+		return false;
+	
+	LIB::communication::message;
+	
+	if (! members.broadcast (message))
+	{
+		return false;
+	}
+	
+	
+	
+	return count > 0;
+}
+
+//const bool LIB::machine::resources::memory::exists (const LIB::machine::resources::memory::key & name) const
+//{
+//	return exist (name);
+//}
+/*
+const LIB::machine::resources::memory LIB::machine::resources::memory::operator + (const LIB::machine::resources::memory::value & val) const
+{}
+*/
+/*
+const LIB::machine::resources::memory LIB::machine::resources::memory::operator + (const LIB::machine::resources::memory & other) const
+{
+	memory aggregate (* this/*, use the default_database_name * /);
+	
+	// Add "other" to "this".
+	
+	return aggregate;
+}
+*/
+/*
+const LIB::machine::resources::memory & LIB::machine::resources::memory::operator += (const LIB::machine::resources::memory::value & val)
+{}
+*/
+/*
+const LIB::machine::resources::memory & LIB::machine::resources::memory::operator += (const LIB::machine::resources::memory & other)
+{
+	return * this;
+}
+
+const bool LIB::machine::resources::memory::add (const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & val)
+{
+	key used_group;
+	
+	return add (used_group, k, val);
+}
+
+const bool LIB::machine::resources::memory::add (LIB::machine::resources::memory::key & used_group, const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	used_group = sequence_group_next_available ();
+	
+	return _set (used_group, k, v);
+}
+
+const bool LIB::machine::resources::memory::add (const LIB::machine::resources::memory & other)
+{
+	return false;
+}
+
+const bool LIB::machine::resources::memory::append (const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	key used_group;
+	
+	return append (used_group, k, v);
+}
+
+const bool LIB::machine::resources::memory::append (LIB::machine::resources::memory::key & used_group, const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	used_group = sequence_group_next ();
+	
+	return _set (used_group, k, v);
+}
+*/
+/*
+const bool LIB::machine::resources::memory::_set (const LIB::machine::resources::memory::key & used_group, const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & val)
+{
+	if (! db -> query ("BEGIN"))
+		return false;
+	
+	// To be completed.
+	/*
+	used_group = sequence_group_next ();
+	
+	if (! set_group (used_group, val))
+		return false;
+	
+	memory mem ();
+	
+	if (! mem.set (val))
+		return false;
+	
+	return true;
+	* /
+	
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	//used_group = sequence_group_next ();
+	
+	arguments [1] = used_group;
+	
+	//std::cout << "\tsequence_next () == " << sequence_group_next () << std::endl;
+	//std::cout << "\tused_group == " << used_group << std::endl;
+	//std::cout << "\targuments [1] == " << arguments [1] << std::endl;
+	//std::cout << "\targuments [1].to_string () == " << arguments [1].to_string () << std::endl;
+	//std::cout << "\targuments [1].to_string ().c_str () == " << arguments [1].to_string ().c_str () << std::endl;
+	//std::cout << "\targuments [1].to_string ().size () == " << arguments [1].to_string ().size () << std::endl;
+	arguments [2] = 0;
+	arguments [3] = k;
+	arguments [4] = 0;
+	arguments [5] = val;
+	
+	if (! db -> query ("\
+		INSERT OR IGNORE INTO \"Entities\"\n\
+		(\"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\")\n\
+		VALUES\n\
+		(?, ?, ?, ?, ?)\
+		", arguments))
+	{
+		db -> query ("ROLLBACK");
+		
+		return false;
+	}
+	//else
+	//{
+	//	return true;
+	//}
+	
+	return db -> query ("COMMIT");
+}
+
+const bool LIB::machine::resources::memory::append (const LIB::machine::resources::memory & other)
+{}
+
+const bool LIB::machine::resources::memory::push (const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & val)
+{
+	key used_group;
+	
+	return push (used_group, k, val);
+}
+
+const bool LIB::machine::resources::memory::push (LIB::machine::resources::memory::key & used_group, const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	return append (used_group, k, v);
+}
+*/
+const bool LIB::machine::resources::memory::pop (void)
+{
+	if (! db -> query ("BEGIN"))
+		return false;
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	if (! db -> query ("\
+		DELETE FROM \"Entities\"\n\
+		WHERE GROUP = (SELECT COALESCE (MAX (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		"))
+	{
+		db -> query ("ROLLBACK");
+		
+		return false;
+	}
+	
+	return db -> query ("COMMIT");
+}
+
+const LIB::mathematics::numbers::integer LIB::machine::resources::memory::key_group_integral_min (void) const
+{
+	/*
+	key i = key_group_integral_max ();
+	
+	for (auto & element: *this)
+	{
+		if (element.k.is_numeric () && element.k < i)
 		{
-			list.enqueue (mach.k);
+			i = element.k;
 		}
 	}
 	
-	return list;
+	return i;
+	*/
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	db -> query (result, "\
+		SELECT COALESCE (MIN (\"Group\"), 0)\n\
+		FROM \"Entities\"\
+		WHERE TYPEOF (\"Group\") = 'integer'\
+		");
+	
+//	if (result.empty ())
+//	{
+//		return 1;
+//	}
+//	else
+//	{
+		// There should always be a result, because of the coalesce function.
+		return result [1] [1];
+//	}
 }
 
-const LIB::NAME_A <LIB::mathematics::numbers::natural, LIB::mathematics::numbers::natural> LIB::machine::resources::memory::research::owner (void) const
+const LIB::mathematics::numbers::integer LIB::machine::resources::memory::key_group_integral_max (void) const
 {
-	LIB::NAME_A <LIB::mathematics::numbers::natural, LIB::mathematics::numbers::natural> list = owners ();
+	/*
+	key i = 1;
 	
-	for (auto & mach : machines)
+	for (auto & element : *this)
 	{
-		if (mach.v.found)
+		if (element.k.is_numeric () && element.k > i)
 		{
-			list.enqueue (mach.k);
+			i = element.k;
 		}
 	}
 	
-	return list;
+	return i;
+	*/
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	db -> query (result, "\
+		SELECT COALESCE (MAX (\"Group\"), 0)\n\
+		FROM \"Entities\"\
+		WHERE TYPEOF (\"Group\") = 'integer'\
+		");
+	
+//	if (result.empty ())
+//	{
+//		return 1;
+//	}
+//	else
+//	{
+		// There should always be a result, because of the coalesce function.
+		return result [1] [1];
+//	}
 }
 
-LIB::machine::resources::memory::research::~research (void) const
+const LIB::mathematics::numbers::integer LIB::machine::resources::memory::key_name_integral_min (const LIB::machine::resources::memory::key & group) const
 {
-	lock.unlock ();
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	arguments.append (group);
+	
+	db -> query
+	(
+		result,
+		"\
+			SELECT\n\
+				COALESCE (MIN (\"Name\"), 0)\n\
+			FROM\n\
+				\"Entities\"\n\
+			WHERE\n\
+				TYPEOF (\"Name\") = 'integer'\n\
+				AND \"Group\" = ?\
+		",
+		arguments
+	);
+	
+	// There should always be a result, because of the coalesce function.
+	return result [1] [1];
 }
 
-const bool LIB::machine::resources::memory::research::found (void) const
+const LIB::mathematics::numbers::integer LIB::machine::resources::memory::key_name_integral_max (const LIB::machine::resources::memory::key & group) const
 {
-	for (auto & mach : machines)
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	arguments.append (group);
+	
+	db -> query
+	(
+		result,
+		"\
+			SELECT\n\
+				COALESCE (MAX (\"Name\"), 0)\n\
+			FROM\n\
+				\"Entities\"\n\
+			WHERE\n\
+				TYPEOF (\"Name\") = 'integer'\n\
+				AND \"Group\" = ?\
+		",
+		arguments
+	);
+	
+	// There should always be a result, because of the coalesce function.
+	return result [1] [1];
+}
+
+const bool LIB::machine::resources::memory::enqueue (const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	key used_group;
+	
+	return enqueue (used_group, k, v);
+}
+
+const bool LIB::machine::resources::memory::enqueue (LIB::machine::resources::memory::key & used_group, const LIB::machine::resources::memory::key & k, const LIB::machine::resources::memory::value & v)
+{
+	return append (used_group, k, v);
+}
+
+const bool LIB::machine::resources::memory::dequeue (void)
+{
+	if (! db -> query ("BEGIN"))
+		return false;
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	if (! db -> query ("\
+		DELETE FROM \"Entities\"\n\
+		WHERE GROUP = (SELECT COALESCE (MIN (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		"))
 	{
-		if (mach.v.found)
+		db -> query ("ROLLBACK");
+		
+		return false;
+	}
+	
+	if (db -> effect () > 0 && key_group_integral_min () >= 2)
+	{
+		if (! db -> query ("\
+			UPDATE \"Entities\"\n\
+			SET \"Group\" = \"Group\" - 1\n\
+			WHERE TYPEOF (\"Group\") = 'integer'\
+			"))
 		{
-			return true;
+			db -> query ("ROLLBACK");
+			
+			return false;
 		}
 	}
+	
+	return db -> query ("COMMIT");
+}
+
+const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::machine::resources::memory::beginning (void) const
+{
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	db -> query (result, "\
+		SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n\
+		FROM \"Entities\"\n\
+		WHERE \"Group\" = (SELECT COALESCE (MIN (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		");
+	
+	return result [1];
+}
+
+const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::machine::resources::memory::ending (void) const
+{
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	db -> query (result, "\
+		SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n\
+		FROM \"Entities\"\n\
+		WHERE \"Group\" = (SELECT COALESCE (MAX (\"Group\"), 0) FROM \"Entities\" WHERE TYPEOF (\"Group\") = 'integer')\
+		");
+	
+	return result [1];
+}
+
+/*
+const bool LIB::machine::resources::memory::push (const LIB::machine::resources::memory::value & val)
+{}
+
+const bool LIB::machine::resources::memory::push (const LIB::machine::resources::memory::value & val, LIB::machine::resources::memory::key & used_key)
+{}
+
+const bool LIB::machine::resources::memory::pop (void)
+{}
+*/
+//const bool LIB::machine::resources::memory::integral_key (void) const
+//{}
+
+const LIB::mathematics::numbers::natural LIB::machine::resources::memory::sequence_group_next_available (void) const
+{
+	/*
+	for (key i = 1; i <= size (); ++ i)
+	{
+		if (! exists (i))
+		{
+			return i;
+		}
+	}
+	*/
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	db -> query (result, "\
+		SELECT DISTINCT\n\
+			-- \"T1\".\"ID\" AS \"Original\", \"T1\".\"ID\" + 1 AS \"Next\", TYPEOF (\"T1\".\"ID\") AS \"Type\"\n\
+			\"T1\".\"ID\" + 1 AS \"ID\"\n\
+		FROM\n\
+				(\n\
+					SELECT DISTINCT\n\
+						0 AS \"ID\"\n\
+					\n\
+					UNION\n\
+					\n\
+					SELECT DISTINCT\n\
+						\"T4\".\"Group\" AS \"ID\"\n\
+					FROM\n\
+						\"Entities\" AS \"T4\"\n\
+					WHERE\n\
+						\"T4\".\"Group\" IS NOT NULL\n\
+						AND\n\
+						TYPEOF (\"T4\".\"Group\") = 'integer'\n\
+					\n\
+					ORDER BY\n\
+						\"ID\" ASC\n\
+				) AS \"T1\"\n\
+			LEFT OUTER JOIN\n\
+				(\n\
+					SELECT DISTINCT\n\
+						0 AS \"ID\"\n\
+					\n\
+					UNION\n\
+					\n\
+					SELECT DISTINCT\n\
+						\"T4\".\"Group\" AS \"ID\"\n\
+					FROM\n\
+						\"Entities\" AS \"T4\"\n\
+					WHERE\n\
+						\"T4\".\"Group\" IS NOT NULL\n\
+						AND\n\
+						TYPEOF (\"T4\".\"Group\") = 'integer'\n\
+					\n\
+					ORDER BY\n\
+						\"ID\" ASC\n\
+				) AS \"T2\"\n\
+					ON \"T1\".\"ID\" = \"T2\".\"ID\" - 1\n\
+		WHERE\n\
+			\"T2\".\"ID\" IS NULL\n\
+			AND\n\
+			\"T1\".\"ID\" + 1 >= 1\n\
+		ORDER BY \"T1\".\"ID\" ASC\n\
+		\n\
+		LIMIT 1\
+	");
+	
+	return result [1] [1];
+	//return 1;
+}
+
+const LIB::mathematics::numbers::natural LIB::machine::resources::memory::sequence_group_next (void) const
+{
+	return key_group_integral_max () + 1;
+}
+
+const LIB::mathematics::numbers::natural LIB::machine::resources::memory::sequence_name_next_available (const LIB::machine::resources::memory::key & group) const
+{
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	
+	arguments.append (group);
+	arguments.append (group);
+	
+	_memory -> database ().query
+	(
+		result,
+		"\
+			SELECT DISTINCT\n\
+				-- \"T1\".\"ID\" AS \"Original\", \"T1\".\"ID\" + 1 AS \"Next\", TYPEOF (\"T1\".\"ID\") AS \"Type\"\n\
+				\"T1\".\"ID\" + 1 AS \"ID\"\n\
+			FROM\n\
+					(\n\
+						SELECT DISTINCT\n\
+							0 AS \"ID\"\n\
+						\n\
+						UNION\n\
+						\n\
+						SELECT DISTINCT\n\
+							\"T4\".\"Name\" AS \"ID\"\n\
+						FROM\n\
+							\"Entities\" AS \"T4\"\n\
+						WHERE\n\
+							\"T4\".\"Name\" IS NOT NULL\n\
+							AND\n\
+							TYPEOF (\"T4\".\"Name\") = 'integer'\n\
+							AND\n\
+							\"T4\".\"Group\" = ?\n\
+						\n\
+						ORDER BY\n\
+							\"ID\" ASC\n\
+					) AS \"T1\"\n\
+				LEFT OUTER JOIN\n\
+					(\n\
+						SELECT DISTINCT\n\
+							0 AS \"ID\"\n\
+						\n\
+						UNION\n\
+						\n\
+						SELECT DISTINCT\n\
+							\"T4\".\"Name\" AS \"ID\"\n\
+						FROM\n\
+							\"Entities\" AS \"T4\"\n\
+						WHERE\n\
+							\"T4\".\"Name\" IS NOT NULL\n\
+							AND\n\
+							TYPEOF (\"T4\".\"Name\") = 'integer'\n\
+							AND\n\
+							\"T4\".\"Group\" = ?\n\
+						\n\
+						ORDER BY\n\
+							\"ID\" ASC\n\
+					) AS \"T2\"\n\
+						ON \"T1\".\"ID\" = \"T2\".\"ID\" - 1\n\
+			WHERE\n\
+				\"T2\".\"ID\" IS NULL\n\
+				AND\n\
+				\"T1\".\"ID\" + 1 >= 1\n\
+			ORDER BY \"T1\".\"ID\" ASC\n\
+			\n\
+			LIMIT 1\
+		",
+		arguments
+	);
+	
+	return result [1] [1];
+}
+
+const LIB::mathematics::numbers::natural LIB::machine::resources::memory::sequence_name_next (void) const
+{
+	return key_name_integral_max () + 1;
+}
+
+const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> LIB::machine::resources::memory::list (void) const
+{
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	//LIB::containers::NAME_A <LIB::machine::resources::memory, LIB::machine::resources::memory::key> entities;
+	
+	//arguments [1] = group;
+	//db -> query (result, "SELECT \"Name\", \"Content\" FROM \"Entities\" WHERE \"Group\" = ?", arguments);
+	db -> query (result, "SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\" FROM \"Entities\"");
+	
+//	for (LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V>::container & row : result)
+//	{
+//		//for (LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>::container & column : row.v)
+//		//{
+//		//	// This loop should last for only one (1) iteration.
+//		//}
+//		{
+//			LIB::machine::resources::memory mem (db, row.v [2], group, row.v [1]);
+//			
+//			entities [row.v [1]] = mem;
+//		}
+//	}
+//	
+//	return entities;
+	return result;
+}
+
+const bool LIB::machine::resources::memory::refresh_list (void)
+{
+	//_list = list ();
 	
 	return false;
 }
 
-const bool LIB::machine::resources::memory::research::responded (void) const
+const LIB::containers::memory::iterator LIB::machine::resources::memory::begin (void) const
 {
-	for (auto & mach : machines)
+	//return _list.begin ();
+	
+	LIB::containers::memory::iterator iter;
+	/*
+	if (! iter.set)
 	{
-		if (!mach.v.responded)
-		{
-			return false;
-		}
+		//iter.list = list ();
+		//iter.list = _list;
+		iter.set = true;
 	}
+	*/
+	//iter.iter = iter.list.begin ();
+	// iter.iter = _list.begin ();
+	
+	//iter.reference = (* (iter.iter)) -> v;
+	//iter.reference = * (iter.iter);
+	// iter.reference = & ((iter.iter) -> v);
+	
+	//std::cout << **(iter.reference) << std::endl;
+	
+	//iter.parent = this;
+	return iter;
+}
+
+const LIB::containers::memory::iterator LIB::machine::resources::memory::end (void) const
+{
+	//return _list.end ();
+	
+	LIB::containers::memory::iterator iter;
+	/*
+	if (! iter.set)
+	{
+		//iter.list = list ();
+		//iter.list = _list;
+		iter.set = true;
+	}
+	*/
+	//iter.iter = iter.list.end ();
+	// iter.iter = _list.end ();
+	
+	//iter.reference = (* (iter.iter)) -> v;
+	//iter.reference = * (iter.iter);
+	// iter.reference = & ((iter.iter) -> v);
+	
+	//std::cout << **(iter.reference) << std::endl;
+	
+	//iter.parent = this;
+	return iter;
+}
+
+const std::string LIB::machine::resources::memory::serialize (void) const
+{
+	return LIB::serialize <LIB::machine::resources::memory> (* this);
+}
+
+const bool LIB::machine::resources::memory::deserialize (const std::string & serial)
+{
+	return LIB::deserialize <LIB::machine::resources::memory> (serial, * this);
+}
+
+/*operator const std::string (void) const
+{
+	return serialize ();
+}
+
+const LIB::machine::resources::memory & operator = (const std::string & serial)
+{
+	deserialize (serial);
+	return *this;
+}*/
+
+//LIB::machine::resources::memory::operator const value (void) const
+//{
+//	return get ();
+//}
+
+//LIB::machine::resources::memory LIB::machine::resources::memory::operator [] (const key & name)
+//{
+//	if (! exists (name))
+//	{
+//		set_group (name);
+//	}
+//	
+//	return get (name);
+//}
+
+/*const LIB::machine::resources::memory & LIB::machine::resources::memory::operator [] (const key & name) const
+{
+	return *this;
+}*/
+
+//const LIB::machine::resources::memory::value LIB::machine::resources::memory::get (void) const
+//{
+//	// Set "Reference" to "false" and "Content/Content" to ""
+//	// if the name which is being
+//	
+//	//content_clear_group ();
+//	
+//	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	
+//	arguments [1] = previous_group;
+//	arguments [2] = previous_name;
+//	
+//	if (db -> query (result, "\
+//			SELECT \"Content\"\n\
+//			FROM \"Entities\"\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ?;\
+//			", arguments))
+//	{
+//		if (! result.empty ())
+//		{
+//			return result [1] [1];
+//		}
+//		//if (result.empty ())
+//		//{
+//		//	return "";
+//		//}
+//		//else
+//		//{
+//		//	return result [1] [1];
+//		//}
+//	}
+//	//else
+//	//{
+//	//	return "";
+//	//}
+//	
+//	return "";
+//	
+//	//return mem;
+//}
+//
+//const LIB::machine::resources::memory LIB::machine::resources::memory::get (const LIB::machine::resources::memory::key & nm) const
+//{
+//	//content_clear_literal (nm/* the new, inexistent, (sub-)name*/);
+//	
+//	key grp;
+//	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	/*
+//	
+//	arguments [1] = group;
+//	arguments [2] = name;
+//	
+//	if (db -> query (result, "SELECT \"Name\"\n\
+//			FROM \"Entities\"\n\
+//			WHERE \"Group\" = (SELECT \"Content\" FROM \"Entities\" WHERE \"Group\" = ? AND \"Name\" = ?);", arguments))
+//	{
+//		if (result.empty ())
+//		{
+//			return "";
+//		}
+//		else
+//		{
+//			return result [1] [1];
+//		}
+//	}
+//	else
+//	{
+//		return "";
+//	}
+//	*/
+//	
+//	//grp = sequence_group_next_available ();
+//	
+//	//if (grp <= 0)
+//	//	return *this;
+//	
+//	arguments [1] = group;
+//	arguments [2] = nm;
+//	//arguments [3] = nm;
+//	
+//	//db -> query (NULL, "BEGIN;\n\
+//			--DELETE FROM \"Entities\"\n\
+//			--WHERE \"Group\" = ? AND \"Name\" = ?;\n\
+//			INSERT OR REPLACE INTO \"Entities\"\n\
+//			(\"Group\", \"Name\", \"Reference\", \"Content\")\n\
+//			VALUES (?, ?, ?, ?), (?, ?, ?, ?);\n\
+//			COMMIT;", arguments);
+//	//db -> query (NULL, "BEGIN;\n\
+//			UPDATE \"Entities\"\n\
+//			SET \"Reference\" = ?, \"Content\" = NULL\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ?;\n\
+//			COMMIT;", arguments);
+//	
+//	grp = "";
+//	
+//	if (db -> query (result, "\
+//			SELECT \"Content\"\n\
+//			FROM \"Entities\"\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ? AND \"Content: Type\" != 0;\
+//			", arguments))
+//	{
+//		if (! result.empty ())
+//		{
+//			grp = result [1] [1];
+//		}
+//		//else
+//		//{
+//		//	grp = result [1] [1];
+//		//}
+//	}
+//	//else
+//	//{
+//	//	grp = "";
+//	//}
+//	
+//	memory mem (db, grp, group, nm);
+//	//return memory (db, group, name);
+//	return mem;
+//	//return result;
+//}
+
+//const bool LIB::machine::resources::memory::set/*_literal*/ (const LIB::machine::resources::memory::value & val)
+//{
+//	if (! clear ())
+//	{
+//		return false;
+//	}
+//	
+//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	
+//	//arguments [1] = 0;
+//	arguments [1] = val;
+//	arguments [2] = previous_group;
+//	arguments [3] = previous_name;
+//	
+//	return db -> query (NULL, "\
+//			BEGIN;\n\
+//			UPDATE \"Entities\"\n\
+//			SET \"Content: Type\" = 0, \"Content\" = ?\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ?;\n\
+//			COMMIT;\
+//			", arguments);
+//}
+
+const bool LIB::machine::resources::memory::set (const LIB::machine::resources::memory::key & name, const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::machine::resources::memory::value> & values, const LIB::machine::resources::memory::key & group)
+{
+	//if (! values.exists ("Group") || ! values.exists ("Name"))
+	//{
+	//	return false;
+	//}
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_V, value> columns;
+	
+	//LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	
+	LIB::containers::NAME_A <> cols;
+	
+	std::string column_names = "\"Group\", \"Name\"", column_placeholders = "?, ?";
+	
+	arguments.append (group);
+	arguments.append (name);
+	
+	//cols.append ("Group");
+	cols.append ("Name: Type");
+	//cols.append ("Name");
+	cols.append ("Content: Type");
+	cols.append ("Content");
+	
+	//LIB::containers::NAME_V val;
+	
+	for (const LIB::containers::NAME_A <>::package & column_name : cols)
+	{
+		column_names += ", \"" + column_name.v.to_string () + '\"';
+		column_placeholders += ", ?";
+		
+		if (values.exists (column_name.v))
+		{
+			arguments.append (values [column_name.v]);
+		}
+		else
+		//{
+			if (column_name.v == "Name: Type" || column_name.v == "Content: Type")
+			{
+				arguments.append (0);
+			}
+			else// if (column_name == "Content")
+			{
+				arguments.append (default_value);
+			}
+		//}
+	}
+	
+	//// Remove the trailing ", ".
+	//column_names.substr (0, column_names.size () - 2);
+	//column_placeholders.substr (0, column_placeholders.size () - 2);
+	
+	
+	//arguments.append (group);
+	//arguments.append (name);
+	
+	std::cout <<
+			"\
+			INSERT OR REPLACE INTO \"Entities\"\n\
+			" + column_names + "\n\
+			VALUES\n\
+			(" + column_placeholders + ")\
+			"
+			<< std::endl;
+	
+	std::cout << "Arguments:" << std::endl;
+	for (const auto & arg : arguments)
+	{
+		std::cout << '[' << arg.k << ']' << " => " << '[' << arg.v << ']' << std::endl;
+	}
+	std::cout << "Arguments." << std::endl;
+	
+	return db -> query ("\
+			INSERT OR REPLACE INTO \"Entities\"\n\
+			(" + column_names + ")\n\
+			VALUES\n\
+			(" + column_placeholders + ")\
+			", arguments);
+//			\"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n
+//			WHERE \"Group\" = ? AND \"Name\" = ?;
+}
+
+const bool LIB::machine::resources::memory::set (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group)
+{
+	const LIB::containers::NAME_A <LIB::containers::NAME_V, value> values;
+	
+	return set (name, values, group);
+}
+
+const bool LIB::machine::resources::memory::set (const LIB::machine::resources::memory & other)
+{
+	operator = (other);
 	
 	return true;
 }
 
-LIB::machine::resources::memory::memory (const LIB::cluster::cluster *& cl)
-{
-	//m = NULL;
-	cluster = cl;
-}
-
-LIB::machine::resources::memory::memory (const LIB::machine::resources::memory & other)
-{
-	//m = NULL;
-	cluster = other.cluster;
-}
-
-//template <typename Value, Key>
-//LIB::Cluster::Memory<Value, Key>::Memory (void)
-LIB::machine::resources::memory::memory (void)
-{
-	//active = false;
-	
-	t = type::memory;
-	//l = location::local;
-	
-	//mpi_.tcp.Port (2);
-	//mpi_.udp.Address ("239.255.1.1");
-	//mpi_.udp.Port (30002);
-	
-	//mpi_.udp.address = "229.255.0.1";
-	//mpi_.udp_listen.address = "239.255.1.1";
-	//mpi_.udp_broadcast.address = "239.255.1.1";
-	//mpi_.udp_listen.address = "0.0.0.0";
-	//mpi_.udp_broadcast.address = "";
-	
-	
-	// mpi_.tcp_port (5);
-	// mpi_.udp_port (4);
-	
-	//bool copy = true;
-	// delimiter = ";";
-	// action_delimiter = "^";
-	
-	//network_device = 0;	// A local interface is expected to exists.
-	
-	//timeout = 	
-				//100000
-	//			1000000
-				//100
-			;
-	//active = true;
-	//started = false;
-	//active = false;
-
-	//listeners.add (initial_listen);
-	//listener_broadcast = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_listen, this));
-//	/*boost::thread * */listener = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_listen, this));
-	////listener_broadcast = NULL;
-	
-	//listener_direct = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_receive, this));
-//	/*boost::thread * */receiver = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_receive, this));
-	//listener_direct = NULL;
-	
-	// mpi_.receive_async (& /*LIB::machine::resources::memory::*/act_direct);
-	// mpi_.listen_async (& /*LIB::machine::resources::memory::*/act_broadcast);
-	
-	//listener -> detach ();
-	//receiver -> detach ();
-	
-	//timer = new boost::asio::deadline_timer (io);
-	
-	//listener_broadcast = NULL;
-	//listener_direct = NULL;
-
-	//timer = NULL;
-
-	//#pragma omp parallel num_threads (3)
-	//{
-	//	switch (omp_get_thread_num ())
-	//	{
-	//	// The main thread (#0) should return from the function.
-	//	case 1:
-	//		while (true)
-	//		{
-	//			ActDirect (mpi_.Receive ());
-	//			std::cout << "Receiving..." << std::endl;
-	//		}
-	//		break;
-	//	case 2:
-	//		while (true)
-	//		{
-	//			ActBroadcast (mpi_.Listen ());
-	//		}
-	//	}
-	//}
-	
-	//m = NULL;
-}
-
-LIB::machine::resources::memory::~memory (void)
-{
-	//active = false;
-
-	// mpi_.~interface ();
-/*	
-	if (receiver != NULL)
-	{
-		try
-		{
-			receiver -> interrupt ();
-		}
-		catch (...)
-		{
-		}
-	}
-*/	
-/*	
-	std::string ip = LIB::network::ip::addresses () [network_device].to_string ();
-
-	mpi_.transmit (delimiter + ip + action_delimiter + std::to_string ((mathematics::numbers::natural) LIB::machine::resources::memory::action::EXISTS) + delimiter + (std::string) "0_0" + delimiter, ip);
-	
-	// mpi_.broadcast ();
-
-	mpi_.cancel ();
-*/
-	//listener_broadcast -> join ();
-	//listener_direct -> join ();
-
-	//delete listener_broadcast, listener_direct, timer;
-	/*
-	if (listener_broadcast != NULL)
-	{
-		listener_broadcast -> join ();
-		delete listener_broadcast;
-		listener_broadcast = NULL;
-	}
-
-	if (listener_direct != NULL)
-	{
-		listener_direct -> join ();
-		delete listener_direct;
-		listener_direct = NULL;
-	}
-	*/
-	
-	/*
-	if (timer != NULL)
-	{
-		delete timer;
-		timer = NULL;
-	}
-	*/
-	//members.~Members ();
-	
-	//mpi_.receive_async_stop (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-	//mpi_.listen_async_stop (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-	run (false);
-	
-	//if (m != NULL)
-	//{
-	//	delete m;
-	//}
-}
-
-const bool LIB::machine::resources::memory::run (const bool & state)
-{
-	if (state && !_active)
-	{
-		// Start
-		
-		//mpi_.receive_async (& LIB::machine::resources::memory::act_direct);
-		// mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-		//mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-		//mpi_.listen_async (& LIB::machine::resources::memory::act_broadcast);
-		// mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_broadcast), this, _1));
-		//mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_broadcast), this, _1));
-		
-		
-		//if (m == NULL)
-		//{
-		//	m = new memory ();
-		//}
-		
-		_active = state;
-	}
-	else if (!state && _active)
-	{
-		// Stop
-		
-		//if (m != NULL)
-		//{
-		//	delete m;
-		//}
-		
-		//mpi_.receive_async (& LIB::machine::resources::memory::act_direct);
-		// mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-		//mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_direct), this, _1));
-		//mpi_.listen_async (& LIB::machine::resources::memory::act_broadcast);
-		// mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_broadcast), this, _1));
-		//mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::machine::resources::memory::act_broadcast), this, _1));
-		
-		_active = state;
-	}
-	else
-	{
-		return true;
-	}
-	
-	return false;
-}
-
-//template <typename Value, Key>
-//Value LIB::Cluster::Memory<Value, Key>::operator [] (const Key)
+//const bool LIB::machine::resources::memory::set_group (const LIB::machine::resources::memory::key & name)
 //{
-//	if (memory.Exists (Key))
-//	{
-//		return memory [Key];
-//	}
-//	else
-//	{
-//		// Request it from the members, if they may have it.
-//		return Search (Key);
-//	}
-//}
-
-//void LIB::machine::resources::memory::initial_listen (void)
-//{
-//	//while (active)
-//	//{
-//		/// std::cout << "Memory.cpp: \'initial_listen\': Listening..." << std::endl;
-//		//std::cout << "Listening..." << std::endl;
-//		//std::cout << "Listening: " << mpi_.Listen () << std::endl;
-//		act_broadcast (mpi_.listen ());
-//	//}
+//	key used_group;
+//	return set_group (name, used_group);
 //}
 //
-//void LIB::machine::resources::memory::initial_receive (void)
+//const bool LIB::machine::resources::memory::set_group (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & used_group)
 //{
-//	//while (active)
-//	//{
-//		///std::cout << "Memory.cpp: \'initial_receive\': Receiving..." << std::endl;
-//		//std::cout << "Receiving: " << mpi_.Receive () << std::endl;
-//		//boost::this_thread::interruption_point ();
-//		act_direct (mpi_.receive ());
-//	//}
+//	if (! clear ())
+//	{
+//		return false;
+//	}
+//	
+//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	
+//	//key grp = sequence_group_next_available ();
+//	used_group =  sequence_group_next_available ();
+//	
+//	arguments [1] = used_group;
+//	arguments [2] = name;
+//	arguments [3] = 1;
+//	//arguments [3] = previous_group;
+//	
+//	if (! db -> query (NULL, "BEGIN", NULL))
+//	{
+//		db -> query (NULL, "ROLLBACK", NULL);
+//		return false;
+//	}
+//	
+//	if (!
+//		db -> query (NULL, "\
+//			INSERT OR IGNORE INTO \"Entities\"\n\
+//			(\"Group\", \"Name\", \"Content: Type\", \"Content\")\n\
+//			VALUES (?, ?, ?, NULL)\
+//			", arguments)
+//	)
+//	{
+//		db -> query (NULL, "ROLLBACK", NULL);
+//		return false;
+//	}
+//	
+//	arguments [1] = 1;
+//	arguments [2] = used_group;
+//	arguments [3] = previous_group;
+//	arguments [4] = previous_name;
+//	
+//	if (!
+//		db -> query (NULL, "\
+//			UPDATE \"Entities\"\n\
+//			SET \"Content: Type\" = ?, \"Content\" = ?\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ?\
+//			", arguments)
+//	)
+//	{
+//		db -> query (NULL, "ROLLBACK", NULL);
+//		return false;
+//	}
+//	
+//	return db -> query (NULL, "COMMIT", NULL);
 //}
 //
-//void LIB::machine::resources::memory::dummy (void)
+//const bool LIB::machine::resources::memory::set_group (void)
 //{
-//	// Do not do anything.
-//	/// std::cout << "Dummy (Memory.search ()): Done waiting." << std::endl;
+//	if (! clear ())
+//	{
+//		return false;
+//	}
+//	
+//	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+//	
+//	arguments [1] = 1;
+//	arguments [2] = previous_group;
+//	arguments [3] = previous_name;
+//	
+//	return db -> query (NULL, "\
+//			BEGIN;\n\
+//			UPDATE \"Entities\"\n\
+//			SET \"Content: Type\" = ?, \"Content\" = NULL\n\
+//			WHERE \"Group\" = ? AND \"Name\" = ?;\n\
+//			COMMIT;\
+//			", arguments);
 //}
 
-//template <typename Value, Key>
-//bool LIB::Cluster::Memory<Value, Key>::Search (const Key key, Value & value, std::string & host) const
-const bool LIB::machine::resources::memory::search (const key & k, LIB::NAME_A <LIB::cluster::machine, LIB::mathematics::numbers::natural> machines/*, const key & group*/) const
+const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> LIB::machine::resources::memory::get (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
 {
-	//std::string msg;
-	//key k;
-	LIB::communication::message message_demand, message_obtain, message_obtained;
+	// This is the default, backup variable:
+	const LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> columns;
 	
-	//k.name = name;
-	//k.group = group;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
 	
-	//message_demand.content ["id"] = ;
+	arguments [1] = group;
+	arguments [2] = name;
 	
-	message_demand.content ["action"] = "memory:presence";
-	//message_demand.content ["function"] = "exist";
-	message_demand.content ["function"] = "demand";
-	
-	message_demand.content ["data"] ["key"] = k;
-	//message_demand.content ["data"] ["all"] = false;
-	
-	//message_demand.content ["function"] = "exist";
-	
-	if (variables.exist (k))
-	{
-		//host = get_local_address ();	//LIB::network::ip::addresses () [network_device].to_string ();
-		// host = _local_address;	//LIB::network::ip::addresses () [network_device].to_string ();
-		//host = "localhost";
-		// _value = variables [_key];
-		
-		// machine = cluster -> machines.local_machine ();
-		
-		machines [cluster -> machines.local_id ()] = cluster -> machines.local ();
-		
-		//machine = machines [machines -> local ()];
-		//_value = variables [k];
-		
-		//machines -> broadcast ();
-		/// std::cout << "Memory.search (): Found Locally: Key=[" << _key << "] Value=[" << _value << "]" << std::endl;
-		
-		return true;
-	}
-	else if (cluster -> machines.size () <= 1)
-	{
-		return false;
-	}
-	//else if (! members.Empty ())
-	//{
-	//	bool found;
-	//	LIB::NAME_V answer, answer2;
-	//	std::string response;
-
-	//	// Ask if anyone has a variable by this key.
-	//	if (mpi_.Broadcast (delimiter + mpi_.Localhost () + actionDelimiter + std::to_string ((Mathematics::Number::Natural) Action::ASK) + delimiter + key + delimiter))
-	//	{
-	//		response = mpi_.Listen ();
-
-	//		if (response.empty ())
-	//			return false;
-	//	}
-	//	else
-	//		return false;
-
-	//	answer = Parse (response, Content::DATA);
-	//	host = Parse (response, Content::ADDRESS);
-	//	found = answer.ToNumber ();
-
-	//	if (found)
-	//	{
-	//		//value = Get (key);
-	//		mpi_.tcp.address = host;
-	//		mpi_.Send (delimiter + mpi_.Localhost () + actionDelimiter + std::to_string ((Mathematics::Number::Natural) Action::GET) + delimiter + key + delimiter);
-	//		answer2 = mpi_.Receive ();
-	//		value = Parse (answer2.ToString (), Content::DATA);
-	//	}
-
-	//	return found;
-	////}
-	////else
-	////{
-	////	return false;
-	//}
+	//	SELECT \"Group\", \"Name: Type\", \"Name\", \"Content: Type\", \"Content\"\n\
 	//
-	//return false;
-	//else if (peers.Empty ())
-	//{
-	//	return false;
-	//}
+	db -> query (result, "\
+		SELECT \"Name: Type\", \"Content: Type\", \"Content\"\n\
+		FROM \"Entities\"\n\
+		WHERE \"Group\" = ? AND \"Name\" = ?\
+		", arguments);
 	
-	// Ask if anyone has a variable by this key.
-	//else if (mpi_.broadcast (delimiter + (LIB::network::ip::addresses () [network_device].to_string ()) + action_delimiter + std::to_string ((mathematics::numbers::natural) action::EXISTS) + delimiter + _key + delimiter))
-	// else if (mpi_.broadcast (delimiter + _local_address + action_delimiter + std::to_string ((unsigned short int) action::EXISTS) + delimiter + _key + delimiter))
+	if (result.empty ())
+	{
+		// Return the default, backup variable.
+		return columns;
+	}
 	else
 	{
-		bool _found;
-		//std::string response;
-		
-		//response = mpi_.Listen ();
-		//response = mpi_.Receive ();
-		
-		// Temporary access ID.
-		LIB::mathematics::numbers::natural id;
-		research rsearch;	// eLeMeNt
-		
-		if (searches.enqeue (rsearch, id))
+		// There should always be one row present because of the (unique) index, if there is anything present.
+		// Return the first (and only) row.
+		// 
+		// Use the fact that "LIB::machine::resources::memory::value == LIB::containers::NAME_V", for now.
+		return result [1];
+	}
+}
+
+const bool LIB::machine::resources::memory::is_name_literal (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
+{
+	//key grp;
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	/*
+	
+	arguments [1] = group;
+	arguments [2] = name;
+	
+	if (db -> query (result, "SELECT \"Name\"\n\
+			FROM \"Entities\"\n\
+			WHERE \"Group\" = (SELECT \"Content\" FROM \"Entities\" WHERE \"Group\" = ? AND \"Name\" = ?);", arguments))
+	{
+		if (result.empty ())
 		{
-			return false;
-		}
-		
-		message_demand.content ["search"] ["id"] = id;
-		
-		searches [id].lock.lock ();
-		
-		if (cluster -> broadcast (message_demand))
-		{
-			/// std::cout << "Memory.search (): Not Found Locally: Key=[" << _key << "]" << std::endl;
-			/// std::cout << "\t" << "Searching amongst peers..." << std::endl;
-			
-			// This is when peers should respond.
-			
-			// Wait for response.
-			searches [id].lock.lock ();
-			
-			// The lock is not needed anymore.
-			//searches [id].lock.unlock ();
-			
-			_found = searches [id].found ();
-			
-			if (_found)
-			{
-				LIB::NAME_A <LIB::cluster::machine, LIB::mathematics::numbers::natural> machs;
-				LIB::cluster::machine mach;
-				
-				machs = searches [id].owners ();
-				
-				if (machs.empty ())
-				{
-					return false;
-				}
-				
-				// Get an owner.
-				for (auto & m : machs)
-				{
-					mach = m.v;
-					
-					break;
-				}
-				
-				//mach.run (true);
-				
-				message_obtained = cluster -> communicate (message_obtain, mach);
-				//_value = message_obtained.content ["value"];
-				machine = message_obtained.content ["meta"] ["machine_source"];
-				////value = Get (key);
-				////mpi_.tcp.address = host;
-				//mpi_.Send (delimiter + mpi_.Localhost () + actionDelimiter + std::to_string ((Mathematics::Number::Natural) Action::GET) + delimiter + key + delimiter, host);
-				////answer2 = mpi_.Receive ();
-				
-				//io.reset ();
-				
-				//timer -> expires_from_now (boost::posix_time::seconds (timeout));
-				//timer -> async_wait (boost::bind (& LIB::Cluster::Memory::Dummy, this));
-				
-				//io.run ();
-				
-				//value = Parse (data.ToString (), Content::DATA);
-				// _value = searches [id].data;
-				//machine = ;
-				//data = "";
-				//searches.unset (id);
-			}
-			
-			//searches.found.unset (id);
-			
-			//searches.locks [id].unlock ();
-			searches.unset (id);
-			
-			return _found;
+			return "";
 		}
 		else
 		{
-			return false;
+			return result [1] [1];
 		}
 	}
-	//else
-	//{
+	else
+	{
+		return "";
+	}
+	*/
+	
+	//grp = sequence_group_next_available ();
+	
+	//if (grp <= 0)
 	//	return false;
-	//}
-}
-
-//template <typename Value, Key>
-//bool LIB::Cluster::Memory<Value, Key>::Search (const Key key, Value & value) const
-/*bool LIB::machine::resources::memory::search (const key _key, value & _value)
-{
-	std::string host;
-
-	return search (_key, _value, host);
-}
-*/
-
-//template <typename Value, Key>
-//bool LIB::Cluster::Memory<Value, Key>::Search (const Key key) const
-const bool LIB::machine::resources::memory::exist (const key & _k) const
-{
-	//value _value;
-	//std::string host;
-	LIB::NAME_A <machine, LIB::mathematics::numbers::natural> machs;
 	
-	//return search (name, _value, group);
-	return search (_k, machs);
+	arguments [1] = group;
+	arguments [2] = name;
+	
+	if (db -> query (result, "\
+			SELECT \"Name: Type\"\n\
+			FROM \"Entities\"\n\
+			WHERE \"Group\" = ? AND \"Name\" = ?\
+			", arguments));
+	
+	return result [1] [1] == 0;
 }
-
-//template <typename Value, Key>
-//Value LIB::Cluster::Memory<Value, Key>::Get (const Key key) const
-const value LIB::machine::resources::memory::get (key _k) const
-{
-	_k.grouped = false;
 /*
-	if (variables.exists (_key))
-	{
-		return variables [_key];
-	}
-	else
-	{
+const bool LIB::machine::resources::memory::is_name_group (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
+{
+	return ! is_name_literal (name, group);
+}
 */
-		/// std::cout << "Trying to get value of key " << "[" << _key << "] ..." << std::endl;
-		value _value = "";
-		//value _value;
-		LIB::NAME_A <machine, LIB::mathematics::numbers::natural> machs;
-		machine mach;
-//		// Request it from the members, returning it if they may have it.
-		if (search (_k, machs/*, group*/))
-		{
-			if (machs.empty ())
-			{
-				return false;
-			}
-			
-			for (auto & m : machs)
-			{
-				mach = m.v;
-				
-				break;
-			}
-			
-			LIB::communication::message message_obtain, message_obtained;
-			
-			message_obtain.content ["action"] = "memory:variable";
-			message_obtain.content ["function"] = "demand";
-			message_obtain.content ["value"] = _k;
-			
-			message_obtained = cluster -> communicate (message_obtain, mach);
-			
-			//_value = message_obtained.content ["value"];
-			
-			//if (k.group == "Instructions")
-			//{
-			//	_value = (LIB::machine::resources::processor::instruction) message_obtained.content ["value"];
-			//}
-			//else
-			//{
-				_value = message_obtained.content ["value"];
-			//}
-		}
-		
-		return _value;
-		
-		//if (search (_key, _value))
-		//{
-		//	return _value;
-		//}
-		//else
-		//{
-		//	value temp;
-
-		//	return temp;
-		//}
-//	}
-}
-
-//template <typename Value, Key>
-//void LIB::Cluster::Memory<Value, Key>::Set (const Key key, const Value value)
-const bool LIB::machine::resources::memory::set (key _k, const value & _value)
+const bool LIB::machine::resources::memory::is_content_literal (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
 {
-	if (!run ())
+	//key grp;
+	LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V> arguments;
+	LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> result;
+	/*
+	
+	arguments [1] = group;
+	arguments [2] = name;
+	
+	if (db -> query (result, "SELECT \"Name\"\n\
+			FROM \"Entities\"\n\
+			WHERE \"Group\" = (SELECT \"Content\" FROM \"Entities\" WHERE \"Group\" = ? AND \"Name\" = ?);", arguments))
 	{
-		return false;
-	}
-	
-	_k.grouped = false;
-	
-	//keys k;
-	LIB::NAME_A <machine, LIB::mathematics::numbers::natural> machs;
-	machine mach;
-	//LIB::communication::message message_demand, message_obtain, message_obtained;
-	
-	//k.name = name;
-	//k.group = group;
-	
-	search (_k, macsh);
-	
-	for (auto & m : machs)
-	{
-		mach = m.v;
-		
-		break;
-	}
-	
-	if (!mach.active ())
-	{
-		return false;
-	}
-	
-	if (mach.l == location::local)
-	{
-		//if (k.group == "Instructions")
-		//{
-		//	variables [k] = boost::any_cast <LIB::machine::resources::processor::instruction> (_value);
-		//}
-		//else
-		//{
-			variables [k] = _value;
-		//}
-		
-		return true;
+		if (result.empty ())
+		{
+			return "";
+		}
+		else
+		{
+			return result [1] [1];
+		}
 	}
 	else
 	{
-		//mach.rsrc ["memory"] -> set (name, _value, group);
-		LIB::communication::message message_demand, message_response;
-		
-		message_demand.content ["action"] = "memory";
-		message_demand.content ["function"] = "set";
-		
-		message_demand.content ["data"] ["key"] = k;
-		message_demand.content ["data"] ["value"] = _value;
-		//message_demand.content ["data"] ["value"] = /*(std::string) */boost::any_cast <LIB::machine::resources::processor::instruction> (_value);
-		
-		message_response = cluster -> communicate (message_demand, mach);
-		
-		return message_response.content.exist ("value") && message_response.content ["value"];
+		return "";
 	}
+	*/
 	
-	return false;
+	//grp = sequence_group_next_available ();
 	
-//	// send the value to the member(s) having the variable
-//	
-//	/// std::cout << "Trying to set value of key " << "[" << _key << "]" << " to value [" << _value << "] ..." << std::endl;
-//	
-//	//std::string local_address = LIB::network::ip::addresses () [network_device].to_string ();
-//	//std::string host;
-//	value val;
-//	
-//	if (search (_key, val, host) && host != _local_address)
-//	{
-//		/// std::cout << "\t" << "Host " << host << "] has key [" << _key << "]" << " with value [" << val << "]" << std::endl;
-//		/// std::cout << "\t" << "Trying to set it to [" << _value << "] ..." << std::endl;
-//		//mpi_.tcp.address = host;
-//		// if (mpi_.transmit (delimiter + _local_address + delimiter + std::to_string ((mathematics::numbers::natural) action::SET) + delimiter + _key + delimiter + _value + delimiter, (LIB::entity <>) host))
-//		if (mpi_.transmit (delimiter + _local_address + delimiter + std::to_string ((unsigned short int) action::SET) + delimiter + _key + delimiter + _value + delimiter, (LIB::entity <>) host))
-//		{
-//			/// std::cout << "\t" << "Succeeded." << std::endl;
-//			
-//			return true;
-//		}
-//		else
-//		{
-//			/// std::cout << "\t" << "Failed." << std::endl;
-//			
-//			return false;
-//		}
-//	}
-//	else
-//	{
-//		/// std::cout << "Not found Remotely ... Setting (locally) key " << "[" << _key << "]" << " to value [" << _value << "] ..." << std::endl;
-//		
-//		// Distribute to other peers?
-//		variables [_key] = _value;
-//
-//		return variables [_key] == _value;
-//	}
+	//if (grp <= 0)
+	//	return false;
+	
+	arguments [1] = group;
+	arguments [2] = name;
+	
+	if (db -> query (result, "\
+			SELECT \"Content: Type\"\n\
+			FROM \"Entities\"\n\
+			WHERE \"Group\" = ? AND \"Name\" = ?\
+			", arguments));
+	
+	return result [1] [1] == 0;
 }
-
-const bool LIB::machine::resources::memory::unset (key _k)
+/*
+const bool LIB::machine::resources::memory::is_value_group (const LIB::machine::resources::memory::key & name, const LIB::machine::resources::memory::key & group) const
 {
-	if (!run ())
-	{
-		return false;
-	}
-	
-	//k.grouped = false;
-	//if (k.grouped)
-	//{
-	//	
-	//}
-	//else
-	//{
-		bool success = true;
-		
-		LIB::cluster::machine <machine, LIB::mathematics::numbers::natural> machs;
-		
-		search (_k, machs);
-		
-		for (auto & mach : machs)
-		{
-			//keys k;
-			//k.name = name;
-			//k.group = group;
-			
-			if (! mach.v.active ())
-			{
-				success = false;
-				
-				continue;
-			}
-			
-			if (mach.v.l == location::local)
-			{
-				if (! variables.unset (_k))
-				{
-					success = false;
-				}
-			}
-			else
-			{
-				LIB::communication::message message_demand, message_response;
-				
-				message_demand.content ["action"] = "memory";
-				message_demand.content ["function"] = "unset";
-				
-				message_demand.content ["data"] ["key"] = _k;
-				
-				message_response = cluster -> communicate (message_demand, mach.v);
-				
-				if (! (message_response.content.exist ("value") && message_response.content ["value"]))
-				{
-					success = false;
-				}
-			}
-		}
-	//}
-	
-	return success;
+	return ! is_content_literal (name, group);
 }
-
-const bool LIB::machine::resources::memory::move (key old_k, key new_k)
+*/
+/*
+const bool content_clear_literal (const key & name)
 {
-	if (!run ())
-	{
-		return false;
-	}
-	
-	old_k.grouped = false;
-	new_k.grouped = false;
-	
-	//keys k_new, k_old;
-	LIB::NAME_A <machine, LIB::mathematics::numbers::natural> machs;
-	machine mach;
-	//k_old.name = old_name;
-	//k_old.group = old_group;
-	
-	search (old_k, machs);
-	
-	if (machs.empty ())
-	{
-		return false;
-	}
-	
-	for (auto & m : machs)
-	{
-		mach = m.v;
-		
-		break;
-	}
-	
-	if (!mach.active ())
-	{
-		return false;
-	}
-	
-	if (mach.l == location::local)
-	{
-		return variables.rename (old_k, new_k);
-	}
-	else
-	{
-		LIB::communication::message message_demand, message_response;
-		
-		message_demand.content ["action"] = "memory";
-		message_demand.content ["function"] = "move";
-		
-		message_demand.content ["key"] ["old"] = old_k;
-		
-		message_demand.content ["key"] ["new"] = new_k;
-		
-		message_response = cluster -> communicate (message_demand, mach);
-		
-		return message_response.content.exist ("value") && message_response.content ["value"];
-	}
-	
 	return false;
 }
 
-////template <typename Value, Key>
-////std::string LIB::Cluster::Memory<Value, Key>::Parse (const std::string input, const Content content, Mathematics::Number::Natural requestedDataIndex) const
-//std::string LIB::machine::resources::memory::parse (std::string input, const content _content, const unsigned short int & requested_data_index)
-//{
-//	if (input.empty ())
-//		return input;
-//	else if (input [0] != delimiter [0])
-//		return "";
-//
-//	std::string ip = "", action = "";
-//	unsigned int i = 1;
-//	unsigned int data_index = 0;
-//	NAME_A <std::string, mathematics::numbers::natural> data;
-//	NAME_V temp;
-//	std::string data_temp;
-//
-//	// Determine where the IP address ends in the string.
-//	while (i < input.length () && input [i] != delimiter [0] && input [i] != action_delimiter [0])
-//	{
-//		// Store the IP address in our local variable
-//		ip += input [i];
-//		++ i;
-//	}
-//
-//	// Skip the DELIMITER or the ACTION_DELIMITER character.
-//	++ i;
-//	
-//	// Handle the IP address
-//	//cout << "Capacity: " << nodes.capacity () << endl;
-//	if ((NAME_V) input [i - 1] == action_delimiter)
-//	{
-//		// Determine the ACTION:
-//		while (i < input.length () && input [i] != delimiter [0])
-//		{
-//			// Store the action in our local variable.
-//			action += input [i];
-//			++ i;
-//		}
-//	}
-//
-//	// Skip the DELIMITER character.
-//	++ i;
-//	
-//	while (i < input.length ())
-//	{
-//		data [data_index] = "";
-//		//data_temp = "";
-//
-//		while (input [i] != delimiter [0])
-//		//while (i < input.length () && input [i] != delimiter)
-//		{
-//			//temp = input [i];
-//			//data [data_index];
-//
-//			//data [data_index] += (LIB::NAME_V) (input [i]);
-//			//data [data_index] += temp;
-//			//data [data_index] = data [data_index] + (LIB::NAME_V) (input [i]);
-//			//data [data_index] = data [data_index] + temp;
-//			//data += input [i];
-//			data [data_index] += input [i];
-//			//data_temp += input [i];
-//			
-//			++ i;
-//		}
-//
-//		//data [data_index] = data_temp;
-//
-//		// Proceed to the next data part of the message:
-//		++ data_index;
-//
-//		// Skip the DELIMITER character:
-//		++ i;
-//	}
-//
-//	//NAME_V t;
-//
-//	switch (_content)
-//	{
-//		case content::ACTION:
-//			return action;
-//		case content::ADDRESS:
-//			return ip;
-//		case content::DATA:
-//			//std::cout << data [requested_data_index];
-//			//data_temp = (data [requested_data_index]);
-//			//data_temp = "blah";
-//
-//			//return data_temp;
-//			return data [requested_data_index];
-//			//return /*(std::string) */(data [requested_data_index]);
-//		default:
-//			return "";
-//	}
-//}
-//
-////template <typename Value, Key>
-////void LIB::Cluster::Memory<Value, Key>::ActDirect (const std::string input)
-//void LIB::machine::resources::memory::act_direct (const std::string input)
-//{
-//	/// std::cout << "memory.cpp: act_direct" << std::endl;
-//
-//	//if (active)
-//	//	/*boost::thread * */receiver = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_receive, this));
-//	
-//	if (input.empty ())
-//	{
-//		/// std::cout << "\t" << "\'input\' is empty ()." << std::endl;
-//		return;
-//	}
-//	
-//	std::string host, action_string, data_local, value;
-//	action _action;
-//	
-//	try
-//	{
-//		host = parse (input, content::ADDRESS);
-//		action_string = parse (input, content::ACTION);
-//		data_local = parse (input, content::DATA);
-//		
-//		_action = (action) atoi (action_string.c_str ());
-//
-//		/// std::cout << "\t" << "host [" << host << "]" << std::endl;
-//		/// std::cout << "\t" << "action_string [" << action_string << "]" << std::endl;
-//		/// std::cout << "\t" << "data_local [" << data_local << "]" << std::endl;
-//		
-//		switch (_action)
-//		{
-//			case action::SET:
-//				/// std::cout << "\t\t" << "action::SET" << std::endl;
-//				
-//				value = parse (input, content::DATA, 1);
-//				variables [data_local] = value;
-//				
-//				/// std::cout << "\t\t" << "data_local [" << data_local << "]" << std::endl;
-//				/// std::cout << "\t\t" << "value [" << value << "]" << std::endl;
-//				
-//				break;
-//			case action::GET:	// The remote host asked us for the data's value.
-//				/// std::cout << "\t\t" << "action::GET" << std::endl;
-//				if (variables.exist (data_local))	// We must have the data in order to reply with its value.
-//				{
-//					/// std::cout << "\t\t\t" << "Found." << std::endl;
-//					/// std::cout << "\t\t\t" << "Transmitting..." << std::endl;
-//					//mpi_.tcp.address = host;
-//					if (mpi_.transmit (delimiter + _local_address + delimiter + variables [data_local] + delimiter, (LIB::entity <>) host))
-//					{
-//						/// std::cout << "\t\t\t" << "Succeeded." << std::endl;
-//					}
-//					else
-//					{
-//						/// std::cout << "\t\t\t" << "Failed." << std::endl;
-//					}
-//				}
-//				else
-//				{
-//					/// std::cout << "\t\t\t" << "Not found." << std::endl;
-//				}
-//
-//				break;
-//			case action::UNSET:
-//				variables.unset (data_local);
-//
-//				break;
-//			case action::RENAME:
-//				value = parse (input, content::DATA, 1);
-//
-//				if (!data_local.empty () && !value.empty ())
-//					variables.rename (data_local, value);
-//
-//				break;
-//			case action::ANSWER:
-//				/// std::cout << "\t\t" << "Answering/Answered..." << std::endl;
-//				value = parse (input, content::DATA, 1);
-//				
-//				/// std::cout << "\t\t" << "data_local [" << data_local << "]" << std::endl;
-//				/// std::cout << "\t\t" << "value [" << value << "]" << std::endl;
-//			//	if (!found && dataLocal == "1")
-//					found [value] = true;
-//
-//			//	io.stop ();
-//			//	break;
-//			//case Action::GOT:	// I have just received some data.
-//				data [value] = data_local;
-//				
-//				try
-//				{
-//					if (timers.exist (value))
-//					{
-//						delete timers [value];
-//					}
-//				}
-//				catch (...)
-//				{
-//				}
-//				
-//				timers.unset (value);
-//				
-//				try
-//				{
-//					if (io_services.exist (value))
-//					{
-//						delete io_services [value];
-//					}
-//				}
-//				catch (...)
-//				{
-//				}
-//				
-//				//io_services [value] -> stop ();
-//				io_services.unset (value);
-//		}
-//
-//		//switch (atoi (action.c_str ()))
-//		//{
-//		////case Action::ASK:
-//		////	if (memory.Exists (data))
-//		////	{
-//		////		mpi_.tcp (host);
-//		////		mpi_.Send (delimiter + mpi_.LocalHost () + delimiter + "1" + delimiter);
-//		////	}
-//
-//		////	break;
-//		//case Action::SET:
-//		//	std::string value = Parse (input, Content::DATA, 1);
-//		//	memory [data] = value;
-//
-//		//	break;
-//		//case Action::GET:
-//		//	if (memory.Exists (data))
-//		//	{
-//		//		mpi_.tcp (host);
-//		//		mpi_.Send (delimiter + mpi_.LocalHost () + delimiter + memory [data] + delimiter);
-//		//	}
-//		//}
-//	}
-//	catch (...)
-//	{
-//
-//	}
-//}
-//
-////template <typename Value, Key>
-////void LIB::Cluster::Memory<Value, Key>::ActBroadcast (const std::string input)
-//void LIB::machine::resources::memory::act_broadcast (const std::string input)
-//{
-//	/// std::cout << "memory.cpp: act_broadcast()" << std::endl;
-//	
-//	//if (active)
-//	//	/*boost::thread * */listener = new boost::thread (boost::bind (& LIB::machine::resources::memory::initial_listen, this));
-//	
-//	if (input.empty ())
-//	{
-//		/// std::cout << "\t" << "\'input\' is empty ()." << std::endl;
-//		return;
-//	}
-//	
-//	std::string host, action_, data_local;
-//	//Content action;
-//	
-//	try
-//	{
-//		host = parse (input, content::ADDRESS);
-//		action_ = parse (input, content::ACTION);
-//		data_local = parse (input, content::DATA);
-//		
-//		/// std::cout << "\t" << "host [" << host << "]" << std::endl;
-//		/// std::cout << "\t" << "action_ [" << action_ << "]" << std::endl;
-//		/// std::cout << "\t" << "data_local [" << data_local << "]" << std::endl;
-//		
-//		switch ((action) std::stoi (action_))
-//		{
-//			//case Action::ASK:
-//			case action::GET:
-//				/// std::cout << "\t\t" << "action::GET" << std::endl;
-//				if (variables.exist (data_local))
-//				{
-//					/// std::cout << "\t\t\t" << "Found." << std::endl;
-//					/// std::cout << "\t\t\t" << "Transmitting..." << std::endl;
-//					//mpi_.tcp.address = host;
-//					// mpi_.Send (delimiter + mpi_.LocalHost () + delimiter + "1" + delimiter);	// ?
-//					if (mpi_.transmit (delimiter + _local_address + delimiter + variables [data_local] + delimiter, (LIB::entity <>) host))
-//					{
-//						/// std::cout << "\t\t\t" << "Succeeded." << std::endl;
-//					}
-//					else
-//					{
-//						/// std::cout << "\t\t\t" << "Failed." << std::endl;
-//					}
-//				}
-//
-//				break;
-//			/*
-//			case action::SET:
-//				std::cout << "\t\t" << "action::SET" << std::endl;
-//				
-//				value = parse (input, content::DATA, 1);
-//				variables [data_local] = value;
-//				
-//				std::cout << "\t\t" << "data_local [" << data_local << "]" << std::endl;
-//				std::cout << "\t\t" << "value [" << value << "]" << std::endl;
-//				
-//				break;
-//			*/
-//			//case Action::SET:
-//			//	std::string value = Parse (input, Content::DATA, 1);
-//			//	memory [data] = value;
-//
-//			//	break;
-//			//case Action::GET:
-//			//	if (memory.Exists (data))
-//			//	{
-//			//		mpi_.tcp (host);
-//			//		mpi_.Send (delimiter + mpi_.LocalHost () + delimiter + memory [data] + delimiter);
-//			//	}
-//			case action::EXISTS:
-//				/// std::cout << "\t\t" << "action::EXISTS" << std::endl;
-//				if (variables.exist (data_local))
-//				{
-//					/// std::cout << "\t\t\t" << "Found." << std::endl;
-//					/// std::cout << "\t\t\t" << "Transmitting..." << std::endl;
-//					if (mpi_.transmit (delimiter + _local_address + action_delimiter + std::to_string ((unsigned short int) action::ANSWER) + delimiter + variables [data_local] + delimiter + data_local + delimiter, (LIB::entity <>) host))
-//					//mpi_.Broadcast (delimiter + mpi_.Localhost () + delimiter + "1" + delimiter, host);
-//					{
-//						/// std::cout << "\t\t\t" << "Succeeded." << std::endl;
-//					}
-//					else
-//					{
-//						/// std::cout << "\t\t\t" << "Failed." << std::endl;
-//					}
-//				}
-//				//else
-//				//{
-//				//	mpi_.Broadcast (delimiter + mpi_.Localhost () + delimiter + "0" + delimiter, host);
-//				//}
-//
-//		}
-//	}
-//	catch (...)
-//	{
-//
-//	}
-//}
-/*
-LIB::Mathematics::Number::Natural LIB::Cluster::Memory::Size (void) const
+const bool content_clear_group (const key & name)
 {
-	return peers.Size ();
-}
-
-void LIB::Cluster::Memory::List (void)
-{
-	//LIB::NAME_A<bool, std::string> list = *(members.List ());
-
-	peers.List ().Reset ();
-
-	for (LIB::Mathematics::Number::Natural index = 0; index < peers.Size (); ++ index)
-	{
-		std::cout << index + 1 << ". " << peers.List ().operator * () << ": " << peers.List () [peers.List ().operator * ()] << std::endl;
-		//members.at (index) = false;
-		peers.List ().operator ++ ();
-	}
+	return false;
 }
 */
-
-//// Getter
-//const value & LIB::machine::resources::memory::operator [] (const key & _key) const
-//{
-//	//return const_cast <value &> (get (_key));
-//	return get (_key);
-//}
-//
-//// Setter
-//value &	LIB::machine::resources::memory::operator [] (const key & _key)
-//{
-//	value _val;
-//	set (_key, _val);
-//
-//	return get (_key);
-//}
-
-LIB::machine::resources::memory LIB::machine::resources::memory::_get_all (key _k)
-{
-	memory mem (cluster);
-	
-	if (! mem.run ())
-	{
-		return mem;
-	}
-	
-	// Save the internal key; it is the group that is being represented by this object.
-	k = _k;
-	// Make sure that this is false.
-	k.grouped = false;
-	
-	_k.grouped = true;
-	
-	//LIB::NAME_A <value, key> variables_other;
-	
-	//var = ;
-	mem.variables = variables.get_all (_k);
-	
-	LIB::NTT <> message_demand, message_obtained;
-	
-	message_demand.content ["action"] = "memory:variables";
-	message_demand.content ["function"] = "obtain";
-	message_demand.content ["obtain"] ["key"] = _k;
-	message_demand.content ["obtain"] ["all"] = true;
-	
-	message_obtained = cluster -> communicate (message_demand);
-	
-	mem.variables += (LIB::NAME_A <value, key>) message_obtained.content ["value"];
-	
-	return mem;
-}
-
-LIB::machine::resources::memory LIB::machine::resources::memory::get_all (const key & _k)
-{
-	//return const_cast <LIB::machine::resources::memory> ((const LIB::machine::resources::memory) get_all (k));
-	return _get_all (_k);
-}
-
-//const LIB::machine::resources::memory LIB::machine::resources::memory::get_all (const key & k) const
-//{
-//	return _get_all (k);
-//}
-
-//LIB::machine::resources::memory LIB::machine::resources::memory::operator [] (const key & k)
-//{
-//	return get_all (k);
-//}
-
-const LIB::machine::resources::memory LIB::machine::resources::memory::operator [] (const key & _k) const
-{
-	return get_all (_k);
-}
-
-const LIB::machine::resources::memory::value LIB::machine::resources::memory::operator = (const value & _v)
-{
-	//// Prevent overwriting a potentially important group by a single value.
-	//if (group)
-	//{
-	//}
-	
-	content_clear_group (k);
-	
-	set (k, _v);
-	
-	return _v;
-}
-
-const LIB::machine::resources::memory::value & LIB::machine::resources::memory::first_value (void) const
-{
-/*	if (variables.empty ())
-	{
-		value _value;
-		
-		return _value;
-	}
-	else
-	{
-*/		for (auto & variable : variables)
-		{
-			return variable.v;
-		}
-//	}
-}
-
-LIB::machine::resources::memory::operator const value (void) const
-{
-	if (group)
-	{
-		value _value;
-		
-		return _value;
-	}
-	else
-	{
-		return first_value ();
-	}
-}
-
-//const bool content_clear_literal (k)
-//{
-//}
-
-const bool LIB::machine::resources::memory::content_clear_group (const key & _k)
-{
-	_k.grouped = true;
-	
-	return unset (_k);
-}

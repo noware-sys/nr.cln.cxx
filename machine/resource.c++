@@ -20,9 +20,9 @@
 
 LIB::machine::resource::resource (void)
 {
-	_active = false;
+	//_active = false;
 	
-	l = location::local;
+	l = location::literal;
 	t = type::other;
 }
 /*
@@ -32,7 +32,7 @@ LIB::machine::device::device (const device & other)
 }
 */
 
-const LIB::machine::resource & LIB::machine::resource::operator== (const LIB::machine::resource & other)
+const bool LIB::machine::resource::operator== (const LIB::machine::resource & other) const
 {
 	if (t != other.t)
 	{
@@ -40,8 +40,6 @@ const LIB::machine::resource & LIB::machine::resource::operator== (const LIB::ma
 	}
 	
 	return true;
-	
-	return * this;
 }
 
 const LIB::machine::resource::type & LIB::machine::resource::get_type (void) const
@@ -53,7 +51,7 @@ const LIB::machine::resource::location & LIB::machine::resource::get_location (v
 {
 	return l;
 }
-
+/*
 const bool LIB::machine::resource::run (const bool & state)
 {
 	if (state && !_active)
@@ -76,3 +74,4 @@ const bool LIB::machine::resource::active (void) const
 {
 	return _active;
 }
+*/

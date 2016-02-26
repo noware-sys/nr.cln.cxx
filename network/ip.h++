@@ -3,8 +3,10 @@
 //#define __IP
 
 #include <string>
+#include <ostream>
 
-#include <boost/asio.hpp>
+//#include <boost/asio.hpp>
+#include <boost/asio/ip/address.hpp>
 
 #include "../default.h++"
 #include "../mathematics.h++"
@@ -21,40 +23,12 @@ namespace LIB
 			{
 				namespace ip
 				{
-					class address
-					{
-						protected:
-							boost::system::error_code error_code_;
-							boost::asio::ip::address value_/*, value_test*/;
-							//std::string val;
-							//unsigned short int version_;
-						public:
-							address (void);
-							address (const address &);
-							address (const std::string &);
-							address (const char []);
-							
-							const address & operator = (const address &);
-							const address & operator = (const std::string &);
-							const address & operator = (const char []);
-							//const std::string operator = (char []);
-							
-							const boost::asio::ip::address & value (void) const;
-							const std::string to_string (void) const;
-							operator const std::string (void) const;
-							
-							const bool is_loopback (void) const;
-							const bool is_multicast (void) const;
-							const bool is_unspecified (void) const;
-							
-							//operator unsigned short int (void);
-							const unsigned short int version (void) const;
-							
-							//operator boost::system::error_code (void);
-							const boost::system::error_code & error_code (void) const;
-							
-							const std::string convert (const unsigned short int &);
-					};
+					//const std::string int_to_addr (const int &);
+					const boost::asio::ip::address network (const boost::asio::ip::address &/* address*/, const boost::asio::ip::address &/* mask*/);
+					
+					// The networks which this machine is connected to.
+					const LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> networks (void);
+					
 					//enum version {v6, v4};
 
 					//static const version Default = version::v6;
@@ -67,7 +41,9 @@ namespace LIB
 						//- Latest version to the oldest version;
 						//- Latest local version to the oldest local version;
 					*/
-					const LIB::NAME_A <address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					//const LIB::containers::NAME_A <address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					//const LIB::containers::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
+					const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> addresses (void); //(const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include loopback addresses. */ = true);
 					//const LIB::NAME_A <boost::asio::ip::address, LIB::mathematics::numbers::natural> addresses (const LIB::mathematics::numbers::natural &/* Device. */ = 0, const bool &/* Include local. */ = true);
 					
 					

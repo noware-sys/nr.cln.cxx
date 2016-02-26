@@ -18,6 +18,7 @@
 #include "../mathematics.h++"
 #include "../serialization.h++"
 //#include "machine.h++"
+#include "paths.h++"
 //#include "../machine/device.h++"
 //#include "../machine/resource.h++"
 //#include "../machine/resources.h++"
@@ -42,11 +43,11 @@ namespace LIB
 					template <typename archive>
 					void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
 					
-					//template <typename Archive>
-					//void save (Archive &/* Archive (stream). */, const unsigned int &/* Version. */) const;
+					//template <typename archive>
+					//void save (archive &/* Archive (stream). */, const unsigned int &/* Version. */) const;
 					//
-					//template <typename Archive>
-					//void load (Archive &/* Archive (stream). */, const unsigned int &/* Version. */);
+					//template <typename archive>
+					//void load (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 					
 					member (void);
 					member (const member &);
@@ -58,18 +59,25 @@ namespace LIB
 					//const LIB::mathemathics::numbers::natural & id (void) const;
 					
 					//LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> addresses;
+					LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> addresses;
+					LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> networks;
+					//LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural> paths;
+					//LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> paths;
+					LIB::cluster::paths paths;
+					//LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> network_paths;
 					
 					/*
 						State of availability :
 						true : available
 						false : unresponsive, timing out
 					*/
-					//bool available;
+					//bool available;	// available availability state
+					static const LIB::mathematics::numbers::natural default_keepalive;
 					LIB::mathematics::numbers::natural keepalive;
-					boost::thread thread_timeout;
-					void funcion_timeout (LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> &, const LIB::mathemathics::numbers::natural &/* key*/, const LIB::mathemathics::numbers::natural &/* timeout (total)*/) const;
+					void function_timeout (LIB::containers::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> &, const LIB::mathemathics::numbers::natural &/* key*/, const LIB::mathemathics::numbers::natural &/* timeout (total)*/) const;
 					//LIB::tools::randomizer randomizer;
 				protected:
+					boost::thread * thread_timeout;
 					//LIB::mathematics::numbers::natural _id;
 					
 					// Generate unique ID.

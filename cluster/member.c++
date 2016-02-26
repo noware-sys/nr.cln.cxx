@@ -1,9 +1,11 @@
 #include "member.h++"
 
+const LIB::mathematics::numbers::natural LIB::cluster::member::default_keepalive = 20;
+
 LIB::cluster::member::member (void)
 {
 	//available = false;
-	keepalive = 15;
+	keepalive = default_keepalive;
 	thread_timeout = NULL;
 }
 
@@ -38,7 +40,7 @@ const LIB::mathematics::numbers::natural LIB::cluster::member::generate_id (void
 }
 */
 
-const LIB::cluster::member & LIB::cluster::operator = (const LIB::cluster::member & other)
+const LIB::cluster::member & LIB::cluster::member::operator = (const LIB::cluster::member & other)
 {
 	keepalive = other.keepalive;
 	
@@ -47,10 +49,10 @@ const LIB::cluster::member & LIB::cluster::operator = (const LIB::cluster::membe
 
 const bool LIB::cluster::member::operator == (const LIB::cluster::member & other) const
 {
-	return keepalive == other.keepalive;
+	return this == & other || keepalive == other.keepalive;
 }
 
-void funcion_timeout (LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & _members, const LIB::mathemathics::numbers::natural & key, const LIB::mathemathics::numbers::natural & timeout) const
+void function_timeout (LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & _members, const LIB::mathemathics::numbers::natural & key, const LIB::mathemathics::numbers::natural & timeout) const
 {
 	boost::this_thread::sleep (boost::posix_time::seconds (timeout));
 	

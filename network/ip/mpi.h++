@@ -12,7 +12,7 @@
 #include <boost/asio.hpp>
 #include <boost/function.hpp>
 #include <boost/bind.hpp>
-#include <boost/shared_ptr.hpp>
+// #include <boost/shared_ptr.hpp>
 //#include <boost/thread.hpp>
 
 // Poco:
@@ -22,8 +22,8 @@
 #include "../../default.h++"
 #include "../../mathematics.h++"
 // #include "../ip.h++"
-#include "../endpoint.h++"
-#include "../connection.h++"
+//#include "../endpoint.h++"
+#include "../_mpi.h++"
 #include "../../containers/entity.h++"
 
 //#include "NoWare/Network/TCP.hpp"
@@ -35,7 +35,7 @@
 
 namespace LIB
 {
-	//template <typename value = LIB::NAME_V, typename key = LIB::NAME_V>
+	//template <typename value = LIB::containers::NAME_V, typename key = LIB::containers::NAME_V>
 	//class NTT;
 	
 	//namespace machine
@@ -83,15 +83,23 @@ namespace LIB
 					*/
 
 					//std::string service;
-					class mpi : public LIB::network::connection // socket //messaging	// interface, mpi
+					class mpi : protected LIB::network::_mpi // socket //messaging	// interface, mpi
 					{
 						protected:
-							//LIB::NAME_A <NAME_A <boost::asio::io_service, unsigned long long int>, unsigned long int> handlers;
-							// LIB::NAME_A <boost::thread *, unsigned long int> handlers;
-							//LIB::NAME_A <handlers, unsigned long int> handlers;
-							//LIB::NAME_A <boost::shared_ptr <boost::asio::io_service>, mathematics::numbers::natural> receivers;	// The last spawned threads for receiving TCP.
-							//LIB::NAME_A <boost::shared_ptr <boost::asio::io_service>, unsigned long int> receivers;	// The last spawned threads for receiving TCP.
-							//LIB::NAME_A <NAME_A <mathematics::numbers::natural, unsigned long int>, unsigned long int> listeners;	// The last spawned threads for UDP listening.
+							// Keep track of the number of instances, to avoid multiple instantiation.
+							// 
+							// Multiple instantiation needs to be avoided,
+							// because a machine's resources (the combinations of network address, network port, and network protocol)
+							// can only used by one software at one time.
+							// This prevents this software to use the same resource more than once.
+							// static LIB::mathematics::numbers::natural instances;
+							
+							//LIB::containers::NAME_A <NAME_A <boost::asio::io_service, unsigned long long int>, unsigned long int> handlers;
+							// LIB::containers::NAME_A <boost::thread *, unsigned long int> handlers;
+							//LIB::containers::NAME_A <handlers, unsigned long int> handlers;
+							//LIB::containers::NAME_A <boost::shared_ptr <boost::asio::io_service>, mathematics::numbers::natural> receivers;	// The last spawned threads for receiving TCP.
+							//LIB::containers::NAME_A <boost::shared_ptr <boost::asio::io_service>, unsigned long int> receivers;	// The last spawned threads for receiving TCP.
+							//LIB::containers::NAME_A <NAME_A <mathematics::numbers::natural, unsigned long int>, unsigned long int> listeners;	// The last spawned threads for UDP listening.
 
 							//std::map <unsigned short int, std::string> ports;	// Valid communication ports.
 							//std::string local;	// The local host's address.
@@ -100,7 +108,7 @@ namespace LIB
 
 							// Common to all of the functions.
 							boost::asio::io_service io/*, io_udp*/;
-							//LIB::NAME_A <> sockets_udp_receive;
+							//LIB::containers::NAME_A <> sockets_udp_receive;
 							//boost::asio::ip::tcp::socket * socket_tcp_receive;
 							//boost::asio::ip::udp::socket * socket_udp_receive;
 							//boost::asio::ip::tcp::acceptor * receive_acceptor;
@@ -116,18 +124,32 @@ namespace LIB
 							// // void receive_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 							// // void listen_async_handler (const boost::function <void (std::string)> &/* handler*/, const std::string &/* address*/, const unsigned short int &/* port*/, const bool &/* cycle*/, const unsigned long int &/* hash*/);
 						public:
-							template <typename archive>
-							virtual void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
-
-							virtual const bool operator = (const mpi &);
-							virtual const bool operator == (const mpi &);
+							using LIB::network::_mpi::transmit;
+							using LIB::network::_mpi::broadcast;
+							using LIB::network::_mpi::receive;
 							
-							//const statuc std::string DEFAULT_ADDRESS = "0.0.0.0";
-							//const static unsigned short int DEFAULT_IP_ADDRESS_VERSION = 4;
-							// const static bool DEFAULT_CYCLE = true;
-							const static unsigned short int default_udp_port = 2;
-							const static unsigned short int default_tcp_port = 3;
+							template <typename archive>
+							void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
 
+							/*virtual */const mpi & operator = (const mpi &);
+							/*virtual */const bool operator == (const mpi &) const;
+							
+							//static const std::string DEFAULT_ADDRESS = "0.0.0.0";
+							//static const unsigned short int DEFAULT_IP_ADDRESS_VERSION = 6;	// 4, 6
+							// static const bool DEFAULT_CYCLE = true;
+							static const unsigned short int default_udp_port;
+							static const unsigned short int default_tcp_port;
+							//static const unsigned short int default_udp_port = 1;	// 2
+							//static const unsigned short int default_tcp_port = 1;	// 3
+							
+							//static const bool default_reliable = true;
+							static const bool default_reliable;
+							static const bool default_receive_self;
+							
+							bool receive_self;
+							
+							//static const unsigned short int default_message_size = 100;
+							static const unsigned short int default_message_size;
 							// std::string multicast_group_listen;
 							// std::string multicast_group_broadcast;
 
@@ -140,17 +162,17 @@ namespace LIB
 							// LIB::network::endpoint tcp_transmit;	// Destination endpoint.
 							
 							/*// Getters:
-							const LIB::NTT <> get_transmit (void) const;
-							const LIB::NTT <> get_receive (void) const;
-							const LIB::NTT <> get_broadcast (void) const;
-							//const LIB::NAME_A <LIB::entity <>, LIB::mathematics::numbers::natural> get_broadcast_multiple (void);
-							const LIB::NTT <> get_listen (void) const;
+							const LIB::containers::NTT <> get_transmit (void) const;
+							const LIB::containers::NTT <> get_receive (void) const;
+							const LIB::containers::NTT <> get_broadcast (void) const;
+							//const LIB::containers::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural> get_broadcast_multiple (void);
+							const LIB::containers::NTT <> get_listen (void) const;
 							// Setters:
 								// Whole endpoint.
-							const bool set_transmit (const LIB::NTT <> &);
-							const bool set_receive (const LIB::NTT <> &);
-							const bool set_broadcast (const LIB::NTT <> &);
-							const bool set_listen (const LIB::NTT <> &);
+							const bool set_transmit (const LIB::containers::NTT <> &);
+							const bool set_receive (const LIB::containers::NTT <> &);
+							const bool set_broadcast (const LIB::containers::NTT <> &);
+							const bool set_listen (const LIB::containers::NTT <> &);
 							*//*	// Address:
 							const bool set_transmit (const std::string &);
 							const bool set_receive (const std::string &);
@@ -171,7 +193,10 @@ namespace LIB
 							// Used when receiving, both by point-to-point and by multicast communications:
 							unsigned short int message_size;	// In bytes (characters).
 							//unsigned long long int message_size;
-
+							
+							// Use TCP for transmitting to block-wait for confirmation of reception.
+							//bool reliable;
+							
 							//std::string broadcast_flag;
 							//std::string service;
 							mpi (void);		// Default constructor.
@@ -193,8 +218,10 @@ namespace LIB
 
 							// std::string multicast_group (const std::string &);
 							
-							const bool transmit (const std::string &/* message*/);
-							const bool transmit (const std::string &/* message*/, LIB::NTT <>/* address*/);
+							// const bool transmit (const std::string &/* message*/);
+							// const bool transmit (const std::string &/* message*/, const bool &/* reliable */);
+							// const bool transmit (const std::string &/* message*/, LIB::containers::NTT <>/* address*/);
+							const bool transmit (const std::string &/* message*/, LIB::containers::NTT <>/* address*/, const bool &/* reliable */);
 							// const bool transmit (const std::string &/* message*/, const unsigned short int &/* port*/);
 							// const bool transmit (const std::string &/* message*/, const std::string &/* address*/, const unsigned short int &/* port*/);
 							// const bool transmit (const std::string &/* message*/, const unsigned short int &/* port*/, const std::string &/* address*/);
@@ -205,10 +232,12 @@ namespace LIB
 							// bool Send (const std::string /* message */, const std::string = LIB::Network::IP::v4::TCP::ADDRESS, const unsigned short int = LIB::Network::IP::v4::TCP::PORT);
 							// bool Broadcast (const std::string /* message */, const std::string = LIB::Network::IP::v4::UDP::ADDRESS, const unsigned short int = LIB::Network::IP::v4::UDP::PORT);
 
-							const bool broadcast (const std::string &/* message*/);
-							//const bool broadcast (const std::string &/* message*/, const std::string &/* address*/);
-							const bool broadcast (const std::string &/* message*/, LIB::NTT <>/* address/addresses */);
-							// const bool broadcast (const std::string &/* message*/, const LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural> &/* addresses */);
+							// const bool broadcast (const std::string &/* message*/);
+							// const bool broadcast (const std::string &/* message*/, const bool &/* reliable */);
+							////const bool broadcast (const std::string &/* message*/, const std::string &/* address*/);
+							// const bool broadcast (const std::string &/* message*/, LIB::containers::NTT <>/* address/addresses */);
+							const bool broadcast (const std::string &/* message*/, LIB::containers::NTT <>/* address/addresses */, const bool &/* reliable */);
+							// const bool broadcast (const std::string &/* message*/, const LIB::containers::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> &/* addresses */);
 							// const bool broadcast (const std::string &/* message*/, const unsigned short int &/* port*/);
 							// const bool broadcast (const std::string &/* message*/, const std::string &/* address*/, const unsigned short int &/* port*/);
 							// const bool broadcast (const std::string &/* message*/, const unsigned short int &/* port*/, const std::string &/* address*/);
@@ -222,8 +251,10 @@ namespace LIB
 							
 							// std::string Receive (unsigned short int = tcp.port);
 							// std::string Listen (std::string = upd.address, unsigned short int = udp.port);
-							const std::string receive (void);
-							const std::string receive (LIB::NTT <> & /* remote_endpoint */, LIB::NTT <>/* address*/);
+							// const std::string receive (void);
+							// const std::string receive (const bool &/* reliable */);
+							// const std::string receive (LIB::containers::NTT <> & /* remote_endpoint */, const LIB::containers::NTT <> &/* address*/);
+							const std::string receive (LIB::containers::NTT <> & /* remote_endpoint */, LIB::containers::NTT <>/* address*/, const bool &/* reliable */);
 							// std::string receive (const unsigned short int &/* port*/);
 							// std::string receive (const std::string &/* address*/, const unsigned short int &/* port*/);
 							// std::string receive (const unsigned short int &/* port*/, const std::string &/* address*/);
@@ -265,8 +296,11 @@ namespace LIB
 							
 							//
 							
-							const std::string listen (void);
-							const std::string listen (LIB::NTT <> & /* remote_endpoint */, LIB::NTT <> /* address */);
+							// *** Previously in use:
+							// const std::string listen (void);
+							// const std::string listen (LIB::containers::NTT <> & /* remote_endpoint */, LIB::containers::NTT <> /* address */);
+							// *** Previously in use.
+							
 							// std::string listen (const unsigned short int &/* port*/);
 							// std::string listen (const std::string &/* address*/, const unsigned short int &/* port*/);
 							// std::string listen (const unsigned short int &/* port*/, const std::string &/* address*/);

@@ -24,6 +24,8 @@
 
 namespace LIB
 {
+	namespace containers
+	{
 	/*
 	namespace machine
 	{
@@ -58,12 +60,12 @@ namespace LIB
 //				
 //				//std::string text;
 //				//bool reference;
-//				LIB::NAME_V literal;
+//				LIB::containers::NAME_V literal;
 //				
-//				LIB::array <LIB::NTT, LIB::NAME_V> group;
+//				LIB::array <LIB::containers::NTT, LIB::containers::NAME_V> group;
 //		};
 		
-		template <typename value = LIB::NAME_V, typename key = LIB::NAME_V>
+		template <typename value = LIB::containers::NAME_V, typename key = LIB::containers::NAME_V>
 		class NTT
 		{
 			public:
@@ -75,20 +77,20 @@ namespace LIB
 					public:
 						//friend class LIB::machine::resources::memory::NTT::container;
 						
-						//typedef LIB::NAME_V value, key;
-						//typedef LIB::NAME_V key;
+						//typedef LIB::containers::NAME_V value, key;
+						//typedef LIB::containers::NAME_V key;
 						
 						container (void);
 						container (const container &);
-						container (const LIB::NTT <value, key> &);
-						container (const LIB::NAME_A <value, key> &);
+						container (const LIB::containers::NTT <value, key> &);
+						container (const LIB::containers::NAME_A <value, key> &);
 						container (const value &);
 						~ container (void);
 						
 						container & operator = (const container &);
 						container & operator = (const value &);
-						container & operator = (const LIB::NTT <value, key> &);
-						container & operator = (const LIB::NAME_A <value, key> &);
+						container & operator = (const LIB::containers::NTT <value, key> &);
+						container & operator = (const LIB::containers::NAME_A <value, key> &);
 						
 						friend class boost::serialization::access;
 						
@@ -119,10 +121,10 @@ namespace LIB
 						const bool operator != (const container &) const;
 						const bool operator == (const value &) const;
 						const bool operator != (const value &) const;
-						const bool operator == (const LIB::NTT <value, key> &) const;
-						const bool operator != (const LIB::NTT <value, key> &) const;
-						const bool operator == (const LIB::NAME_A <value, key> &) const;
-						const bool operator != (const LIB::NAME_A <value, key> &) const;
+						const bool operator == (const LIB::containers::NTT <value, key> &) const;
+						const bool operator != (const LIB::containers::NTT <value, key> &) const;
+						const bool operator == (const LIB::containers::NAME_A <value, key> &) const;
+						const bool operator != (const LIB::containers::NAME_A <value, key> &) const;
 						
 						const std::string serialize (void) const;
 						const bool deserialize (const std::string &);
@@ -133,7 +135,7 @@ namespace LIB
 						
 						value lit;
 						
-						LIB::NAME_A <NTT <value, key> *, key> grp;
+						LIB::containers::NAME_A <NTT <value, key> *, key> grp;
 						
 						const bool content_clear_literal (void);
 						const bool content_clear_group (void);
@@ -153,10 +155,10 @@ namespace LIB
 						
 						//NTT <value, key> ** reference;
 						
-						typename LIB::NAME_A <NTT <value, key> *, key>::iterator iter;
+						typename LIB::containers::NAME_A <NTT <value, key> *, key>::iterator iter;
 						//NTT <value, key> * parent;
 				};
-				
+				/*
 				class const_iterator
 				{
 					public:
@@ -170,10 +172,10 @@ namespace LIB
 						
 						//NTT <value, key> ** reference;
 						
-						typename LIB::NAME_A <NTT <value, key> *, key>::const_iterator iter;
+						typename LIB::containers::NAME_A <NTT <value, key> *, key>::const_iterator iter;
 						//NTT <value, key> * parent;
 				};
-				
+				*/
 				
 				//class const_iterator
 				//{};
@@ -187,16 +189,17 @@ namespace LIB
 			public:
 				NTT (void);
 				NTT (const NTT <value, key> &);
-				NTT (const LIB::NAME_A <value, key> &);
+				NTT (const LIB::containers::NAME_A <value, key> &);
 				NTT (const value &);
 				//NTT (const machine::resources::memory::key &);
 				
 				const NTT <value, key> & operator = (const NTT <value, key> &);
-				const NTT <value, key> & operator = (const LIB::NAME_A <value, key> &);
+				const NTT <value, key> & operator = (const LIB::containers::NAME_A <value, key> &);
 				const NTT <value, key> & operator = (const value &);
 				//const NTT <value, key> & operator = (const machine::resources::memory::key &);
 				
 				friend class boost::serialization::access;
+				//friend class container;
 				
 				template <typename archive>
 				void serialize (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
@@ -206,12 +209,12 @@ namespace LIB
 				
 				const iterator begin (void);
 				const iterator end (void);
-				const const_iterator begin (void) const;
-				const const_iterator end (void) const;
+				const /*const_*/iterator begin (void) const;
+				const /*const_*/iterator end (void) const;
 				
-				//const LIB::NAME_V & operator = (const LIB::NAME_V);
+				//const LIB::containers::NAME_V & operator = (const LIB::containers::NAME_V);
 				//operator = (const std::string &);
-				// const LIB::NAME_A <NTT *, container::key> & operator = (const LIB::NAME_A <NTT *, container::key> &);
+				// const LIB::containers::NAME_A <NTT *, container::key> & operator = (const LIB::containers::NAME_A <NTT *, container::key> &);
 				NTT <value, key> & operator [] (const key &);
 				const NTT <value, key> & operator [] (const key &) const;
 				
@@ -226,7 +229,8 @@ namespace LIB
 				
 				//const key * & get_key (void);
 				
-				operator value & (void);
+				//operator value & (void);
+				operator const value & (void);
 				operator const value & (void) const;
 				const value & operator * (void);
 				const value & operator * (void) const;
@@ -234,8 +238,8 @@ namespace LIB
 				const value & operator -> (void) const;
 				const value & operator () (void);
 				const value & operator () (void) const;
-				const value & value (void);
-				const value & value (void) const;
+				//const value & value (void);
+				//const value & value (void) const;
 				const value & get_value (void);
 				const value & get_value (void) const;
 				
@@ -243,8 +247,8 @@ namespace LIB
 				const bool operator != (const NTT <value, key> &) const;
 				const bool operator == (const value &) const;
 				const bool operator != (const value &) const;
-				const bool operator == (const LIB::NAME_A <value, key> &) const;
-				const bool operator != (const LIB::NAME_A <value, key> &) const;
+				const bool operator == (const LIB::containers::NAME_A <value, key> &) const;
+				const bool operator != (const LIB::containers::NAME_A <value, key> &) const;
 				//const bool operator == (const machine::resources::memory::key &);
 				//const bool operator != (const machine::resources::memory::key &);
 				//const value & operator ++ (void);
@@ -256,6 +260,10 @@ namespace LIB
 				const bool is_literal (void) const;
 		};
 	//}
+	}
+	
+	template <typename value, typename key>
+	using NTT = containers::NTT <value, key>;
 }
 
 //#include "../machine/resources/memory.h++"

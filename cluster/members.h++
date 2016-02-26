@@ -29,6 +29,7 @@
 #include "../communication/messaging.h++"
 // #include "../network/mpi.h++"
 // #include "../network/ip.h++"
+#include "member.h++"
 
 namespace LIB
 {
@@ -50,13 +51,15 @@ namespace LIB
 			//	void operator () (void);
 			//};
 		
-			class members : public LIB::communication::messaging
+			class members
 			{
 				public:
-					friend class boost::serialization::access;
+					//#include "node.h++"
 					
-					template <typename archive>
-					void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
+					//friend class boost::serialization::access;
+					
+					//template <typename archive>
+					//void serialize (archive & /* Archive (stream). */, const unsigned int &/* Version. */);
 					
 					//template <typename Archive>
 					//void save (Archive &/* Archive (stream). */, const unsigned int &/* Version. */) const;
@@ -67,11 +70,14 @@ namespace LIB
 					members (void/*const LIB::mathematics::numbers::natural &*//* keepalive time (milliseconds)*//* = 15000*/);
 					~members (void);
 					
-					const static unsigned short int default_udp_port = 6;
-					const static unsigned short int default_tcp_port = 7;
+					//static const unsigned short int default_udp_port = 6;
+					//static const unsigned short int default_tcp_port = 7;
+					static const /*unsigned short int*/LIB::mathematics::numbers::natural default_udp_port;
+					static const /*unsigned short int*/LIB::mathematics::numbers::natural default_tcp_port;
 					
 					//friend class LIB::cluster::cluster;
 					
+					static const LIB::mathematics::numbers::natural default_timeout;
 					LIB::mathematics::numbers::natural
 						//keepalive// = 10	// Time (seconds) between online checks among nodes.
 						timeout		// Time (seconds) to wait before a node is declared offline (after it fails to respond).
@@ -102,26 +108,28 @@ namespace LIB
 					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator * (void) const;
 					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator -> (void) const;
 					// const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & operator () (void) const;
-					const LIB::NAME_A <LIB::cluster::member, LIB::mathemathics::numbers::natural> & list (void) const;
+					const LIB::containers::NAME_A <member, LIB::mathemathics::numbers::natural> & list (void) const;
 					
-					
-					void manage (LIB::entity <>/* remote_endpoint*/, const LIB::communication::message &/* message*/);
+					// receive, listen, handle, manage
+					void receive (LIB::containers::NTT <>/* remote_endpoint*/, const LIB::communication::message &/* message*/);
 					//void dummy (void) const;
 					
 					//LIB::tools::randomizer randomizer;
+					LIB::network::mpi mpi;
 				protected:
-					LIB::mathematics::numbers::natural local;	// The ID of the local (literal) machine.
+					LIB::mathematics::numbers::natural id_local;	// The ID of the local (literal) machine.
 					//LIB::cluster::machine * local_machine;	// The local machine.
 					
 					//LIB::NAME_A <conflict, LIB::mathematics::numbers::natural> conflicts;
 					//LIB::NAME_A <communication, LIB::mathematics::numbers::natural> communications;
 					
-					const LIB::mathematics::numbers::natural generate_id (void) const;
+					const LIB::mathematics::numbers::natural id_generate (void) const;
+					static const std::string network_received (const LIB::containers::NAME_A <LIB::containers::NAME_A <LIB::containers::NAME_A <std::string, std::string>, LIB::mathematics::numbers::natural>, std::string> &/* addresses*/, const std::string &/* address*/)/* const*/;
+					const LIB::containers::NAME_A <std::string, LIB::mathematics::numbers::natural> networks_disconnected (void) const;
 					
 					// Communication interface.
 					// This should be set from LIB::cluster::cluster::cluster.
 					//LIB::network::mpi * mpi;
-					// LIB::network::mpi mpi;
 					//LIB::cluster::cluster * cluster;
 					
 					//std::string localhost;
@@ -129,7 +137,7 @@ namespace LIB
 					//bool running;
 					//std::map<std::string, bool> members;
 					// LIB::NAME_A <bool /*Value (Online/Offline)*/, std::string /*Key (IP address)*/> peers;
-					LIB::NAME_A <LIB::cluster::member /* Member. */, LIB::mathemathics::numbers::natural/* ID. */> __members;
+					LIB::containers::NAME_A <member/* Member. */, LIB::mathemathics::numbers::natural/* ID. */> _members;
 					//map <std::string, bool> peers;
 					//LIB::NAME_A <std::string /*Value (IP address)*/, Mathematics::Number::Natural /*Key: Index*/> members;
 					//LIB::NAME_A <Mathematics::Number::Natural, > members;
@@ -195,7 +203,14 @@ namespace LIB
 					boost::thread * distribution;
 					//boost::thread distribution (boost::bind (& LIB::cluster::members::distribute, this));
 					
+					const bool broadcast (LIB::communication::message, const LIB::containers::NTT <> &) const;
+					const bool transmit (const LIB::communication::message &, const member &) const;
+					const std::string communicate (const LIB::communication::message &, const member &) const;
+				public:
+					const bool transmit (const LIB::communication::message &, const LIB::mathematics::numbers::natural &/* id*/) const;
+					const std::string communicate (const LIB::communication::message &, const LIB::mathematics::numbers::natural &/* id*/) const;
 					const bool broadcast (const LIB::communication::message &) const;
+					const std::string communicate_mass (const LIB::communication::message &) const;
 					// For the keep-alive/discovery timer.
 					//boost::asio::io_service io;
 					//boost::asio::deadline_timer timer (io);

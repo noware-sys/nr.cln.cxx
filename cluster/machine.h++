@@ -3,36 +3,37 @@
 //#define __MACHINE
 
 // Standard:
-#include <string>
-#include <sstream>
+// #include <string>
+// #include <sstream>
 
 // Boost:
 //#include <boost/any.hpp>
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/thread.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/condition_variable.hpp>
+// #include <boost/asio.hpp>
+// #include <boost/bind.hpp>
+// #include <boost/thread.hpp>
+// #include <boost/thread/mutex.hpp>
+// #include <boost/thread/condition_variable.hpp>
 
 // This library:
-//#include "Lexical_Analyzer"
-#include "../default.h++"
-//#include "peers.h++"
-#include "../containers/array.h++"
-#include "../containers/variable.h++"
-#include "../mathematics.h++"	// "mathematics.h++" should be included after "array.h++" in this "machine.h++" file.
-#include "../machine/resource.h++"
-//#include "../machine/resources.h++"
-#include "../machine/resources/memory.h++"
+////#include "Lexical_Analyzer"
+//#include "../default.h++"
+////#include "peers.h++"
+//#include "../containers/array.h++"
+//#include "../containers/variable.h++"
+//#include "../mathematics.h++"	// "mathematics.h++" should be included after "array.h++" in this "machine.h++" file.
+//// #include "../machine/resource.h++"
+////#include "../machine/resources.h++"
+//// #include "../machine/resources/memory.h++"
 #include "../machine/resources/processor.h++"
-//#include "members.h++"
-// #include "../containers/entity.h++"
-//#include "../network/ip/mpi.h++"
-#include "../network/mpi.h++"
-//#include "../language/interpreter.h++"
-#include "../communication/messaging.h++"
-#include "../cluster/members.h++"
-//#include "../cluster.h++"
+////#include "members.h++"
+////  #include "../containers/entity.h++"
+////#include "../network/ip/mpi.h++"
+//// #include "../network/mpi.h++"
+////#include "../language/interpreter.h++"
+//#include "../communication/messaging.h++"
+//// #include "../cluster/members.h++"
+////#include "../cluster.h++"
+//// #include "members.h++"
 
 //#ifndef NTT
 //	#define NTT entity
@@ -60,18 +61,18 @@ namespace LIB
 		class machine
 		{
 			public:
-				machine (const mathematics::numbers::natural &/* timeout (milliseconds)*/ = 10000);
-				//machine (void);
-				machine (const std::string &/* serial*/);
-				machine (const machine &/* other*/);
-				~machine (void);
+				//machine (const mathematics::numbers::natural &/* timeout (milliseconds)*/ = 10000);
+				// machine (void);
+				//machine (const std::string &/* serial*/);
+				//machine (const machine &/* other*/);
+				// ~machine (void);
 			//protected:
-				friend class boost::serialization::access;
+				//friend class boost::serialization::access;
 				//friend class LIB::cluster::cluster;
 				//friend class LIB::cluster::members;
-			public:
-				template <typename archive>
-				void serialize (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
+			//public:
+				//template <typename archive>
+				//void serialize (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 				
 				//template <typename archive>
 				//void save (archive &/* Archive (stream). */, const unsigned int &/* Version. */) const;
@@ -79,11 +80,11 @@ namespace LIB
 				//template <typename archive>
 				//void load (archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 				
-				const machine & operator = (const std::string &);
-				operator const std::string (void);
+				//const machine & operator = (const std::string &);
+				//operator const std::string (void);
 				
-				const std::string serialize (void);
-				const bool deserialize (const std::string &);
+				//const std::string serialize (void);
+				//const bool deserialize (const std::string &);
 				
 				// const machine & operator = (const machine &);
 				
@@ -174,8 +175,8 @@ namespace LIB
 				//const bool unset (const std::string &/* name*/, const std::string &/* group*/ = "");
 				//const LIB::NAME_A <machine *, mathematics::numbers::natural> & peers (const bool &/* recursive*/ = false);
 				//const LIB::NAME_A <LIB::machine::resource> & resources (const bool &/* Include peers. */ = false, const bool &/* Include peers' peers (effect: recursion). */ = false);
-				// const LIB::NAME_A <LIB::machine::resource> & resources (void) const;
-				const LIB::NAME_A <LIB::machine::resource *, std::string> & resources (void) const;
+				//  const LIB::NAME_A <LIB::machine::resource> & resources (void) const;
+				// const LIB::NAME_A <LIB::machine::resource *, std::string> & resources (void) const;
 				//const machine * & operator [] (const mathematics::numbers::natural &);
 				// const LIB::NAME_A <LIB::NAME_V, mathematics::numbers::natural> & addresses (void);
 				
@@ -190,7 +191,10 @@ namespace LIB
 				
 				//// Time (milliseconds) to wait before the machine is declared unavailable.
 				//LIB::mathematics::numbers::natural timeout;
-			protected:
+				
+				//network net;
+				LIB::machine::resources::processor processor;
+			//protected:
 				// type t;
 				
 				//bool
@@ -207,8 +211,8 @@ namespace LIB
 				// LIB::cluster::cluster * cluster;
 				
 				// Resources (local and remote?).
-				LIB::NAME_A <LIB::machine::resource *, std::string> _resources;
-				// LIB::entity <boost::any, std::string> entities;
+				// LIB::NAME_A <LIB::machine::resource *, std::string> _resources;
+				//  LIB::entity <boost::any, std::string> entities;
 				//LIB::entity <container, std::string> entities;
 				
 				// LIB::language::interpreter interpreter_;
@@ -221,7 +225,7 @@ namespace LIB
 				//LIB::NAME_A <machine *, mathematics::numbers::natural> * machines;
 				// LIB::NAME_A <machine *, mathematics::numbers::natural> machines;
 				//void machines_clear (void);
-				void clear (void);
+				// void clear (void);
 				
 				// The path to get to this machine.
 				// This is only the best path,even if there are multiple ones.

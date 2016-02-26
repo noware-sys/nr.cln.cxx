@@ -5,6 +5,7 @@
 //#include <boost/any.hpp>
 //#include <string>
 //#include <iostream>
+#include <ostream>
 //#include <fstream>
 #include <algorithm>
 #include <omp.h>
@@ -52,7 +53,8 @@
 */
 
 // This library:
-#include "../default.h++"
+//#include "../default.h++"
+#include "../library.h++"
 #include "../mathematics.h++"
 #include "../serialization.h++"
 #include "variable.h++"
@@ -63,6 +65,8 @@
 
 namespace LIB
 {
+	namespace containers
+	{
 	//template <typename Value = NAME_V, Key = NAME_V>
 	//struct Link
 	//{
@@ -76,7 +80,7 @@ namespace LIB
 	class NAME_A
 	{
 		public:
-			class package
+			class container
 			{
 				public:
 					key k;
@@ -84,20 +88,24 @@ namespace LIB
 					value v;
 					//value v;
 					
-					package (void);
-					package (const NAME_A <value, key>::package &);
-					package (const key &, const value &);
-					~ package ();
+					container (void);
+					container (const NAME_A <value, key>::container &);
+					container (const key &, const value &);
+					~ container ();
 					
-					const bool operator == (const package &/* other*/) const;
-					const package & operator = (const package &/* other*/);
+					const bool operator == (const container &/* other*/) const;
+					const bool operator == (const value &/* other*/) const;
+					const container & operator = (const container &/* other*/);
+					const value & operator = (const value &/* other*/);
 					
 					const std::string serialize (void) const;
 					const bool deserialize (const std::string &);
 					
-					operator const std::string (void) const;
+					//operator const std::string (void) const;
 					//const NAME_A <value, key> & operator = (const std::string &);
-					const package & operator = (const std::string &);
+					//const container & operator = (const std::string &);
+					operator const value (void) const;
+					//const value & operator = (const value &);
 					
 					friend class boost::serialization::access;
 					
@@ -111,13 +119,13 @@ namespace LIB
 					//void load (Archive &/* Archive (stream). */, const unsigned int &/* Version. */);
 			};
 			
-			std::list <package> container;
-			//std::list <package *> content_pointer;
+			std::list <container> content;
+			//std::list <container *> content_pointer;
 			
 			//std::unordered_map <key, value> container;
 			
-			typedef typename std::list <package>::iterator iterator;
-			typedef typename std::list <package>::const_iterator const_iterator;
+			typedef typename std::list <container>::iterator iterator;
+			//typedef typename std::list <container>::const_iterator const_iterator;
 			
 			
 			friend class boost::serialization::access;
@@ -134,7 +142,7 @@ namespace LIB
 			
 		protected:
 			const bool search (const key &, value *&) const;
-			const bool search (const key &, key *&) const;
+			const bool search_key (const key &, key *&) const;
 			//bool search (const key &, value &) const;
 			//value & create (const key &);	// Setter helper.
 			
@@ -144,7 +152,7 @@ namespace LIB
 			
 			
 			//iterator list_iterator;
-			//typename std::list <package>::const_iterator list_iterator_constant;
+			//typename std::list <container>::const_iterator list_iterator_constant;
 			//bool free;
 			//bool memory;	// If there is any more memory available for allocation. Determined after trying to add a new element.
 			
@@ -155,8 +163,8 @@ namespace LIB
 			//iterator begin (void);
 			//iterator end (void);
 			
-			/*const */value _value;	// To be returned when no element is found when searching for a particular key.
-			/*const */key _k;	// To be returned when no element is found when searching for a particular key.
+			static /*const */value _value;	// To be returned when no element is found when searching for a particular key.
+			static /*const */key _k;	// To be returned when no element is found when searching for a particular key.
 		public:
 			// Member functions:
 			NAME_A (void);
@@ -208,8 +216,8 @@ namespace LIB
 			// Iterators:
 			//// Element access:
 			// Element lookup:
-			const bool exists (const key &) const; // Determines if an element exists named by the key provided.
-			const bool exist (const key &) const; // Determines if an element exists named by the key provided.
+			const bool exists (const key &) const; // Determines if the element exists named by the key provided.
+			const bool exist (const key &) const; // Determines if the elements exist named by the keys provided.
 			//// Tests if the container is full.
 			const bool full (void) const;
 			//// Tests if the container is empty.
@@ -291,17 +299,17 @@ namespace LIB
 			//const bool append (const value &);
 			//const bool append (const value &, key &);
 			
-			const key least_numeric_key (void) const;
-			const key greatest_numeric_key (void) const;
+			const key key_numeric_min (void) const;
+			const key key_numeric_max (void) const;
 			
 			// Queue functionality:
 			const bool enqueue (const value &);
 			const bool enqueue (const value &, key &);
 			const bool dequeue (void);
 			//const key front_key (void) const;
-			const package & beginning (void)/* const*/;
+			const container & beginning (void)/* const*/;
 			//const key rear_key (void) const;
-			const package & ending (void)/* const*/;
+			const container & ending (void)/* const*/;
 			
 			// Stack functionality:
 			const bool push (const value &);
@@ -313,7 +321,7 @@ namespace LIB
 			//const value bottom (void) const;
 			
 			// Is the type of the key numeric?
-			const bool numeric_key (void) const;
+			const bool key_numeric (void) const;
 			// Return the next available unique value in the sequence (ID).
 			const key sequence_next_available (void) const;
 			// Return the next greatest unique value in the sequence (ID).
@@ -327,11 +335,13 @@ namespace LIB
 			
 			//void begin (void);
 			//void end (void);
-			const const_iterator & begin (void) const;
-			const const_iterator & end (void) const;
+			//const iterator begin (void) const;
+			//const iterator end (void) const;
+			//const const_iterator cbegin (void) const;
+			//const const_iterator cend (void) const;
 			// Allow external modifications:
-			const iterator & begin (void);
-			const iterator & end (void);
+			const iterator begin (void);
+			const iterator end (void);
 			
 			// Prefix:
 			//NAME_A <value, key> & operator ++ (void);
@@ -351,7 +361,18 @@ namespace LIB
 			operator const std::string (void) const;
 			// Serialize
 			const NAME_A <value, key> & operator = (const std::string &);
+			
+			//friend std::ostream & operator << (std::ostream &, const LIB::NAME_A <value, key> &, const std::string &/* indentation*/ = "")/* const*/;
+		//	friend std::ostream & operator << (std::ostream &, const LIB::containers::NAME_A <value, key> &)/* const*/;
+			std::ostream & operator << (std::ostream &) const;
+			//friend std::ostream & operator << (std::ostream & os, const LIB::NAME_A <LIB::NAME_A <LIB::containers::NAME_V, LIB::containers::NAME_V>, LIB::containers::NAME_V> & val);
+			//friend	::std::istream &	operator	>>	(::std::istream &, LIB::NAME_A &);
+	
 	};
+	}
+	
+	//template <typename value, typename key>
+	//using NAME_A = containers::NAME_A <value, key>;
 }
 
 #include "array.t++"

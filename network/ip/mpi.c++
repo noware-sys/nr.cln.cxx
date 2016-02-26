@@ -19,27 +19,35 @@
 
 //const bool LIB::network::ip::mpi::DEFAULT_CYCLE;	// Original.
 //const static bool LIB::network::ip::mpi::DEFAULT_CYCLE;
-const static unsigned short int LIB::network::ip::mpi::default_udp_port;
-const static unsigned short int LIB::network::ip::mpi::default_tcp_port;
+const unsigned short int LIB::network::ip::mpi::default_udp_port = 1;
+const unsigned short int LIB::network::ip::mpi::default_tcp_port = 1;
+//const static unsigned short int LIB::network::ip::mpi::default_udp_port;
+//const static unsigned short int LIB::network::ip::mpi::default_tcp_port;
+//const static bool LIB::network::ip::mpi::default_reliable;
+const bool LIB::network::ip::mpi::default_reliable = true;
+const bool LIB::network::ip::mpi::default_receive_self = false;
+//const static unsigned short int LIB::network::ip::mpi::default_message_size;
+const unsigned short int LIB::network::ip::mpi::default_message_size = 128;
 
 template <typename archive>
-void LIB::network::ip::mpi::serialize (archive & arch, const unsigned int & version)
+void LIB::network::ip::mpi::serialize (archive & _archive, const unsigned int & version)
 {
-	LIB::network::connection::serialize <archive> (arch, version);
+	//LIB::network::connection::serialize <archive> (arch, version);
 	
-	arch & message_size;
+	_archive & message_size;
 }
 
 const bool LIB::network::ip::mpi::operator == (const LIB::network::ip::mpi & other) const
 {
-	return message_size == other.message_size && LIB::network::connection::operator == (static_cast <LIB::network::connection> (other));
+	return message_size == other.message_size && static_cast <LIB::network::_mpi> (* this) == static_cast <LIB::network::_mpi> (other);
 }
 
-const LIB::network::ip::mpi & LIB::network::ip::mpi::operator = (const LIB::network::ip::mpi & other) const
+const LIB::network::ip::mpi & LIB::network::ip::mpi::operator = (const LIB::network::ip::mpi & other)
 {
-	LIB::network::connection::operator = (static_cast <LIB::network::connection> (other));
+	// static_cast <LIB::network::_mpi> (* this) = static_cast <LIB::network::connection> (other);
 	
 	message_size = other.message_size;
+	//reliable = other.reliable;
 	
 	return * this;
 }
@@ -52,8 +60,10 @@ LIB::network::ip::mpi::mpi (void)
 	
 	//message_size = MESSAGE_SIZE;	ULLONG_MAX	// In bytes (characters).
 	// 128, 256
-	message_size = 128;
-
+	message_size = default_message_size;
+	//reliable = default_reliable;
+	receive_self = default_receive_self;
+	
 	//ports =
 	//{
 	//	{13, "daytime"},
@@ -81,11 +91,13 @@ LIB::network::ip::mpi::mpi (void)
 	// set_transmit ("0.0.0.0");
 	
 	// tcp_port (DEFAULT_TCP_PORT);
-	addrs.listen ["address"] = "0.0.0.0";
-	addrs.listen ["port"] = default_udp_port;
+	// addrs.listen ["address"] = "0.0.0.0";
+	// addrs.listen ["port"] = default_udp_port;
 	
-	addrs.broadcast ["address"] = "0.0.0.0";
-	addrs.broadcast ["port"] = default_udp_port;
+	multicast.reliable ["address"] = "0.0.0.0";
+	multicast.reliable ["port"] = default_tcp_port;
+	multicast.unreliable ["address"] = "0.0.0.0";
+	multicast.unreliable ["port"] = default_udp_port;
 	
 	//udp.address = LIB::Network::IP::v4::UDP::ADDRESS;
 	//udp.port = LIB::Network::IP::v4::UDP::PORT;
@@ -97,11 +109,15 @@ LIB::network::ip::mpi::mpi (void)
 	// set_broadcast ("0.0.0.0");
 	
 	// udp_port (DEFAULT_UDP_PORT);
-	addrs.reception ["address"] = "0.0.0.0";
-	addrs.reception ["port"] = default_tcp_port;
+	reception.reliable ["address"] = "0.0.0.0";
+	reception.reliable ["port"] = default_tcp_port;
+	reception.unreliable ["address"] = "0.0.0.0";
+	reception.unreliable ["port"] = default_udp_port;
 	
-	addrs.transmission ["address"] = "0.0.0.0";
-	addrs.transmission ["port"] = default_tcp_port;
+	transmission.reliable ["address"] = "0.0.0.0";
+	transmission.reliable ["port"] = default_tcp_port;
+	transmission.unreliable ["address"] = "0.0.0.0";
+	transmission.unreliable["port"] = default_udp_port;
 	
 	//std::cout << (std::string) udp.address << std::endl;
 	
@@ -149,7 +165,7 @@ LIB::network::ip::mpi::~mpi (void)
 */
 /*
 // Get endpoint.
-const LIB::entity <> LIB::network::ip::mpi::get_transmit (void) const
+const LIB::containers::NTT <> LIB::network::ip::mpi::get_transmit (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -166,7 +182,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_transmit (void) const
 	return addrs.transmission;
 }
 
-const LIB::entity <> LIB::network::ip::mpi::get_receive (void) const
+const LIB::containers::NTT <> LIB::network::ip::mpi::get_receive (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -183,7 +199,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_receive (void) const
 	return addrs.reception;
 }
 
-const LIB::entity <> LIB::network::ip::mpi::get_broadcast (void) const
+const LIB::containers::NTT <> LIB::network::ip::mpi::get_broadcast (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -200,7 +216,7 @@ const LIB::entity <> LIB::network::ip::mpi::get_broadcast (void) const
 	return addrs.broadcast;
 }
 
-const LIB::entity <> LIB::network::ip::mpi::get_listen (void) const
+const LIB::containers::NTT <> LIB::network::ip::mpi::get_listen (void) const
 {
 //	LIB::network::endpoint ep;
 //	
@@ -218,13 +234,13 @@ const LIB::entity <> LIB::network::ip::mpi::get_listen (void) const
 }
 
 /*
-const LIB::NAME_A <LIB::entity <>, LIB::mathematics::numbers::natural> LIB::network::ip::mpi::get_broadcast_multiple (void)
+const LIB::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural> LIB::network::ip::mpi::get_broadcast_multiple (void)
 {
-	LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural> eps;
+	LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> eps;
 	
 	try
 	{
-		eps = boost::any_cast <LIB::NAME_A <LIB::entity <>, LIB::mathematics::numbers::natural>> (addrs.broadcast);
+		eps = boost::any_cast <LIB::NAME_A <LIB::containers::NTT <>, LIB::mathematics::numbers::natural>> (addrs.broadcast);
 	}
 	catch (...)
 	{
@@ -235,7 +251,7 @@ const LIB::NAME_A <LIB::entity <>, LIB::mathematics::numbers::natural> LIB::netw
 * /
 
 // Set whole endpoint.
-const bool LIB::network::ip::mpi::set_transmit (LIB::entity <> & ep)
+const bool LIB::network::ip::mpi::set_transmit (LIB::containers::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -250,7 +266,7 @@ const bool LIB::network::ip::mpi::set_transmit (LIB::entity <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_receive (LIB::entity <> & ep)
+const bool LIB::network::ip::mpi::set_receive (LIB::containers::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -265,7 +281,7 @@ const bool LIB::network::ip::mpi::set_receive (LIB::entity <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_broadcast (LIB::entity <> & ep)
+const bool LIB::network::ip::mpi::set_broadcast (LIB::containers::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -280,7 +296,7 @@ const bool LIB::network::ip::mpi::set_broadcast (LIB::entity <> & ep)
 	return true;
 }
 
-const bool LIB::network::ip::mpi::set_listen (LIB::entity <> & ep)
+const bool LIB::network::ip::mpi::set_listen (LIB::containers::NTT <> & ep)
 {
 	if (ep.exist ("address"))
 	{
@@ -743,31 +759,50 @@ Receive broadcast
 */
 //bool LIB::Network::mpi::Send (std::string message)
 
-const bool LIB::network::ip::mpi::transmit (const std::string & message)
-{
-	return transmit (message, addrs.transmission);
-	/*
-	LIB::network::endpoint addr;
-	
-	try
-	{
-		addr = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
-	}
-	catch (...)
-	{
-		return false;
-	}
-	
-	return transmit (message, addr.address, addr.port);
-	*/
-}
+//const bool LIB::network::ip::mpi::transmit (const std::string & message, const bool & _reliable)
+//{
+//	return transmit (message, _reliable ? transmission.reliable : transmission.unreliable, _reliable);
+//	/*
+//	LIB::network::endpoint addr;
+//	
+//	try
+//	{
+//		addr = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
+//	}
+//	catch (...)
+//	{
+//		return false;
+//	}
+//	
+//	return transmit (message, addr.address, addr.port);
+//	*/
+//}
+
+//const bool LIB::network::ip::mpi::transmit (const std::string & message)
+//{
+//	return transmit (message, reliable ? transmission.reliable : transmission.unreliable);
+//	/*
+//	LIB::network::endpoint addr;
+//	
+//	try
+//	{
+//		addr = boost::any_cast <LIB::network::endpoint> (addrs.transmission);
+//	}
+//	catch (...)
+//	{
+//		return false;
+//	}
+//	
+//	return transmit (message, addr.address, addr.port);
+//	*/
+//}
 
 //const bool LIB::network::ip::mpi::transmit (const std::string & message, const std::string & address)
 //{
 //	return transmit (message, address, tcp_transmit.port);
 //}
 /*
-const bool LIB::network::ip::mpi::transmit (const std::string & message, const LIB::entity <> & address)
+const bool LIB::network::ip::mpi::transmit (const std::string & message, const LIB::containers::NTT <> & address)
 {
 	LIB::network::endpoint addr;
 	
@@ -794,92 +829,120 @@ const bool LIB::network::ip::mpi::transmit (const std::string & message, const u
 	return transmit (message, address, port);
 }
 */
+
+//const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::containers::NTT <> address)
+//{
+//	return transmit (message, address, reliable);
+//}
+
 // const bool LIB::network::ip::mpi::transmit (const std::string & message, const std::string & address, const unsigned short int & port)
-const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::entity <> address)
+const bool LIB::network::ip::mpi::transmit (const std::string & message, LIB::containers::NTT <> address, const bool & _reliable)
 {
 	//LIB::network::endpoint addr;
 	
-	if (!address.exist ("port") && addrs.transmission.exist ("port"))
+	if (_reliable)
 	{
-		address ["port"] = addrs.transmission ["port"] ();
-	}
-	
-	if (!address.exist ("address") || !address.exist ("port"))
-	{
-		return false;
-	}
-	
-	/*
-	try
-	{
-		addr = boost::any_cast <LIB::network::endpoint> (address);
-	}
-	catch (...)
-	{
-		return false;
-	}
-	*/
-	
-	//return transmit (message, addr.address, addr.port);
-	
-	
-	try
-	{
-		mathematics::numbers::natural len;
+		if (!address.exists ("port") && transmission.reliable.exists ("port"))
+		{
+			address ["port"] = transmission.reliable ["port"] ();
+		}
+		
+		if (!address.exists ("address") || !address.exists ("port"))
+		{
+			return false;
+		}
+		
+		/*
+		try
+		{
+			addr = boost::any_cast <LIB::network::endpoint> (address);
+		}
+		catch (...)
+		{
+			return false;
+		}
+		*/
 
-		//boost::asio::io_service io;
-		boost::asio::ip::tcp::socket socket (io);
-		//boost::asio::ip::address addr = boost::asio::ip::address::from_string ("127.0.0.1");
-		// boost::asio::ip::tcp::resolver resolver (io);
+		//return transmit (message, addr.address, addr.port);
 
-		// boost::asio::ip::tcp::resolver::query query (tcp.Address (), "");
-		
-		// boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve (query);
-		///
-		//boost::asio::ip::address::address addr;
-		// boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (tcp.Address ()), tcp.Port ());
-		//std::cout << "Error...1" << std::endl;
-		//boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string ("0.0.0.0"), port);
-		
-		boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address ["address"] ()), (unsigned short int) (address ["port"] ()));
-		// boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
-		
-		//std::cout << "Error...2" << std::endl;
-		boost::system::error_code ec;
-		//socket.connect(connectionEndpoint, ec);
-		///
-		
-		// boost::asio::connect (socket, endpoint);
-		//boost::asio::connect (socket, endpoint);
-		socket.connect (endpoint, ec);
-		std::cout << ec << std::endl;
-		
-		len = boost::asio::write (socket, boost::asio::buffer (message));
-		
-		return !(len < message.length ());
+
+		try
+		{
+			mathematics::numbers::natural len;
+
+			//boost::asio::io_service io;
+			boost::asio::ip::tcp::socket socket (io);
+			//boost::asio::ip::address addr = boost::asio::ip::address::from_string ("127.0.0.1");
+			// boost::asio::ip::tcp::resolver resolver (io);
+
+			// boost::asio::ip::tcp::resolver::query query (tcp.Address (), "");
+
+			// boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve (query);
+			///
+			//boost::asio::ip::address::address addr;
+			// boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (tcp.Address ()), tcp.Port ());
+			//std::cout << "Error...1" << std::endl;
+			//boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string ("0.0.0.0"), port);
+
+			boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address ["address"] ()), (unsigned short int) (address ["port"] ()));
+			// boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
+
+			//std::cout << "Error...2" << std::endl;
+			boost::system::error_code ec;
+			//socket.connect(connectionEndpoint, ec);
+			///
+
+			// boost::asio::connect (socket, endpoint);
+			//boost::asio::connect (socket, endpoint);
+			socket.connect (endpoint, ec);
+			std::cout << ec << std::endl;
+
+			len = boost::asio::write (socket, boost::asio::buffer (message));
+
+			return !(len < message.length ());
+		}
+		catch (std::exception & e)
+		{
+			std::cout << e.what () << std::endl;
+			//error = e.what();
+			//error = e;
+
+			return false;
+		}
+		catch (...) //(std::exception & e)
+		{
+			//std::cout << e.what () << std::endl;
+			//error = e.what();
+			//error = e;
+
+			return false;
+		}
 	}
-	catch (std::exception & e)
+	else
 	{
-		std::cout << e.what () << std::endl;
-		//error = e.what();
-		//error = e;
-
-		return false;
-	}
-	catch (...) //(std::exception & e)
-	{
-		//std::cout << e.what () << std::endl;
-		//error = e.what();
-		//error = e;
-
+		/*if (!address.exists ("port") && addrs.transmission.reliable.exists ("port"))
+		{
+			address ["port"] = addrs.transmission.reliable ["port"] ();
+		}
+		
+		if (!address.exists ("address") || !address.exists ("port"))
+		{
+			return false;
+		}*/
+		
 		return false;
 	}
 }
 
-const bool LIB::network::ip::mpi::broadcast (const std::string & message)
-{
-	return broadcast (message, addrs.broadcast);
-}
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message)
+//{
+//	return broadcast (message, reliable ? broadcast.reliable : broadcast.unreliable);
+//}
+//
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message, const bool & _reliable)
+//{
+//	return broadcast (message, _reliable ? broadcast.reliable : broadcast.unreliable, _reliable);
+//}
 
 /*
 const bool LIB::network::ip::mpi::broadcast (const std::string & message, const std::string & address)
@@ -887,7 +950,7 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, const 
 	return broadcast (message, address, udp_broadcast.port);
 }
 
-const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural> & addresses)
+const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> & addresses)
 {
 	return false;
 }
@@ -902,19 +965,25 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, const 
 	return broadcast (message, address, port);
 }
 */
+
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses)
+//{
+//	return broadcast (message, addresses, reliable);
+//}
+
 // const bool LIB::network::ip::mpi::broadcast (const std::string & message, const std::string & address, const unsigned short int & port)
-//const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural> & addresses)
-const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::entity <> addresses)
+//const bool LIB::network::ip::mpi::broadcast (const std::string & message, const LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> & addresses)
+const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::containers::NTT <> addresses, const bool & _reliable)
 {
 	// bool multiple = false;
 	// LIB::network::endpoint addr;
-	// LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural> _addrs;
+	// LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural> _addrs;
 	//LIB::NAME_A <LIB::network::endpoint, mathematics::numbers::natural> addrs2;
 	
 	/*
 	try
 	{
-		_addrs = boost::any_cast <LIB::NAME_A <LIB::entity <>, mathematics::numbers::natural>> (addresses);
+		_addrs = boost::any_cast <LIB::NAME_A <LIB::containers::NTT <>, mathematics::numbers::natural>> (addresses);
 		
 		//for (auto & element : addresses)
 		//{
@@ -939,72 +1008,130 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::e
 	
 	
 	//if (!multiple)
-	if (addresses.exist ("address") && addresses.exist ("port"))
+	if (_reliable)
 	{
-		try
-		{
-			//boost::asio::io_service io_service;
-
-			// Server binds to any address and any port.
-			//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::udp::v4 (), port));
-			boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), 0));
-			socket.set_option (boost::asio::socket_base::broadcast (true));
-
-			// Broadcast will go to port 8888.
-			boost::asio::ip::udp::endpoint broadcast_endpoint (boost::asio::ip::address_v4::broadcast (), (unsigned short int) (addresses ["port"] ()));
-
-			// Broadcast data.
-			mathematics::numbers::natural length = socket.send_to (boost::asio::buffer (message), broadcast_endpoint);
-
-			return length >= message.length ();
-
-	//		mathematics::numbers::natural length;
-	//		
-	//		//boost::asio::io_service io;
-	//		
-	//		//boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string ("0.0.0.0"), port);
-	//		boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
-	//		//boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::udp::v4 (), port);
-	//		boost::asio::ip::udp::socket socket (io, endpoint.protocol ());
-	//		//socket_udp_send = new boost::asio::ip::udp::socket (io, endpoint.protocol ());
-	//		//socket.set_option (boost::asio::socket_base::broadcast (true));
-	//		
-	//		if (! multicast_group_broadcast.empty ()/* && address != "0.0.0.0"*/)
-	//		{
-	//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_broadcast)));
-	//		}
-	//		
-	//		//socket.open (boost::asio::ip::udp::v4 ());
-	//		
-	//		length = socket.send_to (boost::asio::buffer (message), endpoint);
-	//		//len = boost::asio::write (socket, boost::asio::buffer (message), endpoint);
-	//		
-	//		//delete socket_udp_send;
-	//		//socket_udp_send = NULL;
-	//
-	//		return !(length < message.length ());
-		}
-		catch (...) //(std::exception & e)
-		{
-			//error = e.what();
-			//error = e;
-
-			return false;
-		}
+		return false;
 	}
 	else
 	{
-		bool success = true;
-		
-		for (auto & element : addresses)
+		////if (addresses.exist ("port"))
+		//if (addresses.exists ("address") || addresses.exists ("port"))
+		//{
+		//}
+		if (addresses.exists ("addresses"))
 		{
-			if (! transmit (message, element) && success)
+			bool success = true;
+			
+			for (const LIB::containers::NTT <> & address : addresses ["addresses"])
 			{
-				success = false;
+				if (!/* transmit*/ broadcast (message, address, _reliable) && success)
+				{
+					success = false;
+				}
+			}
+			
+			return success;
+		}
+		else
+		{
+			if (addresses.is_literal ())
+			{
+				if (addresses.get_value ().is_numeric ())
+					addresses ["port"] = addresses;
+				else
+					addresses ["address"] = addresses;
+			}
+			
+			/*
+			if (!addresses.exists ("address") && reception.unreliable.exists ("address"))
+			{
+				addresses ["address"] = reception.unreliable ["address"] ();
+			}
+			*/
+			if (!addresses.exists ("port") && reception.unreliable.exists ("port"))
+			{
+				addresses ["port"] = reception.unreliable ["port"] ();
+			}
+			
+			if (/*!addresses.exists ("address") || */!addresses.exists ("port"))
+			{
+				return false;
+			}
+			
+			try
+			{
+				//boost::asio::io_service io_service;
+				
+				// Server binds to any address and any port.
+				//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::udp::v4 (), port));
+				//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v6::any (), 0));
+				boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), 0));
+				//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::from_string (addresses ["address"] ().to_string ()), 0));
+				socket.set_option (boost::asio::socket_base::broadcast (true));
+				//socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+				
+				// Broadcast will go to port 8888.
+				//boost::asio::ip::udp::endpoint broadcast_endpoint_6 (boost::asio::ip::address_v6::broadcast (), (unsigned short int) (addresses ["port"] ()));
+				
+				boost::asio::ip::udp::endpoint * broadcast_endpoint;
+				
+				if (addresses.exists ("address")/* && reception.unreliable.exists ("address")*/)
+				{
+					//boost::asio::ip::udp::endpoint broadcast_endpoint (boost::asio::ip::address_v4::from_string (addresses ["address"] ().to_string ()), (unsigned short int) (addresses ["port"] ()));
+					broadcast_endpoint = new boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::from_string (addresses ["address"] ().to_string ()), (unsigned short int) (addresses ["port"] ()));
+				}
+				else
+				{
+					//boost::asio::ip::udp::endpoint broadcast_endpoint (boost::asio::ip::address_v4::broadcast (), (unsigned short int) (addresses ["port"] ()));
+					broadcast_endpoint = new boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::broadcast (), (unsigned short int) (addresses ["port"] ()));
+				}
+				
+				//std::cout << std::endl << "Address:[" << addresses ["address"] ().to_string () << ']' << std::endl;
+				//boost::asio::ip::udp::endpoint network_endpoint (boost::asio::ip::address::from_string (addresses ["address"] ().to_string ()), 0);
+				//socket.bind (network_endpoint);
+				
+				// Broadcast data.
+				//mathematics::numbers::natural length_6 = socket.send_to (boost::asio::buffer (message), broadcast_endpoint);
+				mathematics::numbers::natural length = socket.send_to (boost::asio::buffer (message), * broadcast_endpoint);
+				
+				delete broadcast_endpoint;
+				
+				return ! (length < message.length ());
+				
+		//		mathematics::numbers::natural length;
+		//		
+		//		//boost::asio::io_service io;
+		//		
+		//		//boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string ("0.0.0.0"), port);
+		//		boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
+		//		//boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::udp::v4 (), port);
+		//		boost::asio::ip::udp::socket socket (io, endpoint.protocol ());
+		//		//socket_udp_send = new boost::asio::ip::udp::socket (io, endpoint.protocol ());
+		//		//socket.set_option (boost::asio::socket_base::broadcast (true));
+		//		
+		//		if (! multicast_group_broadcast.empty ()/* && address != "0.0.0.0"*/)
+		//		{
+		//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_broadcast)));
+		//		}
+		//		
+		//		//socket.open (boost::asio::ip::udp::v4 ());
+		//		
+		//		length = socket.send_to (boost::asio::buffer (message), endpoint);
+		//		//len = boost::asio::write (socket, boost::asio::buffer (message), endpoint);
+		//		
+		//		//delete socket_udp_send;
+		//		//socket_udp_send = NULL;
+		//
+		//		return !(length < message.length ());
+			}
+			catch (...) //(std::exception & e)
+			{
+				//error = e.what();
+				//error = e;
+
+				return false;
 			}
 		}
-		
-		return success;
 	}
 }
 
@@ -1022,13 +1149,20 @@ const bool LIB::network::ip::mpi::broadcast (const std::string & message, LIB::e
 }
 */
 
-const std::string LIB::network::ip::mpi::receive (void)
-{
-	return receive (NULL, addrs.reception);
-}
+//const std::string LIB::network::ip::mpi::receive (void)
+//{
+//	LIB::containers::NTT <> remote_endpoint;
+//	return receive (remote_endpoint, reliable ? reception.reliable : reception.unreliable, reliable);
+//}
+//
+//const std::string LIB::network::ip::mpi::receive (const bool & _reliable)
+//{
+//	LIB::containers::NTT <> remote_endpoint;
+//	return receive (remote_endpoint, _reliable ? reception.reliable : reception.unreliable, _reliable);
+//}
 
 /*
-std::string LIB::network::ip::mpi::receive (const LIB::entity <> & address)
+std::string LIB::network::ip::mpi::receive (const LIB::containers::NTT <> & address)
 {
 	std::string addr;
 	
@@ -1055,180 +1189,375 @@ std::string LIB::network::ip::mpi::receive (const unsigned short int & port, con
 }
 */
 
-const std::string LIB::network::ip::mpi::receive (LIB::entity <> & remote_endpoint, LIB::entity <> address)
+//const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address)
+//{
+//	return receive (remote_endpoint, address, reliable);
+//}
+
+const std::string LIB::network::ip::mpi::receive (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address, const bool & _reliable)
 // std::string LIB::network::ip::mpi::receive (const std::string & address, const unsigned short int & port)
 //std::string LIB::Network::mpi::Receive ()
 {
-	/*
-	LIB::network::endpoint addr;
-	
-	try
+	if (_reliable)
 	{
-		addr = boost::any_cast <LIB::network::endpoint> (address);
-	}
-	catch (...)
-	{
-		return "";
-	}
-	*/
-	
-	if (!address.exist ("port") && addrs.reception.exist ("port"))
-	{
-		address ["port"] = addrs.reception ["port"] ();
-	}
-	
-	if (!address.exist ("address") || !address.exist ("port"))
-	{
-		return "";
-	}
-	
-	try
-	{
-		// std::cout << "Messaging.cpp:\'receive()\' : Waiting to Receive..." << std::endl;
-		//boost::asio::ip:tcp::iostream ios ();
-		//unsigned short int port = tcp.Port ();
-		//boost::asio::io_service io;
-		std::string message;
-		//boost::asio::ip::tcp::acceptor * acceptor;
-		boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address ["address"] ()), address ["port"] ());
-		boost::asio::ip::tcp::acceptor acceptor (io, endpoint);
-		boost::asio::ip::tcp::socket socket (io);
-		
-		//char * data;
-		
-		double diff;
-		unsigned long long int available_chars;
-		time_t time_end_allowed, time_end_actual;
-		
-		// std::cout << "\tPreparing to Receive..." << std::endl;
-		acceptor.accept (socket);
-		
-		/*if (handler != NULL && cycle)
-		{
-			handlers [hash] = new boost::thread (boost::bind (& LIB::network::ip::mpi::receive_async_handler, this, port, version, handler, cycle, hash));
-			//handlers [hash] = t;
-			//(* handler) (message);
-		}
-		else
-		{
-			handlers.unset (hash);
-		}*/
-		
-		//boost::array<char, MESSAGE_SIZE> buf;
-		// char * buffer = new char [message_size];
-		//boost::posix_time::time_duration attempt = boost::posix_time::microseconds (1000);
-		//time_start = time (NULL);
-		//std::cout << time_start << std::endl;
-		time_end_allowed = time (NULL);
-		
-		do
-		{
-			available_chars = socket.available ();	// This time may not work, returning 0.
-			//available = socket_tcp_receive -> available ();
-			//std::cout << time (NULL) << std::endl;
-			time_end_actual = time (NULL);
-			diff = std::difftime (time_end_actual, time_end_allowed);
-		}
-		while (available_chars <= 0 && diff <= 0.01);
-		
-		//data = new char [message_size];
-		//data = new char [available_chars];
-		char data [available_chars];
-		
-		
-		//std::cout << "AVAILABLE(" << available<< ")";
-		//std::vector <char> data (available);
+		/*
+		LIB::network::endpoint addr;
 
-		//size_t len = socket.receive (boost::asio::buffer (buf, message_size)); //, ignored_error);
-		// mathematics::numbers::natural len = socket_tcp_receive -> receive (boost::asio::buffer (buffer, message_size)); //, ignored_error);
-		//mathematics::numbers::natural len = socket_tcp_receive -> receive (boost::asio::buffer (data, available)); //, ignored_error);
-		///*mathematics::numbers::natural len =*/ socket_tcp_receive -> receive (boost::asio::buffer (& message [0], message.size ())); //, ignored_error);
-		// socket_tcp_receive -> receive (boost::asio::buffer (& message [0], /*message.size ()*/3)); //, ignored_error);
-		// socket_tcp_receive -> receive (boost::asio::buffer (& message [0], /*message.size ()*/3)); //, ignored_error);
-		// boost::asio::read (* socket_tcp_receive, boost::asio::buffer (data));
-		// boost::asio::read (* socket_tcp_receive, boost::asio::buffer (message));
-		//boost::asio::read (* socket_tcp_receive, boost::asio::buffer (& message [0], message.size ()));
-		/*size_t len = */boost::asio::read (socket/*_tcp_receive*/, boost::asio::buffer (data, available_chars));
-		//boost::asio::read (* socket_tcp_receive, & message [0]);
-		//socket_tcp_receive -> read_some (message);
-		//socket_tcp_receive -> read_some (& message [0]);
-		//socket_tcp_receive -> read_some (boost::asio::buffer (& message [0], 3));
-		//size_t len = socket_tcp_receive -> receive (boost::asio::buffer (data, message_size)/*, ignored_error*/);
-		//socket_tcp_receive -> read_some (boost::asio::buffer (data, available_chars)/*, ignored_error*/);
-		
-		if (remote_endpoint != NULL)
+		try
 		{
-			boost::asio::ip::tcp::endpoint remote_ep = socket.remote_endpoint ();
+			addr = boost::any_cast <LIB::network::endpoint> (address);
+		}
+		catch (...)
+		{
+			return "";
+		}
+		*/
+
+		try
+		{
+			if (!address.exists ("address") && reception.reliable.exists ("address"))
+			{
+				address ["address"] = reception.reliable ["address"] ();
+			}
 			
-			remote_endpoint ["address"] = remote_ep.address ().to_string ();
-			remote_endpoint ["port"] = remote_ep.port ();
+			if (!address.exists ("port") && reception.reliable.exists ("port"))
+			{
+				address ["port"] = reception.reliable ["port"] ();
+			}
+			
+			if (!address.exists ("address") || !address.exists ("port"))
+			{
+				return "";
+			}
+			
+			
+			// std::cout << "Messaging.cpp:\'receive()\' : Waiting to Receive..." << std::endl;
+			//boost::asio::ip:tcp::iostream ios ();
+			//unsigned short int port = tcp.Port ();
+			//boost::asio::io_service io;
+			std::string message;
+			//boost::asio::ip::tcp::acceptor * acceptor;
+			boost::asio::ip::tcp::endpoint endpoint (boost::asio::ip::address::from_string (address ["address"] ()), address ["port"] ());
+			boost::asio::ip::tcp::acceptor acceptor (io, endpoint);
+			boost::asio::ip::tcp::socket socket (io);
+
+			//char * data;
+
+			double diff;
+			unsigned long long int available_chars;
+			time_t time_end_allowed, time_end_actual;
+
+			// std::cout << "\tPreparing to Receive..." << std::endl;
+			acceptor.accept (socket);
+
+			/*if (handler != NULL && cycle)
+			{
+				handlers [hash] = new boost::thread (boost::bind (& LIB::network::ip::mpi::receive_async_handler, this, port, version, handler, cycle, hash));
+				//handlers [hash] = t;
+				//(* handler) (message);
+			}
+			else
+			{
+				handlers.unset (hash);
+			}*/
+
+			//boost::array<char, MESSAGE_SIZE> buf;
+			// char * buffer = new char [message_size];
+			//boost::posix_time::time_duration attempt = boost::posix_time::microseconds (1000);
+			//time_start = time (NULL);
+			//std::cout << time_start << std::endl;
+			time_end_allowed = time (NULL);
+
+			do
+			{
+				available_chars = socket.available ();	// This time may not work, returning 0.
+				//available = socket_tcp_receive -> available ();
+				//std::cout << time (NULL) << std::endl;
+				time_end_actual = time (NULL);
+				diff = std::difftime (time_end_actual, time_end_allowed);
+			}
+			while (available_chars <= 0 && diff <= 0.01);
+			
+			if (! (available_chars > 0))
+				available_chars = message_size;
+			
+			//data = new char [message_size];
+			//data = new char [available_chars];
+			char data [available_chars];
+
+
+			//std::cout << "AVAILABLE(" << available<< ")";
+			//std::vector <char> data (available);
+
+			//size_t len = socket.receive (boost::asio::buffer (buf, message_size)); //, ignored_error);
+			// mathematics::numbers::natural len = socket_tcp_receive -> receive (boost::asio::buffer (buffer, message_size)); //, ignored_error);
+			//mathematics::numbers::natural len = socket_tcp_receive -> receive (boost::asio::buffer (data, available)); //, ignored_error);
+			///*mathematics::numbers::natural len =*/ socket_tcp_receive -> receive (boost::asio::buffer (& message [0], message.size ())); //, ignored_error);
+			// socket_tcp_receive -> receive (boost::asio::buffer (& message [0], /*message.size ()*/3)); //, ignored_error);
+			// socket_tcp_receive -> receive (boost::asio::buffer (& message [0], /*message.size ()*/3)); //, ignored_error);
+			// boost::asio::read (* socket_tcp_receive, boost::asio::buffer (data));
+			// boost::asio::read (* socket_tcp_receive, boost::asio::buffer (message));
+			//boost::asio::read (* socket_tcp_receive, boost::asio::buffer (& message [0], message.size ()));
+			/*size_t len = */boost::asio::read (socket/*_tcp_receive*/, boost::asio::buffer (data, available_chars));
+			//boost::asio::read (* socket_tcp_receive, & message [0]);
+			//socket_tcp_receive -> read_some (message);
+			//socket_tcp_receive -> read_some (& message [0]);
+			//socket_tcp_receive -> read_some (boost::asio::buffer (& message [0], 3));
+			//size_t len = socket_tcp_receive -> receive (boost::asio::buffer (data, message_size)/*, ignored_error*/);
+			//socket_tcp_receive -> read_some (boost::asio::buffer (data, available_chars)/*, ignored_error*/);
+
+			//if (remote_endpoint != NULL)
+			//{
+				boost::asio::ip::tcp::endpoint remote_ep = socket.remote_endpoint ();
+
+				remote_endpoint ["address"] = (LIB::containers::NAME_V) remote_ep.address ().to_string ();
+				remote_endpoint ["port"] = remote_ep.port ();
+			//}
+
+			acceptor.close ();
+			//std::cout << "Messaging.cpp: Deleting \'receive_acceptor\'..." << std::endl;
+			//delete acceptor;
+			//std::cout << "Messaging.cpp: Deleted \'receive_acceptor\'..." << std::endl;
+			//acceptor = NULL;
+
+			//delete endpoint;
+
+			//delete socket;
+			//socket = NULL;
+
+			//message = buf.data ();
+			message = data;
+			//delete [] data;
+			//
+			//for (unsigned long long int i = 0; i < available; ++ i)
+			//{
+			//	message += data [i];
+			//}
+			//
+			//data[0];
+			// message = buffer;
+			//std::cout << std::endl << buf << std::endl;
+			// delete [] buffer;
+
+			//if (acceptor != NULL)
+			//for (Mathematics::Number::Natural index = 0; index < message_size; index)
+
+
+			// std::cout << "Messaging.cpp: Received Message [" << message.substr (0, available_chars) << "]" << std::endl;
+
+			// return message.substr (0, len);
+			//return message.substr (0, 3);
+			//std::cout << "Available characters: " << available_chars << std::endl;
+			//std::cout << "Read characters: " << len << std::endl;
+			//message = message.substr (0, available_chars);
+
+
+			//return message;
+			return message.substr (0, available_chars);
+			//return message.substr (0, len);
+			//return data.data ();
+			//return data;
+
+			//std::string buffer;
+			//size_t size = socket.receive (boost::asio::buffer (buffer)); //, ignored_error);
+			//return buffer;
 		}
-		
-		acceptor.close ();
-		//std::cout << "Messaging.cpp: Deleting \'receive_acceptor\'..." << std::endl;
-		//delete acceptor;
-		//std::cout << "Messaging.cpp: Deleted \'receive_acceptor\'..." << std::endl;
-		//acceptor = NULL;
-		
-		//delete endpoint;
-		
-		//delete socket;
-		//socket = NULL;
-		
-		//message = buf.data ();
-		message = data;
-		//delete [] data;
-		//
-		//for (unsigned long long int i = 0; i < available; ++ i)
-		//{
-		//	message += data [i];
-		//}
-		//
-		//data[0];
-		// message = buffer;
-		//std::cout << std::endl << buf << std::endl;
-		// delete [] buffer;
+		catch (std::exception & e) //(...) //(std::exception & e)
+		{
+			//acceptor -> close ();
+			// std::cout << "Messaging.cpp (std::exception): \'Receive\' : Error: " << e.what () << std::endl;
+			//error = e;
 
-		//if (acceptor != NULL)
-		//for (Mathematics::Number::Natural index = 0; index < message_size; index)
-		
-		
-		// std::cout << "Messaging.cpp: Received Message [" << message.substr (0, available_chars) << "]" << std::endl;
-		
-		// return message.substr (0, len);
-		//return message.substr (0, 3);
-		//std::cout << "Available characters: " << available_chars << std::endl;
-		//std::cout << "Read characters: " << len << std::endl;
-		//message = message.substr (0, available_chars);
-		
-		
-		//return message;
-		return message.substr (0, available_chars);
-		//return message.substr (0, len);
-		//return data.data ();
-		//return data;
+			//return e.what();
+			return "";
+		}
+		catch (...) //(...) //(std::exception & e)
+		{
+			//acceptor -> close ();
+			// std::cout << "Messaging.cpp (...): \'Receive\': Error." << std::endl;
+			//error = e;
 
-		//std::string buffer;
-		//size_t size = socket.receive (boost::asio::buffer (buffer)); //, ignored_error);
-		//return buffer;
+			//return e.what();
+			return "";
+		}
 	}
-	catch (std::exception & e) //(...) //(std::exception & e)
+	else
 	{
-		//acceptor -> close ();
-		// std::cout << "Messaging.cpp (std::exception): \'Receive\' : Error: " << e.what () << std::endl;
-		//error = e;
-		
-		//return e.what();
-		return "";
-	}
-	catch (...) //(...) //(std::exception & e)
-	{
-		//acceptor -> close ();
-		// std::cout << "Messaging.cpp (...): \'Receive\': Error." << std::endl;
-		//error = e;
+		try
+		{
+			/*
+			if (!address.exists ("address") && addrs.reception.unreliable.exists ("address"))
+			{
+				address ["address"] = addrs.reception.reliable ["address"] ();
+			}
+			*/
+			if (!address.exists ("port") && reception.unreliable.exists ("port"))
+			{
+				address ["port"] = reception.unreliable ["port"] ();
+			}
+			
+			if (/*!address.exists ("address") || */!address.exists ("port"))
+			{
+				return "";
+			}
+			
+			
+			//std::cout << "Messaging.cpp: Listening (Edited)..." << std::endl;
+			std::string message;
 
-		//return e.what();
-		return "";
+			// TODO: Bind to the specified address if it is provided.
+			//boost::asio::io_service io_service;
+			//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::udp::v4 (), port));
+			//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), port));
+			boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), address ["port"] ()));
+			boost::asio::ip::udp::endpoint sender_endpoint;
+			
+			socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+
+	//		socket.open (endpoint.protocol ());
+	//		//socket.open (boost::asio::ip::udp::v4 ());
+	//		
+	//		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
+	//		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+	//		//socket.set_option (boost::asio::socket_base::broadcast (true));
+	//		
+	//		//socket.bind (endpoint);
+	//		//socket.connect (endpoint);
+	//		
+	//		// Join the multicast group.
+	//		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
+	//		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
+	//		if (! multicast_group_listen.empty ())
+	//		{
+	//			// Join the multicast group.
+	//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
+	//		}
+	//		
+	//		socket.bind (endpoint);
+			
+			char data [message_size];
+			
+			//socket.receive_from (boost::asio::buffer (buffer), sender_endpoint);
+			unsigned long long int
+			//LIB::mathematics::numbers::natural
+				length = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
+			
+			//boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
+			//boost::asio::ip::address remote_add = remote_ep.address ();
+			//std::string remote_address = remote_add.to_string ();
+			
+			message = data;
+			
+			// delete [] data;
+			
+			//if (remote_endpoint != NULL)
+			//{
+				//boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
+				
+				remote_endpoint ["address"] = (LIB::containers::NAME_V) sender_endpoint.address ().to_string ();
+				remote_endpoint ["port"] = sender_endpoint.port ();
+			//}
+			
+			//message = message.substr (0, length);
+			
+			//std::cout << "Messaging.cpp: Listened (Edited): [" << message << "]" << std::endl;
+			
+			//return message;
+			return message.substr (0, length);
+			
+	//		//boost::asio::io_service io;
+	//		//boost::asio::io_service io_2;
+	//		// boost::asio::ip::udp::socket socket;
+	//		//boost::asio::ip::udp::socket socket (io);
+	//		// cancel_udp ();
+	//
+	//		// socket_udp_receive = new boost::asio::ip::udp::socket (io);
+	//		//boost::asio::ip::udp::endpoint sender_endpoint;
+	//		
+	//		boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
+	//		//boost::asio::ip::udp::endpoint endpoint;
+	//		
+	//		boost::asio::ip::udp::socket socket (io/*, endpoint/*.protocol ()*/);
+	//		
+	//		socket.open (endpoint.protocol ());
+	//		//socket.open (boost::asio::ip::udp::v4 ());
+	//		
+	//		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
+	//		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+	//		//socket.set_option (boost::asio::socket_base::broadcast (true));
+	//		
+	//		//socket.bind (endpoint);
+	//		//socket.connect (endpoint);
+	//		
+	//		// Join the multicast group.
+	//		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
+	//		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
+	//		if (! multicast_group_listen.empty ())
+	//		{
+	//			// Join the multicast group.
+	//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
+	//		}
+	//		
+	//		socket.bind (endpoint);
+	//		
+	//		//
+	//		//socket_udp_receive -> connect (,);
+	//		//unsigned long long int available = 5;
+	//			///*available */= socket_udp_receive -> available ();	// This time may not work, returning 0.
+	//		
+	//		//char * data = new char [available];
+	//		//char data [MESSAGE_SIZE];
+	//		//char * data = new char [message_size];
+	//		char data [message_size];
+	//		
+	//		//io_2.run ();
+	//		//size_t len = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
+	//		//mathematics::numbers::natural len = socket_udp_receive -> receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
+	//		mathematics::numbers::natural length = socket.receive_from (boost::asio::buffer (data, message_size), endpoint);
+	//		
+	//		/*
+	//		if (handler != NULL && cycle)
+	//		{
+	//			handlers [hash] = new boost::thread (boost::bind (& LIB::network::ip::mpi::listen_async_handler, this, address, port, handler, cycle, hash));
+	//			//handlers [hash] = t;
+	//			//(* handler) (message);
+	//		}
+	//		else
+	//		{
+	//			handlers.unset (hash);
+	//		}
+	//		*/
+	//		
+	//		//socket_udp_receive -> receive_from (boost::asio::buffer (data, available), sender_endpoint);
+	//		// socket_udp_receive -> receive_from (boost::asio::buffer (data, available), listen_endpoint);
+	//		//socket_udp_receive ->
+	//		message = data;
+	//		//delete [] data;
+	//
+	//		//delete socket;
+	//		//socket = NULL;
+	//
+	//		std::cout << "Messaging.cpp: Listened: [" << message.substr (0, length) << "]" << std::endl;
+	//		
+	//		return message.substr (0, length);
+			//return message.substr (0, available);
+		}
+		catch (std::exception & e)
+		{
+			//error = e;
+			//std::cout << "Error: Listening." << std::endl;
+			//std::cout << "noware/messaging/network/ip/mpi.c++:1526: error (std::exception & e):" << e.what () << std::endl;
+			//return e.what();
+			return "";
+		}
+		catch (...) //(std::exception & e)
+		{
+			//error = e;
+			//std::cout << "Error: Listening." << std::endl;
+			// std::cout << "Messaging.cpp (...): \'Listen\': Error." << std::endl;
+			//return e.what();
+			return "";
+		}
 	}
 }
 
@@ -1685,14 +2014,8 @@ const std::string LIB::network::ip::mpi::receive (LIB::entity <> & remote_endpoi
 
 // UDP:
 
-//std::string LIB::Network::mpi::Listen ()
-const std::string LIB::network::ip::mpi::listen (void)
-{
-	return listen (NULL, addrs.listen);
-}
-
 /*
-const std::string LIB::network::ip::mpi::listen (const LIB::entity <> & address)
+const std::string LIB::network::ip::mpi::listen (const LIB::containers::NTT <> & address)
 {
 	std::string addr;
 	
@@ -1719,188 +2042,196 @@ std::string LIB::network::ip::mpi::listen (const unsigned short int & port, cons
 }
 */
 
-//const std::string LIB::network::ip::mpi::listen (const std::string & address, const unsigned short int & port)
-const std::string LIB::network::ip::mpi::listen (LIB::entity <> & remote_endpoint, LIB::entity <> address)
-{
-	/*
-	LIB::network::endpoint addr;
-	
-	try
-	{
-		addr = boost::any_cast <LIB::network::endpoint> (address);
-	}
-	catch (...)
-	{
-		return "";
-	}
-	*/
-	
-	if (!address.exist ("port") && addrs.listen.exist ("port"))
-	{
-		address ["port"] = addrs.listen ["port"] ();
-	}
-	
-	if (!address.exist ("address") || !address.exist ("port"))
-	{
-		return "";
-	}
-	
-	try
-	{
-		//std::cout << "Messaging.cpp: Listening (Edited)..." << std::endl;
-		std::string message;
-		
-		
-		//boost::asio::io_service io_service;
-		//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::udp::v4 (), port));
-		//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), port));
-		boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), address ["port"] ()));
-		boost::asio::ip::udp::endpoint sender_endpoint;
-		
-		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
-		
-//		socket.open (endpoint.protocol ());
-//		//socket.open (boost::asio::ip::udp::v4 ());
-//		
-//		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
-//		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
-//		//socket.set_option (boost::asio::socket_base::broadcast (true));
-//		
-//		//socket.bind (endpoint);
-//		//socket.connect (endpoint);
-//		
-//		// Join the multicast group.
-//		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
-//		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
-//		if (! multicast_group_listen.empty ())
-//		{
-//			// Join the multicast group.
-//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
-//		}
-//		
-//		socket.bind (endpoint);
-		
-		char data [message_size];
-		
-		//socket.receive_from (boost::asio::buffer (buffer), sender_endpoint);
-		unsigned long long int length;
-		length = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
-		
-		//boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
-		//boost::asio::ip::address remote_add = remote_ep.address ();
-		//std::string remote_address = remote_add.to_string ();
-		
-		if (remote_endpoint != NULL)
-		{
-			boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
-			
-			remote_endpoint ["address"] = remote_ep.address ().to_string ();
-			remote_endpoint ["port"] = remote_ep.port ();
-		}
-		
-		message = data;
-		
-		//message = message.substr (0, length);
-		
-		//std::cout << "Messaging.cpp: Listened (Edited): [" << message << "]" << std::endl;
-		
-		//return message;
-		return message.substr (0, length);
-		
-//		//boost::asio::io_service io;
-//		//boost::asio::io_service io_2;
-//		// boost::asio::ip::udp::socket socket;
-//		//boost::asio::ip::udp::socket socket (io);
-//		// cancel_udp ();
+// *** Previously used:
+////std::string LIB::Network::mpi::Listen ()
+//const std::string LIB::network::ip::mpi::listen (void)
+//{
+//	return listen (NULL, addrs.listen);
+//}
 //
-//		// socket_udp_receive = new boost::asio::ip::udp::socket (io);
-//		//boost::asio::ip::udp::endpoint sender_endpoint;
+////const std::string LIB::network::ip::mpi::listen (const std::string & address, const unsigned short int & port)
+//const std::string LIB::network::ip::mpi::listen (LIB::containers::NTT <> & remote_endpoint, LIB::containers::NTT <> address)
+//{
+//	/*
+//	LIB::network::endpoint addr;
+//	
+//	try
+//	{
+//		addr = boost::any_cast <LIB::network::endpoint> (address);
+//	}
+//	catch (...)
+//	{
+//		return "";
+//	}
+//	*/
+//	
+//	if (!address.exist ("port") && addrs.listen.exist ("port"))
+//	{
+//		address ["port"] = addrs.listen ["port"] ();
+//	}
+//	
+//	if (!address.exist ("address") || !address.exist ("port"))
+//	{
+//		return "";
+//	}
+//	
+//	try
+//	{
+//		//std::cout << "Messaging.cpp: Listening (Edited)..." << std::endl;
+//		std::string message;
 //		
-//		boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
-//		//boost::asio::ip::udp::endpoint endpoint;
 //		
-//		boost::asio::ip::udp::socket socket (io/*, endpoint/*.protocol ()*/);
+//		//boost::asio::io_service io_service;
+//		//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::udp::v4 (), port));
+//		//boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), port));
+//		boost::asio::ip::udp::socket socket (io, boost::asio::ip::udp::endpoint (boost::asio::ip::address_v4::any (), address ["port"] ()));
+//		boost::asio::ip::udp::endpoint sender_endpoint;
 //		
-//		socket.open (endpoint.protocol ());
-//		//socket.open (boost::asio::ip::udp::v4 ());
-//		
-//		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
 //		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
-//		//socket.set_option (boost::asio::socket_base::broadcast (true));
 //		
-//		//socket.bind (endpoint);
-//		//socket.connect (endpoint);
+////		socket.open (endpoint.protocol ());
+////		//socket.open (boost::asio::ip::udp::v4 ());
+////		
+////		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
+////		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+////		//socket.set_option (boost::asio::socket_base::broadcast (true));
+////		
+////		//socket.bind (endpoint);
+////		//socket.connect (endpoint);
+////		
+////		// Join the multicast group.
+////		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
+////		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
+////		if (! multicast_group_listen.empty ())
+////		{
+////			// Join the multicast group.
+////			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
+////		}
+////		
+////		socket.bind (endpoint);
 //		
-//		// Join the multicast group.
-//		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
-//		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
-//		if (! multicast_group_listen.empty ())
-//		{
-//			// Join the multicast group.
-//			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
-//		}
-//		
-//		socket.bind (endpoint);
-//		
-//		//
-//		//socket_udp_receive -> connect (,);
-//		//unsigned long long int available = 5;
-//			///*available */= socket_udp_receive -> available ();	// This time may not work, returning 0.
-//		
-//		//char * data = new char [available];
-//		//char data [MESSAGE_SIZE];
-//		//char * data = new char [message_size];
 //		char data [message_size];
 //		
-//		//io_2.run ();
-//		//size_t len = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
-//		//mathematics::numbers::natural len = socket_udp_receive -> receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
-//		mathematics::numbers::natural length = socket.receive_from (boost::asio::buffer (data, message_size), endpoint);
+//		//socket.receive_from (boost::asio::buffer (buffer), sender_endpoint);
+//		unsigned long long int length;
+//		length = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
 //		
-//		/*
-//		if (handler != NULL && cycle)
-//		{
-//			handlers [hash] = new boost::thread (boost::bind (& LIB::network::ip::mpi::listen_async_handler, this, address, port, handler, cycle, hash));
-//			//handlers [hash] = t;
-//			//(* handler) (message);
-//		}
-//		else
-//		{
-//			handlers.unset (hash);
-//		}
-//		*/
+//		//boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
+//		//boost::asio::ip::address remote_add = remote_ep.address ();
+//		//std::string remote_address = remote_add.to_string ();
 //		
-//		//socket_udp_receive -> receive_from (boost::asio::buffer (data, available), sender_endpoint);
-//		// socket_udp_receive -> receive_from (boost::asio::buffer (data, available), listen_endpoint);
-//		//socket_udp_receive ->
+//		if (remote_endpoint != NULL)
+//		{
+//			boost::asio::ip::udp::endpoint remote_ep = socket.remote_endpoint ();
+//			
+//			remote_endpoint ["address"] = remote_ep.address ().to_string ();
+//			remote_endpoint ["port"] = remote_ep.port ();
+//		}
+//		
 //		message = data;
-//		//delete [] data;
-//
-//		//delete socket;
-//		//socket = NULL;
-//
-//		std::cout << "Messaging.cpp: Listened: [" << message.substr (0, length) << "]" << std::endl;
 //		
+//		//message = message.substr (0, length);
+//		
+//		//std::cout << "Messaging.cpp: Listened (Edited): [" << message << "]" << std::endl;
+//		
+//		//return message;
 //		return message.substr (0, length);
-		//return message.substr (0, available);
-	}
-	catch (std::exception & e)
-	{
-		//error = e;
-		//std::cout << "Error: Listening." << std::endl;
-		// std::cout << "Messaging.cpp (std::exception & e): \'Listen\': Error:" << e.what () << std::endl;
-		//return e.what();
-		return "";
-	}
-	catch (...) //(std::exception & e)
-	{
-		//error = e;
-		//std::cout << "Error: Listening." << std::endl;
-		// std::cout << "Messaging.cpp (...): \'Listen\': Error." << std::endl;
-		//return e.what();
-		return "";
-	}
-}
+//		
+////		//boost::asio::io_service io;
+////		//boost::asio::io_service io_2;
+////		// boost::asio::ip::udp::socket socket;
+////		//boost::asio::ip::udp::socket socket (io);
+////		// cancel_udp ();
+////
+////		// socket_udp_receive = new boost::asio::ip::udp::socket (io);
+////		//boost::asio::ip::udp::endpoint sender_endpoint;
+////		
+////		boost::asio::ip::udp::endpoint endpoint (boost::asio::ip::address::from_string (address), port);
+////		//boost::asio::ip::udp::endpoint endpoint;
+////		
+////		boost::asio::ip::udp::socket socket (io/*, endpoint/*.protocol ()*/);
+////		
+////		socket.open (endpoint.protocol ());
+////		//socket.open (boost::asio::ip::udp::v4 ());
+////		
+////		std::cout << "Messaging.cpp: listen (): allowing reusage of addresses..." << std::endl;
+////		socket.set_option (boost::asio::ip::udp::socket::reuse_address (true));
+////		//socket.set_option (boost::asio::socket_base::broadcast (true));
+////		
+////		//socket.bind (endpoint);
+////		//socket.connect (endpoint);
+////		
+////		// Join the multicast group.
+////		//std::cout << "Messaging.cpp: listen (): joining the multicast group " << address << " ..." << std::endl;
+////		//socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (address)));
+////		if (! multicast_group_listen.empty ())
+////		{
+////			// Join the multicast group.
+////			socket.set_option (boost::asio::ip::multicast::join_group (boost::asio::ip::address::from_string (multicast_group_listen)));
+////		}
+////		
+////		socket.bind (endpoint);
+////		
+////		//
+////		//socket_udp_receive -> connect (,);
+////		//unsigned long long int available = 5;
+////			///*available */= socket_udp_receive -> available ();	// This time may not work, returning 0.
+////		
+////		//char * data = new char [available];
+////		//char data [MESSAGE_SIZE];
+////		//char * data = new char [message_size];
+////		char data [message_size];
+////		
+////		//io_2.run ();
+////		//size_t len = socket.receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
+////		//mathematics::numbers::natural len = socket_udp_receive -> receive_from (boost::asio::buffer (data, message_size), sender_endpoint);
+////		mathematics::numbers::natural length = socket.receive_from (boost::asio::buffer (data, message_size), endpoint);
+////		
+////		/*
+////		if (handler != NULL && cycle)
+////		{
+////			handlers [hash] = new boost::thread (boost::bind (& LIB::network::ip::mpi::listen_async_handler, this, address, port, handler, cycle, hash));
+////			//handlers [hash] = t;
+////			//(* handler) (message);
+////		}
+////		else
+////		{
+////			handlers.unset (hash);
+////		}
+////		*/
+////		
+////		//socket_udp_receive -> receive_from (boost::asio::buffer (data, available), sender_endpoint);
+////		// socket_udp_receive -> receive_from (boost::asio::buffer (data, available), listen_endpoint);
+////		//socket_udp_receive ->
+////		message = data;
+////		//delete [] data;
+////
+////		//delete socket;
+////		//socket = NULL;
+////
+////		std::cout << "Messaging.cpp: Listened: [" << message.substr (0, length) << "]" << std::endl;
+////		
+////		return message.substr (0, length);
+//		//return message.substr (0, available);
+//	}
+//	catch (std::exception & e)
+//	{
+//		//error = e;
+//		//std::cout << "Error: Listening." << std::endl;
+//		// std::cout << "Messaging.cpp (std::exception & e): \'Listen\': Error:" << e.what () << std::endl;
+//		//return e.what();
+//		return "";
+//	}
+//	catch (...) //(std::exception & e)
+//	{
+//		//error = e;
+//		//std::cout << "Error: Listening." << std::endl;
+//		// std::cout << "Messaging.cpp (...): \'Listen\': Error." << std::endl;
+//		//return e.what();
+//		return "";
+//	}
+//}
+// *** Previously used.
 
 //bool LIB::network::ip::mpi::listen_async (const boost::function <void (std::string)> & handler)
 //{

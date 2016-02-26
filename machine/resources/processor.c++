@@ -970,7 +970,7 @@ void LIB::machine::resources::processor::perform (void)
 	
 	while (true)
 	{
-		pause ();
+		//pause ();
 		
 		//instruction = dequeue ();
 
@@ -1057,6 +1057,7 @@ void LIB::machine::resources::processor::perform (void)
 		}
 		
 		//boost::this_thread::sleep (boost::posix_time::minutes (1));
+		pause ();
 	}
 }
 

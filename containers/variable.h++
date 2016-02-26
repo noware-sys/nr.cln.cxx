@@ -5,7 +5,12 @@
 //#include <boost/any.hpp>
 #include <string>
 #include <iostream>
-#include <fstream>
+//#include <fstream>
+
+//#include <sqlite3.h>
+//#include "../../sqlite/3.h"
+//#include "databases/sqlite.h"
+//#include "../../sqlite/3.c"
 
 //#include <algorithm>
 //#include <cstdlib>
@@ -27,12 +32,13 @@
 //#include <boost/archive/text_iarchive.hpp>
 
 #include "../default.h++"
+#include "../library.h++"
 #include "../mathematics.h++"
 #include "../serialization.h++"
 #include "../tools.h++"
 
 #ifndef NAME_V
-#define NAME_V variable
+	#define NAME_V variable
 #endif
 
 namespace LIB
@@ -40,7 +46,8 @@ namespace LIB
 	//class NAME_V;
 	
 	//typedef NAME_V var;
-	
+	namespace containers
+	{
 	class NAME_V
 	{
 		public:
@@ -96,7 +103,7 @@ namespace LIB
 			// const std::string &	to_string (void) const;
 
 			//_type Determine (const NAME_V::NAME_V);
-			const type & determine (const ::std::string &) const;
+			const type determine (const std::string &) const;
 			//_type Determine (const long double);
 
 		public:
@@ -118,12 +125,12 @@ namespace LIB
 			NAME_V (const long double &);
 			NAME_V (const char &);
 			//NAME_V (const signed char &);
-			//NAME_V (const unsigned char &);
+			NAME_V (const unsigned char &);
 			NAME_V (const char []);
 			NAME_V (const LIB::mathematics::numbers::integer &);
 			NAME_V (const LIB::mathematics::numbers::real &);
 			//NAME_V (const LIB::mathematics::number &);
-			NAME_V (const ::std::string &);
+			NAME_V (const std::string &);
 
 			//NAME_V (const char []);
 
@@ -157,14 +164,22 @@ namespace LIB
 			const bool is_text (void) const;
 			const bool is_generic (void) const;
 			const bool is_numeric (void) const;
-
+			const bool is_number (void) const;
+			
 			// Operations for the same type:
 			// NAME_V + Something
-					NAME_V		operator	+	(const NAME_V &);
+					//NAME_V		operator	+	(const NAME_V &) const;
+					//NAME_V		operator	+	(const NAME_V &);
+					//NAME_V		operator	+	(NAME_V &) const;
+					//NAME_V		operator	+	(NAME_V &);
+					NAME_V		operator	+	(const NAME_V);
+					NAME_V		operator	+	(const NAME_V) const;
 					//long double		operator	+	(const bool);
 					NAME_V		operator	+	(const signed short int &);
 					NAME_V		operator	+	(const unsigned short int &);
+					//NAME_V		operator	+	(signed int);
 					NAME_V		operator	+	(const signed int &);
+					NAME_V		operator	+	(const signed int &) const;
 					NAME_V		operator	+	(const unsigned int &);
 					NAME_V		operator	+	(const signed long int &);
 					NAME_V		operator	+	(const unsigned long int &);
@@ -198,6 +213,7 @@ namespace LIB
 			friend	NAME_V		operator	+	(const signed short int &, const NAME_V &);
 			friend	NAME_V		operator	+	(const unsigned short int &, const NAME_V &);
 			friend	NAME_V		operator	+	(const signed int &, const NAME_V &);
+			//friend	NAME_V		operator	+	(const signed int &, const NAME_V);
 			friend	NAME_V		operator	+	(const unsigned int &, const NAME_V &);
 			friend	NAME_V		operator	+	(const signed long int &, const NAME_V &);
 			friend	NAME_V		operator	+	(const unsigned long int &, const NAME_V &);
@@ -206,10 +222,13 @@ namespace LIB
 			friend	NAME_V		operator	+	(const float &, const NAME_V &);
 			friend	NAME_V		operator	+	(const double &, const NAME_V &);
 			friend	NAME_V		operator	+	(const long double &, const NAME_V &);
+			friend	NAME_V		operator	+	(const LIB::mathematics::numbers::integer &, const NAME_V &);
+			friend	NAME_V		operator	+	(const LIB::mathematics::numbers::real &, const NAME_V &);
 			friend	NAME_V		operator	+	(const char &, const NAME_V &);
 			//friend	NAME_V		operator	+	(const signed char, NAME_V);
 			//friend	NAME_V		operator	+	(const unsigned char, NAME_V);
-			friend	NAME_V		operator	+	(const ::std::string &, const NAME_V &);
+			friend	NAME_V		operator	+	(const char [], const NAME_V &);
+			friend	NAME_V		operator	+	(const std::string &, const NAME_V &);
 
 			// - Left side:
 					// For negating:
@@ -405,6 +424,7 @@ namespace LIB
 					operator	char							(void) const;
 					operator	std::string						(void) const;
 					//operator	long double		(void) const;
+					//operator	sqlite3_value					(void) const;
 					
 					//bool		NAME_V			(void);
 					NAME_V		operator	~	(void) const;	// Complement.
@@ -426,7 +446,7 @@ namespace LIB
 					NAME_V &			operator	=	(const long double &);
 					NAME_V &			operator	=	(const char &);
 					//NAME_V &			operator	=	(const signed char);
-					//NAME_V &			operator	=	(const unsigned char);
+					NAME_V &			operator	=	(const unsigned char &);
 					NAME_V &			operator	=	(const char []);
 					//NAME_V &			operator	=	(const LIB::mathematics::numbers::natural &);
 					NAME_V &			operator	=	(const LIB::mathematics::numbers::integer &);
@@ -449,8 +469,11 @@ namespace LIB
 			//friend	void			operator	=	(const unsigned char, NAME_V);
 			//friend	void			operator	=	(const ::std::string, NAME_V);
 
-					bool			operator	<	(const NAME_V &);
-					bool			operator	<	(const signed short int &);
+					//const bool			operator	<	(const NAME_V &);
+					const bool			operator	<	(const NAME_V);
+					const bool			operator	<	(const NAME_V) const;
+					//const bool			operator	<	(NAME_V &) const;
+					const bool			operator	<	(const signed short int &);
 					bool			operator	<	(const unsigned short int &);
 					bool			operator	<	(const signed int &);
 					bool			operator	<	(const unsigned int &);
@@ -486,7 +509,11 @@ namespace LIB
 			//friend	bool			operator	<	(const unsigned char, NAME_V);
 			friend	bool			operator	<	(const ::std::string &, NAME_V &);
 
-					bool			operator	>	(const NAME_V &);
+					//const bool			operator	>	(const NAME_V &) const;
+					//const bool			operator	>	(NAME_V &) const;
+					//const bool			operator	>	(const NAME_V &);
+					const bool			operator	>	(const NAME_V);
+					const bool			operator	>	(const NAME_V) const;
 					bool			operator	>	(const signed short int &);
 					bool			operator	>	(const unsigned short int &);
 					bool			operator	>	(const signed int &);
@@ -502,7 +529,7 @@ namespace LIB
 					//bool			operator	>	(const signed char);
 					//bool			operator	>	(const unsigned char);
 					bool			operator	>	(const char []);
-					bool			operator	>	(const ::std::string &);
+					bool			operator	>	(const std::string &);
 
 			friend	bool			operator	>	(const signed short int &, NAME_V &);
 			friend	bool			operator	>	(const unsigned short int &, NAME_V &);
@@ -536,22 +563,24 @@ namespace LIB
 					//NAME_V				operator	+=	(const signed char);
 					//NAME_V				operator	+=	(const unsigned char);
 					NAME_V	&		operator	+=	(const char []);
-					NAME_V	&		operator	+=	(const ::std::string &);
+					NAME_V	&		operator	+=	(const std::string &);
 
-			friend	long double			operator	+=	(const signed short int &, NAME_V &);
-			friend	long double			operator	+=	(const unsigned short int &, NAME_V &);
-			friend	long double			operator	+=	(const signed int &, NAME_V &);
-			friend	long double			operator	+=	(const unsigned int &, NAME_V &);
-			friend	long double			operator	+=	(const signed long int &, NAME_V &);
-			friend	long double			operator	+=	(const unsigned long int &, NAME_V &);
-			friend	long double			operator	+=	(const signed long long int &, NAME_V &);
-			friend	long double			operator	+=	(const unsigned long long int &, NAME_V &);
-			friend	long double			operator	+=	(const float &, NAME_V &);
-			friend	long double			operator	+=	(const double &, NAME_V &);
-			friend	long double			operator	+=	(long double, const NAME_V &);
-			//friend	::std::string							operator	+=	(const char, const NAME_V);
-			friend	const std::string							operator	+=	(const std::string &, const NAME_V &);
-
+			friend	const signed short int &				operator	+=	(signed short int &, NAME_V &);
+			friend	const unsigned short int &				operator	+=	(unsigned short int &, NAME_V &);
+			friend	const signed int &						operator	+=	(signed int &, NAME_V &);
+			friend	const unsigned int &					operator	+=	(unsigned int &, NAME_V &);
+			friend	const signed long int &					operator	+=	(signed long int &, NAME_V &);
+			friend	const unsigned long int &				operator	+=	(unsigned long int &, NAME_V &);
+			friend	const signed long long int &			operator	+=	(signed long long int &, NAME_V &);
+			friend	const unsigned long long int &			operator	+=	(unsigned long long int &, NAME_V &);
+			friend	const float &							operator	+=	(float &, NAME_V &);
+			friend	const double &							operator	+=	(double &, NAME_V &);
+			friend	const long double &						operator	+=	(long double &, const NAME_V &);
+			friend	const mathematics::numbers::integer &	operator	+=	(mathematics::numbers::integer &, NAME_V &);
+			friend	const mathematics::numbers::real &		operator	+=	(mathematics::numbers::real &, const NAME_V &);
+			//friend	std::string								operator	+=	(const char, const NAME_V);
+			friend	const std::string &						operator	+=	(std::string &, const NAME_V &);
+			
 					NAME_V	&		operator	-=	(const NAME_V &);
 					NAME_V	&		operator	-=	(const signed short int);
 					NAME_V	&		operator	-=	(const unsigned short int);
@@ -692,8 +721,8 @@ namespace LIB
 			friend	signed long long int		operator	^=	(double &, const NAME_V);
 			friend	signed long long int		operator	^=	(long double &, const NAME_V);
 
-			friend	::std::ostream &	operator	<<	(::std::ostream &, const NAME_V);
-			friend	::std::istream &	operator	>>	(::std::istream &, NAME_V &);
+			friend	std::ostream &	operator	<<	(std::ostream &, const NAME_V &)/* const*/;
+			friend	std::istream &	operator	>>	(std::istream &, NAME_V &);
 	
 			//friend	::std::ofstream &	operator	<<	(::std::ofstream &, NAME_V);
 			//friend	::std::ifstream &	operator	>>	(::std::ifstream &, NAME_V);
@@ -790,7 +819,11 @@ namespace LIB
 			//friend	bool			operator	!=	(const unsigned char, NAME_V);
 			friend	bool			operator	!=	(const ::std::string, NAME_V);
 
-					bool			operator	<=	(const NAME_V);
+					const bool			operator	<=	(const NAME_V);
+					const bool			operator	<=	(const NAME_V) const;
+					//const bool			operator	<=	(const NAME_V);
+					//const bool			operator	<=	(const NAME_V);
+					//const bool			operator	<=	(const NAME_V) const;
 					bool			operator	<=	(const signed short int);
 					bool			operator	<=	(const unsigned short int);
 					bool			operator	<=	(const signed int);
@@ -874,13 +907,15 @@ namespace LIB
 						/*const*/ NAME_V		operator	++	(signed int);
 						/*const*/ NAME_V		operator	--	(signed int);
 	};
+	}
 	
-	typedef NAME_V var;
+	//typedef NAME_V var;
+	//typedef containers::NAME_V NAME_V, var;
 }
 
-std::istream &	getline (std::istream &, LIB::NAME_V &, const char = '\n');
+std::istream &	getline (std::istream &, LIB::containers::NAME_V &, const char = '\n');
 
-std::string		tolower (const LIB::NAME_V &);
-std::string		toupper (const LIB::NAME_V &);
+std::string		tolower (const LIB::containers::NAME_V &);
+std::string		toupper (const LIB::containers::NAME_V &);
 
 //#endif
