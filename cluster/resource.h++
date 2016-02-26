@@ -32,20 +32,23 @@
 */
 namespace LIB
 {
-	namespace machine
+	namespace cluster
 	{
-		class peer
-		{
-			public:
-				class resources
-				{
-					class resource
+		//public:
+			class member
+			{
+				public:
+					class resources
 					{
-						//virtual std::string get (const std::string &/* name*/) = 0;
-						//virtual bool set (const std::string &/* name*/, const std::string &/* data*/) = 0;
+						public:
+							class resource
+							{
+								public:
+									//virtual std::string get (const std::string &/* name*/) = 0;
+									//virtual bool set (const std::string &/* name*/, const std::string &/* data*/) = 0;
+							};
 					};
-				};
-		};
+			};
 	}
 }
 

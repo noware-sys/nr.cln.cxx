@@ -1,7 +1,7 @@
 ////#ifndef MEMBERS_CPP
 ////#define MEMBERS_CPP
 //
-#include "peers.h"
+#include "members.h"
 //
 ////void LIB::Cluster::InitialBroadcast::operator () (void)
 ////{
@@ -617,6 +617,7 @@ void LIB::Cluster::Peers::ActBroadcastDiscovery (std::string input)
 		//{
 		////case Action::ASK:
 		////	if (memory.Exists (data))
+
 		////	{
 		////		mpi.tcp (host);
 		////		mpi.Send (delimiter + mpi.LocalHost () + delimiter + "1" + delimiter);

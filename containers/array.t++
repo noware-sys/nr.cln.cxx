@@ -12,8 +12,8 @@ bool LIB::NAME_A <value, key>::package::operator == (const package & other) cons
 	// The type of value may not have the operator == defined, so comparing them may fail:
 	try
 	{
-		//return (ky == other.ky && * val == * (other.val));
-		return (ky == other.ky && val == other.val);
+		//return (k == other.k && * v == * (other.v));
+		return (k == other.k && v == other.v);
 	}
 	catch (...)
 	{
@@ -29,9 +29,9 @@ typename LIB::NAME_A <value, key>::package & LIB::NAME_A <value, key>::package::
 	// The type of value may not have the operator = defined, so comparing them may fail:
 	try
 	{
-		ky = other.ky;
-		//* val = * (other.val);
-		val = other.val;
+		k = other.k;
+		//* v = * (other.v);
+		v = other.v;
 	}
 	catch (...)
 	{
@@ -48,24 +48,24 @@ void LIB::NAME_A <value, key>::package::serialize (Archive & archive, const unsi
 {
 	//value temp_value;
 	
-	archive & ky;
-	//archive & (* val);
-	archive & val;
+	archive & k;
+	//archive & (* v);
+	archive & v;
 	
 	//if (Archive::is_loading::value)
 	//{
-		//if (val != NULL)
+		//if (v != NULL)
 		//{
 			/*
 			try
 			{
 				//value * v2 = new value ();
 				
-				val ->;
+				v ->;
 			}
 			catch (...)
 			{
-				val = new value ();
+				v = new value ();
 //			}
 			*/
 		//}
@@ -76,15 +76,15 @@ void LIB::NAME_A <value, key>::package::serialize (Archive & archive, const unsi
 	{
 		//value * v2 = new value ();
 
-		val ->;
+		v ->;
 	}
 	catch (...)
 	{
-		val = new value ();
+		v = new value ();
 	}
-	archive & (* val);
+	archive & (* v);
 	*/
-	//archive & val;
+	//archive & v;
 	//archive & v;
 	//boost::serialization::split_member (archive, * this, version);
 }
@@ -94,9 +94,9 @@ void LIB::NAME_A <value, key>::package::serialize (Archive & archive, const unsi
 //void LIB::NAME_A <value, key>::package::save (Archive & archive, const unsigned int & version) const
 ////LIB::NAME_A<value, key>::NAME_A (void)
 //{
-//	archive << ky;
-//	archive << (* val);
-//	//archive & val;
+//	archive << k;
+//	archive << (* v);
+//	//archive & v;
 //	//archive & v;
 //}
 //
@@ -107,17 +107,17 @@ void LIB::NAME_A <value, key>::package::serialize (Archive & archive, const unsi
 //{
 //	value temp_value;
 //	
-//	archive >> ky;
+//	archive >> k;
 //	archive >> temp_value;
-//	//* val;
+//	//* v;
 //	
 //	try
 //	{
-//		(* val) = temp_value;
+//		(* v) = temp_value;
 //	}
 //	catch (...)
 //	{
-//		val = new value ();
+//		v = new value ();
 //	}
 //	
 //	archive >> (* val);
@@ -251,7 +251,7 @@ void LIB::NAME_A <value, key>::load (Archive & archive, const unsigned int & ver
 			///*i* /archive >> k;
 			///*i* /archive >> v;
 			
-			if (! temp.set (pack.ky, * (pack.val)))
+			if (! temp.set (pack.k, * (pack.v)))
 				return/* false* /;
 		}
 		
@@ -300,28 +300,28 @@ LIB::NAME_A <value, key>::NAME_A (const LIB::NAME_A <value, key> & other)
 template <typename value, typename key>
 LIB::NAME_A <value, key>::package::package (void)
 {
-	//val = NULL;
-	//val = new value ();
+	//v = NULL;
+	//v = new value ();
 }
 
 template <typename value, typename key>
 LIB::NAME_A <value, key>::package::package (const key & key_, const value & value_)
 {
-	ky = key_;
-	//val = new value ();
-	//* val = value_;
-	val = value_;
+	k = key_;
+	//v = new value ();
+	//* v = value_;
+	v = value_;
 }
 
 template <typename value, typename key>
 LIB::NAME_A <value, key>::package::~ package (void)
 {
 	/*
-	if (val != NULL)
+	if (v != NULL)
 	{
 		try
 		{
-			delete val;
+			delete v;
 		}
 		catch (...)
 		{
@@ -432,7 +432,7 @@ template <typename value, typename key>
 
 template <typename value, typename key>
 value & LIB::NAME_A <value, key>::operator [] (const key & key_)
-//value & LIB::NAME_A <value, key>::operator [] (const value & val)
+//value & LIB::NAME_A <value, key>::operator [] (const value & v)
 {
 	//std::unordered_map <key, value>::const_iterator found = container.find (_key);
 	//std::unordered_map <key, value>::iterator found = container.find (_key);
@@ -502,19 +502,19 @@ value & LIB::NAME_A <value, key>::operator [] (const key & key_)
 	else if (tolerant)
 	{
 		// Do not add when in tolerant mode; just return any value.
-		value val;
-		return val;
+		value v;
+		return v;
 		//return NULL;
 	}
 	else
-		return create (val);
+		return create (v);
 	 */
 }
 
 // Getter:
 template <typename value, typename key>
 value LIB::NAME_A <value, key>::operator [] (const key & _key) const
-//value & LIB::NAME_A <value, key>::operator [] (const value & val)
+//value & LIB::NAME_A <value, key>::operator [] (const value & v)
 {
 	value * temp = NULL;
 	
@@ -530,16 +530,16 @@ value LIB::NAME_A <value, key>::operator [] (const key & _key) const
 
 //template <typename value, typename key>
 //value & LIB::NAME_A <value, key>::operator [] (const key & _key, const bool & tolerant)
-////value & LIB::NAME_A <value, key>::operator [] (const value & val)
+////value & LIB::NAME_A <value, key>::operator [] (const value & v)
 //{
 //	bool strict_local = tolerant;
 //	tolerant = ! tolerant;
 //
-//	value val = operator [] (_key);
+//	value v = operator [] (_key);
 //
 //	tolerant = strict_local;
 //	
-//	return val;
+//	return v;
 //}
 
 template <typename value, typename key>
@@ -550,11 +550,12 @@ bool LIB::NAME_A <value, key>::search (const key & key_, value *& value_) const
 	
 	for (auto & element : * this)
 	{
-		if (element.ky == key_)
+		if (element.k == key_)
 		{
-			//value_ = element.val;
-			value_ = & (element.val);
-			//value_ = & element.val;
+			//value_ = element.v;
+			// value_ = & (element.v);
+			value_ = const_cast <value *> (& (element.v));
+			//value_ = & element.v;
 			
 			return true;
 		}
@@ -586,18 +587,24 @@ template <typename value, typename key>
 	package * temp = new package ();
 	//package temp;
 	
-	temp -> ky = key_;
-	//temp -> val = /** */value_;
-	// temp.ky = key_;
-	//* (temp.val) = * value_;
-	// value_ = temp.val;
-	//  temp.val = new value ();
-	//temp.val = NULL;	// Prevent the destructor of the class "package" to delete "temp" when "temp" reaches the end of its scope.
-	value_ = & (temp -> val);
+	temp -> k = key_;
+	//temp -> v = /** */value_;
+	// temp.k = key_;
+	//* (temp.v) = * value_;
+	// value_ = temp.v;
+	//  temp.v = new value ();
+	//temp.v = NULL;	// Prevent the destructor of the class "package" to delete "temp" when "temp" reaches the end of its scope.
+	
+	//value_ = & (temp -> v);
+	//value_ = const_cast <value *> (& ((* temp).v));
+	
+	//value_ = get (key_);
 	
 	container.push_back (* temp);
 	//container.push_back (* (new package (key, )));
 	//container.push_back (temp);
+	
+	search (key_, value_);
 	
 	//return temp -> v;
 	return true;
@@ -733,7 +740,7 @@ LIB::mathematics::numbers::natural LIB::NAME_A <value, key>::size (void) const
 
 /*
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::search (const key & _key, package::_value & val) const
+bool LIB::NAME_A <value, key>::search (const key & _key, package::_value & v) const
 {
 	//package current;
 
@@ -745,7 +752,7 @@ bool LIB::NAME_A <value, key>::search (const key & _key, package::_value & val) 
 	{
 		if ((*it) -> _key == _key)
 		{
-			val = (* it) -> _value;;
+			v = (* it) -> _value;;
 
 			return true;
 		}
@@ -789,7 +796,7 @@ bool LIB::NAME_A <value, key>::unset (const key & key_)
 	
 	for (auto & element : * this)
 	{
-		if (element.ky == key_)
+		if (element.k == key_)
 		{
 			//_value = & current_value ();
 			container.erase (it);
@@ -826,17 +833,17 @@ bool LIB::NAME_A <value, key>::unset (const key & key_)
 template <typename value, typename key>
 bool LIB::NAME_A <value, key>::rename (const key & current, const key & val /* New name. */, const bool & _tolerant)
 {
-	if (! exists (current) || (! _tolerant /* If not permitted to overwrite the new value... */ && exists (val) /* ...and if the new value exists. */))
+	if (/*! exists (current) || */(! _tolerant /* If not permitted to overwrite the new value... */ && exists (val) /* ...and if the new value exists. */))
 		return false;
 	
 	// Clear the position.
 	unset (val);
 	
-	for (auto element : * this)
+	for (auto & element : * this)
 	{
-		if (element.ky == current)
+		if (element.k == current)
 		{
-			element.ky = current;
+			element.k = val;
 			
 			return true;
 		}
@@ -881,9 +888,9 @@ bool LIB::NAME_A <value, key>::rename (const key & current, const key & val /* N
 }
 
 template <typename value, typename key>
-bool LIB::NAME_A <value, key>::rename (const key & current, const key & val /* New name. */)
+bool LIB::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
 {
-	return rename (current, val, tolerant /* Use the externally-settable variable. */);
+	return rename (current, new_val, tolerant /* Use the externally-settable variable. */);
 }
 
 template <typename value, typename key>

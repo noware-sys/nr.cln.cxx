@@ -12,10 +12,10 @@
 //#include "network/tcp.h++"
 //#include "network/udp.h++"
 #include "network/connection.h++"
-#include "network/messaging.h++"
-//#include "network/mpi.h++"
-#include "machine/resource.h++"
-#include "machine/machine.h++"
+//#include "network/messaging.h++"
+#include "network/mpi.h++"
+#include "cluster/resource.h++"
+#include "cluster.h++"
 //#include "threads.h++"
 
 /*

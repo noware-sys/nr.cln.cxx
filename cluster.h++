@@ -6,26 +6,24 @@
 
 //#include "Lexical_Analyzer"
 //#include "peers.h++"
-#include "../containers/array.h++"
-#include "memory.h++"
-#include "processor.h++"
-#include "interpreter.h++"
+#include "containers/array.h++"
+#include "cluster/resources/memory.h++"
+#include "cluster/resources/processor.h++"
+#include "cluster/interpreter.h++"
 
 namespace LIB
 {
-	namespace machine
+	namespace cluster
 	{
-		class machine
+		class cluster
 		{
-			protected:
-				interpreter interpreter_;
-				LIB::NAME_A <std::string, std::string> error;
-				
 			public:
-				machine (void);
-				~machine (void);
+				cluster (void);
+				~cluster (void);
 				
 				processor processor_;
+				
+				//members _members;
 				
 				//class process
 				//{
@@ -35,7 +33,7 @@ namespace LIB
 				//void run (const bool & = false);
 				
 				//LIB::cluster::memory memory;
-				// LIB::cluster::processor _processor;
+				LIB::cluster::processor _processor;
 				//processor.
 				// Enqueue instructions.
 				bool enqueue (const std::string &/* file_name*/);
@@ -48,6 +46,9 @@ namespace LIB
 				//const LIB::NAME_A <std::string, std::string> & get_error (void) const;
 				std::string get_error_code (void);
 				std::string get_error_message (void);
+			protected:
+				interpreter interpreter_;
+				LIB::NAME_A <std::string, std::string> error;
 		};
 	}
 }

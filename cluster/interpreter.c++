@@ -10,7 +10,7 @@
 //#include <>
 
 #ifndef ENCODING_NAME
-# define ENCODING_NAME (0x0)
+#	define ENCODING_NAME (0x0)
 #endif
 
 LIB::cluster::interpreter::interpreter (void)

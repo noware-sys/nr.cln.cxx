@@ -1,11 +1,11 @@
 #include "memory.h++"
-#include "../network/ip.h++"
+#include "../../network/ip.h++"
 #include <boost/mem_fn.hpp>
 #include <boost/ref.hpp>
 
 //template <typename Value, Key>
 //LIB::Cluster::Memory<Value, Key>::Memory (void)
-LIB::machine::memory::memory (void)
+LIB::cluster::memory::memory (void)
 {
 	//mpi_.tcp.Port (2);
 	//mpi_.udp.Address ("239.255.1.1");
@@ -50,7 +50,7 @@ LIB::machine::memory::memory (void)
 	//listener -> detach ();
 	//receiver -> detach ();
 	
-	timer = new boost::asio::deadline_timer (io);
+	timer = new boost::asio::deadline_timer (io_timer);
 	
 	//listener_broadcast = NULL;
 	//listener_direct = NULL;
@@ -78,7 +78,7 @@ LIB::machine::memory::memory (void)
 	//}
 }
 
-LIB::machine::memory::~memory (void)
+LIB::cluster::memory::~memory (void)
 {
 	running = false;
 
@@ -130,18 +130,18 @@ LIB::machine::memory::~memory (void)
 	}
 	//members.~Members ();
 	
-	//mpi_.receive_async_stop (boost::bind (boost::mem_fn (& LIB::machine::memory::act_direct), this, _1));
-	//mpi_.listen_async_stop (boost::bind (boost::mem_fn (& LIB::machine::memory::act_direct), this, _1));
+	//mpi_.receive_async_stop (boost::bind (boost::mem_fn (& LIB::cluster::memory::act_direct), this, _1));
+	//mpi_.listen_async_stop (boost::bind (boost::mem_fn (& LIB::cluster::memory::act_direct), this, _1));
 }
 
-bool LIB::machine::memory::start (void)
+bool LIB::cluster::memory::start (void)
 {
 	if (! started)
 	{
-		//mpi_.receive_async (& LIB::machine::memory::act_direct);
-		mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::machine::memory::act_direct), this, _1));
-		//mpi_.listen_async (& LIB::::memory::act_broadcast);
-		mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::::memory::act_broadcast), this, _1));
+		//mpi_.receive_async (& LIB::cluster::memory::act_direct);
+		mpi_.receive_async (boost::bind (boost::mem_fn (& LIB::cluster::memory::act_direct), this, _1));
+		//mpi_.listen_async (& LIB::cluster::memory::act_broadcast);
+		mpi_.listen_async (boost::bind (boost::mem_fn (& LIB::cluster::memory::act_broadcast), this, _1));
 		
 		started = true;
 	}
@@ -162,12 +162,12 @@ bool LIB::machine::memory::start (void)
 //	}
 //}
 
-bool LIB::::memory::refresh_local_address (void)
+bool LIB::cluster::memory::refresh_local_address (void)
 {
 	return refresh_local_address (network_device);
 }
 
-bool LIB::::memory::refresh_local_address (const LIB::mathematics::numbers::natural & device)
+bool LIB::cluster::memory::refresh_local_address (const LIB::mathematics::numbers::natural & device)
 {
 	LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> addresses = LIB::network::ip::addresses ();
 	
@@ -181,48 +181,48 @@ bool LIB::::memory::refresh_local_address (const LIB::mathematics::numbers::natu
 	return false;
 }
 
-std::string LIB::::memory::get_local_address (void)
+std::string LIB::cluster::memory::get_local_address (void)
 {
 	return _local_address;
 }
 
-std::string LIB::::memory::refresh_and_get_local_address (void)
+std::string LIB::cluster::memory::refresh_and_get_local_address (void)
 {
 	refresh_local_address ();
 	
 	return _local_address;
 }
 
-std::string LIB::::memory::refresh_and_get_local_address (const LIB::mathematics::numbers::natural & device)
+std::string LIB::cluster::memory::refresh_and_get_local_address (const LIB::mathematics::numbers::natural & device)
 {
 	refresh_local_address (device);
 	
 	return _local_address;
 }
 
-void LIB::::memory::initial_listen (void)
+void LIB::cluster::memory::initial_listen (void)
 {
 	//while (running)
 	//{
 		std::cout << "Memory.cpp: \'initial_listen\': Listening..." << std::endl;
 		//std::cout << "Listening..." << std::endl;
 		//std::cout << "Listening: " << mpi_.Listen () << std::endl;
-		act_broadcast (mpi_.listen ());
+		// act_broadcast (mpi_.listen ());
 	//}
 }
 
-void LIB::::memory::initial_receive (void)
+void LIB::cluster::memory::initial_receive (void)
 {
 	//while (running)
 	//{
 		std::cout << "Memory.cpp: \'initial_receive\': Receiving..." << std::endl;
 		//std::cout << "Receiving: " << mpi_.Receive () << std::endl;
 		//boost::this_thread::interruption_point ();
-		act_direct (mpi_.receive ());
+		// act_direct (mpi_.receive ());
 	//}
 }
 
-void LIB::::memory::dummy (void)
+void LIB::cluster::memory::dummy (void)
 {
 	// Do not do anything.
 	std::cout << "Dummy (Memory.search ()): Done waiting." << std::endl;
@@ -230,7 +230,7 @@ void LIB::::memory::dummy (void)
 
 //template <typename Value, Key>
 //bool LIB::Cluster::Memory<Value, Key>::Search (const Key key, Value & value, std::string & host) const
-bool LIB::::memory::search (const key _key, value & _value, std::string & host)
+bool LIB::cluster::memory::search (const key _key, value & _value, std::string & host)
 {
 	//std::string msg;
 	
@@ -303,17 +303,20 @@ bool LIB::::memory::search (const key _key, value & _value, std::string & host)
 		
 		found [_key] = false;
 		
-		io.reset ();
+		io_timer.reset ();
 		
 		timer -> expires_from_now (boost::posix_time::microseconds (timeout));
-		timer -> async_wait (boost::bind (& LIB::::memory::dummy, this));
+		timer -> async_wait (boost::bind (& LIB::cluster::memory::dummy, this));
 		
 		try
 		{
-			io.run ();
+			std::cout << "'io_timer.run ()' waiting..." << std::endl;
+			io_timer.run ();
+			std::cout << "\t'io_timer.run ()' waited" << std::endl;
 		}
 		catch (...)
 		{
+			std::cout << "\t'io_timer.run ()' (wait) error." << std::endl;
 		}
 		//if (response.empty ())
 		//	return false;
@@ -366,7 +369,7 @@ bool LIB::::memory::search (const key _key, value & _value, std::string & host)
 
 //template <typename Value, Key>
 //bool LIB::Cluster::Memory<Value, Key>::Search (const Key key, Value & value) const
-bool LIB::::memory::search (const key _key, value & _value)
+bool LIB::cluster::memory::search (const key _key, value & _value)
 {
 	std::string host;
 
@@ -375,7 +378,7 @@ bool LIB::::memory::search (const key _key, value & _value)
 
 //template <typename Value, Key>
 //bool LIB::Cluster::Memory<Value, Key>::Search (const Key key) const
-bool LIB::::memory::search (const key _key)
+bool LIB::cluster::memory::search (const key _key)
 {
 	value _value;
 	std::string host;
@@ -385,7 +388,7 @@ bool LIB::::memory::search (const key _key)
 
 //template <typename Value, Key>
 //Value LIB::Cluster::Memory<Value, Key>::Get (const Key key) const
-value LIB::::memory::get (key _key)
+value LIB::cluster::memory::get (key _key)
 {
 /*
 	if (variables.exists (_key))
@@ -418,7 +421,7 @@ value LIB::::memory::get (key _key)
 
 //template <typename Value, Key>
 //void LIB::Cluster::Memory<Value, Key>::Set (const Key key, const Value value)
-bool LIB::::memory::set (key _key, value _value)
+bool LIB::cluster::memory::set (key _key, value _value)
 {
 	// send the value to the member(s) having the variable
 	
@@ -457,7 +460,7 @@ bool LIB::::memory::set (key _key, value _value)
 	}
 }
 
-bool LIB::::memory::unset (const key & _key)
+bool LIB::cluster::memory::unset (const key & _key)
 {
 	if (variables.exists (_key))
 	{
@@ -487,7 +490,7 @@ bool LIB::::memory::unset (const key & _key)
 	}
 }
 
-bool LIB::::memory::rename (const key & current_key, const key & new_key)
+bool LIB::cluster::memory::rename (const key & current_key, const key & new_key)
 {
 	if (variables.exists (current_key))
 	{
@@ -519,7 +522,7 @@ bool LIB::::memory::rename (const key & current_key, const key & new_key)
 
 //template <typename Value, Key>
 //std::string LIB::Cluster::Memory<Value, Key>::Parse (const std::string input, const Content content, Mathematics::Number::Natural requestedDataIndex) const
-std::string LIB::::memory::parse (std::string input, const content _content, const mathematics::numbers::natural requested_data_index)
+std::string LIB::cluster::memory::parse (std::string input, const content _content, const mathematics::numbers::natural requested_data_index)
 {
 	if (input.empty ())
 		return input;
@@ -614,12 +617,12 @@ std::string LIB::::memory::parse (std::string input, const content _content, con
 
 //template <typename Value, Key>
 //void LIB::Cluster::Memory<Value, Key>::ActDirect (const std::string input)
-void LIB::::memory::act_direct (const std::string input)
+void LIB::cluster::memory::act_direct (const std::string input)
 {
 	std::cout << "memory.cpp: act_direct" << std::endl;
 
 	if (running)
-		/*boost::thread * */receiver = new boost::thread (boost::bind (& LIB::::memory::initial_receive, this));
+		/*boost::thread * */receiver = new boost::thread (boost::bind (& LIB::cluster::memory::initial_receive, this));
 	
 	if (input.empty ())
 	{
@@ -700,7 +703,7 @@ void LIB::::memory::act_direct (const std::string input)
 			//	break;
 			//case Action::GOT:	// I have just received some data.
 				data [value] = data_local;
-				io.stop ();
+				io_timer.stop ();
 		}
 
 		//switch (atoi (action.c_str ()))
@@ -734,12 +737,12 @@ void LIB::::memory::act_direct (const std::string input)
 
 //template <typename Value, Key>
 //void LIB::Cluster::Memory<Value, Key>::ActBroadcast (const std::string input)
-void LIB::::memory::act_broadcast (const std::string input)
+void LIB::cluster::memory::act_broadcast (const std::string input)
 {
 	std::cout << "memory.cpp: act_broadcast()" << std::endl;
 	
 	if (running)
-		/*boost::thread * */listener = new boost::thread (boost::bind (& LIB::::memory::initial_listen, this));
+		/*boost::thread * */listener = new boost::thread (boost::bind (& LIB::cluster::memory::initial_listen, this));
 	
 	if (input.empty ())
 	{
@@ -843,14 +846,14 @@ void LIB::Cluster::Memory::List (void)
 */
 
 //// Getter
-//const value & LIB::::memory::operator [] (const key & _key) const
+//const value & LIB::cluster::memory::operator [] (const key & _key) const
 //{
 //	//return const_cast <value &> (get (_key));
 //	return get (_key);
 //}
 //
 //// Setter
-//value &	LIB::::memory::operator [] (const key & _key)
+//value &	LIB::cluster::memory::operator [] (const key & _key)
 //{
 //	value _val;
 //	set (_key, _val);

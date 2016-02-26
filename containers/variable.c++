@@ -3817,8 +3817,8 @@ namespace LIB
 	//	return is;
 	//}
 
-	// Inequality, right-hand side:
-	bool			NAME_V::operator	==	(const NAME_V val)
+	// Equality, right-hand side:
+	bool			NAME_V::operator	==	(const NAME_V & val)
 	{
 		if (_type == val._type)
 		{
@@ -3839,7 +3839,7 @@ namespace LIB
 			return false;
 	}
 
-	bool			NAME_V::operator	==	(const bool val)
+	bool			NAME_V::operator	==	(const bool & val)
 	{
 		//switch (_type)
 		//{
@@ -3862,67 +3862,67 @@ namespace LIB
 		//	return false;
 	}
 
-	bool			NAME_V::operator	==	(const signed short int val)
+	bool			NAME_V::operator	==	(const signed short int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const unsigned short int val)
+	bool			NAME_V::operator	==	(const unsigned short int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const signed int val)
+	bool			NAME_V::operator	==	(const signed int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const unsigned int val)
+	bool			NAME_V::operator	==	(const unsigned int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const signed long int val)
+	bool			NAME_V::operator	==	(const signed long int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const unsigned long int val)
+	bool			NAME_V::operator	==	(const unsigned long int & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const mathematics::numbers::integer val)
+	bool			NAME_V::operator	==	(const mathematics::numbers::integer & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const mathematics::numbers::natural val)
+	bool			NAME_V::operator	==	(const mathematics::numbers::natural & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const float val)
+	bool			NAME_V::operator	==	(const float & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const double val)
+	bool			NAME_V::operator	==	(const double & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
 	}
 
-	bool			NAME_V::operator	==	(const mathematics::numbers::real val)
+	bool			NAME_V::operator	==	(const mathematics::numbers::real & val)
 	{
 		return *this == (NAME_V) val;
 		//switch (_type)
@@ -3943,7 +3943,7 @@ namespace LIB
 		//	return false;
 	}
 
-	bool			NAME_V::operator	==	(const char val)
+	bool			NAME_V::operator	==	(const char & val)
 	{
 		return *this == (NAME_V) val;
 		//return *this == (mathematics::numbers::real) val;
@@ -4007,7 +4007,7 @@ namespace LIB
 	//	}
 	//}
 	
-	bool			NAME_V::operator	==	(const ::std::string val)
+	bool			NAME_V::operator	==	(const ::std::string & val)
 	{
 		return *this == (NAME_V) val;
 		//switch (_type)
@@ -4028,6 +4028,217 @@ namespace LIB
 
 	}
 
+	// Equality, right-hand side, constant:
+	bool			NAME_V::operator	==	(const NAME_V & val) const
+	{
+		if (_type == val._type)
+		{
+			switch (_type) // ...or val._type.
+			{
+				case type::NUMERIC:
+					return value.numeric == val.value.numeric;
+				default:
+					return value.Generic == val.value.Generic;
+			}
+		}
+		//else if (_type == GENERIC)
+		//	if (is_numeric (value.Generic))
+		//		;
+		//else if (other._type == GENERIC)
+		//	;
+		else
+			return false;
+	}
+
+	bool			NAME_V::operator	==	(const bool & val) const
+	{
+		//switch (_type)
+		//{
+		////case type::BOOLEAN:
+		//	//return btos (value.Boolean) == val;	// Capitalization matters.
+		////	return value.Boolean == stob (val);
+		//case type::NUMERIC:
+		//	return value.numeric == val;
+		//default:
+		//	//return value.Generic == val;
+		//	return false;
+		//}
+
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+
+		//if (_type == GENERIC)
+		//	return value.Generic == val;
+		//else
+		//	return false;
+	}
+
+	bool			NAME_V::operator	==	(const signed short int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const unsigned short int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const signed int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const unsigned int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const signed long int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const unsigned long int & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const mathematics::numbers::integer & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const mathematics::numbers::natural & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const float & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const double & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+	}
+
+	bool			NAME_V::operator	==	(const mathematics::numbers::real & val) const
+	{
+		return *this == (NAME_V) val;
+		//switch (_type)
+		//{
+		//	//case type::BOOLEAN:
+		//		//return btos (value.Boolean) == val;	// Capitalization matters.
+		//	//	return value.Boolean == stob (val);
+		//	case type::NUMERIC:
+		//		return value.numeric == val;
+		//	default:
+		//		//return value.Generic == val;
+		//		return false;
+		//}
+
+		//if (_type == GENERIC)
+		//	return value.Generic == val;
+		//else
+		//	return false;
+	}
+
+	bool			NAME_V::operator	==	(const char & val) const
+	{
+		return *this == (NAME_V) val;
+		//return *this == (mathematics::numbers::real) val;
+
+		//switch (_type)
+		//{
+		//case type::NUMERIC:
+		//	return value.numeric == val;
+		//default:
+		//	if (value.Generic.length () == 1)
+		//		return value.Generic [0] == val;
+		//	else
+		//		return false;
+		//}
+	}
+	
+	bool			NAME_V::operator	==	(const char val []) const
+	{
+		return *this == (std::string) val;
+		//return *this == (mathematics::numbers::real) val;
+
+		//switch (_type)
+		//{
+		//case type::NUMERIC:
+		//	return value.numeric == val;
+		//default:
+		//	if (value.Generic.length () == 1)
+		//		return value.Generic [0] == val;
+		//	else
+		//		return false;
+		//}
+	}
+
+	//bool			NAME_V::operator	==	(const signed char val)
+	//{
+	//	switch (_type)
+	//	{
+	//	case type::NUMERIC:
+	//		return value.numeric == val;
+	//	default:
+	//		if (value.Generic.length () == 1)
+	//			return value.Generic [0] == val;
+	//		else
+	//			return false;
+	//	}
+	//}
+
+	//bool			NAME_V::operator	==	(const unsigned char val)
+	//{
+	//	//return *this == (mathematics::numbers::real) val;
+
+	//	switch (_type)
+	//	{
+	//	case type::NUMERIC:
+	//		return value.numeric == val;
+	//	default:
+	//		if (value.Generic.length () == 1)
+	//			return value.Generic [0] == val;
+	//		else
+	//			return false;
+	//	}
+	//}
+	
+	bool			NAME_V::operator	==	(const ::std::string & val) const
+	{
+		return *this == (NAME_V) val;
+		//switch (_type)
+		//{
+		////case type::BOOLEAN:
+		//	//return btos (value.Boolean) == val;	// Capitalization matters.
+		////	return value.Boolean == stob (val);
+		//case type::NUMERIC:
+		//	return LIB::string (value.numeric) == val;
+		//default:
+		//	return value.Generic == val;
+		//}
+
+		//if (_type == GENERIC)
+		//	return value.Generic == val;
+		//else
+		//	return false;
+
+	}
+	
 	// Equality, left-hand side:
 
 	//bool			operator	==	(const NAME_V val1, const NAME_V val2)
@@ -4035,67 +4246,67 @@ namespace LIB
 	//	return val2 == val1;
 	//}
 
-	bool			operator	==	(const bool val1, NAME_V val2)
+	bool			operator	==	(const bool & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const signed short int val1, NAME_V val2)
+	bool			operator	==	(const signed short int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const unsigned short int val1, NAME_V val2)
+	bool			operator	==	(const unsigned short int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const signed int val1, NAME_V val2)
+	bool			operator	==	(const signed int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const unsigned int val1, NAME_V val2)
+	bool			operator	==	(const unsigned int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const signed long int val1, NAME_V val2)
+	bool			operator	==	(const signed long int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const unsigned long int val1, NAME_V val2)
+	bool			operator	==	(const unsigned long int & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const mathematics::numbers::integer val1, NAME_V val2)
+	bool			operator	==	(const mathematics::numbers::integer & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const mathematics::numbers::natural val1, NAME_V val2)
+	bool			operator	==	(const mathematics::numbers::natural & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const float val1, NAME_V val2)
+	bool			operator	==	(const float & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const double val1, NAME_V val2)
+	bool			operator	==	(const double & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool			operator	==	(const mathematics::numbers::real val1, NAME_V val2)
+	bool			operator	==	(const mathematics::numbers::real & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
 
-	bool				operator	==	(const char val1, NAME_V val2)
+	bool				operator	==	(const char & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}
@@ -4110,7 +4321,7 @@ namespace LIB
 	//	return val2 == val1;
 	//}
 
-	bool				operator	==	(const ::std::string val1, NAME_V val2)
+	bool				operator	==	(const ::std::string & val1, const NAME_V & val2)
 	{
 		return val2 == val1;
 	}

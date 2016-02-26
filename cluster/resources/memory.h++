@@ -26,12 +26,12 @@
 #include <Poco/Util/TimerTaskAdapter.h>
 */
 
-#include "../default.h++"
-#include "../containers/array.h++"
-#include "../containers/variable.h++"
+#include "../../default.h++"
+#include "../../containers/array.h++"
+#include "../../containers/variable.h++"
 //#include "../network/peers.h++"
-#include "../mathematics.h++"
-#include "../network/messaging.h++"
+#include "../../mathematics.h++"
+#include "../../network/mpi.h++"
 //#include "../network/ip.h++"
 //#include "../threads.h++"
 
@@ -39,154 +39,155 @@ typedef std::string value, key;
 
 namespace LIB
 {
-	namespace machine
+	namespace cluster
 	{
-		//template <typename Value = std::string, Key = std::string>
-		class memory
-		{
-			public:
-				//typedef std::string value, key;
+		//public:
+			//template <typename Value = std::string, Key = std::string>
+			class memory
+			{
+				public:
+					//typedef std::string value, key;
 				
-				/*
-				class new_connection : public Poco::Net::TCPServerConnection
-				{
-					public:
-						new_connection (const Poco::Net::StreamSocket & s) : Poco::Net::TCPServerConnection (s)
-						{
-						}
-
-						void run ()
-						{
-							std::cout << "New connection from: " << socket ().peerAddress ().host ().toString () << std::endl << std::flush;
-							bool isOpen = true;
-							Poco::Timespan timeOut (10, 0);
-							unsigned char incommingBuffer [1000];
-					
-							while (isOpen)
+					/*
+					class new_connection : public Poco::Net::TCPServerConnection
+					{
+						public:
+							new_connection (const Poco::Net::StreamSocket & s) : Poco::Net::TCPServerConnection (s)
 							{
-								if (socket ().poll (timeOut, Poco::Net::Socket::SELECT_READ) == false)
-								{
-									std::cout << "TIMEOUT!" << std::endl << std::flush;
-								}
-								else
-								{
-									std::cout << "RX EVENT!!! ---> " << std::flush;
-									int nBytes = -1;
+							}
 
-									try
+							void run ()
+							{
+								std::cout << "New connection from: " << socket ().peerAddress ().host ().toString () << std::endl << std::flush;
+								bool isOpen = true;
+								Poco::Timespan timeOut (10, 0);
+								unsigned char incommingBuffer [1000];
+					
+								while (isOpen)
+								{
+									if (socket ().poll (timeOut, Poco::Net::Socket::SELECT_READ) == false)
 									{
-										nBytes = socket ().receiveBytes (incommingBuffer, sizeof (incommingBuffer));
-									}
-									catch (Poco::Exception & exc)
-									{
-										//Handle your network errors.
-										std::cerr << "Network error: " << exc.displayText () << std::endl;
-										isOpen = false;
-									}
-
-									if (nBytes == 0)
-									{
-										std::cout << "Client closes connection!" << std::endl << std::flush;
-										isOpen = false;
+										std::cout << "TIMEOUT!" << std::endl << std::flush;
 									}
 									else
 									{
-										std::cout << "Receiving nBytes: " << nBytes << std::endl << std::flush;
+										std::cout << "RX EVENT!!! ---> " << std::flush;
+										int nBytes = -1;
+
+										try
+										{
+											nBytes = socket ().receiveBytes (incommingBuffer, sizeof (incommingBuffer));
+										}
+										catch (Poco::Exception & exc)
+										{
+											//Handle your network errors.
+											std::cerr << "Network error: " << exc.displayText () << std::endl;
+											isOpen = false;
+										}
+
+										if (nBytes == 0)
+										{
+											std::cout << "Client closes connection!" << std::endl << std::flush;
+											isOpen = false;
+										}
+										else
+										{
+											std::cout << "Receiving nBytes: " << nBytes << std::endl << std::flush;
+										}
 									}
 								}
+
+								std::cout << "Connection finished!" << std::endl << std::flush;
 							}
+					};
+					*/
+				/*
+					To do:
 
-							std::cout << "Connection finished!" << std::endl << std::flush;
-						}
-				};
+					Allow variables to be found when not all nodes are interconnected (re-broadcast).
 				*/
-			/*
-				To do:
+				protected:
+				
+					// General format of an request message:	Delimiter + IP + ActionDelimiter	+ Action	+	Delimiter	+	Data (Message)	+ Delimiter
+					// General format of a response message:	Delimiter + IP									+	Delimiter	+	Data (Response)	+ Delimiter
+					
+					enum class content {ADDRESS, ACTION, DATA};
+					enum class action {ASK, ANSWER, GET, GOT, SET, UNSET, EXISTS, RENAME};
+					//bool copy;
+					boost::asio::io_service io, io_timer;
+					boost::asio::deadline_timer * timer;
+				
+					boost::thread * listener, * receiver;
+				
+					// Used when searching for data:
+					NAME_A <value, std::string> data;
+					NAME_A <bool, std::string> found;
+				
+					std::string delimiter;	// Delimits parts of the request message 
+					std::string action_delimiter;	// Delimits parts of the response message 
+					//std::string partner;	// Only valid and only used when "copy == true", as this variable holds the localhost's redundant host to pair with.
+					LIB::NAME_A <value, key> variables;
+					//LIB::NAME_A<LIB::NAME_A<std::string, Mathematics::Number::Natural>/*Value*/, Mathematics::Number::Natural/*Key*/> redundancyGroups, stripedGroups;
+				
+					bool started;
+					//boost::thread * listener_broadcast;
+					//boost::thread * listener_direct;
+				
+					void initial_listen (void);
+					void initial_receive (void);
+				
+					//LIB::Cluster::Members members;
+					
+					std::string parse (std::string/*Message*/, const content/*What is being asked*/, const mathematics::numbers::natural = 0/*Data index*/);	// Parse the message.
+				public:
+					void act_direct (std::string);
+					void act_broadcast (std::string);
+				protected:
+					void dummy (void);	// Used by the timer.
+					bool running;
+				
+					//threads listeners;
+					std::string _local_address;
+				public:
+					LIB::network::mpi mpi_;
+					//LIB::Cluster::Peers peers;
+				
+					mathematics::numbers::natural timeout;	// In microseconds (1 �s = 0.000 001 s).
+					mathematics::numbers::natural network_device;
+					//float timeout;
+				
+					memory (void);
+					~memory (void);
+					// General purpose functions:
+					// Functions which provide communication with the purpose of organizing nodes:
+					// Functions which provide communication with the purpose of working with data:
+				//	void Broadcast (void);	// Notifies peers of a change in the memory (variable).
+					//bool/*Success/Failure*/ Synchronize (const NAME_V/*One variable in memory.*/);
+				
+					bool start (void);
+				
+					//Value & operator [] (const Key &);
+					bool search (const key);
+					bool search (const key, value &);
+					bool search (const key, value &, std::string &/*IP address of the host which has the variable.*/);
 
-				Allow variables to be found when not all nodes are interconnected (re-broadcast).
-			*/
-			protected:
-				
-				// General format of an request message:	Delimiter + IP + ActionDelimiter	+ Action	+	Delimiter	+	Data (Message)	+ Delimiter
-				// General format of a response message:	Delimiter + IP									+	Delimiter	+	Data (Response)	+ Delimiter
-				
-				enum class content {ADDRESS, ACTION, DATA};
-				enum class action {ASK, ANSWER, GET, GOT, SET, UNSET, EXISTS, RENAME};
-				//bool copy;
-				boost::asio::io_service io;
-				boost::asio::deadline_timer * timer;
-				
-				boost::thread * listener, * receiver;
-				
-				// Used when searching for data:
-				NAME_A <value, std::string> data;
-				NAME_A <bool, std::string> found;
-				
-				std::string delimiter;	// Delimits parts of the request message 
-				std::string action_delimiter;	// Delimits parts of the response message 
-				//std::string partner;	// Only valid and only used when "copy == true", as this variable holds the localhost's redundant host to pair with.
-				LIB::NAME_A <value, key> variables;
-				//LIB::NAME_A<LIB::NAME_A<std::string, Mathematics::Number::Natural>/*Value*/, Mathematics::Number::Natural/*Key*/> redundancyGroups, stripedGroups;
-				
-				bool started;
-				//boost::thread * listener_broadcast;
-				//boost::thread * listener_direct;
-				
-				void initial_listen (void);
-				void initial_receive (void);
-				
-				//LIB::Cluster::Members members;
-				
-				std::string parse (std::string/*Message*/, const content/*What is being asked*/, const mathematics::numbers::natural = 0/*Data index*/);	// Parse the message.
-			public:
-				void act_direct (std::string);
-				void act_broadcast (std::string);
-			protected:
-				void dummy (void);	// Use by the timer.
-				bool running;
-				
-				//threads listeners;
-				std::string _local_address;
-			public:
-				LIB::network::mpi mpi_;
-				//LIB::Cluster::Peers peers;
-				
-				mathematics::numbers::natural timeout;	// In microseconds (1 �s = 0.000 001 s).
-				mathematics::numbers::natural network_device;
-				//float timeout;
-				
-				memory (void);
-				~memory (void);
-				// General purpose functions:
-				// Functions which provide communication with the purpose of organizing nodes:
-				// Functions which provide communication with the purpose of working with data:
-			//	void Broadcast (void);	// Notifies peers of a change in the memory (variable).
-				//bool/*Success/Failure*/ Synchronize (const NAME_V/*One variable in memory.*/);
-				
-				bool start (void);
-				
-				//Value & operator [] (const Key &);
-				bool search (const key);
-				bool search (const key, value &);
-				bool search (const key, value &, std::string &/*IP address of the host which has the variable.*/);
+					value get (key);
+					bool set (key, value);
 
-				value get (key);
-				bool set (key, value);
+					bool unset (const key &);
+					bool rename (const key &, const key &);
 
-				bool unset (const key &);
-				bool rename (const key &, const key &);
+					//const value & operator [] (const key &) const;	// Getter
+					//value &	operator [] (const key &);				// Setter
 
-				//const value & operator [] (const key &) const;	// Getter
-				//value &	operator [] (const key &);				// Setter
-
-				//Mathematics::Number::Natural Size (void) const;
-				//void List (void);
-				bool refresh_local_address (const LIB::mathematics::numbers::natural &/* network_device*/);
-				bool refresh_local_address (void);
-				std::string get_local_address (void);
-				std::string refresh_and_get_local_address (const LIB::mathematics::numbers::natural &/* network_device*/);
-				std::string refresh_and_get_local_address (void);
-		};
+					//Mathematics::Number::Natural Size (void) const;
+					//void List (void);
+					bool refresh_local_address (const LIB::mathematics::numbers::natural &/* network_device*/);
+					bool refresh_local_address (void);
+					std::string get_local_address (void);
+					std::string refresh_and_get_local_address (const LIB::mathematics::numbers::natural &/* network_device*/);
+					std::string refresh_and_get_local_address (void);
+			};
 	}
 }
 

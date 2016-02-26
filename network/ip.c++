@@ -132,6 +132,8 @@ LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB:
 	int family, s/*, n*/;
 	char host [NI_MAXHOST];
 	
+	//address adr;
+	
 	//std::cout << "Trying to get network devices:" << std::endl;
 	
 	if (getifaddrs (&ifaddr) == 0)
@@ -156,6 +158,7 @@ LIB::NAME_A <LIB::network::ip::address, LIB::mathematics::numbers::natural> LIB:
 				if (s == 0)
 				{
 					addresses_ [i] = host;
+					//adr = host;
 					++ i;
 				}
 				//else

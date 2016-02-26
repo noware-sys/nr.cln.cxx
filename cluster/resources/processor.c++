@@ -286,7 +286,7 @@ LIB::cluster::processor::processor (const bool & run_)
 
 	LIB::cluster::processor::process temp_platform;
 	mathematics::numbers::natural n;
-	n = 
+	n =
 			////omp_get_num_procs ()
 			boost::thread::hardware_concurrency ()
 			//1

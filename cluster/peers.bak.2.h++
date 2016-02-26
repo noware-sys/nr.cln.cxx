@@ -36,33 +36,6 @@ namespace LIB
 		class peers
 		{
 			public:
-				class peer
-				{
-					public:
-						class processors
-						{
-							public:
-								processors (void);
-								LIB::mathematics::numbers::natural total (void);
-								LIB::mathematics::numbers::natural generic (void);
-								LIB::mathematics::numbers::natural imaging (void);
-							protected:
-								LIB::mathematics::numbers::natural _central, _imaging, _total;
-						};
-					public:
-					
-						class resource
-						{
-								processors cpus;
-						};
-						
-						std::string address/*, mac*/;
-						
-						peer (void);
-						//peer (const peer &);
-						//~peer (void);
-				};
-				
 				class delays
 				{
 					public:
@@ -81,7 +54,7 @@ namespace LIB
 				peers (void);
 				
 			protected:
-				LIB::NAME_A <peer, LIB::mathematics::numbers::natural> peers;
+				LIB::NAME_A <peer/*, LIB::mathematics::numbers::natural*/> peers;
 				
 				void listen (const std::string &/* message*/);
 				void request (void);

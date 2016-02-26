@@ -78,9 +78,9 @@ namespace LIB
 			class package
 			{
 				public:
-					key ky;
+					key k;
 					//value * val;
-					value val;
+					value v;
 					//value v;
 					
 					package ();
@@ -167,7 +167,7 @@ namespace LIB
 				"Do you accept adding a new item if it does not exist?"
 				
 				In "rename (...)":
-				"Do you accept to overwrite an existing value if the index exists?"
+				"Do you accept to overwrite an existing value if the provided index exists?"
 				
 				The default is to be true.
 			*/
@@ -211,7 +211,7 @@ namespace LIB
 			bool clear (void);	// Remove all the elements from the container.
 			bool unset (const key &);	// Removes the element specified by that key, if it exists.
 			bool rename (const key &/* Current name. */, const key &/* New name. */, const bool &/* tolerant*/);	// Renames an existing element.
-			bool rename (const key &/* Current name. */, const key &/* New name. */);	// Renames an existing element.
+			bool rename (const key &/* Current name. */, const key &/* New name. */);	// Renames an existing element, using the default value for "tolerant".
 			NAME_A <value, key> & operator = (const NAME_A <value, key> &);
 			//void Set (LIB::Mathematics::Number::Natural, bool = false);
 			
