@@ -12,17 +12,18 @@ const std::string noware::computer::query_sql_initial = //"";
 			-- drop table if exists entity;\
 			create table if not exists entity\
 			(\
-				 id 						none null default null,	-- group id\
+				 \"group\" 						none null default null,	-- group id\
 				 \
-				\"key: type\" 		none null default null,\
-				 key 						none null default null,	-- name key\
+				\"name: type\" 		none null default null,\
+				 name 						none null default null,	-- name key\
 				 \
-				\"value: type\"		none null default null,\
-				 value 					none null default null	-- content value\
+				\"content: type\"		none null default null,\
+				 content 					none null default null	-- content value\
 			);\
 			\
+			-- (compound key) id[entification] uni[queness] element/entry/row /entity\
 			-- drop index if exists \"entity: id\";\
-			create unique index if not exists \"entity: id\" on entity (id, key);\
+			create unique index if not exists \"entity: id\" on entity (\"group\", name);\
 			\
 			commit transaction;\
 			"
@@ -31,9 +32,9 @@ const std::string noware::computer::query_sql_initial = //"";
 noware::computer::computer (void)
 {
 	//std::cout << "memory.query: " << 
-	if (memory.connect ("science.db"))
+	if (science.connect ("science.db"))
 	{
-		memory.query (query_sql_initial);
+		science.query (query_sql_initial);
 		//memory.query (sql1);
 		/*
 		(

@@ -118,6 +118,7 @@ namespace noware
 				typedef cln::cl_DF double_float, dfloat, df;
 				typedef cln::cl_LF long_float, lfloat, lf;
 				
+				/*
 				#include ".number/rule.hxx"
 				
 				#include ".number/constructor.hxx"
@@ -138,6 +139,8 @@ namespace noware
 				#include ".number/modulo.hxx"
 				
 				#include ".number/special.hxx"
+				*/
+				#include ".number/*.hxx"
 				
 				template <typename archive>
 				void serialize (archive &, const unsigned int &);

@@ -39,31 +39,31 @@
 //#include "../cluster/members.h++"
 ////#include "../cluster.h++"
 //#include "network.h++"
-#include ".machine/header.hxx"
+//#include ".machine/header.hxx"
 //
 ////#ifndef NTT
 ////	#define NTT entity
 ////#endif
 
-namespace LIB
+namespace noware
 {
-	// computer machine robot
+	// calculator computer machine robot
 	// device
 	class machine
 	{
 		/*
-			Resource Sharing
-			Virtual Machine
-			Logic
+			Resource Sharing (Server)
+			Virtual Machine (Client)
+			Logic (Applied Usage)
 		*/
 		
 		public:
-			#include ".machine/*.hxx"
+			//#include ".machine/*.hxx"
 			
 			machine (void);
 			~machine (void);
 			
-			// do evaluate compute solve perform process execute query enqueue go ok request demand command input
+			// do evaluate calculate compute solve perform process execute query enqueue go ok request demand command input
 			//const LIB::containers::NAME_V query (const LIB::containers::NAME_V &);
 			//const bool evaluate (const LIB::containers::NAME_V &);
 		//	const LIB::container::NAME_V evaluate (const LIB::container::NAME_V &);
@@ -83,3 +83,4 @@ namespace LIB
 }
 
 //#include ".machine/footer.hxx"
+

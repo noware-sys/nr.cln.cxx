@@ -5,6 +5,7 @@
 
 #include "number.hxx"
 
+/*
 #include ".number/rule.cxx"
 
 #include ".number/constructor.cxx"
@@ -25,6 +26,8 @@
 #include ".number/modulo.cxx"
 
 #include ".number/special.cxx"
+*/
+#include ".number/*.cxx"
 
 template <typename archive> 
 void noware::number::serialize (archive & arch, const unsigned int & version)

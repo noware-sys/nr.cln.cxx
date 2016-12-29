@@ -1,11 +1,12 @@
 #include "machine.hxx"
-#include ".machine/*.cxx"
 
-LIB::machine::machine (void)
+//#include ".machine/*.cxx"
+
+noware::machine::machine (void)
 {
 }
 
-LIB::machine::~machine (void)
+noware::machine::~machine (void)
 {
 }
 
@@ -13,3 +14,4 @@ LIB::machine::~machine (void)
 //{
 //	return "";
 //}
+

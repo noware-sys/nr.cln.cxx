@@ -4,10 +4,11 @@
 	JavaScript Object Style Notation.
 	
 	? Uniqueness == Name + Type
-		The type could be determined by the context.
+	?	Should the type be determined by the context?
 	
 	Type hinting.
 */
+
 /*
 	Basic things.
 	{
@@ -20,7 +21,7 @@
 	{}[;]		Scope Declaration
 	:: 			Scope Resulution
 	
-	!Without References! (Like * or &)
+	!Without References (Pointers)! (Like * or &)
 	
 	///
 	
@@ -47,7 +48,13 @@
 	variable
 	=
 	==
-	===	(Like in PHP)
+	===	((Also compare the type?) Like in PHP)
+*/
+
+/*
+	/*
+		Nested comments, like this one, should be valid.
+	*/
 */
 
 /*
