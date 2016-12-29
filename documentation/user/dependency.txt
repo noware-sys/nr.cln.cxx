@@ -1,0 +1,6 @@
+Packages:
+	boost
+	boost-libs
+
+libboost/ contains required libraries for building for Windows.
+

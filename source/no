@@ -1,0 +1,9 @@
+#pragma once
+
+#include "number"
+
+namespace noware
+{
+	typedef number no;
+}
+

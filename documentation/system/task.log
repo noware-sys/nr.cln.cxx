@@ -1,0 +1,23 @@
+(re)name "recursve array" -> "set"
+move container/db/sql/* one directory upwards (container/db/*)
+move container/* one directory upwards (./*)
+-move net/node/path to net/path ?
+move math::number to ./number
+? create container/db/(text|string), based on an in-memory database
+possible? merge net/_mpi into net/mpi
+any
+-? recursive array -> matrix
+? set
+~entity
+-object
+text
+-string
+computer
+-ai
+Rename file extensions from h++/c++ to hxx/cxx.
+	change extension ++ to xx
+? Rename Linux executables from 'act' to 'elf'.
+
+-? Rename computer -> pc/ai
+-? Rename net: transmit -> tx, receive -> rx
+

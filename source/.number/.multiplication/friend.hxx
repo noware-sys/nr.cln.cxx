@@ -1,0 +1,27 @@
+//friend const number operator * (const text &, const number &);
+friend const number operator * (const std::string &, const number &);
+friend const number operator * (const char [], const number &);
+//friend const number operator * (const signed char [], const number &);
+//friend const number operator * (const unsigned char [], const number &);
+friend const number operator * (const char &, const number &);
+//friend const number operator * (const signed char &, const number &);
+//friend const number operator * (const unsigned char &, const number &);
+friend const number operator * (const cln::cl_N &, const number &);
+friend const number operator * (const cln::cl_RA &, const number &);
+friend const number operator * (const cln::cl_I &, const number &);
+friend const number operator * (const cln::cl_SF &, const number &);
+friend const number operator * (const cln::cl_FF &, const number &);
+friend const number operator * (const cln::cl_DF &, const number &);
+friend const number operator * (const cln::cl_LF &, const number &);
+friend const number operator * (const long double &, const number &);
+friend const number operator * (const double &, const number &);
+friend const number operator * (const float &, const number &);
+friend const number operator * (const signed long long int &, const number &);
+friend const number operator * (const unsigned long long int &, const number &);
+friend const number operator * (const signed long int &, const number &);
+friend const number operator * (const unsigned long int &, const number &);
+friend const number operator * (const signed int &, const number &);
+friend const number operator * (const unsigned int &, const number &);
+friend const number operator * (const signed short int &, const number &);
+friend const number operator * (const unsigned short int &, const number &);
+

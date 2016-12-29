@@ -1,0 +1,11 @@
+A C++ library.
+
+Notable components:
+	any (not a true any! can contain only a string or a number at any time)
+	array<> (a templated, associative, single-dimensional, and dynamically-allocated array)
+	matrix<> (a templated, recursive (multi-dimensional), associative, and dynamically-allocated array; like a JSON object)
+	db::sqlite (an SQLite 3 wrapper)
+	net::cluster (a manager of a list of network nodes)
+	computer (an AI)
+	machine (a VM hypervisor)
+

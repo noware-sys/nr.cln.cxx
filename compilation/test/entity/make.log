@@ -1,0 +1,1044 @@
+if test ! -f main.do;\
+then \
+	#cc container-variable.obj tool.obj; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.do container-variable.obj tool.obj; \
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.obj -c main.c++; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o mathematics.obj -c /root/Documents/C++/NoWare/noware/mathematics.c++; \
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o tool.obj -c /root/Documents/C++/NoWare/noware/tool.c++; \
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o container-variable.obj -c /root/Documents/C++/NoWare/noware/container/variable.c++ ; \
+	\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.do main.obj container-variable.obj tool.obj; \
+fi
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++:130:3: warning: "/*" within comment [-Wcomment]
+  //* v;
+   ^
+/root/Documents/C++/NoWare/noware/container/array.t++:144:3: warning: "/*" within comment [-Wcomment]
+  //* val = value_temp;
+   ^
+/root/Documents/C++/NoWare/noware/container/array.t++:146:2: warning: "/*" within comment [-Wcomment]
+  /*
+  ^
+/root/Documents/C++/NoWare/noware/container/array.t++:243:3: warning: "/*" within comment [-Wcomment]
+   /*
+   ^
+/root/Documents/C++/NoWare/noware/container/array.t++:305:10: warning: "/*" within comment [-Wcomment]
+    return/* false* /;
+          ^
+/root/Documents/C++/NoWare/noware/container/array.t++:308:14: warning: "/*" within comment [-Wcomment]
+   //while (! /*i* /archive.eof ())
+              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:311:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> k;
+      ^
+/root/Documents/C++/NoWare/noware/container/array.t++:312:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> v;
+      ^
+/root/Documents/C++/NoWare/noware/container/array.t++:315:11: warning: "/*" within comment [-Wcomment]
+     return/* false* /;
+           ^
+/root/Documents/C++/NoWare/noware/container/array.t++:356:63: warning: "/*" within comment [-Wcomment]
+ LIB::container::NAME_A <value, key>::NAME_A (const value & lmn/* eLeMeNt * /)
+                                                               ^
+/root/Documents/C++/NoWare/noware/container/array.t++:518:4: warning: "/*" within comment [-Wcomment]
+    /*
+    ^
+/root/Documents/C++/NoWare/noware/container/array.t++:548:39: warning: "/*" within comment [-Wcomment]
+   for (key i = 1; i <= this -> size ()/* && i < ULLONG_MAX* /; ++ i)
+                                       ^
+/root/Documents/C++/NoWare/noware/container/array.t++:556:7: warning: "/*" within comment [-Wcomment]
+     ///*return * /set (i, value_);
+       ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1485:82: warning: "/*" within comment [-Wcomment]
+ LIB::container::NAME_A::iterator LIB::container::NAME_A <value, key>::reset (void/*const iterator & it* /) const
+                                                                                  ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++:217:33: warning: "/*" within comment [-Wcomment]
+   grp.operator [] (element.k) = /*ntt = * /new NTT <value, key> (element.v);
+                                 ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:219:6: warning: "/*" within comment [-Wcomment]
+   ////* ntt = /*(LIB::container::NTT) * /element.v;
+      ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:219:15: warning: "/*" within comment [-Wcomment]
+/root/Documents/C++/NoWare/noware/container/entity.t++:480:2: warning: "/*" within comment [-Wcomment]
+  /*
+  ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:37:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../serialization.h++:23:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool deserialize (const std::string &, type &);
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/container/../serialization.h++:39:0,
+                 from /root/Documents/C++/NoWare/noware/container/variable.h++:37,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:68:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::deserialize (const std::string & serial, type & object)
+                                                                       ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:38:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../tool.h++:24:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:25:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_number (const std::string &);
+                                            ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:38:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../tool.h++:61:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:67:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:102:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:106:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:107:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:110:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:111:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+In file included from main.c++:29:0:
+/root/Documents/C++/NoWare/noware/container/variable.h++:83:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:87:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:108:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const type determine (const std::string &) const;
+                                               ^
+In file included from main.c++:29:0:
+/root/Documents/C++/NoWare/noware/container/variable.h++:164:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty  (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:165:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_string (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:166:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_text (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:167:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_generic (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:168:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_numeric (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:169:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_number (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:475:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:476:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:478:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const signed short int &);
+                                                       ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:517:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:518:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:824:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V);
+                                            ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:825:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V) const;
+                                              ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:11:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.h++:96:59: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool operator == (const container &/* other*/) const;
+                                                           ^
+/root/Documents/C++/NoWare/noware/container/array.h++:97:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool operator == (const value &/* other*/) const;
+                                                       ^
+/root/Documents/C++/NoWare/noware/container/array.h++:102:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/container/array.h++:144:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search (const key &, value *&) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/container/array.h++:145:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search_key (const key &, key *&) const;
+                                                ^
+/root/Documents/C++/NoWare/noware/container/array.h++:150:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool insert (const key &, /*const */value *&); // Add a new element.
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:11:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.h++:219:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exists (const key &) const; // Determines if the element exists named by the key provided.
+                                    ^
+/root/Documents/C++/NoWare/noware/container/array.h++:220:35: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exist (const key &) const; // Determines if the elements exist named by the keys provided.
+                                   ^
+/root/Documents/C++/NoWare/noware/container/array.h++:222:27: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool full (void) const;
+                           ^
+/root/Documents/C++/NoWare/noware/container/array.h++:224:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty (void) const;
+                            ^
+/root/Documents/C++/NoWare/noware/container/array.h++:225:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator == (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/container/array.h++:226:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator != (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/container/array.h++:236:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &);
+                                 ^
+/root/Documents/C++/NoWare/noware/container/array.h++:238:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &, key &);
+                                        ^
+/root/Documents/C++/NoWare/noware/container/array.h++:240:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const NAME_A <value, key> &);
+                                               ^
+/root/Documents/C++/NoWare/noware/container/array.h++:243:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &);
+                                    ^
+/root/Documents/C++/NoWare/noware/container/array.h++:245:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &, key &);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/array.h++:247:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const NAME_A <value, key> &);
+                                                  ^
+/root/Documents/C++/NoWare/noware/container/array.h++:273:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool set (const key &, const value &); // Adds a new element.
+                                              ^
+/root/Documents/C++/NoWare/noware/container/array.h++:275:26: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool clear (void); // Remove all the elements from the container.
+                          ^
+/root/Documents/C++/NoWare/noware/container/array.h++:276:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool unset (const key &); // Removes the element specified by that key, if it exists.
+                                 ^
+/root/Documents/C++/NoWare/noware/container/array.h++:277:106: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */, const bool/* tolerant*/); // Renames an existing element.
+                                                                                                          ^
+/root/Documents/C++/NoWare/noware/container/array.h++:278:81: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */); // Renames an existing element, using the default value for "tolerant".
+                                                                                 ^
+/root/Documents/C++/NoWare/noware/container/array.h++:312:37: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &);
+                                     ^
+/root/Documents/C++/NoWare/noware/container/array.h++:313:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &, key &);
+                                            ^
+/root/Documents/C++/NoWare/noware/container/array.h++:314:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool dequeue (void);
+                            ^
+/root/Documents/C++/NoWare/noware/container/array.h++:321:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &);
+                                  ^
+/root/Documents/C++/NoWare/noware/container/array.h++:322:41: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &, key &);
+                                         ^
+/root/Documents/C++/NoWare/noware/container/array.h++:323:24: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool pop (void);
+                        ^
+/root/Documents/C++/NoWare/noware/container/array.h++:330:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool key_numeric (void) const;
+                                  ^
+/root/Documents/C++/NoWare/noware/container/array.h++:364:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++:15:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::container::operator == (const container & other) const
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/container/array.t++:35:94: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::container::operator == (const value & other) const
+                                                                                              ^
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++:168:99: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::container::deserialize (const std::string & serial)
+                                                                                                   ^
+/root/Documents/C++/NoWare/noware/container/array.t++:336:88: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::deserialize (const std::string & serial)
+                                                                                        ^
+/root/Documents/C++/NoWare/noware/container/array.t++:593:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::add (const value & other)
+                                                                         ^
+/root/Documents/C++/NoWare/noware/container/array.t++:604:89: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::add (const value & other, key & used_key)
+                                                                                         ^
+/root/Documents/C++/NoWare/noware/container/array.t++:616:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::add (const NAME_A <value, key> & other)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/container/array.t++:627:76: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::append (const value & other)
+                                                                            ^
+/root/Documents/C++/NoWare/noware/container/array.t++:638:92: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::append (const value & other, key & used_key)
+                                                                                            ^
+/root/Documents/C++/NoWare/noware/container/array.t++:650:90: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::append (const NAME_A <value, key> & other)
+                                                                                          ^
+/root/Documents/C++/NoWare/noware/container/array.t++:671:68: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::key_numeric (void) const
+                                                                    ^
+/root/Documents/C++/NoWare/noware/container/array.t++:913:92: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::search (const key & key_, value *& value_) const
+                                                                                            ^
+/root/Documents/C++/NoWare/noware/container/array.t++:958:89: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::search_key (const key & key_, key *& k) const
+                                                                                         ^
+/root/Documents/C++/NoWare/noware/container/array.t++:995:112: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ /*value &*/ const bool LIB::container::NAME_A <value, key>::insert (const key & key_, /*const */value *& value_)
+                                                                                                                ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1077:92: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::set (const key & _key, const value & value_)
+                                                                                            ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1156:60: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::clear (void)
+                                                            ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1218:75: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::exists (const key & _key) const
+                                                                           ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1229:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::exist (const key & _key) const
+                                                                          ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1257:72: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::unset (const key & key_)
+                                                                        ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1298:127: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::rename (const key & old, const key & val /* New name. */, const bool _tolerant)
+                                                                                                                               ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1355:113: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
+                                                                                                                 ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1361:61: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::full (void) const
+                                                             ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1368:62: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::empty (void) const
+                                                              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1541:97: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::operator == (const NAME_A <value, key> & other) const
+                                                                                                 ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1589:97: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::operator != (const NAME_A <value, key> & other) const
+                                                                                                 ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1595:77: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::enqueue (const value & other)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1603:86: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::enqueue (const value & other, key & k)
+                                                                                      ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1616:62: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::dequeue (void)
+                                                              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1625:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::push (const value & other)
+                                                                          ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1633:83: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::push (const value & other, key & k)
+                                                                                   ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1639:58: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NAME_A <value, key>::pop (void)
+                                                          ^
+In file included from main.c++:30:0:
+/root/Documents/C++/NoWare/noware/container/entity.h++:112:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const type get_type (void) const;
+                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:114:31: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool empty (void) const;
+                               ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:116:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool full (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:120:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator == (const container &) const;
+                                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:121:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator != (const container &) const;
+                                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:122:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator == (const value &) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:123:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator != (const value &) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:124:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator == (const LIB::container::NTT <value, key> &) const;
+                                                                         ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:125:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator != (const LIB::container::NTT <value, key> &) const;
+                                                                         ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:126:76: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator == (const LIB::container::NAME_A <value, key> &) const;
+                                                                            ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:127:76: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator != (const LIB::container::NAME_A <value, key> &) const;
+                                                                            ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:130:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool deserialize (const std::string &);
+                                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:140:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool content_clear_literal (void);
+                                             ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:141:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool content_clear_group (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:151:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator == (const iterator &) const;
+                                                 ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:152:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+       const bool operator != (const iterator &) const;
+                                                 ^
+In file included from main.c++:30:0:
+/root/Documents/C++/NoWare/noware/container/entity.h++:221:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool unset (const key &);
+                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:222:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool exists (const key &, const bool &/* recursive*/ = false) const;
+                                                                         ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:223:72: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool exist (const key &, const bool &/* recursive*/ = false) const;
+                                                                        ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:224:27: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool clear (void);
+                           ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:225:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool empty (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:226:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool full (void) const;
+                            ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:228:64: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool rename (const key &/* old*/, const key &/* new*/);
+                                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:247:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator == (const NTT <value, key> &) const;
+                                                       ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:248:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator != (const NTT <value, key> &) const;
+                                                       ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:249:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator == (const value &) const;
+                                            ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:250:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator != (const value &) const;
+                                            ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:251:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator == (const LIB::container::NAME_A <value, key> &) const;
+                                                                          ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:252:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool operator != (const LIB::container::NAME_A <value, key> &) const;
+                                                                          ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:258:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool deserialize (const std::string &);
+                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:260:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool is_group (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/container/entity.h++:261:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool is_literal (void) const;
+                                  ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++:54:96: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::deserialize (const std::string & serial)
+                                                                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:66:85: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::deserialize (const std::string & serial)
+                                                                                     ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++:261:123: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const typename LIB::container::NTT <value, key>::container::type LIB::container::NTT <value, key>::container::get_type () const
+                                                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:267:95: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator == (const container & other) const
+                                                                                               ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:282:95: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator != (const container & other) const
+                                                                                               ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:288:121: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator == (const LIB::container::NAME_A <value, key> & other) const
+                                                                                                                         ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:315:118: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator == (const LIB::container::NTT <value, key> & other) const
+                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:321:118: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator != (const LIB::container::NTT <value, key> & other) const
+                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:333:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator == (const value & other) const
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:344:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::operator != (const value & other) const
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:368:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::iterator::operator == (const iterator & other) const
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:375:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::iterator::operator != (const iterator & other) const
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:762:67: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::unset (const key & _k)
+                                                                   ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:772:94: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::exists (const key & _k, const bool & recursive) const
+                                                                                              ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:778:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::exist (const key & _k, const bool & recursive) const
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:833:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::clear (void)
+                                                         ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:845:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::rename (const key & current, const key & _new)
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:855:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator == (const NTT <value, key> & other) const
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:861:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator != (const NTT <value, key> & other) const
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:867:80: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator == (const value & other) const
+                                                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:873:80: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator != (const value & other) const
+                                                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:879:110: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator == (const LIB::container::NAME_A <value, key> & other) const
+                                                                                                              ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:910:110: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::operator != (const LIB::container::NAME_A <value, key> & other) const
+                                                                                                              ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1047:84: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::content_clear_literal (void)
+                                                                                    ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1055:82: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::content_clear_group (void)
+                                                                                  ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1075:70: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::empty (void) const
+                                                                      ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1088:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::container::full (void) const
+                                                                     ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1094:59: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::empty (void) const
+                                                           ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1100:58: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::full (void) const
+                                                          ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1106:64: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::is_literal (void) const
+                                                                ^
+/root/Documents/C++/NoWare/noware/container/entity.t++:1112:62: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::container::NTT <value, key>::is_group (void) const
+                                                              ^
+main.c++:53:5: warning: first argument of ‘int main(long long unsigned int, char**)’ should be ‘int’ [-Wmain]
+ int main (unsigned long long int argc, char * argv [])
+     ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++: In instantiation of ‘noware::container::entity<value, key>::container& noware::container::entity<value, key>::container::operator=(const value&) [with value = noware::container::variable; key = noware::container::variable]’:
+/root/Documents/C++/NoWare/noware/container/entity.t++:641:10:   required from ‘const noware::container::entity<value, key>& noware::container::entity<value, key>::operator=(const value&) [with value = noware::container::variable; key = noware::container::variable]’
+main.c++:110:23:   required from here
+/root/Documents/C++/NoWare/noware/container/entity.t++:258:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++: In instantiation of ‘const bool noware::container::array<value, key>::search(const key&, value*&) const [with value = noware::container::entity<>*; key = noware::container::variable]’:
+/root/Documents/C++/NoWare/noware/container/array.t++:1238:16:   required from ‘const bool noware::container::array<value, key>::exist(const key&) const [with value = noware::container::entity<>*; key = noware::container::variable]’
+/root/Documents/C++/NoWare/noware/container/entity.t++:676:2:   required from ‘noware::container::entity<value, key>& noware::container::entity<value, key>::operator[](const key&) [with value = noware::container::variable; key = noware::container::variable]’
+main.c++:110:13:   required from here
+/root/Documents/C++/NoWare/noware/container/array.t++:922:2: warning: passing ‘const noware::container::array<noware::container::entity<>*, noware::container::variable>’ as ‘this’ argument discards qualifiers [-fpermissive]
+  for (const LIB::container::NAME_A <value, key>::container & element : *this)
+  ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:34:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../name.h++:4:14: note:   in call to ‘const iterator noware::container::array<value, key>::begin() [with value = noware::container::entity<>*; key = noware::container::variable; noware::container::array<value, key>::iterator = std::_List_iterator<noware::container::array<noware::container::entity<>*, noware::container::variable>::container>]’
+  #define LIB noware
+              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1517:62: note: in expansion of macro ‘LIB’
+ const typename LIB::container::NAME_A <value, key>::iterator LIB::container::NAME_A <value, key>::begin (void)
+                                                              ^
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++:922:2: warning: passing ‘const noware::container::array<noware::container::entity<>*, noware::container::variable>’ as ‘this’ argument discards qualifiers [-fpermissive]
+  for (const LIB::container::NAME_A <value, key>::container & element : *this)
+  ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:34:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../name.h++:4:14: note:   in call to ‘const iterator noware::container::array<value, key>::end() [with value = noware::container::entity<>*; key = noware::container::variable; noware::container::array<value, key>::iterator = std::_List_iterator<noware::container::array<noware::container::entity<>*, noware::container::variable>::container>]’
+  #define LIB noware
+              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1523:62: note: in expansion of macro ‘LIB’
+ const typename LIB::container::NAME_A <value, key>::iterator LIB::container::NAME_A <value, key>::end (void)
+                                                              ^
+In file included from /root/Documents/C++/NoWare/noware/container/array.h++:385:0,
+                 from /root/Documents/C++/NoWare/noware/container/entity.h++:11,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/array.t++:931:11: warning: invalid conversion from ‘noware::container::entity<>* const*’ to ‘noware::container::entity<>**’ [-fpermissive]
+    value_ = &(element.v);
+           ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++: In instantiation of ‘noware::container::entity<value, key>::container& noware::container::entity<value, key>::container::operator=(const noware::container::entity<value, key>::container&) [with value = noware::container::variable; key = noware::container::variable]’:
+/root/Documents/C++/NoWare/noware/container/entity.t++:201:15:   required from ‘noware::container::entity<value, key>::container& noware::container::entity<value, key>::container::operator=(const noware::container::entity<value, key>&) [with value = noware::container::variable; key = noware::container::variable]’
+/root/Documents/C++/NoWare/noware/container/entity.t++:605:10:   required from ‘const noware::container::entity<value, key>& noware::container::entity<value, key>::operator=(const noware::container::entity<value, key>&) [with value = noware::container::variable; key = noware::container::variable]’
+main.c++:111:23:   required from here
+/root/Documents/C++/NoWare/noware/container/entity.t++:171:2: warning: passing ‘const noware::container::array<noware::container::entity<>*, noware::container::variable>’ as ‘this’ argument discards qualifiers [-fpermissive]
+  for (const typename LIB::container::NAME_A <NTT <value, key> *, key>::container & element : other.grp)
+  ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:34:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../name.h++:4:14: note:   in call to ‘const iterator noware::container::array<value, key>::begin() [with value = noware::container::entity<>*; key = noware::container::variable; noware::container::array<value, key>::iterator = std::_List_iterator<noware::container::array<noware::container::entity<>*, noware::container::variable>::container>]’
+  #define LIB noware
+              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1517:62: note: in expansion of macro ‘LIB’
+ const typename LIB::container::NAME_A <value, key>::iterator LIB::container::NAME_A <value, key>::begin (void)
+                                                              ^
+In file included from /root/Documents/C++/NoWare/noware/container/entity.h++:272:0,
+                 from main.c++:30:
+/root/Documents/C++/NoWare/noware/container/entity.t++:171:2: warning: passing ‘const noware::container::array<noware::container::entity<>*, noware::container::variable>’ as ‘this’ argument discards qualifiers [-fpermissive]
+  for (const typename LIB::container::NAME_A <NTT <value, key> *, key>::container & element : other.grp)
+  ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:34:0,
+                 from main.c++:29:
+/root/Documents/C++/NoWare/noware/container/../name.h++:4:14: note:   in call to ‘const iterator noware::container::array<value, key>::end() [with value = noware::container::entity<>*; key = noware::container::variable; noware::container::array<value, key>::iterator = std::_List_iterator<noware::container::array<noware::container::entity<>*, noware::container::variable>::container>]’
+  #define LIB noware
+              ^
+/root/Documents/C++/NoWare/noware/container/array.t++:1523:62: note: in expansion of macro ‘LIB’
+ const typename LIB::container::NAME_A <value, key>::iterator LIB::container::NAME_A <value, key>::end (void)
+                                                              ^
+In file included from /root/Documents/C++/NoWare/noware/tool.c++:24:0:
+/root/Documents/C++/NoWare/noware/tool.h++:24:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+/root/Documents/C++/NoWare/noware/tool.h++:25:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_number (const std::string &);
+                                            ^
+In file included from /root/Documents/C++/NoWare/noware/tool.c++:24:0:
+/root/Documents/C++/NoWare/noware/tool.h++:61:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/tool.h++:67:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/tool.h++:102:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/tool.h++:106:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/tool.h++:107:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/tool.h++:110:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/tool.h++:111:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/tool.c++:31:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string & value)
+                                                   ^
+/root/Documents/C++/NoWare/noware/tool.c++: In function ‘const bool noware::tool::is_numeric(const string&)’:
+/root/Documents/C++/NoWare/noware/tool.c++:38:9: warning: variable ‘sign_found’ set but not used [-Wunused-but-set-variable]
+    bool sign_found = false;
+         ^
+/root/Documents/C++/NoWare/noware/tool.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tool.c++:81:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_number (const std::string & value)
+                                                  ^
+/root/Documents/C++/NoWare/noware/tool.c++:273:93: warning: unused parameter ‘value’ [-Wunused-parameter]
+   const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real & value, const LIB::mathematics::numbers::natural & radix)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/tool.c++:273:143: warning: unused parameter ‘radix’ [-Wunused-parameter]
+   const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real & value, const LIB::mathematics::numbers::natural & radix)
+                                                                                                                                               ^
+/root/Documents/C++/NoWare/noware/tool.c++:460:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char toggle_case (const char & input)
+                                             ^
+/root/Documents/C++/NoWare/noware/tool.c++: In function ‘const char noware::tool::toggle_case(const char&)’:
+/root/Documents/C++/NoWare/noware/tool.c++:464:28: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     return ::tolower (input);
+                            ^
+/root/Documents/C++/NoWare/noware/tool.c++:468:28: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     return ::toupper (input);
+                            ^
+/root/Documents/C++/NoWare/noware/tool.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tool.c++:486:98: warning: unused parameter ‘length’ [-Wunused-parameter]
+   const std::string multiply (const std::string & input, const LIB::mathematics::numbers::real & length)
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/tool.c++:510:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string & s)
+                                                  ^
+/root/Documents/C++/NoWare/noware/tool.c++: In function ‘const string noware::tool::lower(std::__cxx11::string)’:
+/root/Documents/C++/NoWare/noware/tool.c++:660:15: warning: conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<char> >::value_type {aka char}’ from ‘int’ may alter its value [-Wconversion]
+     value [i] = ::tolower (value [i]);
+               ^
+/root/Documents/C++/NoWare/noware/tool.c++: In function ‘const string noware::tool::upper(std::__cxx11::string)’:
+/root/Documents/C++/NoWare/noware/tool.c++:672:15: warning: conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<char> >::value_type {aka char}’ from ‘int’ may alter its value [-Wconversion]
+     value [i] = ::toupper (value [i]);
+               ^
+/root/Documents/C++/NoWare/noware/tool.c++: In constructor ‘noware::tool::randomizer::randomizer(const long long unsigned int&, const long long unsigned int&)’:
+/root/Documents/C++/NoWare/noware/tool.c++:736:22: warning: conversion to ‘unsigned int’ from ‘time_t {aka long int}’ may alter its value [-Wconversion]
+    srand (time (NULL));
+                      ^
+/root/Documents/C++/NoWare/noware/tool.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tool.c++:739:132: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::generate (const unsigned long long int & maximum, const unsigned long long int & minimum)
+                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/tool.c++: In member function ‘const long long unsigned int noware::tool::randomizer::generate(const long long unsigned int&, const long long unsigned int&)’:
+/root/Documents/C++/NoWare/noware/tool.c++:742:73: warning: conversion to ‘double’ from ‘long long unsigned int’ may alter its value [-Wconversion]
+    return minimum + ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
+                                                                         ^
+/root/Documents/C++/NoWare/noware/tool.c++:742:74: warning: conversion to ‘double’ from ‘long long unsigned int’ may alter its value [-Wconversion]
+    return minimum + ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
+                                                                          ^
+/root/Documents/C++/NoWare/noware/tool.c++:742:74: warning: conversion to ‘long long unsigned int’ from ‘double’ may alter its value [-Wfloat-conversion]
+/root/Documents/C++/NoWare/noware/tool.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tool.c++:754:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::min (void)
+                                                     ^
+/root/Documents/C++/NoWare/noware/tool.c++:759:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::max (void)
+                                                     ^
+/root/Documents/C++/NoWare/noware/tool.c++:765:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::min (const unsigned long long int & minimum)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/tool.c++:773:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::max (const unsigned long long int & maximum)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/tool.c++: In function ‘const string noware::tool::multiply(const string&, const real&)’:
+/root/Documents/C++/NoWare/noware/tool.c++:497:18: warning: ‘length_i’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+    for (i = 0; i < length_i; ++ i)
+                  ^
+/root/Documents/C++/NoWare/noware/tool.c++:502:74: warning: ‘remainder’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+    for (/*mathematics::numbers::natural*/unsigned long long int j = 0; j < remainder; ++ j)
+                                                                          ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/container/variable.c++:10:
+/root/Documents/C++/NoWare/noware/container/../serialization.h++:23:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool deserialize (const std::string &, type &);
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/container/../serialization.h++:39:0,
+                 from /root/Documents/C++/NoWare/noware/container/variable.h++:37,
+                 from /root/Documents/C++/NoWare/noware/container/variable.c++:10:
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:68:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::deserialize (const std::string & serial, type & object)
+                                                                       ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:38:0,
+                 from /root/Documents/C++/NoWare/noware/container/variable.c++:10:
+/root/Documents/C++/NoWare/noware/container/../tool.h++:24:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:25:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_number (const std::string &);
+                                            ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.h++:38:0,
+                 from /root/Documents/C++/NoWare/noware/container/variable.c++:10:
+/root/Documents/C++/NoWare/noware/container/../tool.h++:61:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:67:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:102:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:106:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:107:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:110:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/container/../tool.h++:111:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.c++:10:0:
+/root/Documents/C++/NoWare/noware/container/variable.h++:83:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:87:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:108:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const type determine (const std::string &) const;
+                                               ^
+In file included from /root/Documents/C++/NoWare/noware/container/variable.c++:10:0:
+/root/Documents/C++/NoWare/noware/container/variable.h++:164:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty  (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:165:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_string (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:166:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_text (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:167:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_generic (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:168:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_numeric (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:169:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_number (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:475:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:476:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:478:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const signed short int &);
+                                                       ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:517:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:518:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:824:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V);
+                                            ^
+/root/Documents/C++/NoWare/noware/container/variable.h++:825:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:62:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::container::deserialize (const std::string & serial)
+                                                                       ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:72:60: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::deserialize (const std::string & serial)
+                                                            ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:687:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::empty (void) const
+                                  ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:731:65: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const NAME_V::type NAME_V::determine (const std::string & val) const
+                                                                 ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:863:38: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_string (void) const
+                                      ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:868:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_text (void) const
+                                    ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:873:39: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_generic (void) const
+                                       ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:878:39: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_numeric (void) const
+                                       ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:883:38: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_number (void) const
+                                      ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:2882:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const NAME_V val)/* const*/
+                                                   ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:2924:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const NAME_V val) const
+                                                     ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:2969:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const signed short int & val)
+                                                               ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:3160:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator > (const NAME_V val) const
+                                                     ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:3165:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator > (const NAME_V val)
+                                                   ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(short int&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4232:9: warning: conversion to ‘short int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(short unsigned int&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4240:9: warning: conversion to ‘short unsigned int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(int&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4248:9: warning: conversion to ‘int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(unsigned int&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4256:9: warning: conversion to ‘unsigned int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(float&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4296:9: warning: conversion to ‘float’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:4298:10: warning: conversion to ‘long long int’ from ‘float’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(double&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4304:9: warning: conversion to ‘double’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:4306:10: warning: conversion to ‘long long int’ from ‘double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator%=(long double&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4314:10: warning: conversion to ‘long long int’ from ‘long double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator^=(float&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4500:10: warning: conversion to ‘long long int’ from ‘float’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator^=(double&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4508:10: warning: conversion to ‘long long int’ from ‘double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘long long int noware::container::operator^=(long double&, noware::container::variable)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:4516:10: warning: conversion to ‘long long int’ from ‘long double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: At global scope:
+/root/Documents/C++/NoWare/noware/container/variable.c++:5318:52: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator <= (const NAME_V val)
+                                                    ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:5323:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator <= (const NAME_V val) const
+                                                      ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:5817:35: warning: unused parameter ‘val’ [-Wunused-parameter]
+  NAME_V  NAME_V::operator ++ (int val)
+                                   ^
+/root/Documents/C++/NoWare/noware/container/variable.c++:5827:35: warning: unused parameter ‘val’ [-Wunused-parameter]
+  NAME_V  NAME_V::operator -- (int val)
+                                   ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘std::__cxx11::string tolower(noware::container::variable&)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:5847:9: warning: conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<char> >::value_type {aka char}’ from ‘int’ may alter its value [-Wconversion]
+   s [i] = tolower (s [i]);
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In function ‘std::__cxx11::string toupper(noware::container::variable&)’:
+/root/Documents/C++/NoWare/noware/container/variable.c++:5861:9: warning: conversion to ‘__gnu_cxx::__alloc_traits<std::allocator<char> >::value_type {aka char}’ from ‘int’ may alter its value [-Wconversion]
+   s [i] = toupper (s [i]);
+         ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In instantiation of ‘void noware::container::variable::container::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_oarchive]’:
+/usr/include/boost/serialization/access.hpp:116:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:68:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable::container]’
+/usr/include/boost/archive/detail/oserializer.hpp:148:40:   required from ‘void boost::archive::detail::oserializer<Archive, T>::save_object_data(boost::archive::detail::basic_oarchive&, const void*) const [with Archive = boost::archive::text_oarchive; T = noware::container::variable::container]’
+/usr/include/boost/archive/detail/oserializer.hpp:101:1:   required from ‘class boost::archive::detail::oserializer<boost::archive::text_oarchive, noware::container::variable::container>’
+/usr/include/boost/archive/detail/oserializer.hpp:253:13:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/oserializer.hpp:525:18:   required from ‘void boost::archive::save(Archive&, T&) [with Archive = boost::archive::text_oarchive; T = const noware::container::variable::container]’
+/usr/include/boost/archive/detail/common_oarchive.hpp:69:22:   required from ‘void boost::archive::detail::common_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/basic_text_oarchive.hpp:83:9:   required from ‘void boost::archive::basic_text_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/detail/interface_oarchive.hpp:70:9:   required from ‘Archive& boost::archive::detail::interface_oarchive<Archive>::operator<<(const T&) [with T = noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:53:5:   required from ‘const string noware::serialize(const type&) [with type = noware::container::variable::container; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:59:68:   required from here
+/root/Documents/C++/NoWare/noware/container/variable.c++:28:77: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::container::serialize (Archive & archive, const unsigned int & version)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In instantiation of ‘void noware::container::variable::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_oarchive]’:
+/usr/include/boost/serialization/access.hpp:116:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable]’
+/usr/include/boost/serialization/serialization.hpp:68:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::container::variable]’
+/usr/include/boost/archive/detail/oserializer.hpp:148:40:   required from ‘void boost::archive::detail::oserializer<Archive, T>::save_object_data(boost::archive::detail::basic_oarchive&, const void*) const [with Archive = boost::archive::text_oarchive; T = noware::container::variable]’
+/usr/include/boost/archive/detail/oserializer.hpp:101:1:   required from ‘class boost::archive::detail::oserializer<boost::archive::text_oarchive, noware::container::variable>’
+/usr/include/boost/archive/detail/oserializer.hpp:253:13:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/oserializer.hpp:525:18:   required from ‘void boost::archive::save(Archive&, T&) [with Archive = boost::archive::text_oarchive; T = const noware::container::variable]’
+/usr/include/boost/archive/detail/common_oarchive.hpp:69:22:   required from ‘void boost::archive::detail::common_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/basic_text_oarchive.hpp:83:9:   required from ‘void boost::archive::basic_text_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/detail/interface_oarchive.hpp:70:9:   required from ‘Archive& boost::archive::detail::interface_oarchive<Archive>::operator<<(const T&) [with T = noware::container::variable; Archive = boost::archive::text_oarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:53:5:   required from ‘const string noware::serialize(const type&) [with type = noware::container::variable; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:69:57:   required from here
+/root/Documents/C++/NoWare/noware/container/variable.c++:51:66: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::serialize (Archive & archive, const unsigned int & version)
+                                                                  ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In instantiation of ‘void noware::container::variable::container::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_iarchive]’:
+/usr/include/boost/serialization/access.hpp:116:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:68:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable::container]’
+/usr/include/boost/archive/detail/iserializer.hpp:189:40:   required from ‘void boost::archive::detail::iserializer<Archive, T>::load_object_data(boost::archive::detail::basic_iarchive&, void*, unsigned int) const [with Archive = boost::archive::text_iarchive; T = noware::container::variable::container]’
+/usr/include/boost/archive/detail/iserializer.hpp:121:1:   required from ‘class boost::archive::detail::iserializer<boost::archive::text_iarchive, noware::container::variable::container>’
+/usr/include/boost/archive/detail/iserializer.hpp:420:13:   [ skipping 3 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/common_iarchive.hpp:66:22:   required from ‘void boost::archive::detail::common_iarchive<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/basic_text_iarchive.hpp:70:9:   required from ‘void boost::archive::basic_text_iarchive<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/text_iarchive.hpp:89:52:   required from ‘void boost::archive::text_iarchive_impl<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/detail/interface_iarchive.hpp:68:9:   required from ‘Archive& boost::archive::detail::interface_iarchive<Archive>::operator>>(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:85:5:   required from ‘const bool noware::deserialize(const string&, type&) [with type = noware::container::variable::container; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:64:78:   required from here
+/root/Documents/C++/NoWare/noware/container/variable.c++:28:77: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::container::serialize (Archive & archive, const unsigned int & version)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/container/variable.c++: In instantiation of ‘void noware::container::variable::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_iarchive]’:
+/usr/include/boost/serialization/access.hpp:116:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable]’
+/usr/include/boost/serialization/serialization.hpp:68:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::container::variable]’
+/usr/include/boost/archive/detail/iserializer.hpp:189:40:   required from ‘void boost::archive::detail::iserializer<Archive, T>::load_object_data(boost::archive::detail::basic_iarchive&, void*, unsigned int) const [with Archive = boost::archive::text_iarchive; T = noware::container::variable]’
+/usr/include/boost/archive/detail/iserializer.hpp:121:1:   required from ‘class boost::archive::detail::iserializer<boost::archive::text_iarchive, noware::container::variable>’
+/usr/include/boost/archive/detail/iserializer.hpp:420:13:   [ skipping 3 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/common_iarchive.hpp:66:22:   required from ‘void boost::archive::detail::common_iarchive<Archive>::load_override(T&) [with T = noware::container::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/basic_text_iarchive.hpp:70:9:   required from ‘void boost::archive::basic_text_iarchive<Archive>::load_override(T&) [with T = noware::container::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/text_iarchive.hpp:89:52:   required from ‘void boost::archive::text_iarchive_impl<Archive>::load_override(T&) [with T = noware::container::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/detail/interface_iarchive.hpp:68:9:   required from ‘Archive& boost::archive::detail::interface_iarchive<Archive>::operator>>(T&) [with T = noware::container::variable; Archive = boost::archive::text_iarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:85:5:   required from ‘const bool noware::deserialize(const string&, type&) [with type = noware::container::variable; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:74:67:   required from here
+/root/Documents/C++/NoWare/noware/container/variable.c++:51:66: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::serialize (Archive & archive, const unsigned int & version)
+                                                                  ^
+In file included from /root/Documents/C++/NoWare/noware/container/../serialization/cln/real.h++:27:0,
+                 from /root/Documents/C++/NoWare/noware/container/../serialization.t++:28,
+                 from /root/Documents/C++/NoWare/noware/container/../serialization.h++:39,
+                 from /root/Documents/C++/NoWare/noware/container/variable.h++:37,
+                 from /root/Documents/C++/NoWare/noware/container/variable.c++:10:
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.c++: In instantiation of ‘void boost::serialization::save(archive&, const cln::cl_R&, const unsigned int&) [with archive = boost::archive::text_oarchive]’:
+/usr/include/boost/serialization/split_free.hpp:45:13:   required from ‘static void boost::serialization::free_saver<Archive, T>::invoke(Archive&, const T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = cln::cl_R]’
+/usr/include/boost/serialization/split_free.hpp:74:18:   required from ‘void boost::serialization::split_free(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = cln::cl_R]’
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.h++:3:1:   required from ‘void boost::serialization::serialize(Archive&, cln::cl_R&, unsigned int) [with Archive = boost::archive::text_oarchive]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = cln::cl_R]’
+/usr/include/boost/archive/detail/oserializer.hpp:148:40:   required from ‘void boost::archive::detail::oserializer<Archive, T>::save_object_data(boost::archive::detail::basic_oarchive&, const void*) const [with Archive = boost::archive::text_oarchive; T = cln::cl_R]’
+/usr/include/boost/archive/detail/oserializer.hpp:101:1:   [ skipping 16 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/oserializer.hpp:525:18:   required from ‘void boost::archive::save(Archive&, T&) [with Archive = boost::archive::text_oarchive; T = const noware::container::variable::container]’
+/usr/include/boost/archive/detail/common_oarchive.hpp:69:22:   required from ‘void boost::archive::detail::common_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/basic_text_oarchive.hpp:83:9:   required from ‘void boost::archive::basic_text_oarchive<Archive>::save_override(T&) [with T = const noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/detail/interface_oarchive.hpp:70:9:   required from ‘Archive& boost::archive::detail::interface_oarchive<Archive>::operator<<(const T&) [with T = noware::container::variable::container; Archive = boost::archive::text_oarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:53:5:   required from ‘const string noware::serialize(const type&) [with type = noware::container::variable::container; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:59:68:   required from here
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.c++:7:97: warning: unused parameter ‘version’ [-Wunused-parameter]
+ void boost::serialization::save (archive & arch, const cln::cl_R & number, const unsigned int & version)
+                                                                                                 ^
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.c++: In instantiation of ‘void boost::serialization::load(archive&, cln::cl_R&, const unsigned int&) [with archive = boost::archive::text_iarchive]’:
+/usr/include/boost/serialization/split_free.hpp:58:13:   required from ‘static void boost::serialization::free_loader<Archive, T>::invoke(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = cln::cl_R]’
+/usr/include/boost/serialization/split_free.hpp:74:18:   required from ‘void boost::serialization::split_free(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = cln::cl_R]’
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.h++:3:1:   required from ‘void boost::serialization::serialize(Archive&, cln::cl_R&, unsigned int) [with Archive = boost::archive::text_iarchive]’
+/usr/include/boost/serialization/serialization.hpp:126:14:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = cln::cl_R]’
+/usr/include/boost/archive/detail/iserializer.hpp:189:40:   required from ‘void boost::archive::detail::iserializer<Archive, T>::load_object_data(boost::archive::detail::basic_iarchive&, void*, unsigned int) const [with Archive = boost::archive::text_iarchive; T = cln::cl_R]’
+/usr/include/boost/archive/detail/iserializer.hpp:121:1:   [ skipping 18 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/common_iarchive.hpp:66:22:   required from ‘void boost::archive::detail::common_iarchive<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/basic_text_iarchive.hpp:70:9:   required from ‘void boost::archive::basic_text_iarchive<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/text_iarchive.hpp:89:52:   required from ‘void boost::archive::text_iarchive_impl<Archive>::load_override(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/detail/interface_iarchive.hpp:68:9:   required from ‘Archive& boost::archive::detail::interface_iarchive<Archive>::operator>>(T&) [with T = noware::container::variable::container; Archive = boost::archive::text_iarchive]’
+/root/Documents/C++/NoWare/noware/container/../serialization.t++:85:5:   required from ‘const bool noware::deserialize(const string&, type&) [with type = noware::container::variable::container; std::__cxx11::string = std::__cxx11::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/container/variable.c++:64:78:   required from here
+/root/Documents/C++/NoWare/noware/container/../serialization/cln/real.c++:18:91: warning: unused parameter ‘version’ [-Wunused-parameter]
+ void boost::serialization::load (archive & arch, cln::cl_R & number, const unsigned int & version)
+                                                                                           ^
+if test -f main.do && test ! -x main.do; \
+#if test ! -x main.do; \
+then \
+	chmod +x main.do; \
+fi

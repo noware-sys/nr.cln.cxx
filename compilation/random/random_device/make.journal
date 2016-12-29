@@ -1,0 +1,20 @@
+if test ! -f main.do; \
+then \
+	#cc ; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.do ; \
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.obj -c main.c++; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o mathematics.obj -c /root/Documents/C++/NoWare/noware/mathematics.c++; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o tools.obj -c /root/Documents/C++/NoWare/noware/tools.c++; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o containers-variable.obj -c /root/Documents/C++/NoWare/noware/containers/variable.c++ ; \
+	\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l boost_random -l cln -fopenmp -l pthread -l dl -o main.do main.obj ; \
+fi
+main.c++: In function ‘int main(int, char**)’:
+main.c++:55:29: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (unsigned int i = 0; i < argc; ++ i)
+                             ^
+if test -f main.do && test ! -x main.do; \
+#if test ! -x main.do; \
+then \
+	chmod +x main.do; \
+fi

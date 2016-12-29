@@ -1,0 +1,21 @@
+if test ! -f main.act;\
+then \
+	#cc derivative.obj base.obj; \
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -L . -o main.act derivative.obj base.obj;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -L . -o base.obj -c base.cxx;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -L . -o derivative.obj -c derivative.cxx;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -L . -o main.obj -c main.cxx;\
+	\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -L . -o main.act main.obj derivative.obj base.obj;\
+fi
+base.cxx:4:33: warning: ‘static’ may not be used when defining (as opposed to declaring) a static data member [-fpermissive]
+ static unsigned short int base::instance_count = 0;
+                                 ^
+main.cxx:5:5: warning: first argument of ‘int main(long long unsigned int, char**)’ should be ‘int’ [-Wmain]
+ int main (unsigned long long int argc, char * argv [])
+     ^
+if test -f main.act && test ! -x main.act; \
+#if test ! -x main.act; \
+then \
+	chmod +x main.act; \
+fi

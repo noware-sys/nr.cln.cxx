@@ -1,0 +1,1782 @@
+#gcc -l pthread -l dl -o sqlite.obj -c /root/Documents/C++/NoWare/sqlite/3.c\
+gcc -o containers-databases-sqlite.c.obj -c /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102523:2: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+  sqlite3_changes_set,
+  ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102523:2: note: (near initialization for ‘sqlite3Apis.close’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102525:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_close,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102525:3: note: (near initialization for ‘sqlite3Apis.collation_needed’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102526:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_collation_needed,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102526:3: note: (near initialization for ‘sqlite3Apis.collation_needed16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102527:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_collation_needed16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102527:3: note: (near initialization for ‘sqlite3Apis.column_blob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102528:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_blob,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102528:3: note: (near initialization for ‘sqlite3Apis.column_bytes’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102530:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_bytes16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102530:3: note: (near initialization for ‘sqlite3Apis.column_count’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102531:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_count,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102531:3: note: (near initialization for ‘sqlite3Apis.column_database_name’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102534:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_decltype,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102534:3: note: (near initialization for ‘sqlite3Apis.column_decltype16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102535:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_decltype16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102535:3: note: (near initialization for ‘sqlite3Apis.column_double’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102536:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_double,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102536:3: note: (near initialization for ‘sqlite3Apis.column_int’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102537:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_int,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102537:3: note: (near initialization for ‘sqlite3Apis.column_int64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102538:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_int64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102538:3: note: (near initialization for ‘sqlite3Apis.column_name’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102539:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_name,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102539:3: note: (near initialization for ‘sqlite3Apis.column_name16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102540:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_name16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102540:3: note: (near initialization for ‘sqlite3Apis.column_origin_name’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102545:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_text,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102545:3: note: (near initialization for ‘sqlite3Apis.column_text16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102546:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_text16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102546:3: note: (near initialization for ‘sqlite3Apis.column_type’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102547:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_type,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102547:3: note: (near initialization for ‘sqlite3Apis.column_value’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102548:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_column_value,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102548:3: note: (near initialization for ‘sqlite3Apis.commit_hook’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102549:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_commit_hook,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102549:3: note: (near initialization for ‘sqlite3Apis.complete’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102550:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_complete,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102550:3: note: (near initialization for ‘sqlite3Apis.complete16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102551:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_complete16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102551:3: note: (near initialization for ‘sqlite3Apis.create_collation’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102552:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_collation,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102552:3: note: (near initialization for ‘sqlite3Apis.create_collation16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102553:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_collation16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102553:3: note: (near initialization for ‘sqlite3Apis.create_function’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102554:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_function,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102554:3: note: (near initialization for ‘sqlite3Apis.create_function16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102555:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_function16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102555:3: note: (near initialization for ‘sqlite3Apis.create_module’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102556:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_module,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102556:3: note: (near initialization for ‘sqlite3Apis.data_count’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102557:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_data_count,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102557:3: note: (near initialization for ‘sqlite3Apis.db_handle’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102558:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_handle,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102558:3: note: (near initialization for ‘sqlite3Apis.declare_vtab’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102559:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_declare_vtab,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102559:3: note: (near initialization for ‘sqlite3Apis.enable_shared_cache’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102560:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_enable_shared_cache,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102560:3: note: (near initialization for ‘sqlite3Apis.errcode’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102561:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_errcode,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102561:3: note: (near initialization for ‘sqlite3Apis.errmsg’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102562:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_errmsg,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102562:3: note: (near initialization for ‘sqlite3Apis.errmsg16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102563:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_errmsg16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102563:3: note: (near initialization for ‘sqlite3Apis.exec’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102564:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_exec,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102564:3: note: (near initialization for ‘sqlite3Apis.expired’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102570:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_finalize,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102570:3: note: (near initialization for ‘sqlite3Apis.free’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102571:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_free,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102571:3: note: (near initialization for ‘sqlite3Apis.free_table’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102572:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_free_table,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102572:3: note: (near initialization for ‘sqlite3Apis.get_autocommit’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102573:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_get_autocommit,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102573:3: note: (near initialization for ‘sqlite3Apis.get_auxdata’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102574:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_get_auxdata,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102574:3: note: (near initialization for ‘sqlite3Apis.get_table’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102575:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_get_table,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102575:3: note: (near initialization for ‘sqlite3Apis.global_recover’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102577:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_interrupt,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102577:3: note: (near initialization for ‘sqlite3Apis.last_insert_rowid’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102578:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_last_insert_rowid,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102578:3: note: (near initialization for ‘sqlite3Apis.libversion’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102579:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_libversion,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102579:3: note: (near initialization for ‘sqlite3Apis.libversion_number’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102580:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_libversion_number,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102580:3: note: (near initialization for ‘sqlite3Apis.malloc’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102581:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_malloc,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102581:3: note: (near initialization for ‘sqlite3Apis.mprintf’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102582:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_mprintf,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102582:3: note: (near initialization for ‘sqlite3Apis.open’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102583:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_open,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102583:3: note: (near initialization for ‘sqlite3Apis.open16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102584:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_open16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102584:3: note: (near initialization for ‘sqlite3Apis.prepare’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102585:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_prepare,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102585:3: note: (near initialization for ‘sqlite3Apis.prepare16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102586:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_prepare16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102586:3: note: (near initialization for ‘sqlite3Apis.profile’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102587:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_profile,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102587:3: note: (near initialization for ‘sqlite3Apis.progress_handler’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102588:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_progress_handler,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102588:3: note: (near initialization for ‘sqlite3Apis.realloc’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102589:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_realloc,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102589:3: note: (near initialization for ‘sqlite3Apis.reset’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102590:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_reset,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102590:3: note: (near initialization for ‘sqlite3Apis.result_blob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102591:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_blob,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102591:3: note: (near initialization for ‘sqlite3Apis.result_double’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102592:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_double,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102592:3: note: (near initialization for ‘sqlite3Apis.result_error’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102593:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_error,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102593:3: note: (near initialization for ‘sqlite3Apis.result_error16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102594:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_error16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102594:3: note: (near initialization for ‘sqlite3Apis.result_int’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102595:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_int,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102595:3: note: (near initialization for ‘sqlite3Apis.result_int64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102596:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_int64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102596:3: note: (near initialization for ‘sqlite3Apis.result_null’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102597:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_null,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102597:3: note: (near initialization for ‘sqlite3Apis.result_text’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102598:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_text,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102598:3: note: (near initialization for ‘sqlite3Apis.result_text16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102601:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_text16le,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102601:3: note: (near initialization for ‘sqlite3Apis.result_value’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102602:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_value,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102602:3: note: (near initialization for ‘sqlite3Apis.rollback_hook’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102603:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_rollback_hook,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102603:3: note: (near initialization for ‘sqlite3Apis.set_authorizer’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102604:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_set_authorizer,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102604:3: note: (near initialization for ‘sqlite3Apis.set_auxdata’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102605:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_set_auxdata,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102605:3: note: (near initialization for ‘sqlite3Apis.snprintf’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102606:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_snprintf,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102606:3: note: (near initialization for ‘sqlite3Apis.step’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102607:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_step,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102607:3: note: (near initialization for ‘sqlite3Apis.table_column_metadata’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102608:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_table_column_metadata,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102608:3: note: (near initialization for ‘sqlite3Apis.thread_cleanup’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102610:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_thread_cleanup,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102610:3: note: (near initialization for ‘sqlite3Apis.total_changes’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102614:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_total_changes,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102614:3: note: (near initialization for ‘sqlite3Apis.trace’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102615:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_trace,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102615:3: note: (near initialization for ‘sqlite3Apis.transfer_bindings’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102617:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_transfer_bindings,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102617:3: note: (near initialization for ‘sqlite3Apis.update_hook’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102621:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_update_hook,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102621:3: note: (near initialization for ‘sqlite3Apis.user_data’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102622:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_user_data,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102622:3: note: (near initialization for ‘sqlite3Apis.value_blob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102623:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_blob,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102623:3: note: (near initialization for ‘sqlite3Apis.value_bytes’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102625:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_bytes16,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102625:3: note: (near initialization for ‘sqlite3Apis.value_double’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102626:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_double,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102626:3: note: (near initialization for ‘sqlite3Apis.value_int’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102627:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_int,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102627:3: note: (near initialization for ‘sqlite3Apis.value_int64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102628:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_int64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102628:3: note: (near initialization for ‘sqlite3Apis.value_numeric_type’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102629:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_numeric_type,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102629:3: note: (near initialization for ‘sqlite3Apis.value_text’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102630:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_text,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102630:3: note: (near initialization for ‘sqlite3Apis.value_text16’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102633:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_text16le,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102633:3: note: (near initialization for ‘sqlite3Apis.value_type’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102634:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_value_type,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102634:3: note: (near initialization for ‘sqlite3Apis.vmprintf’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102635:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vmprintf,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102635:3: note: (near initialization for ‘sqlite3Apis.overload_function’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102644:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_overload_function,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102644:3: note: (near initialization for ‘sqlite3Apis.prepare_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102649:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_prepare_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102649:3: note: (near initialization for ‘sqlite3Apis.prepare16_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102650:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_prepare16_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102650:3: note: (near initialization for ‘sqlite3Apis.clear_bindings’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102651:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_clear_bindings,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102651:3: note: (near initialization for ‘sqlite3Apis.create_module_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102656:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_module_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102656:3: note: (near initialization for ‘sqlite3Apis.bind_zeroblob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102661:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_bind_zeroblob,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102661:3: note: (near initialization for ‘sqlite3Apis.blob_bytes’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102663:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_blob_close,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102663:3: note: (near initialization for ‘sqlite3Apis.blob_open’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102664:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_blob_open,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102664:3: note: (near initialization for ‘sqlite3Apis.blob_read’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102665:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_blob_read,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102665:3: note: (near initialization for ‘sqlite3Apis.blob_write’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102666:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_blob_write,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102666:3: note: (near initialization for ‘sqlite3Apis.create_collation_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102667:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_collation_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102667:3: note: (near initialization for ‘sqlite3Apis.file_control’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102668:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_file_control,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102668:3: note: (near initialization for ‘sqlite3Apis.memory_highwater’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102669:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_memory_highwater,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102669:3: note: (near initialization for ‘sqlite3Apis.memory_used’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102670:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_memory_used,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102670:3: note: (near initialization for ‘sqlite3Apis.mutex_alloc’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102678:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_mutex_alloc,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102678:3: note: (near initialization for ‘sqlite3Apis.mutex_enter’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102681:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_mutex_leave,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102681:3: note: (near initialization for ‘sqlite3Apis.mutex_try’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102682:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_mutex_try,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102682:3: note: (near initialization for ‘sqlite3Apis.open_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102684:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_open_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102684:3: note: (near initialization for ‘sqlite3Apis.release_memory’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102685:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_release_memory,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102685:3: note: (near initialization for ‘sqlite3Apis.result_error_nomem’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102687:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_error_toobig,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102687:3: note: (near initialization for ‘sqlite3Apis.sleep’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102688:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_sleep,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102688:3: note: (near initialization for ‘sqlite3Apis.soft_heap_limit’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102689:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_soft_heap_limit,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102689:3: note: (near initialization for ‘sqlite3Apis.vfs_find’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102690:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vfs_find,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102690:3: note: (near initialization for ‘sqlite3Apis.vfs_register’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102691:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vfs_register,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102691:3: note: (near initialization for ‘sqlite3Apis.vfs_unregister’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102692:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vfs_unregister,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102692:3: note: (near initialization for ‘sqlite3Apis.xthreadsafe’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102697:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_threadsafe,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102697:3: note: (near initialization for ‘sqlite3Apis.result_zeroblob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102699:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_error_code,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102699:3: note: (near initialization for ‘sqlite3Apis.test_control’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102700:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_test_control,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102700:3: note: (near initialization for ‘sqlite3Apis.randomness’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102701:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_randomness,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102701:3: note: (near initialization for ‘sqlite3Apis.context_db_handle’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102702:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_context_db_handle,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102702:3: note: (near initialization for ‘sqlite3Apis.extended_result_codes’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102707:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_extended_result_codes,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102707:3: note: (near initialization for ‘sqlite3Apis.limit’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102708:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_limit,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102708:3: note: (near initialization for ‘sqlite3Apis.next_stmt’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102709:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_next_stmt,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102709:3: note: (near initialization for ‘sqlite3Apis.sql’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102710:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_sql,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102710:3: note: (near initialization for ‘sqlite3Apis.status’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102711:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_status,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102711:3: note: (near initialization for ‘sqlite3Apis.backup_finish’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102716:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_backup_finish,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102716:3: note: (near initialization for ‘sqlite3Apis.backup_init’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102717:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_backup_init,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102717:3: note: (near initialization for ‘sqlite3Apis.backup_pagecount’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102719:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_backup_remaining,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102719:3: note: (near initialization for ‘sqlite3Apis.backup_step’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102720:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_backup_step,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102720:3: note: (near initialization for ‘sqlite3Apis.compileoption_get’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102722:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_compileoption_get,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102722:3: note: (near initialization for ‘sqlite3Apis.compileoption_used’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102723:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_compileoption_used,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102723:3: note: (near initialization for ‘sqlite3Apis.create_function_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102728:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_create_function_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102728:3: note: (near initialization for ‘sqlite3Apis.db_config’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102729:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_config,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102729:3: note: (near initialization for ‘sqlite3Apis.db_mutex’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102730:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_mutex,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102730:3: note: (near initialization for ‘sqlite3Apis.db_status’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102731:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_status,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102731:3: note: (near initialization for ‘sqlite3Apis.extended_errcode’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102732:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_extended_errcode,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102732:3: note: (near initialization for ‘sqlite3Apis.log’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102733:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_log,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102733:3: note: (near initialization for ‘sqlite3Apis.soft_heap_limit64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102734:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_soft_heap_limit64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102734:3: note: (near initialization for ‘sqlite3Apis.sourceid’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102735:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_sourceid,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102735:3: note: (near initialization for ‘sqlite3Apis.stmt_status’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102736:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_stmt_status,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102736:3: note: (near initialization for ‘sqlite3Apis.strnicmp’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102737:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_strnicmp,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102737:3: note: (near initialization for ‘sqlite3Apis.unlock_notify’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102744:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_wal_autocheckpoint,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102744:3: note: (near initialization for ‘sqlite3Apis.wal_checkpoint’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102745:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_wal_checkpoint,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102745:3: note: (near initialization for ‘sqlite3Apis.wal_hook’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102746:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_wal_hook,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102746:3: note: (near initialization for ‘sqlite3Apis.blob_reopen’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102752:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_blob_reopen,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102752:3: note: (near initialization for ‘sqlite3Apis.vtab_config’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102753:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vtab_config,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102753:3: note: (near initialization for ‘sqlite3Apis.vtab_on_conflict’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102755:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_close_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102755:3: note: (near initialization for ‘sqlite3Apis.db_filename’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102756:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_filename,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102756:3: note: (near initialization for ‘sqlite3Apis.db_readonly’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102757:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_readonly,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102757:3: note: (near initialization for ‘sqlite3Apis.db_release_memory’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102758:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_db_release_memory,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102758:3: note: (near initialization for ‘sqlite3Apis.errstr’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102759:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_errstr,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102759:3: note: (near initialization for ‘sqlite3Apis.stmt_busy’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102761:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_stmt_readonly,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102761:3: note: (near initialization for ‘sqlite3Apis.stricmp’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102762:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_stricmp,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102762:3: note: (near initialization for ‘sqlite3Apis.uri_boolean’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102763:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_uri_boolean,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102763:3: note: (near initialization for ‘sqlite3Apis.uri_int64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102764:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_uri_int64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102764:3: note: (near initialization for ‘sqlite3Apis.uri_parameter’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102765:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_uri_parameter,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102765:3: note: (near initialization for ‘sqlite3Apis.vsnprintf’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102766:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_vsnprintf,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102766:3: note: (near initialization for ‘sqlite3Apis.wal_checkpoint_v2’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102767:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_wal_checkpoint_v2,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102767:3: note: (near initialization for ‘sqlite3Apis.auto_extension’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102769:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_auto_extension,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102769:3: note: (near initialization for ‘sqlite3Apis.bind_blob64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102770:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_bind_blob64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102770:3: note: (near initialization for ‘sqlite3Apis.bind_text64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102771:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_bind_text64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102771:3: note: (near initialization for ‘sqlite3Apis.cancel_auto_extension’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102772:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_cancel_auto_extension,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102772:3: note: (near initialization for ‘sqlite3Apis.load_extension’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102773:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_load_extension,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102773:3: note: (near initialization for ‘sqlite3Apis.malloc64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102774:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_malloc64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102774:3: note: (near initialization for ‘sqlite3Apis.msize’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102775:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_msize,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102775:3: note: (near initialization for ‘sqlite3Apis.realloc64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102776:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_realloc64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102776:3: note: (near initialization for ‘sqlite3Apis.reset_auto_extension’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102777:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_reset_auto_extension,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102777:3: note: (near initialization for ‘sqlite3Apis.result_blob64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102778:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_blob64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102778:3: note: (near initialization for ‘sqlite3Apis.result_text64’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102779:3: warning: initialization from incompatible pointer type [-Wincompatible-pointer-types]
+   sqlite3_result_text64,
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102779:3: note: (near initialization for ‘sqlite3Apis.strglob’)
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102780:3: warning: excess elements in struct initializer
+   sqlite3_strglob
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c:102780:3: note: (near initialization for ‘sqlite3Apis’)
+if test ! -f main.do; \
+then \
+	#cc mathematics.obj tools.obj containers-variable.obj containers-databases-sqlite.c.obj containers-databases-sqlite.c++.obj;\
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -o main.do mathematics.obj tools.obj containers-variable.obj containers-databases-sqlite.c.obj containers-databases-sqlite.c++.obj;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -c -o main.obj main.c++;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -c -o mathematics.obj /root/Documents/C++/NoWare/noware/mathematics.c++;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -c -o tools.obj /root/Documents/C++/NoWare/noware/tools.c++;\
+	#gcc -l pthread -l dl -c -o sqlite-3.obj /root/Documents/C++/NoWare/sqlite/shell.c /root/Documents/C++/NoWare/sqlite/3.c;\
+	#g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -o sqlite-3.obj -c /root/Documents/C++/NoWare/sqlite/3.c ;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -o containers-databases-sqlite.c++.obj -c /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++ ;\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -o containers-variable.obj -c /root/Documents/C++/NoWare/noware/containers/variable.c++ ;\
+	#\
+	## Create the static library for sqlite.\
+	#ar rcs libsqlite.a sqlite.obj;\
+	\
+	g++ -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I . -I /usr/include/quex -I /usr/include/boost -I /root/Documents/C++/NoWare -DQUEX_OPTION_ASSERTS_DISABLED -L . -l boost_system -l boost_serialization -l boost_thread -l cln -fopenmp -l pthread -l dl -o main.do main.obj mathematics.obj tools.obj containers-variable.obj containers-databases-sqlite.c.obj containers-databases-sqlite.c++.obj;\
+fi
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:114:3: warning: "/*" within comment [-Wcomment]
+  //* v;
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:128:3: warning: "/*" within comment [-Wcomment]
+  //* val = value_temp;
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:130:2: warning: "/*" within comment [-Wcomment]
+  /*
+  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:213:3: warning: "/*" within comment [-Wcomment]
+   /*
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:275:10: warning: "/*" within comment [-Wcomment]
+    return/* false* /;
+          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:278:14: warning: "/*" within comment [-Wcomment]
+   //while (! /*i* /archive.eof ())
+              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:281:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> k;
+      ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:282:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> v;
+      ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:285:11: warning: "/*" within comment [-Wcomment]
+     return/* false* /;
+           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:326:64: warning: "/*" within comment [-Wcomment]
+ LIB::containers::NAME_A <value, key>::NAME_A (const value & lmn/* eLeMeNt * /)
+                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:469:4: warning: "/*" within comment [-Wcomment]
+    /*
+    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:499:39: warning: "/*" within comment [-Wcomment]
+   for (key i = 1; i <= this -> size ()/* && i < ULLONG_MAX* /; ++ i)
+                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:507:7: warning: "/*" within comment [-Wcomment]
+     ///*return * /set (i, value_);
+       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1399:84: warning: "/*" within comment [-Wcomment]
+ LIB::containers::NAME_A::iterator LIB::containers::NAME_A <value, key>::reset (void/*const iterator & it* /) const
+                                                                                    ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:57:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.h++:23:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool deserialize (const std::string &, type &);
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.h++:39:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:57,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.t++:63:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::deserialize (const std::string & serial, type & object)
+                                                                       ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:21:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:57:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:63:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:95:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:99:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:100:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:103:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:104:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:80:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:84:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:105:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const type determine (const std::string &) const;
+                                               ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:161:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty  (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:162:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_string (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:163:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_text (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:164:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_generic (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:165:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_numeric (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:471:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:472:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:474:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const signed short int &);
+                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:513:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:514:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:820:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:821:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V) const;
+                                              ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12:0,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:94:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool operator == (const package &/* other*/) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:98:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:138:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search (const key &, value *&) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:139:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search_key (const key &, key *&) const;
+                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:144:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool insert (const key &, /*const */value *&); // Add a new element.
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12:0,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:213:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exists (const key &) const; // Determines if an element exists named by the key provided.
+                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:214:35: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exist (const key &) const; // Determines if an element exists named by the key provided.
+                                   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:216:27: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool full (void) const;
+                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:218:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty (void) const;
+                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:219:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator == (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:220:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator != (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:228:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &);
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:230:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &, key &);
+                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:232:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const NAME_A <value, key> &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:235:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &);
+                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:237:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &, key &);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:239:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const NAME_A <value, key> &);
+                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:263:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool set (const key &, const value &); // Adds a new element.
+                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:265:26: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool clear (void); // Remove all the elements from the container.
+                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:266:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool unset (const key &); // Removes the element specified by that key, if it exists.
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:267:106: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */, const bool/* tolerant*/); // Renames an existing element.
+                                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:268:81: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */); // Renames an existing element, using the default value for "tolerant".
+                                                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:300:37: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &);
+                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:301:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &, key &);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:302:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool dequeue (void);
+                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:309:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &);
+                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:310:41: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &, key &);
+                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:311:24: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool pop (void);
+                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:318:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool numeric_key (void) const;
+                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:352:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:360:99: warning: friend declaration ‘std::ostream& noware::containers::operator<<(std::ostream&, const noware::containers::array<value, key>&)’ declares a non-template function [-Wnon-template-friend]
+    friend std::ostream & operator << (std::ostream &, const LIB::containers::NAME_A <value, key> &)/* const*/;
+                                                                                                   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:360:99: note: (if this is not what you intended, make sure the function template has already been declared and add <> after the function name here) 
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:9:95: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::package::operator == (const package & other) const
+                                                                                               ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from main.c++:3:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:152:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::package::deserialize (const std::string & serial)
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:306:89: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::deserialize (const std::string & serial)
+                                                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:531:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const value & other)
+                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:542:90: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const value & other, key & used_key)
+                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:554:88: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const NAME_A <value, key> & other)
+                                                                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:565:77: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const value & other)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:576:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const value & other, key & used_key)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:588:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const NAME_A <value, key> & other)
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:609:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::numeric_key (void) const
+                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:836:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::search (const key & key_, value *& value_) const
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:879:90: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::search_key (const key & key_, key *& k) const
+                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:916:113: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ /*value &*/ const bool LIB::containers::NAME_A <value, key>::insert (const key & key_, /*const */value *& value_)
+                                                                                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:998:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::set (const key & _key, const value & value_)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1077:61: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::clear (void)
+                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1139:76: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::exists (const key & _key) const
+                                                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1150:75: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::exist (const key & _key) const
+                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1178:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::unset (const key & key_)
+                                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1219:128: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::rename (const key & old, const key & val /* New name. */, const bool _tolerant)
+                                                                                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1276:114: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
+                                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1282:62: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::full (void) const
+                                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1289:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::empty (void) const
+                                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1455:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::operator == (const NAME_A <value, key> & other) const
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1503:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::operator != (const NAME_A <value, key> & other) const
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1509:78: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other)
+                                                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1517:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other, key & k)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1530:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::dequeue (void)
+                                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1539:75: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::push (const value & other)
+                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1547:84: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::push (const value & other, key & k)
+                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1553:59: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::pop (void)
+                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++: In function ‘std::ostream& operator<<(std::ostream&, const noware::containers::array<value, key>&)’:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1589:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+In file included from main.c++:3:0:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++: At global scope:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:39:276: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> &/* result*/, const std::string &/* the query*/, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> &/* arguemnts*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:40:214: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> &/* result*/, const std::string &/* the query*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:41:196: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (const std::string &/* the query*/, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> &/* arguemnts*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:42:134: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (const std::string &/* the query*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:51:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool effect_set (const int & = 0);
+                                            ^
+main.c++:34:12: warning: first argument of ‘int main(unsigned int, char**)’ should be ‘int’ [-Wmain]
+ signed int main (unsigned int argc, char * argv [])
+            ^
+In file included from /root/Documents/C++/NoWare/noware/tools.c++:24:0:
+/root/Documents/C++/NoWare/noware/tools.h++:21:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+In file included from /root/Documents/C++/NoWare/noware/tools.c++:24:0:
+/root/Documents/C++/NoWare/noware/tools.h++:57:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/tools.h++:63:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/tools.h++:95:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/tools.h++:99:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/tools.h++:100:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/tools.h++:103:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/tools.h++:104:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/tools.c++:31:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string & value)
+                                                   ^
+/root/Documents/C++/NoWare/noware/tools.c++:255:93: warning: unused parameter ‘value’ [-Wunused-parameter]
+   const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real & value, const LIB::mathematics::numbers::natural & radix)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/tools.c++:255:143: warning: unused parameter ‘radix’ [-Wunused-parameter]
+   const LIB::mathematics::numbers::real complement (const LIB::mathematics::numbers::real & value, const LIB::mathematics::numbers::natural & radix)
+                                                                                                                                               ^
+/root/Documents/C++/NoWare/noware/tools.c++:442:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char toggle_case (const char & input)
+                                             ^
+/root/Documents/C++/NoWare/noware/tools.c++: In function ‘const char noware::tools::toggle_case(const char&)’:
+/root/Documents/C++/NoWare/noware/tools.c++:446:28: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     return ::tolower (input);
+                            ^
+/root/Documents/C++/NoWare/noware/tools.c++:450:28: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     return ::toupper (input);
+                            ^
+/root/Documents/C++/NoWare/noware/tools.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tools.c++:468:98: warning: unused parameter ‘length’ [-Wunused-parameter]
+   const std::string multiply (const std::string & input, const LIB::mathematics::numbers::real & length)
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/tools.c++:492:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string & s)
+                                                  ^
+/root/Documents/C++/NoWare/noware/tools.c++: In function ‘const string noware::tools::lower(std::string)’:
+/root/Documents/C++/NoWare/noware/tools.c++:642:15: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     value [i] = ::tolower (value [i]);
+               ^
+/root/Documents/C++/NoWare/noware/tools.c++: In function ‘const string noware::tools::upper(std::string)’:
+/root/Documents/C++/NoWare/noware/tools.c++:654:15: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+     value [i] = ::toupper (value [i]);
+               ^
+/root/Documents/C++/NoWare/noware/tools.c++: In constructor ‘noware::tools::randomizer::randomizer(const long long unsigned int&, const long long unsigned int&)’:
+/root/Documents/C++/NoWare/noware/tools.c++:679:22: warning: conversion to ‘unsigned int’ from ‘time_t {aka long int}’ may alter its value [-Wconversion]
+    srand (time (NULL));
+                      ^
+/root/Documents/C++/NoWare/noware/tools.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tools.c++:682:132: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::generate (const unsigned long long int & maximum, const unsigned long long int & minimum)
+                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/tools.c++: In member function ‘const long long unsigned int noware::tools::randomizer::generate(const long long unsigned int&, const long long unsigned int&)’:
+/root/Documents/C++/NoWare/noware/tools.c++:685:73: warning: conversion to ‘double’ from ‘long long unsigned int’ may alter its value [-Wconversion]
+    return minimum + ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
+                                                                         ^
+/root/Documents/C++/NoWare/noware/tools.c++:685:74: warning: conversion to ‘double’ from ‘long long unsigned int’ may alter its value [-Wconversion]
+    return minimum + ((maximum - minimum + 1) * rand () / (RAND_MAX + 1.0));
+                                                                          ^
+/root/Documents/C++/NoWare/noware/tools.c++:685:74: warning: conversion to ‘long long unsigned int’ from ‘double’ may alter its value [-Wfloat-conversion]
+/root/Documents/C++/NoWare/noware/tools.c++: At global scope:
+/root/Documents/C++/NoWare/noware/tools.c++:697:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::min (void)
+                                                     ^
+/root/Documents/C++/NoWare/noware/tools.c++:702:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::max (void)
+                                                     ^
+/root/Documents/C++/NoWare/noware/tools.c++:708:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::min (const unsigned long long int & minimum)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/tools.c++:716:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const unsigned long long int randomizer::max (const unsigned long long int & maximum)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/tools.c++: In function ‘const string noware::tools::multiply(const string&, const real&)’:
+/root/Documents/C++/NoWare/noware/tools.c++:479:18: warning: ‘length_i’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+    for (i = 0; i < length_i; ++ i)
+                  ^
+/root/Documents/C++/NoWare/noware/tools.c++:484:74: warning: ‘remainder’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+    for (/*mathematics::numbers::natural*/unsigned long long int j = 0; j < remainder; ++ j)
+                                                                          ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:114:3: warning: "/*" within comment [-Wcomment]
+  //* v;
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:128:3: warning: "/*" within comment [-Wcomment]
+  //* val = value_temp;
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:130:2: warning: "/*" within comment [-Wcomment]
+  /*
+  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:213:3: warning: "/*" within comment [-Wcomment]
+   /*
+   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:275:10: warning: "/*" within comment [-Wcomment]
+    return/* false* /;
+          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:278:14: warning: "/*" within comment [-Wcomment]
+   //while (! /*i* /archive.eof ())
+              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:281:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> k;
+      ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:282:6: warning: "/*" within comment [-Wcomment]
+    ///*i* /archive >> v;
+      ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:285:11: warning: "/*" within comment [-Wcomment]
+     return/* false* /;
+           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:326:64: warning: "/*" within comment [-Wcomment]
+ LIB::containers::NAME_A <value, key>::NAME_A (const value & lmn/* eLeMeNt * /)
+                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:469:4: warning: "/*" within comment [-Wcomment]
+    /*
+    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:499:39: warning: "/*" within comment [-Wcomment]
+   for (key i = 1; i <= this -> size ()/* && i < ULLONG_MAX* /; ++ i)
+                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:507:7: warning: "/*" within comment [-Wcomment]
+     ///*return * /set (i, value_);
+       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1399:84: warning: "/*" within comment [-Wcomment]
+ LIB::containers::NAME_A::iterator LIB::containers::NAME_A <value, key>::reset (void/*const iterator & it* /) const
+                                                                                    ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:57:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.h++:23:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool deserialize (const std::string &, type &);
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.h++:39:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:57,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../serialization.t++:63:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::deserialize (const std::string & serial, type & object)
+                                                                       ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:21:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:57:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:63:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:95:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:99:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:100:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:103:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/../tools.h++:104:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:80:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:84:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:105:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const type determine (const std::string &) const;
+                                               ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:58:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:161:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty  (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:162:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_string (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:163:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_text (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:164:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_generic (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:165:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_numeric (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:471:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:472:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:474:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const signed short int &);
+                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:513:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:514:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:820:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/variable.h++:821:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V) const;
+                                              ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:94:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool operator == (const package &/* other*/) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:98:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:138:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search (const key &, value *&) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:139:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool search_key (const key &, key *&) const;
+                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:144:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool insert (const key &, /*const */value *&); // Add a new element.
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:213:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exists (const key &) const; // Determines if an element exists named by the key provided.
+                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:214:35: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool exist (const key &) const; // Determines if an element exists named by the key provided.
+                                   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:216:27: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool full (void) const;
+                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:218:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty (void) const;
+                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:219:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator == (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:220:57: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool operator != (const NAME_A <value, key> &) const;
+                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:228:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &);
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:230:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const value &, key &);
+                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:232:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool add (const NAME_A <value, key> &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:235:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &);
+                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:237:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const value &, key &);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:239:50: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool append (const NAME_A <value, key> &);
+                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:263:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool set (const key &, const value &); // Adds a new element.
+                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:265:26: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool clear (void); // Remove all the elements from the container.
+                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:266:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool unset (const key &); // Removes the element specified by that key, if it exists.
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:267:106: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */, const bool/* tolerant*/); // Renames an existing element.
+                                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:268:81: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool rename (const key &/* Current name. */, const key &/* New name. */); // Renames an existing element, using the default value for "tolerant".
+                                                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:300:37: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &);
+                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:301:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool enqueue (const value &, key &);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:302:28: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool dequeue (void);
+                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:309:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &);
+                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:310:41: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool push (const value &, key &);
+                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:311:24: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool pop (void);
+                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:318:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool numeric_key (void) const;
+                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:352:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:360:99: warning: friend declaration ‘std::ostream& noware::containers::operator<<(std::ostream&, const noware::containers::array<value, key>&)’ declares a non-template function [-Wnon-template-friend]
+    friend std::ostream & operator << (std::ostream &, const LIB::containers::NAME_A <value, key> &)/* const*/;
+                                                                                                   ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:360:99: note: (if this is not what you intended, make sure the function template has already been declared and add <> after the function name here) 
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:9:95: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::package::operator == (const package & other) const
+                                                                                               ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.h++:371:0,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:12,
+                 from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:152:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::package::deserialize (const std::string & serial)
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:306:89: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::deserialize (const std::string & serial)
+                                                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:531:74: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const value & other)
+                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:542:90: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const value & other, key & used_key)
+                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:554:88: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::add (const NAME_A <value, key> & other)
+                                                                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:565:77: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const value & other)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:576:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const value & other, key & used_key)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:588:91: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::append (const NAME_A <value, key> & other)
+                                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:609:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::numeric_key (void) const
+                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:836:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::search (const key & key_, value *& value_) const
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:879:90: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::search_key (const key & key_, key *& k) const
+                                                                                          ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:916:113: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ /*value &*/ const bool LIB::containers::NAME_A <value, key>::insert (const key & key_, /*const */value *& value_)
+                                                                                                                 ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:998:93: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::set (const key & _key, const value & value_)
+                                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1077:61: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::clear (void)
+                                                             ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1139:76: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::exists (const key & _key) const
+                                                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1150:75: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::exist (const key & _key) const
+                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1178:73: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::unset (const key & key_)
+                                                                         ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1219:128: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::rename (const key & old, const key & val /* New name. */, const bool _tolerant)
+                                                                                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1276:114: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::rename (const key & current, const key & new_val /* New name. */)
+                                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1282:62: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::full (void) const
+                                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1289:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::empty (void) const
+                                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1455:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::operator == (const NAME_A <value, key> & other) const
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1503:98: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::operator != (const NAME_A <value, key> & other) const
+                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1509:78: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other)
+                                                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1517:87: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::enqueue (const value & other, key & k)
+                                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1530:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::dequeue (void)
+                                                               ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1539:75: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::push (const value & other)
+                                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1547:84: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::push (const value & other, key & k)
+                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1553:59: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::containers::NAME_A <value, key>::pop (void)
+                                                           ^
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++: In function ‘std::ostream& operator<<(std::ostream&, const noware::containers::array<value, key>&)’:
+/root/Documents/C++/NoWare/noware/containers/databases/../../containers/array.t++:1589:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+In file included from /root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:1:0:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++: At global scope:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:39:276: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> &/* result*/, const std::string &/* the query*/, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> &/* arguemnts*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:40:214: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> &/* result*/, const std::string &/* the query*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:41:196: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (const std::string &/* the query*/, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> &/* arguemnts*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:42:134: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const bool query (const std::string &/* the query*/, const LIB::mathematics::numbers::natural &/* error_retries*/ = default_tries);
+                                                                                                                                      ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.h++:51:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool effect_set (const int & = 0);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:20:254: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::databases::sqlite::query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> & result, const std::string & qry, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> & arguments, const LIB::mathematics::numbers::natural & tries_max)
+                                                                                                                                                                                                                                                              ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++: In member function ‘const bool noware::databases::sqlite::query(noware::array<noware::containers::array<noware::containers::variable, noware::containers::variable>, noware::containers::variable>&, const string&, noware::array<noware::containers::variable, noware::containers::variable>&, const natural&)’:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:62:85: warning: conversion to ‘int’ from ‘std::basic_string<char>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
+  if (sqlite3_prepare_v2 (db, qry.c_str (), qry.size (), & statement, & sql_remainder) != SQLITE_OK)
+                                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:86:128: warning: conversion to ‘int’ from ‘std::basic_string<char>::size_type {aka long unsigned int}’ may alter its value [-Wconversion]
+      sqlite3_bind_text (statement, argument.k, argument.v.to_string ().c_str (), argument.v.to_string ().size (), SQLITE_STATIC);
+                                                                                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++: At global scope:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:144:196: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::databases::sqlite::query (LIB::NAME_A <LIB::NAME_A <LIB::NAME_V, LIB::NAME_V>, LIB::NAME_V> & result, const std::string & qry, const LIB::mathematics::numbers::natural & tries_max)
+                                                                                                                                                                                                    ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:151:178: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::databases::sqlite::query (const std::string & qry, const LIB::NAME_A <LIB::NAME_V, LIB::NAME_V> & arguments, const LIB::mathematics::numbers::natural & tries_max)
+                                                                                                                                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:158:120: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::databases::sqlite::query (const std::string & qry, const LIB::mathematics::numbers::natural & tries_max)
+                                                                                                                        ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:167:64: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool LIB::databases::sqlite::effect_set (const int & val)
+                                                                ^
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++: In member function ‘const bool noware::databases::sqlite::effect_set(const int&)’:
+/root/Documents/C++/NoWare/noware/containers/databases/sqlite.c++:170:2: warning: no return statement in function returning non-void [-Wreturn-type]
+  }
+  ^
+In file included from /root/Documents/C++/NoWare/noware/containers/variable.h++:36:0,
+                 from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:
+/root/Documents/C++/NoWare/noware/containers/../serialization.h++:23:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool deserialize (const std::string &, type &);
+                                                      ^
+In file included from /root/Documents/C++/NoWare/noware/containers/../serialization.h++:39:0,
+                 from /root/Documents/C++/NoWare/noware/containers/variable.h++:36,
+                 from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:
+/root/Documents/C++/NoWare/noware/containers/../serialization.t++:63:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+ const bool LIB::deserialize (const std::string & serial, type & object)
+                                                                       ^
+In file included from /root/Documents/C++/NoWare/noware/containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:21:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_numeric (const std::string &);
+                                             ^
+In file included from /root/Documents/C++/NoWare/noware/containers/variable.h++:37:0,
+                 from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:57:40: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const char  toggle_case (const char &);
+                                        ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:63:48: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   const bool is_palindrome (const std::string &); // Determines if a string is a palindrome.
+                                                ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:95:151: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int generate (const unsigned long long int & = RAND_MAX /* Maximum. */, const unsigned long long int & = 0 /* Minimum. */);
+                                                                                                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:99:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:100:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (void);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:103:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int min (const unsigned long long int &);
+                                                                     ^
+/root/Documents/C++/NoWare/noware/containers/../tools.h++:104:69: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+     const unsigned long long int max (const unsigned long long int &);
+                                                                     ^
+In file included from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:0:
+/root/Documents/C++/NoWare/noware/containers/variable.h++:80:49: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool deserialize (const std::string &);
+                                                 ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:84:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool deserialize (const std::string &);
+                                               ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:105:47: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const type determine (const std::string &) const;
+                                               ^
+In file included from /root/Documents/C++/NoWare/noware/containers/variable.c++:10:0:
+/root/Documents/C++/NoWare/noware/containers/variable.h++:161:29: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool empty  (void) const;
+                             ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:162:32: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_string (void) const;
+                                ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:163:30: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_text (void) const;
+                              ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:164:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_generic (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:165:33: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    const bool is_numeric (void) const;
+                                 ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:471:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:472:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:474:55: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator < (const signed short int &);
+                                                       ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:513:43: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V);
+                                           ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:514:45: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator > (const NAME_V) const;
+                                             ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:820:44: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V);
+                                            ^
+/root/Documents/C++/NoWare/noware/containers/variable.h++:821:46: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+      const bool   operator <= (const NAME_V) const;
+                                              ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:62:71: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::container::deserialize (const std::string & serial)
+                                                                       ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:72:60: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::deserialize (const std::string & serial)
+                                                            ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:685:34: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::empty (void) const
+                                  ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:729:65: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const NAME_V::type NAME_V::determine (const std::string & val) const
+                                                                 ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:861:38: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_string (void) const
+                                      ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:866:36: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_text (void) const
+                                    ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:871:39: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_generic (void) const
+                                       ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:876:39: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool NAME_V::is_numeric (void) const
+                                       ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:2872:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const NAME_V val)/* const*/
+                                                   ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:2914:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const NAME_V val) const
+                                                     ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:2959:63: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator < (const signed short int & val)
+                                                               ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:3150:53: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator > (const NAME_V val) const
+                                                     ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:3155:51: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator > (const NAME_V val)
+                                                   ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(short int&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4222:9: warning: conversion to ‘short int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(short unsigned int&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4230:9: warning: conversion to ‘short unsigned int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(int&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4238:9: warning: conversion to ‘int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(unsigned int&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4246:9: warning: conversion to ‘unsigned int’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(float&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4286:9: warning: conversion to ‘float’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4288:10: warning: conversion to ‘long long int’ from ‘float’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(double&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4294:9: warning: conversion to ‘double’ from ‘long long int’ may alter its value [-Wconversion]
+    val1 = val1 % val2;
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4296:10: warning: conversion to ‘long long int’ from ‘double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator%=(long double&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4304:10: warning: conversion to ‘long long int’ from ‘long double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator^=(float&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4490:10: warning: conversion to ‘long long int’ from ‘float’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator^=(double&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4498:10: warning: conversion to ‘long long int’ from ‘double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘long long int noware::containers::operator^=(long double&, noware::containers::variable)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:4506:10: warning: conversion to ‘long long int’ from ‘long double’ may alter its value [-Wfloat-conversion]
+   return val1;
+          ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: At global scope:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5308:52: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator <= (const NAME_V val)
+                                                    ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5313:54: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+  const bool   NAME_V::operator <= (const NAME_V val) const
+                                                      ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5807:35: warning: unused parameter ‘val’ [-Wunused-parameter]
+  NAME_V  NAME_V::operator ++ (int val)
+                                   ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5817:35: warning: unused parameter ‘val’ [-Wunused-parameter]
+  NAME_V  NAME_V::operator -- (int val)
+                                   ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘std::string tolower(noware::containers::variable&)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5837:9: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+   s [i] = tolower (s [i]);
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In function ‘std::string toupper(noware::containers::variable&)’:
+/root/Documents/C++/NoWare/noware/containers/variable.c++:5851:9: warning: conversion to ‘char’ from ‘int’ may alter its value [-Wconversion]
+   s [i] = toupper (s [i]);
+         ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In instantiation of ‘void noware::containers::variable::container::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_oarchive]’:
+/usr/include/boost/serialization/access.hpp:118:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:69:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:128:18:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable::container]’
+/usr/include/boost/archive/detail/oserializer.hpp:148:40:   required from ‘void boost::archive::detail::oserializer<Archive, T>::save_object_data(boost::archive::detail::basic_oarchive&, const void*) const [with Archive = boost::archive::text_oarchive; T = noware::containers::variable::container]’
+/usr/include/boost/archive/detail/oserializer.hpp:101:1:   required from ‘class boost::archive::detail::oserializer<boost::archive::text_oarchive, noware::containers::variable::container>’
+/usr/include/boost/archive/detail/oserializer.hpp:253:13:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/oserializer.hpp:525:18:   required from ‘void boost::archive::save(Archive&, T&) [with Archive = boost::archive::text_oarchive; T = const noware::containers::variable::container]’
+/usr/include/boost/archive/detail/common_oarchive.hpp:69:22:   required from ‘void boost::archive::detail::common_oarchive<Archive>::save_override(T&, int) [with T = const noware::containers::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/basic_text_oarchive.hpp:84:9:   required from ‘void boost::archive::basic_text_oarchive<Archive>::save_override(T&, int) [with T = const noware::containers::variable::container; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/detail/interface_oarchive.hpp:63:9:   required from ‘Archive& boost::archive::detail::interface_oarchive<Archive>::operator<<(T&) [with T = const noware::containers::variable::container; Archive = boost::archive::text_oarchive]’
+/root/Documents/C++/NoWare/noware/containers/../serialization.t++:48:5:   required from ‘const string noware::serialize(const type&) [with type = noware::containers::variable::container; std::string = std::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/containers/variable.c++:59:69:   required from here
+/root/Documents/C++/NoWare/noware/containers/variable.c++:28:77: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::container::serialize (Archive & archive, const unsigned int & version)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In instantiation of ‘void noware::containers::variable::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_oarchive]’:
+/usr/include/boost/serialization/access.hpp:118:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable]’
+/usr/include/boost/serialization/serialization.hpp:69:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable]’
+/usr/include/boost/serialization/serialization.hpp:128:18:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_oarchive; T = noware::containers::variable]’
+/usr/include/boost/archive/detail/oserializer.hpp:148:40:   required from ‘void boost::archive::detail::oserializer<Archive, T>::save_object_data(boost::archive::detail::basic_oarchive&, const void*) const [with Archive = boost::archive::text_oarchive; T = noware::containers::variable]’
+/usr/include/boost/archive/detail/oserializer.hpp:101:1:   required from ‘class boost::archive::detail::oserializer<boost::archive::text_oarchive, noware::containers::variable>’
+/usr/include/boost/archive/detail/oserializer.hpp:253:13:   [ skipping 2 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/oserializer.hpp:525:18:   required from ‘void boost::archive::save(Archive&, T&) [with Archive = boost::archive::text_oarchive; T = const noware::containers::variable]’
+/usr/include/boost/archive/detail/common_oarchive.hpp:69:22:   required from ‘void boost::archive::detail::common_oarchive<Archive>::save_override(T&, int) [with T = const noware::containers::variable; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/basic_text_oarchive.hpp:84:9:   required from ‘void boost::archive::basic_text_oarchive<Archive>::save_override(T&, int) [with T = const noware::containers::variable; Archive = boost::archive::text_oarchive]’
+/usr/include/boost/archive/detail/interface_oarchive.hpp:63:9:   required from ‘Archive& boost::archive::detail::interface_oarchive<Archive>::operator<<(T&) [with T = const noware::containers::variable; Archive = boost::archive::text_oarchive]’
+/root/Documents/C++/NoWare/noware/containers/../serialization.t++:48:5:   required from ‘const string noware::serialize(const type&) [with type = noware::containers::variable; std::string = std::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/containers/variable.c++:69:58:   required from here
+/root/Documents/C++/NoWare/noware/containers/variable.c++:51:66: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::serialize (Archive & archive, const unsigned int & version)
+                                                                  ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In instantiation of ‘void noware::containers::variable::container::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_iarchive]’:
+/usr/include/boost/serialization/access.hpp:118:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:69:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable::container]’
+/usr/include/boost/serialization/serialization.hpp:128:18:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable::container]’
+/usr/include/boost/archive/detail/iserializer.hpp:184:40:   required from ‘void boost::archive::detail::iserializer<Archive, T>::load_object_data(boost::archive::detail::basic_iarchive&, void*, unsigned int) const [with Archive = boost::archive::text_iarchive; T = noware::containers::variable::container]’
+/usr/include/boost/archive/detail/iserializer.hpp:116:1:   required from ‘class boost::archive::detail::iserializer<boost::archive::text_iarchive, noware::containers::variable::container>’
+/usr/include/boost/archive/detail/iserializer.hpp:410:13:   [ skipping 3 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/common_iarchive.hpp:66:22:   required from ‘void boost::archive::detail::common_iarchive<Archive>::load_override(T&, int) [with T = noware::containers::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/basic_text_iarchive.hpp:71:9:   required from ‘void boost::archive::basic_text_iarchive<Archive>::load_override(T&, int) [with T = noware::containers::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/text_iarchive.hpp:92:52:   required from ‘void boost::archive::text_iarchive_impl<Archive>::load_override(T&, int) [with T = noware::containers::variable::container; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/detail/interface_iarchive.hpp:60:9:   required from ‘Archive& boost::archive::detail::interface_iarchive<Archive>::operator>>(T&) [with T = noware::containers::variable::container; Archive = boost::archive::text_iarchive]’
+/root/Documents/C++/NoWare/noware/containers/../serialization.t++:80:5:   required from ‘const bool noware::deserialize(const string&, type&) [with type = noware::containers::variable::container; std::string = std::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/containers/variable.c++:64:79:   required from here
+/root/Documents/C++/NoWare/noware/containers/variable.c++:28:77: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::container::serialize (Archive & archive, const unsigned int & version)
+                                                                             ^
+/root/Documents/C++/NoWare/noware/containers/variable.c++: In instantiation of ‘void noware::containers::variable::serialize(Archive&, const unsigned int&) [with Archive = boost::archive::text_iarchive]’:
+/usr/include/boost/serialization/access.hpp:118:9:   required from ‘static void boost::serialization::access::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable]’
+/usr/include/boost/serialization/serialization.hpp:69:22:   required from ‘void boost::serialization::serialize(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable]’
+/usr/include/boost/serialization/serialization.hpp:128:18:   required from ‘void boost::serialization::serialize_adl(Archive&, T&, unsigned int) [with Archive = boost::archive::text_iarchive; T = noware::containers::variable]’
+/usr/include/boost/archive/detail/iserializer.hpp:184:40:   required from ‘void boost::archive::detail::iserializer<Archive, T>::load_object_data(boost::archive::detail::basic_iarchive&, void*, unsigned int) const [with Archive = boost::archive::text_iarchive; T = noware::containers::variable]’
+/usr/include/boost/archive/detail/iserializer.hpp:116:1:   required from ‘class boost::archive::detail::iserializer<boost::archive::text_iarchive, noware::containers::variable>’
+/usr/include/boost/archive/detail/iserializer.hpp:410:13:   [ skipping 3 instantiation contexts, use -ftemplate-backtrace-limit=0 to disable ]
+/usr/include/boost/archive/detail/common_iarchive.hpp:66:22:   required from ‘void boost::archive::detail::common_iarchive<Archive>::load_override(T&, int) [with T = noware::containers::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/basic_text_iarchive.hpp:71:9:   required from ‘void boost::archive::basic_text_iarchive<Archive>::load_override(T&, int) [with T = noware::containers::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/text_iarchive.hpp:92:52:   required from ‘void boost::archive::text_iarchive_impl<Archive>::load_override(T&, int) [with T = noware::containers::variable; Archive = boost::archive::text_iarchive]’
+/usr/include/boost/archive/detail/interface_iarchive.hpp:60:9:   required from ‘Archive& boost::archive::detail::interface_iarchive<Archive>::operator>>(T&) [with T = noware::containers::variable; Archive = boost::archive::text_iarchive]’
+/root/Documents/C++/NoWare/noware/containers/../serialization.t++:80:5:   required from ‘const bool noware::deserialize(const string&, type&) [with type = noware::containers::variable; std::string = std::basic_string<char>]’
+/root/Documents/C++/NoWare/noware/containers/variable.c++:74:68:   required from here
+/root/Documents/C++/NoWare/noware/containers/variable.c++:51:66: warning: unused parameter ‘version’ [-Wunused-parameter]
+  void NAME_V::serialize (Archive & archive, const unsigned int & version)
+                                                                  ^
+if test -f main.do && test ! -x main.do; \
+#if test ! -x main.do; \
+then \
+	chmod +x main.do; \
+fi

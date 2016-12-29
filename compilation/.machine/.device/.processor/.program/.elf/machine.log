@@ -1,0 +1,29 @@
+if test ! -f machine.do;\
+then\
+	g++  -o machine.obj -c machine.c++;\
+	#g++  -o mathematics.obj -c /root/Documents/C++/NoWare/noware/mathematics.c++;\
+	#g++  -o tools.obj -c /root/Documents/C++/NoWare/noware/tools.c++;\
+	#g++  -o containers-variable.obj -c /root/Documents/C++/NoWare/noware/containers/variable.c++ ;\
+	\
+	g++  -o machine.do machine.obj ;\
+fi
+machine.c++:6:12: warning: first argument of ‘int main(unsigned int, char**)’ should be ‘int’ [-Wmain]
+ signed int main (unsigned int argc, char * argv [])
+            ^
+machine.c++: In function ‘int main(unsigned int, char**)’:
+machine.c++:37:17: error: ‘bitset’ was not declared in this scope
+    std::cout << bitset <8> (static_cast <unsigned short int> (memblock [i])) << std::endl;
+                 ^
+machine.c++:37:17: note: suggested alternative:
+In file included from machine.c++:4:0:
+/usr/include/c++/5.2.0/bitset:749:11: note:   ‘std::bitset’
+     class bitset
+           ^
+machine.c++:37:86: error: invalid operands of types ‘short unsigned int’ and ‘<unresolved overloaded function type>’ to binary ‘operator<<’
+    std::cout << bitset <8> (static_cast <unsigned short int> (memblock [i])) << std::endl;
+                                                                                      ^
+g++: error: machine.obj: No such file or directory
+g++: fatal error: no input files
+compilation terminated.
+main.mk:75: recipe for target 'machine' failed
+make: *** [machine] Error 1

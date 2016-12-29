@@ -1,0 +1,18 @@
+/*
+#serialize
+{
+	// Comment.
+	$a = 5 ;
+	$b = 3 ;
+	$v = $a + $b ;
+	cout << $v ;
+	cout << endl ;
+
+	$v = 1 / 2 ;
+	cout << $v ;
+	cout << endl ;
+}
+*/
+
+cout << 123 ;
+cout << 456 ;
