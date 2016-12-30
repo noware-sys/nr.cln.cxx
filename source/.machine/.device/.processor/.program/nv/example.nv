@@ -6,6 +6,7 @@
 	? Uniqueness == Name + Type
 	?	Should the type be determined by the context?
 	
+	Garbage-collecting.
 	Type hinting.
 */
 
