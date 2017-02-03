@@ -3,7 +3,7 @@
 #include "tool/number.cxx"
 #include "tool/string.cxx"
 
-#include "number.hxx"
+#include "number.hdr.cxx"
 
 /*
 #include ".number/rule.cxx"
@@ -70,4 +70,3 @@ const bool noware::number::categorized (const type & t) const
 {
 	return true;
 }
-

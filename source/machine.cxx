@@ -1,6 +1,15 @@
-#include "machine.hxx"
+#pragma once
 
-//#include ".machine/*.cxx"
+//#include <boost/function.hpp>
+////#include <boost/function_equal.hpp>
+
+#include <boost/bind.hpp>
+
+#include "machine.hdr.cxx"
+//#include "array.txx"
+#include "var.cxx"
+#include "number.cxx"
+#include ".machine/*.cxx"
 
 noware::machine::machine (void)
 {

@@ -3,7 +3,7 @@
 #include <cln/string.h>
 //#include <cln/cln.h>
 
-#include "real.hxx"
+#include "real.hdr.cxx"
 
 template <typename archive>
 void boost::serialization::save (archive & arch, const cln::cl_R & number, const unsigned int & version)

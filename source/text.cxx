@@ -1,5 +1,9 @@
 //#ifndef VARIABLE_CPP
 //#define VARIABLE_CPP
+#pragma once
+
+#include "text.hdr.cxx"
+
 /*
 #include <cmath>
 //#include <stdio.h>

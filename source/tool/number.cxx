@@ -1,6 +1,6 @@
 #pragma once
 
-#include "number.hxx"
+#include "number.hdr.cxx"
 
 const bool noware::tool::is_numeric (const std::string & value)
 {

@@ -64,9 +64,9 @@ namespace noware
 		*/
 		
 		/*
-			1. Resource Sharing
-			2. Virtual Machine
-			3. Logic
+			1. Resource Sharing (Server)	--Machine
+			2. Virtual Machine (Client)		--Machine
+			3. Logic (Applied Usage)			--Computer
 			
 			
 			OR?

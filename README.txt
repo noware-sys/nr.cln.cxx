@@ -1,1 +1,1 @@
-documentation/user/description.txt
+documentation/usage/description.txt

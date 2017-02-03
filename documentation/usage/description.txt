@@ -1,0 +1,10 @@
+A C++ library.
+
+Notable components:
+	var (can contain a string or a number at once (and a boolean, by extension); like a variable in an interpreted language)
+	list<> (a templated, associative, single-dimensional, and dynamically-allocated array)
+	tree<> (a templated, associative, multi-dimensional (recursive), and dynamically-allocated array; like a JSON object)
+	db::sqlite (an SQLite (3) wrapper)
+	net::node (a zeromq::zyre wrrapper)
+	computer (an AI)
+	machine (a clustered VM hypervisor)

@@ -2,8 +2,10 @@
 
 #include <sstream>
 
-#include "string.hxx"
+#include "string.hdr.cxx"
 //#include "containers/variable.h++"
+
+#include "../number.cxx"
 
 namespace noware
 {
@@ -85,7 +87,7 @@ namespace noware
 		}
 	*/	
 		/*
-		const std::string string (const noware::math::number & value)
+		const std::string string (const noware::number & value)
 		{
 			//int i = 5;
 			//std::string s;
@@ -167,4 +169,3 @@ namespace noware
 		*/
 	}
 }
-

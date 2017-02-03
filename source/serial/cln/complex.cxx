@@ -3,7 +3,7 @@
 #include <cln/string.h>
 //#include <cln/cln.h>
 
-#include "complex.hxx"
+#include "complex.hdr.cxx"
 
 template <typename archive>
 void boost::serialization::save (archive & arch, const cln::cl_N & number, const unsigned int & version)

@@ -8,11 +8,11 @@ possible? merge net/_mpi into net/mpi
 any
 -? recursive array -> matrix
 ? set
-~entity
--object
-text
--string
-computer
+~entity/ntt
+-obj[ect]
+t[e]xt
+-str[ing]
+computer/pc
 -ai
 Rename file extensions from h++/c++ to hxx/cxx.
 	change extension ++ to xx
@@ -20,4 +20,40 @@ Rename file extensions from h++/c++ to hxx/cxx.
 
 -? Rename computer -> pc/ai
 -? Rename net: transmit -> tx, receive -> rx
+
+Add object-specific tools to their appropriate objects.
+	tool::number::* -> number::*
+	tool::text::* -> text::*
+
+?
+	Rename
+		source -> code -> cod
+		any -> var
+		//array remains unchanged
+		//?array -> list/set
+		matrix -> rarray	?/rset
+		text -> txt
+		number -> nr
+		database -> db
+		communication -> com
+		miscellaneous -> misc
+		mathematic -> math
+		network -> net
+		memory -> ram
+		device -> dev
+		computer -> pc
+		machine -> mach
+		transmit -> tx
+		receive -> rx
+		string -> str
+		index -> ndx
+		entity -> ntt
+		source -> src
+		destination -> dst
+		documentation -> doc
+		configuration -> cfg
+		compilation -> struct.site (construction site)
+		library -> lib
+		exclusion -> excl
+		system -> sys
 

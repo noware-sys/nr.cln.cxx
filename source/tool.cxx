@@ -1,3 +1,4 @@
+#pragma once
 //#ifndef UTILITIES
 //#define UTILITIES
 #include <sstream>
