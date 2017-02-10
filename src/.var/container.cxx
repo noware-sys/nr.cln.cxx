@@ -21,6 +21,7 @@ void noware::any::container::serialize (archive & arch, const unsigned int & ver
 {
 	arch & text;
 	arch & number;
+	arch & t;
 }
 
 const std::string noware::any::container::serialize (void) const

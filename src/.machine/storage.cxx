@@ -355,6 +355,11 @@ void noware::machine::storage::receive (const zyre_event_t * event)
 				response ["type"] = "magnitude";
 				response ["content"] = data.size ();
 				
+			  std::cout << "noware::machine::storage::receive()::msg[subject]::respone[content]==[" << response ["content"] << ']' << std::endl;
+				std::cout << "noware::machine::storage::receive()::msg[subject]::respone[content].get_value ().text()==[" << response ["content"].get_value ().text () << ']' << std::endl;
+				std::cout << "noware::machine::storage::receive()::msg[subject]::respone[content].get_value ().type()==[" << response ["content"].get_value ().type () << ']' << std::endl;
+				
+				
 				// Send back the answer.
 				result = node.unicast (response, zyre_event_peer_uuid (event));
 			  std::cout << "noware::machine::storage::receive()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
@@ -412,8 +417,11 @@ void noware::machine::storage::receive (const zyre_event_t * event)
 			{
 			  std::cout << "noware::machine::storage::receive()::else::msg[subject]==" << msg ["subject"] << "::in scope" << std::endl;
 				
-			  //std::cout << "noware::machine::storage::receive()::else::msg[subject]==" << msg ["subject"] << "::sleeping" << std::endl;
-			  //zclock_sleep (1500);
+				//std::cout << "noware::machine::storage::receive()::else::msg[subject]==" << msg ["subject"] << "::sleeping" << std::endl;
+				//zclock_sleep (1500);
+				
+				std::cout << "noware::machine::storage::receive()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
+				std::cout << "noware::machine::storage::receive()::msg[content].get_value ().type ()==[" << msg ["content"].get_value ().type () << ']' << std::endl;
 				
 				// Redirect the message to the function which asked for it.
 				//unicast_local (zmsg_popstr (zmq_msg));
@@ -432,21 +440,27 @@ const std::string noware::machine::storage::receive_local (const std::string & r
 {
 	std::cout << "noware::machine::storage::receive_local(response_type=[" << response_type << "], filter=[" << filter << "])::called" << std::endl;
 	
+	int bind_return_code;
+	
 	std::string conn;	// Connection string.
 	
-	conn = (std::string) "inproc://" + filter;
+	//conn = (std::string) "inproc://" + filter;
 	//conn = "inproc://connection1";
 	
-  std::cout << "noware::machine::storage::receive_local()::conn==[" << conn << ']' << std::endl;
-
+	std::cout << "noware::machine::storage::receive_local()::conn==[" << conn << ']' << std::endl;
+	
 	zmq::context_t context (1);
 	//  Socket to talk to server
 	//std::cout << "Collecting updates from weather server...\n" << std::endl;
 	//zmq::socket_t receiver (context, ZMQ_SUB);
-	zmq::socket_t receiver (context, ZMQ_PAIR);
-	//receiver.connect ("tcp://127.0.0.1:3210");
-	receiver.bind (conn.c_str ());
-	//receiver.connect ("tcp://0.0.0.0:5555");
+	//zmq::socket_t receiver (context, ZMQ_PAIR);
+	zmq::socket_t receiver (context, ZMQ_REP);
+	receiver.bind ("tcp://127.0.0.1:3210");
+	//receiver.bind (conn.c_str ());
+	//receiver.bind ("tcp://0.0.0.0:5555");
+	
+	//std::cout << "noware::machine::storage::receive_local()::receiver.bind()==[" << bind_return_code << ']' << std::endl;
+	
 	
 	// Subscribe to the filter.
 	//receiver.setsockopt (ZMQ_SUBSCRIBE, filter.c_str (), sizeof (filter));
@@ -460,7 +474,7 @@ const std::string noware::machine::storage::receive_local (const std::string & r
 	noware::tree <> message_tree;
 	noware::var result;
 	//noware::number::natural n;
-	//zmq::message_t message_filter;
+	zmq::message_t message_filter;
 	zmq::message_t message_content;
 	boost::function <const bool/* search* */ (const noware::tree <> &/* response_type*/, noware::var &/* filter*/)> search;
 	
@@ -540,21 +554,27 @@ const std::string noware::machine::storage::receive_local (const std::string & r
 		//zmq::message_t message_filter;
 		//zmq::message_t message_content;
 		
-	  //std::cout << "noware::machine::storage::receive_local()::loop::receiving::filter" << std::endl;
-		//receiver.recv (&message_filter);
-	  //std::cout << "noware::machine::storage::receive_local()::loop:: received::filter" << std::endl;
+	  std::cout << "noware::machine::storage::receive_local()::loop::receiving::filter" << std::endl;
+		receiver.recv (&message_filter);
+	  std::cout << "noware::machine::storage::receive_local()::loop:: received::filter" << std::endl;
 	  
 	  std::cout << "noware::machine::storage::receive_local()::loop::receiving::message" << std::endl;
 		receiver.recv (&message_content);
 	  std::cout << "noware::machine::storage::receive_local()::loop:: received::message" << std::endl;
 		
 	  std::cout << "noware::machine::storage::receive_local()::message_tree.deserialize()::pre-call" << std::endl;
+		
+		std::cout << "noware::machine::storage::receive_local()::message_filter.data()==[" << static_cast <const char *> (message_filter.data ()) << ']' << std::endl;
+		
+		std::cout << "noware::machine::storage::receive_local()::message_content.data()==[" << static_cast <const char *> (message_content.data ()) << ']' << std::endl;
+		
 		if (!message_tree.deserialize (static_cast <const char *> (message_content.data ())))
 		{
 		  std::cout << "noware::machine::storage::receive_local()::message_tree.deserialize()==False" << std::endl;
-			return "";
+			return result;
 		}
 		
+		std::cout << "noware::machine::storage::receive_local()::message_tree.deserialize()==True" << std::endl;
 		// Refresh the list of peers,
 		// in case any of them departed the cluster since our previous iteration(s),
 		// even if it is improbable.
@@ -615,37 +635,46 @@ const bool noware::machine::storage::unicast_local (const noware::tree <> & msg)
 	//if (msg_tree.exists ("content"))
 	//	filter += '/' + msg_tree ["content"];
 	
-	conn = (std::string) "inproc://" + filter;
+	//conn = (std::string) "inproc://" + filter;
 	//conn = "inproc://connection1";
 	
-  std::cout << "noware::machine::storage::unicast_local()::conn==[" << conn << ']' << std::endl;
-
+	std::cout << "noware::machine::storage::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
+	std::cout << "noware::machine::storage::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
+	
+	
+	std::cout << "noware::machine::storage::unicast_local()::conn==[" << conn << ']' << std::endl;
+	
 	msg_serial = msg.serialize ();
 	
-  zmq::context_t context (1);
-  //zmq::socket_t transmitter (context, ZMQ_PUB);
-  zmq::socket_t transmitter (context, ZMQ_PAIR);
-  //transmitter.bind ("tcp://127.0.0.1:3210");
-  transmitter.connect (conn.c_str ());
-  //transmitter.bind ("tcp://*:5555");
+	zmq::context_t context (1);
+	//zmq::socket_t transmitter (context, ZMQ_PUB);
+	//zmq::socket_t transmitter (context, ZMQ_PAIR);
+	zmq::socket_t transmitter (context, ZMQ_REQ);
+	transmitter.connect ("tcp://127.0.0.1:3210");
+	//transmitter.connect (conn.c_str ());
+	//transmitter.bind ("tcp://*:5555");
 	
 	
 	//zmq::message_t filter_msg (sizeof (filter.c_str ()));
-	zmq::message_t message (sizeof (msg_serial.c_str ()));
-	
+	zmq::message_t filter_msg (filter.length ());
+	//zmq::message_t message (sizeof (msg_serial.c_str ()));
+	zmq::message_t message (msg_serial.length ());
+
 	//snprintf ((char *) message.data(), 20 ,
 	//	"%05d %d %d", zipcode, temperature, relhumidity);
-	//	std::memcpy (filter_msg.data (), filter.c_str (), sizeof (filter.c_str ()));
-	std::memcpy (message.data (), msg_serial.c_str (), sizeof (msg_serial.c_str ()));
+	//std::memcpy (filter_msg.data (), filter.c_str (), sizeof (filter.c_str ()));
+	std::memcpy (filter_msg.data (), filter.c_str (), filter.length ());
+	//std::memcpy (message.data (), msg_serial.c_str (), sizeof (msg_serial.c_str ()));
+	std::memcpy (message.data (), msg_serial.c_str (), msg_serial.length ());
 	
-	//std::cout << "Message=" << '[' << static_cast <char *> (message.data ()) << ']' << std::endl;
+	std::cout << "message==" << '[' << static_cast <char *> (message.data ()) << ']' << std::endl;
 	
 	
   std::cout << "noware::machine::storage::unicast_local()::send()" << std::endl;
 	//return
 	result =
-	//	transmitter.send (filter_msg, ZMQ_SNDMORE)
-	//	&&
+		transmitter.send (filter_msg, ZMQ_SNDMORE)
+		&&
 		transmitter.send (message)
 	;
 	
@@ -773,12 +802,24 @@ const bool noware::machine::storage::search_remove (const noware::tree <> & mess
 
 const bool noware::machine::storage::search_magnitude (const noware::tree <> & message, noware::var & result)// const
 {
-  std::cout << "noware::machine::storage::search_magnitude()::in scope" << std::endl;
-  
-  std::cout << "noware::machine::storage::search_magnitude()::result [pre]==[" << result << ']' << std::endl;
-  
-  //result += message ["content"];
-	result = ((noware::number::natural) (result.text ().c_str ())) + ((noware::number::natural) (message ["content"].get_value ().text ().c_str ()));
+	std::cout << "noware::machine::storage::search_magnitude()::in scope" << std::endl;
+	
+	std::cout << "noware::machine::storage::search_magnitude()::result [pre]==[" << result << ']' << std::endl;
+	
+	std::cout << "noware::machine::storage::search_magnitude()::result==[" << result << ']' << std::endl;
+	//std::cout << "noware::machine::storage::search_magnitude()::result.get_value ()==[" << result.get_value () << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::result.text ()==[" << result.text () << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::result.text ().c_str ()==[" << result.text ().c_str () << ']' << std::endl;
+	
+	std::cout << "noware::machine::storage::search_magnitude()::message[content]==[" << message ["content"] << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::message[content].get_value ()==[" << message ["content"].get_value () << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::message[content].get_value ().text ()==[" << message ["content"].get_value ().text () << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::message[content].get_value ().type ()==[" << message ["content"].get_value ().type () << ']' << std::endl;
+	std::cout << "noware::machine::storage::search_magnitude()::message[content].get_value ().text ().c_str ()==[" << message ["content"].get_value ().text ().c_str () << ']' << std::endl;
+	
+  result += message ["content"];
+	//result = ((noware::number::natural) (result.text ().c_str ())) + ((noware::number::natural) (message ["content"].get_value ().text ().c_str ()));
+	//result = ((noware::number::natural) (result.text ().c_str ())) + ((noware::number::natural) (message ["content"].get_value ().text ().c_str ()));
 	
   std::cout << "noware::machine::storage::search_magnitude()::result[post]==[" << result << ']' << std::endl;
   
@@ -804,4 +845,3 @@ const bool noware::machine::storage::search_empty (const noware::tree <> & messa
 {
 	return false;
 }
-

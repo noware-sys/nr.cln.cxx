@@ -52,4 +52,3 @@ class storage : /*virtual*/ public device// : public array
 		const bool search_clear (const noware::tree <> &/* message*/, noware::var &/* result*/);// const;
 		const bool search_empty (const noware::tree <> &/* message*/, noware::var &/* result*/);// const;
 };
-
