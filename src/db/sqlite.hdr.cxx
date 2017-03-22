@@ -10,8 +10,8 @@
 //#include "../../../name.h++"
 //#include "../../content/value.h++"
 //#include "../../../math.h++"
-#include "../any.hxx"
-#include "../array.hxx"
+#include "../var.hdr.cxx"
+#include "../list.hdr.cxx"
 //#include "../../containers/entity.h++"
 //#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
@@ -46,30 +46,30 @@ namespace noware
 				public:
 					//sqlite (const std::string & = ":memory:");
 					sqlite (void);
-					sqlite (const std::string &);
+					//sqlite (const std::string &);
 					~sqlite (void);
 					
 					const bool connect (const std::string &);
 					const bool disconnect (void);
 					const bool connected (void) const;
 					
-					const bool query (noware::array <noware::array <noware::any, noware::any>, noware::any> &/* result*/, const std::string &/* query*/, const noware::array <noware::any, noware::any> &/* arguments*/, const noware::number::integer &/* tries*/ = default_tries);
-					const bool query (noware::array <noware::array <noware::any, noware::any>, noware::any> &/* result*/, const std::string &/* query*/, const noware::number::integer &/* tries*/ = default_tries);
-					const bool query (const std::string &/* query*/, const noware::array <noware::any, noware::any> &/* arguments*/, const noware::number::integer &/* tries*/ = default_tries);
-					const bool query (const std::string &/* query*/, const noware::number::integer &/* tries*/ = default_tries);
+					const bool query (noware::list <noware::list <noware::var, noware::var>, noware::var> &/* result*/, const std::string &/* query*/, const noware::list <noware::var, int> &/* arguments*/, const noware::number::integer &/* tries*/ = tries_default);
+					const bool query (noware::list <noware::list <noware::var, noware::var>, noware::var> &/* result*/, const std::string &/* query*/, const noware::number::integer &/* tries*/ = tries_default);
+					const bool query (const std::string &/* query*/, const noware::list <noware::var, int> &/* arguments*/, const noware::number::integer &/* tries*/ = tries_default);
+					const bool query (const std::string &/* query*/, const noware::number::integer &/* tries*/ = tries_default);
 					
 					const noware::number::integer effect (void) const;	// Affected rows
 					
-					//static const unsigned short int default_tries = 3;
-					static const noware::number::integer default_tries;
+					//static const unsigned short int tries_default= 3;
+					static const noware::number::integer tries_default;
 					//math::number::integer tries;
 					
 					//const sqlite & operator = (const sqlite &);
 					const bool operator == (const sqlite &) const;
 				protected:
-					#if defined (SQLITE_CHANGES_SET) && SQLITE_CHANGES_SET
-						const bool effect/*_set*/ (const int &/* = 0*/);
-					#endif
+					//#if defined (SQLITE_CHANGES_SET) && SQLITE_CHANGES_SET
+					//	const bool effect/*_set*/ (const int &/* = 0*/);
+					//#endif
 					
 					sqlite3 * db;
 					//noware::methematics::number::integer success;
@@ -79,4 +79,3 @@ namespace noware
 		}
 	//}
 }
-

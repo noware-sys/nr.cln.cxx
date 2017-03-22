@@ -8,14 +8,18 @@ const noware::any noware::any::operator > (const any & other) const
 			switch (other.content.t)
 			{
 				case container::type::numeric:
+					//std::cout << "noware::var::operator>()::content.number > other.content.number==[" << (content.number > other.content.number) << ']' << std::endl;
+					
 					return content.number > other.content.number;
 				case container::type::generic:
 				default:
-					return text ().length () > other.content.text.length ();
+					return false;
+					//return text ().length () > other.content.text.length ();
 			}
 		case container::type::generic:
 		default:
-			return content.text.length () > other.text ().length ();
+			return false;
+			//return content.text.length () > other.text ().length ();
 	}
 }
 /*

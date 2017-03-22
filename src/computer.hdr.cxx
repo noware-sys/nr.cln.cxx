@@ -99,7 +99,7 @@ namespace noware
 			//	LIB::container::entity_2 memory;
 			//LIB::network::mpi mpi;
 			//db::sqlite memory {"science.db"};
-			db::sqlite science;	// science memory storage
+			db::sqlite knowledge;	// knowledge science memory storage
 		//public:
 			//#include ".machine/postinnerindex.h++"
 	};

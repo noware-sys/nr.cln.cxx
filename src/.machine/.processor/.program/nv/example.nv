@@ -18,9 +18,10 @@
 	}
 	
 	
-	()			Expression Group
-	{}[;]		Scope Declaration
-	:: 			Scope Resulution
+	[]			Expression Grouping
+	()			Function Calling
+	{}			Scope Declaration
+	:[:]		Scope Resulution
 	
 	!Without References (Pointers)! (Like * or &)
 	
@@ -28,28 +29,35 @@
 	
 	Basic words (including operators)?:
 	
-	function
+	f[unctio]n
+	defn/[definition]
 	return
-	boolean
-	number(s)::
-		natural
-		integer
+	bool[ean]
+	n[umbe]r::
+		nat[ural]
+		int[eger]
 		real
-		imaginary
-	number
-	text
-	[string]
-	[void]
-	null
+		[imaginary]/img
+	n[umbe]r
+	t[e]xt
+	[str[ing]]
+	[v[o]id]
+	nul[l]
 	new
-	scope/space	// Partial class definition.
+	scope(/[name]space)	// Partial class definition.
 	class
+	struc[ture]
+	obj[ect]
+	entity/[ntt]
+	[type]
+	const[ant]
+	var[iable]
 	static
-	constant
-	variable
+	dyn[amic]
+	label/[lbl]
 	=
 	==
-	===	((Also compare the type?) Like in PHP)
+	[===	((Also compare the type?) Like in PHP)]
 */
 
 /*

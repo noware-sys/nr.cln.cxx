@@ -21,4 +21,3 @@ operator const unsigned int (void) const;
 operator const signed short int (void) const;
 operator const unsigned short int (void) const;
 operator const bool (void) const;
-

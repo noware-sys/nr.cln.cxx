@@ -154,8 +154,11 @@ noware::any::operator const unsigned short int (void) const
 
 noware::any::operator const bool (void) const
 {
+	//std::cout << "noware::var::operator const bool() const::called" << std::endl;
+	
 	if (content.t == container::type::numeric)
 	{
+		//std::cout << "noware::var::operator const bool() const::content.number != 0==[" << (content.number != 0) << ']' << std::endl;
 		return content.number != 0;
 	}
 	else
@@ -163,4 +166,3 @@ noware::any::operator const bool (void) const
 		return content.text.length () != 0;
 	}
 }
-

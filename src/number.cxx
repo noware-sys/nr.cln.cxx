@@ -66,7 +66,9 @@ const bool noware::number::exact (void) const
 	return true;	// true _exact
 }
 */
+/*
 const bool noware::number::categorized (const type & t) const
 {
 	return true;
 }
+*/

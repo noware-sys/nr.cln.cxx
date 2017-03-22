@@ -6,10 +6,12 @@
 #include <boost/bind.hpp>
 
 #include "machine.hdr.cxx"
+
 //#include "array.txx"
 #include "var.cxx"
 #include "number.cxx"
-#include ".machine/*.cxx"
+#include "container/list/sqlite.cxx"
+#include ".machine/.cxx"
 
 noware::machine::machine (void)
 {

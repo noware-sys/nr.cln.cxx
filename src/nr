@@ -6,4 +6,3 @@ namespace noware
 {
 	typedef number nr;
 }
-

@@ -30,13 +30,15 @@ namespace noware
 					const bool leave (const std::string &);
 					const bool join (const std::string &);
 					
-					const bool unicast (const noware::tree <> &/* message*/, const std::string &/* peer*/) const;
+					const bool unicast (const noware::tree <> &/* message*/, const std::string &/* peer (id)*/) const;
 					const bool multicast (const noware::tree <> &/* message*/, const std::string &/* group*/) const;
 					
 					const zyre_t * zyre (void) const;
 					
 					// units count cluster_size peers_count
 					const unsigned int peers_count (void) const;
+					const unsigned int peers_count (const std::string &/* group*/) const;
+					// groups
 					
 					// These three functions (internally) refer to "exoreception".
 					const bool reception_set
@@ -63,4 +65,3 @@ namespace noware
 			};
 	}
 }
-

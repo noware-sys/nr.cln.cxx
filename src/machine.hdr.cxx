@@ -53,7 +53,8 @@
 #include "number.hdr.cxx"
 //// For devices.
 //#include <zmqpp/zmqpp.hpp>
-// For storage.
+
+// For storage
 #include <zyre/zyre.h>
 #include <zmq.hpp>
 #include <boost/bind.hpp>
@@ -62,6 +63,9 @@
 #include <boost/thread/mutex.hpp>
 #include <cstring>	// For std::memcpy()
 
+// For storage::sqlite
+#include "container/list/sqlite.hdr.cxx"
+
 namespace noware
 {
 	// calculator computer machine robot
@@ -69,13 +73,13 @@ namespace noware
 	class machine
 	{
 		/*
-			1. Resource Sharing (Server)	--Machine
-			2. Virtual Machine (Client)		--Machine
-			3. Logic (Applied Usage)			--Computer
+			1. Resource Sharing (Server)	-- Machine (Physical Machine)
+			2. Virtual Machine (Client)		-- Machine (Software/Virtual Machine/OS)
+			3. Logic (Applied Usage)			-- Calculator/Computer (Software/OS/Application)
 		*/
 		
 		public:
-			#include ".machine/*.hdr.cxx"
+			#include ".machine/.hdr.cxx"
 			
 			machine (void);
 			~machine (void);
@@ -95,10 +99,18 @@ namespace noware
 			//	LIB::container::entity_2 memory;
 			//LIB::network::mpi mpi;
 			
+			//manager mngr;
+			//noware::list <manager> mngr;
+			//noware::list <storage::sqlite> memory;
+			//noware::list <processor> cpu;
+			// display sight vision view
+			//noware::list <display> view;
+			// net network
+			//noware::list <net> network;
+			
 		//public:
 		//	#include ".machine/inner footer.hxx"
 	};
 }
 
 //#include ".machine/footer.hxx"
-

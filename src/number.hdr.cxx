@@ -37,8 +37,8 @@
 #include <boost/archive/text_iarchive.hpp>
 
 #include "../default.h++"
-#include "../tools.h++"
 */
+//#include "../text.hdr.cxx"
 //#include "../array.hxx"
 #include "tool/number.hdr.cxx"
 #include "tool/string.hdr.cxx"
@@ -107,17 +107,17 @@ namespace noware
 					prime
 				};
 				
-				typedef cln::cl_number /*number,*/ nr, no;						// abstract
+				typedef cln::cl_number number, nr, no, n;						// abstract
 				typedef cln::cl_N complex, c;
-				typedef cln::cl_R real, re;										// abstract
+				typedef cln::cl_R real, rea, re;										// abstract
 				typedef cln::cl_RA rational, rat, ra;
 				typedef cln::cl_I integer, i;
-				typedef cln::cl_I natural, nat;
-				typedef cln::cl_F _float, flt, f;									// abstract
-				typedef cln::cl_SF short_float, sfloat, sf;
-				typedef cln::cl_FF single_float, ffloat, ff;
-				typedef cln::cl_DF double_float, dfloat, df;
-				typedef cln::cl_LF long_float, lfloat, lf;
+				typedef cln::cl_I natural, natur;
+				typedef cln::cl_F _float/*, flt*/, f, f0;									// abstract
+				typedef cln::cl_SF short_float, sfloat, sf, f1;
+				typedef cln::cl_FF single_float, ffloat, ff, f2;
+				typedef cln::cl_DF double_float, dfloat, df, f3;
+				typedef cln::cl_LF long_float, lfloat, lf, f4;
 				
 				/*
 				#include ".number/rule.hxx"
@@ -141,7 +141,7 @@ namespace noware
 				
 				#include ".number/special.hxx"
 				*/
-				#include ".number/*.hdr.cxx"
+				#include ".number/.hdr.cxx"
 				
 				template <typename archive>
 				void serialize (archive &, const unsigned int &);
@@ -151,12 +151,13 @@ namespace noware
 				//const bool limited (void) const;
 				
 				const std::string string (void) const;	// to_string
+				//const std::string text (void) const;	// to_string
 				//const noware::text text (void) const;	// to_text
 				// const bool exact (void) const;
 				const type category (void) const;	// type category determine specific specify
-				const bool categorized (const type &) const;	// typed categorized classified
+				//const bool categorized (const type &/**/) const;	// typed categorized classified
 			protected:
-				complex content;
+				complex content;	// content value
 				//noware::array <rule> rules;
 				//bool _exact;	// exact precise approximated rounded consistent
 		};

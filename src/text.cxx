@@ -54,4 +54,3 @@ noware::container::text noware::container::text::operator = (const char * other)
 	return * this;
 }
 */
-

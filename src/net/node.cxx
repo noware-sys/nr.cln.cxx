@@ -184,13 +184,35 @@ const unsigned int noware::net::node::peers_count (void) const
 	
 	if (peers == nullptr)
 	{
-		std::cout << "noware::net::node::cluster_size::peers==nullptr" << std::endl;
+		std::cout << "noware::net::node::peers_count::peers==nullptr" << std::endl;
 		
 		return result;
 	}
 	
 	result = zlist_size (peers);
-	std::cout << "noware::net::node::cluster_size::result=zlist_size(peers)==[" << result << ']' << std::endl;
+	std::cout << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
+	zlist_destroy (&peers);
+	
+	return result;
+}
+
+const unsigned int noware::net::node::peers_count (const std::string & group) const
+{
+	unsigned int result;
+	zlist_t * peers;
+	
+	result = 0;
+	peers = zyre_peers_by_group (_node, group.c_str ());
+	
+	if (peers == nullptr)
+	{
+		std::cout << "noware::net::node::peers_count::peers==nullptr" << std::endl;
+		
+		return result;
+	}
+	
+	result = zlist_size (peers);
+	std::cout << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
 	zlist_destroy (&peers);
 	
 	return result;
@@ -226,8 +248,8 @@ const bool noware::net::node::reception_set (const boost::function <void (const 
 	if (reception_is_set ())
 		return false;
 	
-	// http://www.boost.org/doc/libs/1_63_0/doc/html/function/tutorial.html
-	// Note that the & isn't really necessary unless you happen to be using Microsoft Visual C++ version 6.
+	// http://www.boost.org/doc/libs/1_63_0/doc/html/function/tutorial.html :
+	// "Note that the & isn't really necessary unless you happen to be using Microsoft Visual C++ version 6."
 	//exoreception = &exomanager;
 	exoreception = exomanager;
 	
