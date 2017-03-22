@@ -1,0 +1,22 @@
+quex_path = /usr/include/quex
+lib = noware
+lib_path = /usr/include/noware
+cxx = g++
+
+obj = ndx.obj array.obj
+out = ndx.elf
+#ndx_x86 = ndx.x86
+
+cxx_arg = -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I. -I$(quex_path) -I$(lib_path) $(CCFLAG_ASSERTS) -L. -L/usr/local/lib -lboost_system -lboost_serialization -lboost_thread -lboost_random -lcln -fopenmp -pthread -ldl -lsqlite3 -lczmq -lzmq -lzyre
+
+all: $(out)
+$(out): $(obj)
+		$(cxx) $(cxx_arg) -o $(@) $(obj);
+array.obj:
+		$(cxx) $(cxx_arg) -o ndx.obj -c ndx.cxx;
+		#$(COMPILER) $(COMPILER_FLAGS) -o mathematics.obj -c $(lib_path)/$(lib)/mathematics.c++;\
+		#$(COMPILER) $(COMPILER_FLAGS) -o tool.obj -c $(lib_path)/$(lib)/tool.c++;\
+		#$(COMPILER) $(COMPILER_FLAGS) -o container-variable.obj -c $(lib_path)/$(lib)/container/variable.c++;\
+		\
+clean:
+	rm --force *.elf *.obj;

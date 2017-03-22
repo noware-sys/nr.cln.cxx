@@ -1,0 +1,15 @@
+
+// main entrance[.main] default beginning top head
+
+"":
+{
+	name: main;
+	type: function;
+	content:
+	{
+	};
+};
+
+{
+	lbl ;
+}
