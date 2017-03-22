@@ -1,0 +1,10 @@
+input = entity.id.sql
+output = entity.id.hxx
+translator = ../../../../tool/string.literal.raw.sh
+delimiter = ***
+
+all :
+	#$(foreach element, $(output), $(eval $(translator) "$(element)" "${output[$i]}" '***'));\
+	$(translator) $(input) $(output) $(delimiter);
+clean :
+	rm --force $(output);

@@ -7,12 +7,12 @@
 #include ".comparison/greater/member.cxx"
 #include ".comparison/greater/friend.cxx"
 
-#include ".comparison/greater-equal/member.cxx"
-#include ".comparison/greater-equal/friend.cxx"
+#include ".comparison/greater/equality/member.cxx"
+#include ".comparison/greater/equality/friend.cxx"
 
 #include ".comparison/less/member.cxx"
 #include ".comparison/less/friend.cxx"
 
-#include ".comparison/less-equal/member.cxx"
-#include ".comparison/less-equal/friend.cxx"
+#include ".comparison/less/equality/member.cxx"
+#include ".comparison/less/equality/friend.cxx"
 

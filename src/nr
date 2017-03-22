@@ -1,8 +1,1 @@
-#pragma once
-
-#include "number"
-
-namespace noware
-{
-	typedef number nr;
-}
+#include "nr.cxx"

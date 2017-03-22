@@ -9,6 +9,6 @@
 /*
 	operator +=
 */
-#include ".addition-self/member.hxx"
-#include ".addition-self/friend.hxx"
+#include ".addition/self/member.hxx"
+#include ".addition/self/friend.hxx"
 

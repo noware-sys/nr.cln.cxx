@@ -7,7 +7,7 @@ operator const std::string (void) const;
 //operator const char * (void) const;
 //operator const signed char * (void) const;
 //operator const unsigned char * (void) const;
-operator const number (void) const;
+operator const nr (void) const;
 //operator const math::numbers::natural (void) const;
 operator const long double (void) const;
 operator const double (void) const;

@@ -77,7 +77,7 @@ const std::string & noware::any::container::operator = (const std::string & othe
 	return *this;
 }
 
-const math::number & noware::any::container::operator = (const math::number & other)
+const math::nr & noware::any::container::operator = (const math::nr & other)
 {
 	text = other.text;
 	number = other.number;

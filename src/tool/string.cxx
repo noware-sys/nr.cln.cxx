@@ -1,11 +1,12 @@
 #pragma once
 
 #include <sstream>
+#include <string>
 
-#include "string.hdr.cxx"
+#include "string.hxx"
 //#include "containers/variable.h++"
 
-#include "../number.cxx"
+// #include "../nr.cxx"
 
 namespace noware
 {

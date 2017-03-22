@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sqlite.hdr.cxx"
+#include "sqlite.hxx"
 
 //#include "../../math.h++"
 #include "../var.cxx"
@@ -12,7 +12,7 @@
 //#include "../../../name.h++"
 
 //static const unsigned short int noware::db::sqlite::tries_default;
-const noware::number::integer noware::db::sqlite::tries_default= 1;
+const noware::nr::integer noware::db::sqlite::tries_default = 1;
 
 /*
 noware::db::sqlite::sqlite (const std::string & name)
@@ -89,13 +89,13 @@ const bool noware::db::sqlite::operator == (const noware::db::sqlite & other) co
 	return this == &other;
 }
 
-const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::number::integer & tries_max)
+const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::nr::integer & tries_max)
 {
 	if (!connected ())
 		return false;
 	
 	//noware::var val;
-	//noware::number::integer count;
+	//noware::nr::integer count;
 	//
 	//va_list argv;
 	//va_start (argv, count);
@@ -128,10 +128,10 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 	const char * query_remainder;	// Placeholder. It should normally not be used.
 	//sqlite3_value val;
 	int result_code;
-	noware::number::integer column_count;
+	noware::nr::integer column_count;
 	int column;
-	noware::number::integer row;
-	noware::number::integer tries;
+	noware::nr::integer row;
+	noware::nr::integer tries;
 	
 	//std::cout << "effect (before 'prepare ()') == [" << effect () << ']' << std::endl;
 	
@@ -202,9 +202,9 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 		result_code = sqlite3_step (statement);
 		//std::cout << "result_code == " << result_code << std::endl;
 		//std::cout << "effect (after 'step ()') == [" << effect () << ']' << std::endl;
-		while (result_code == SQLITE_ROW || (result_code == SQLITE_BUSY && tries_max <= noware::number::integer (0)) || (result_code == SQLITE_BUSY && tries < tries_max))
+		while (result_code == SQLITE_ROW || (result_code == SQLITE_BUSY && tries_max <= noware::nr::integer (0)) || (result_code == SQLITE_BUSY && tries < tries_max))
 		{
-			for (column = 0; noware::number::integer (column) < column_count; ++ column)
+			for (column = 0; noware::nr::integer (column) < column_count; ++ column)
 			{
 				//result [row] [column + 1] = sqlite3_column_value (statement, /*(signed int) */column);
 				result [noware::var (row)] [noware::var (column + 1)] = std::string ((char *) sqlite3_column_text (statement, /*(signed int) */column));
@@ -216,7 +216,7 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 				++ row;
 				tries = 1;
 			}
-			else if (result_code == SQLITE_BUSY && tries_max > 0)
+			else if (result_code == SQLITE_BUSY && tries_max > noware::nr::integer (0))
 			{
 				++ tries;
 			}
@@ -232,21 +232,21 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 	return result_code == SQLITE_OK || result_code == SQLITE_DONE;
 }
 
-const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::number::integer & tries_max)
+const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::nr::integer & tries_max)
 {
 	const noware::list <noware::var, int> arguments;
 	
 	return query (result, qry, arguments, tries_max);
 }
 
-const bool noware::db::sqlite::query (const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::number::integer & tries_max)
+const bool noware::db::sqlite::query (const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::nr::integer & tries_max)
 {
 	noware::list <noware::list <noware::var, noware::var>, noware::var> result;
 	
 	return query (result, qry, arguments, tries_max);
 }
 
-const bool noware::db::sqlite::query (const std::string & qry, const noware::number::integer & tries_max)
+const bool noware::db::sqlite::query (const std::string & qry, const noware::nr::integer & tries_max)
 {
 	noware::list <noware::list <noware::var, noware::var>, noware::var> result;
 	const noware::list <noware::var, int> arguments;
@@ -264,7 +264,7 @@ const bool noware::db::sqlite::query (const std::string & qry, const noware::num
 	}
 #endif
 */
-const noware::number::integer noware::db::sqlite::effect (void) const
+const noware::nr::integer noware::db::sqlite::effect (void) const
 {
 	return sqlite3_changes (db);
 }

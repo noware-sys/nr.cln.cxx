@@ -12,16 +12,16 @@
 */
 #include <sstream>
 
-#include "var.hdr.cxx"
+#include "var.hxx"
 
 //#include "../Utilities.h"
 //using namespace ::std;
 
-#include "text.cxx"
-#include "number.cxx"
+// #include "text.cxx"
+#include "nr.cxx"
 //#include "serial.cxx"
 //#include "tool.cxx"
-#include "tool/*.cxx"
+#include "tool/.cxx"
 //#include "content/value.h++"
 
 // var :: container
@@ -82,7 +82,7 @@ const std::string noware::var::text (void) const
 }
 
 /**/
-const noware::number noware::var::length (void) const
+const noware::nr noware::var::length (void) const
 {
 	if (content.t == container::type::generic)
 		return content.text.length ();

@@ -2,7 +2,7 @@
 const noware::any noware::any::operator ~ (void) const
 {
 	if (content.t == container::type::numeric)
-		//return noware::tool::complement (content.number);
+		//return noware::tool::complement (content.nr);
 		return *this;
 	else
 		return *this;
@@ -13,7 +13,7 @@ const noware::any noware::any::operator ~ (void) const
 const noware::any noware::any::operator | (void) const
 {
 	if (content.t == container::type::numeric)
-		return noware::tool::modulus (content.number);
+		return noware::tool::modulus (content.nr);
 	else
 		return *this;
 }
@@ -22,7 +22,7 @@ const noware::any noware::any::operator | (void) const
 const bool noware::any::operator ! (void) const
 {
 	if (content.t == container::type::numeric)
-		//return content.number == 0 ? true : false;
+		//return content.nr == 0 ? true : false;
 		return false;
 	else
 		return content.text.length () == 0;

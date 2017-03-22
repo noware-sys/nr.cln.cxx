@@ -66,7 +66,7 @@ noware::any::any (const unsigned char & other)
 	*this = noware::tool::string (char (other));
 }
 
-noware::any::any (const number & other)
+noware::any::any (const nr & other)
 {
 	*this = other;
 }

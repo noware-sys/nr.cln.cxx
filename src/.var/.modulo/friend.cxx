@@ -39,7 +39,7 @@ namespace noware
 			return any (other) % self;
 		}
 		*/
-		const any operator % (const number & other, const any & self)
+		const any operator % (const nr & other, const any & self)
 		{
 			return any (other) % self;
 		}

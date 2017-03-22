@@ -37,7 +37,7 @@ noware::any::operator const std::string (void) const
 //	return std::string (*this).c_str ();
 //}
 
-noware::any::operator const number (void) const
+noware::any::operator const nr (void) const
 {
 	if (content.t == container::type::numeric)
 		return content.number;
@@ -48,7 +48,7 @@ noware::any::operator const number (void) const
 noware::any::operator const math::numbers::natural (void) const
 {
 	if (content.t == container::type::numeric)
-		return floor1 (content.number);
+		return floor1 (content.nr);
 	else
 		return 0;	// A default value.
 }

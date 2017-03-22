@@ -1,1 +1,3 @@
-#include "null.hdr.cxx"
+#pragma once
+
+typedef decltype (null) nullptr_t;

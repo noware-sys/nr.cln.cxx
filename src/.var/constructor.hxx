@@ -12,7 +12,7 @@ any (const char []);
 any (const char &);
 any (const signed char &);
 any (const unsigned char &);
-any (const number &);
+any (const nr &);
 any (const long double &);
 any (const double &);
 any (const float &);

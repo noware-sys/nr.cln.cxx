@@ -814,7 +814,7 @@ const bool LIB::NTT <value, key>::exist (const key & _k, const bool & recursive)
 }
 
 template <typename value, typename key>
-const LIB/*::math*/::number::natural LIB::NTT <value, key>::size (const bool & recursive, const bool & grouped) const
+const LIB/*::math*/::nr::natural LIB::NTT <value, key>::size (const bool & recursive, const bool & grouped) const
 {
 	switch (content.t)
 	{
@@ -825,7 +825,7 @@ const LIB/*::math*/::number::natural LIB::NTT <value, key>::size (const bool & r
 			{
 				unsigned short int additional = grouped ? 1 : 0;
 				//math::numbers::natural count = 0;
-				number::natural count = 0;
+				nr::natural count = 0;
 				
 				for (auto & element : * this)
 				{

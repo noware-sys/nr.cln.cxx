@@ -54,7 +54,7 @@ const noware::any noware::any::operator < (const unsigned char & other) const
 	return *this < any (other);
 }
 
-const noware::any noware::any::operator < (const number & other) const
+const noware::any noware::any::operator < (const nr & other) const
 {
 	return *this < any (other);
 }

@@ -22,7 +22,7 @@ const noware::any & noware::any::operator = (const text & other)
 */
 const noware::any & noware::any::operator = (const std::string & other)
 {
-	if (tool::is_numeric (other))
+	if (tool::is_nr (other))
 	{
 		content.text = "";
 		//content.number = other;
@@ -104,7 +104,7 @@ const noware::any & noware::any::operator = (const unsigned char & other)
 	return *this;
 }
 */
-const noware::any & noware::any::operator = (const number & other)
+const noware::any & noware::any::operator = (const nr & other)
 {
 	content.text = "";
 	content.number = other;
@@ -116,77 +116,77 @@ const noware::any & noware::any::operator = (const number & other)
 
 const noware::any & noware::any::operator = (const long double & other)
 {
-	//*this = number (other);
+	//*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const double & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const float & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const signed long long int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const unsigned long long int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const signed long int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const unsigned long int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const signed int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const unsigned int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const signed short int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }
 
 const noware::any & noware::any::operator = (const unsigned short int & other)
 {
-	*this = number (other);
+	*this = nr (other);
 	
 	return *this;
 }

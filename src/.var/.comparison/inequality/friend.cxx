@@ -39,7 +39,7 @@ namespace noware
 			return any (other) != self;
 		}
 		
-		const noware::any operator != (const noware::number & other, const noware::any & self)
+		const noware::any operator != (const noware::nr & other, const noware::any & self)
 		{
 			return any (other) != self;
 		}

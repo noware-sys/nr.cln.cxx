@@ -7,7 +7,7 @@ const any operator < (const char *&) const;
 const any operator < (const char &) const;
 const any operator < (const signed char &) const;
 const any operator < (const unsigned char &) const;
-const any operator < (const number &) const;
+const any operator < (const nr &) const;
 const any operator < (const long double &) const;
 const any operator < (const double &) const;
 const any operator < (const float &) const;

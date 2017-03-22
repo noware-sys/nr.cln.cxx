@@ -5,7 +5,7 @@ friend const any operator / (const char [], const any &);
 friend const any operator / (const char &, const any &);
 //friend const any operator / (const signed char &, const any &);
 //friend const any operator / (const unsigned char &, const any &);
-friend const any operator / (const number &, const any &);
+friend const any operator / (const nr &, const any &);
 friend const any operator / (const long double &, const any &);
 friend const any operator / (const double &, const any &);
 friend const any operator / (const float &, const any &);

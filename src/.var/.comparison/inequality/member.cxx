@@ -40,7 +40,7 @@ const bool noware::any::operator != (const unsigned char & other) const
 	return *this != any (other);
 }
 */
-const bool noware::any::operator != (const number & other) const
+const bool noware::any::operator != (const nr & other) const
 {
 	return *this != any (other);
 }
