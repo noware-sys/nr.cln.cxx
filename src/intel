@@ -1,6 +1,6 @@
 //#pragma once
 
-#include "computer.*"
-#include "any.cxx"
-#include "db/sqlite.cxx"
-
+//#include "computer.*"
+//#include "any.cxx"
+//#include "db/sqlite.cxx"
+#include "intel.cxx"

@@ -3,8 +3,8 @@
 ////#define __MACHINE
 //
 //// Standard:
-#include <string>
-#include <iostream>
+//#include <string>
+//#include <iostream>
 //#include <sstream>
 //
 //// Boost:
@@ -22,9 +22,12 @@
 // #include "cotainer/null.h++"
 ////#include "peers.h++"
 //#include "../containers/array.h++"
-#include "any.hxx"
+
+#include "var.hxx"
 //#include "../containers/memory.h++"
 #include "db/sqlite.hxx"
+//#include <sqlite3.h>
+#include "zmq/zyre.hxx"
 
 // #include "container/entity_2.h++"
 
@@ -52,8 +55,8 @@ namespace noware
 {
 	// aware[ness] consc[iousness] [artificial/synthetic]intel[ligence]
 	// calculator [personal]comp[uter][pc] mach[ine] rob[ot]
-	// device
-	class computer
+	// dev[ice]
+	class intel
 	{
 		/*
 			Do not hurt.
@@ -80,33 +83,35 @@ namespace noware
 		public:
 			//#include ".machine/index.h++"
 			
-			computer (void);
-			~computer (void);
+			intel (void);
+			~intel (void);
 			
-			// do evaluate compute solve perform process execute query enqueue go ok request demand command input
+			// do [e]val[u[at]e] compute cal[c[ulate]] solve perform process exe[cute] q[uery] [e]nq[ueue] go ok req[uest] demand c[o]m[man]d in[put]
 			//const LIB::containers::NAME_V query (const LIB::containers::NAME_V &);
 			//const bool evaluate (const LIB::containers::NAME_V &);
-			const any evaluate (const any &/* expression*/);
+			const var val (const var &/* expression*/);
+			//const std::string val (const std::string &/* expression*/);
 			//const bool good (/*action?*/);	// determine good(?) judge
 			
 			// The initial SQL query.
-			static const std::string query_sql_initial;
+			//static const std::string query_sql_initial;
 			//static const std::string sql1;
-		// protected:
-		public:
+		protected:
+		//public:
 		//	/*LIB::machine::*/device::processor processor;
 				//LIB::container::memory memory;
 			//	LIB::container::entity_2 memory;
 			//LIB::network::mpi mpi;
 			//db::sqlite memory {"science.db"};
 			
-			// science knowledge memory storage
-			db::sqlite science;
+			// sci[ence] know[ledge] mem[ory] stor[ag]e
+			db::sqlite sci;
+			//sqlite3 * sci;
 			
+			zmq::zyre node;
 		//public:
 			//#include ".machine/postinnerindex.h++"
 	};
 }
 
 //#include ".machine/postindex.h++"
-

@@ -2,19 +2,19 @@
 
 #include "nr.hxx"
 
-const bool noware::tool::is_nr (const std::string & value)
+const bool noware/*::tool*/::is_nr (const std::string & value)
 {
 	if (value.empty ())
 		return false;
-
+	
 	unsigned long long int length = value.length ();
 	bool decimal_found = false;
 	bool sign_found = false;
 	bool digit_found = false;
-
+	
 	//if (s[0] != '+' || s[0] != '-' || !isdigit(s[0]))
 		//return false;
-
+	
 	for
 	(
 		///*unsigned long long int*/math::numbers::natural i = 0;

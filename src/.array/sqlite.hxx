@@ -96,11 +96,11 @@ namespace LIB
 */
 	//template <typename value, key> 
 	//template <typename value = noware::var, typename key = noware::var>
-	class sqlite
+	class sqlite //: protected db::sqlite
 	{
 		public:
 		protected:
-			db::sqlite content;
+			db::sqlite data;
 			//std::list <container *> content_pointer;
 			
 			//std::unordered_map <key, value> container;
@@ -158,7 +158,7 @@ namespace LIB
 			
 			static const noware::var group_default;
 			static const std::string query_sql_initial_entity;
-			static const std::string query_sql_initial_entity_uid;
+			static const std::string query_sql_initial_entity_id;
 			static const std::string query_sql_initial_entity_group_used_seq;
 			static const std::string query_sql_initial_entity_key_used_seq;
 			static const std::string query_sql_initial_entity_key_used_expl_seq;
@@ -204,7 +204,7 @@ namespace LIB
 			//const LIB::math::numbers::natural count (void) const;
 			//const LIB::math::numbers::natural magnitude (void) const;
 			//const LIB::math::numbers::natural quantity (void) const;
-			const LIB::nr size (void) const;
+			const noware::nr size (void) const;
 			//const LIB::nr magnitude (const noware::var &/* group*/) const;
 			//LIB::math::numbers::integer minimum (void);	// .
 			//LIB::math::numbers::integer maximum (void);	// .

@@ -10,7 +10,7 @@ namespace noware
 		{
 			namespace content
 			{
-				const std::string get (const std::string &/* path of file*/);
+				const bool get (const std::string &/* path*/, std::string &/* content*/);
 				const bool set (const std::string &/* path*/, const std::string &/* content*/);
 			}	
 		}

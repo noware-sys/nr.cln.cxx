@@ -40,7 +40,7 @@ noware::db::sqlite::~sqlite (void)
 
 const bool noware::db::sqlite::connect (const std::string & name)
 {
-	if (_connected && !disconnect ())
+	if (connected () && !disconnect ())
 	{
 		return false;
 	}
@@ -58,7 +58,7 @@ const bool noware::db::sqlite::connect (const std::string & name)
 
 const bool noware::db::sqlite::disconnect (void)
 {
-	if (!_connected)
+	if (!connected ())
 	{
 		return true;
 	}
@@ -89,7 +89,7 @@ const bool noware::db::sqlite::operator == (const noware::db::sqlite & other) co
 	return this == &other;
 }
 
-const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::nr::integer & tries_max)
+const bool noware::db::sqlite::query (noware::array <noware::array <>> & result, const std::string & qry, const noware::array <std::string, int> & arguments, const noware::nr::integer & tries_max)
 {
 	if (!connected ())
 		return false;
@@ -148,7 +148,8 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 	if (/*arguments != NULL && */!arguments.empty ())
 	{
 		//int i = 1;
-		for (const noware::list <noware::var, int>::container & argument : arguments)
+		//for (const noware::array <noware::var, int>::container & argument : arguments)
+		for (const noware::array <std::string, int>::container & argument : arguments)
 		{
 			//std::cout << "noware::db::sqlite::query()::i==[" << i << ']' << std::endl;
 			
@@ -157,24 +158,30 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 				//val = value.v;
 				//sqlite3_bind_value (statement, value.k, & val);
 				//if (argument.v.is_numeric ())
+			/*
+				std::cout << "\t\targument.k == [" << argument.k << "]" << std::endl;
+				std::cout << "\t\targument.v == [" << argument.v << "]" << std::endl;
 				if (argument.v.type () == noware::var::container::type::numeric)
 				{
+					std::cout << "argument.v.type () == noware::var::container::type::numeric" << std::endl;
 					sqlite3_bind_double (statement, argument.k, argument.v);
 				}
 				else
 				{
-					//std::cout << "noware::db::sqlite::query()::argument.k==[" << argument.k << ']' << std::endl;
+					std::cout << "argument.v.type () != noware::var::container::type::numeric" << std::endl;
+			*/		//std::cout << "noware::db::sqlite::query()::argument.k==[" << argument.k << ']' << std::endl;
 					// std::cout << "noware::db::sqlite::query()::argument.k.text()==[" << argument.k.text() << ']' << std::endl;
 					//std::cout << "noware::db::sqlite::query()::argument.v==[" << argument.v << ']' << std::endl;
 					//std::cout << "noware::db::sqlite::query()::argument.v.text()==[" << argument.v.text() << ']' << std::endl;
 					
 					//sqlite3_bind_text (statement, argument.k, argument.v.to_string ().c_str (), argument.v.to_string ().size (), SQLITE_STATIC);
-					sqlite3_bind_text (statement, argument.k, argument.v.text ().c_str (), argument.v.text ().length (), SQLITE_TRANSIENT);
+			//		sqlite3_bind_text (statement, argument.k, argument.v.text ().c_str (), argument.v.text ().length (), SQLITE_TRANSIENT);
+					sqlite3_bind_text (statement, argument.k, argument.v.c_str (), argument.v.length (), SQLITE_TRANSIENT);
 				//	sqlite3_bind_text (statement, i, argument.v.text ().c_str (), argument.v.text ().length (), SQLITE_TRANSIENT);
 					//sqlite3_bind_text (statement, argument.k, argument.v.text ().c_str (), sizeof (argument.v.text ().c_str ()), SQLITE_STATIC);
 					
 					//sqlite3_bind_value (statement, argument.k, & argument.v);
-				}
+			//	}
 				/*
 				std::cout << "\t\targument.k == " << argument.k << std::endl;
 				std::cout << "\t\targument.v == " << argument.v << std::endl;
@@ -232,24 +239,24 @@ const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, n
 	return result_code == SQLITE_OK || result_code == SQLITE_DONE;
 }
 
-const bool noware::db::sqlite::query (noware::list <noware::list <noware::var, noware::var>, noware::var> & result, const std::string & qry, const noware::nr::integer & tries_max)
+const bool noware::db::sqlite::query (noware::array <noware::array <>> & result, const std::string & qry, const noware::nr::integer & tries_max)
 {
-	const noware::list <noware::var, int> arguments;
+	const noware::array <std::string, int> arguments;
 	
 	return query (result, qry, arguments, tries_max);
 }
 
-const bool noware::db::sqlite::query (const std::string & qry, const noware::list <noware::var, int> & arguments, const noware::nr::integer & tries_max)
+const bool noware::db::sqlite::query (const std::string & qry, const noware::array <std::string, int> & arguments, const noware::nr::integer & tries_max)
 {
-	noware::list <noware::list <noware::var, noware::var>, noware::var> result;
+	noware::array <noware::array <>> result;
 	
 	return query (result, qry, arguments, tries_max);
 }
 
 const bool noware::db::sqlite::query (const std::string & qry, const noware::nr::integer & tries_max)
 {
-	noware::list <noware::list <noware::var, noware::var>, noware::var> result;
-	const noware::list <noware::var, int> arguments;
+	noware::array <noware::array <>> result;
+	noware::array <std::string, int> arguments;
 	
 	return query (result, qry, arguments, tries_max);
 }

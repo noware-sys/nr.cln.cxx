@@ -1,9 +1,13 @@
 #pragma once
 
-#include "tool/nr.cxx"
+//#include "tool/nr.cxx"
 #include "tool/string.cxx"
+//#include "misc/serial.cxx"
+#include "serial.cxx"
 
 #include "nr.hxx"
+
+//#include <sstream>
 
 /*
 #include ".number/rule.cxx"
@@ -28,11 +32,46 @@
 #include ".number/special.cxx"
 */
 #include ".nr/.cxx"
-
-template <typename archive> 
-void noware::nr::serialize (archive & arch, const unsigned int & version)
+/*
+bool noware::nr::operator == (const nr & other)
 {
-	arch & content;
+	return contnt == other.contnt;
+}
+
+noware::nr noware::nr::operator += (const nr & other)
+{
+	return contnt += other.contnt;
+}
+
+noware::nr noware::nr::operator -= (const nr & other)
+{
+	return contnt -= other.contnt;
+}
+
+noware::nr noware::nr::operator *= (const nr & other)
+{
+	return contnt *= other.contnt;
+}
+
+noware::nr noware::nr::operator /= (const nr & other)
+{
+	return contnt /= other.contnt;
+}
+
+noware::nr noware::nr::operator %= (const nr & other)
+{
+	return contnt %= other.contnt;
+}
+
+noware::nr noware::nr::operator ^= (const nr & other)
+{
+	return contnt ^= other.contnt;
+}
+*/
+template <typename archive> 
+void noware::nr::serialize (archive & arch, const unsigned int &/* version*/)
+{
+	arch & contnt;
 }
 
 /*
@@ -51,15 +90,27 @@ const bool noware::nr::limit (const rule & r)
 	return false;
 }
 */
-const std::string noware::nr::string (void) const
+/*
+noware::nr::operator const std::string (void) const
 {
-	return std::string (*this);
+	std::stringstream ss;
+	ss << contnt;
+	return ss.str ();
+	//return std::string (*this);
 }
-
-const noware::nr::type noware::nr::category (void) const
+*/
+/*
+const noware::nr::type noware::nr::kind (void) const
 {
 	return type::complex;
 }
+
+const noware::nr::category noware::nr::cat (void) const
+{
+	return category::odd;
+}
+*/
+
 /*
 const bool noware::nr::exact (void) const
 {
@@ -72,3 +123,11 @@ const bool noware::nr::categorized (const type & t) const
 	return true;
 }
 */
+
+std::istream & getline (std::istream & stream, noware::nr & value, const char delimiter)
+{
+	std::string temp;
+	std::getline (stream, temp, delimiter);
+	value /*+*/= temp;
+	return stream;
+}

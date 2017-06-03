@@ -4,7 +4,7 @@
 #include <sstream>
 #include "file.hdr.cxx"
 
-const std::string noware::tool::file::content::get (const std::string & path)
+const bool noware::tool::file::content::get (const std::string & path, std::string & content)
 {
 	/*
 	ifstream file;
@@ -37,13 +37,15 @@ const std::string noware::tool::file::content::get (const std::string & path)
 	file.open (path);
 	
 	if (!file.is_open ())
-		return "";
+		return false;
 	
 	// http://stackoverflow.com/questions/116038/what-is-the-best-way-to-read-an-entire-file-into-a-stdstring-in-c
 	//static_cast <const ostringstream &> (ostringstream () << file.rdbuf ()).str ();
 	oss << file.rdbuf ();
 	file.close ();
-	return oss.str ();
+	content = oss.str ();
+	
+	return true;
 }
 
 const bool noware::tool::file::content::set (const std::string & path, const std::string & content)

@@ -2,6 +2,7 @@
 
 // Standard library:
 #include <sstream>
+//#include <string>
 //#include <iostream>
 //#include <fstream>
 
@@ -28,9 +29,11 @@
 #include <boost/serialization/split_member.hpp>
 */
 
-#include "serial/cln/complex.cxx"
-#include "serial/cln/real.cxx"
-#include "serial/cln/integer.cxx"
+//#include ".serial/cln/complex.cxx"
+//#include ".serial/cln/real.cxx"
+//#include ".serial/cln/integer.cxx"
+
+#include "serial.hxx"
 
 /*template <typename type>
 bool noware::parse (std::string serial, type & object)
@@ -40,7 +43,7 @@ bool noware::parse (std::string serial, type & object)
 */
 
 template <typename type>
-const std::string noware::serialize (const type & object)
+const bool noware::serialize (std::string & serial, const type & object)
 {
 	try
 	{
@@ -53,23 +56,24 @@ const std::string noware::serialize (const type & object)
 		
 		
 		// Put the obect's serializable members into an output stream:
-		boost::archive::text_oarchive a (ss);
-		a << object;
+		boost::archive::text_oarchive arch (ss);
+		arch << object;
 		
 		// Get the string representation:
 		//std::getline (ss, s/*, '\n'*/);
-		return ss.str ();
+		serial = ss.str ();
 		
+		return true;
 		//return s;
 	}
 	catch (...)
 	{
-		return "";
+		return false;
 	}
 }
 
 template <typename type>
-const bool noware::deserialize (const std::string & serial, type & object)
+const bool noware::deserialize (type & object, const std::string & serial)
 {
 	try
 	{
@@ -85,8 +89,8 @@ const bool noware::deserialize (const std::string & serial, type & object)
 		//ss << serial;
 		
 		// Get the obect's serializable members from the input stream:
-		boost::archive::text_iarchive a (ss);
-		a >> object;
+		boost::archive::text_iarchive arch (ss);
+		arch >> object;
 		
 		return true;
 	}
@@ -114,3 +118,22 @@ bool noware::unserialize (std::string serial, type & object)
 //	return noware::serialize (const_cast <const type> (object));
 //}
 
+template <typename archive>
+void noware::serial::serialize (archive &, const unsigned int &/* version*/)
+{
+}
+
+const std::string noware::serial::serialize (void) const
+{
+	std::string serial;
+	
+	if (noware::serialize <noware::serial> (serial, *this))
+		return serial;
+	else
+		return "";
+}
+
+const bool noware::serial::deserialize (const std::string & serial)
+{
+	return noware::deserialize <noware::serial> (*this, serial);
+}

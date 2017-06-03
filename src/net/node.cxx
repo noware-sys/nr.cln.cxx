@@ -1,8 +1,8 @@
-#include "node.hdr.cxx"
+#include "node.hxx"
 //#include <boost/function_equal.hpp>
 #include <boost/bind.hpp>
-#include "../tree.cxx"
-#include "../var.cxx"
+//#include "../tree.cxx"
+//#include "../var.cxx"
 
 noware::net::node::node (void)
 {
@@ -15,29 +15,29 @@ noware::net::node::node (void)
 noware::net::node::~node (void)
 {
 	//stop ();
-	finalize ();
+	fin ();
 	//zclock_sleep (300);
 }
 
-const bool noware::net::node::initialize (void)
+const bool noware::net::node::init (void)
 {
-	if (!initialized ())
+	if (!inited ())
 	{
 		_node = zyre_new (nullptr);
 		reception = new boost::thread (boost::bind (boost::mem_fn (&noware::net::node::receive), this));
 	}
 	
-	return initialized ();
+	return inited ();
 }
 
-const bool noware::net::node::initialized (void) const
+const bool noware::net::node::inited (void) const
 {
 	//std::cout << std::endl << "_node==[" << _node << ']' << std::endl;
 	//return _node != nullptr;
 	return _node != nullptr && reception != nullptr;
 }
 
-const bool noware::net::node::finalize (void)
+const bool noware::net::node::fin (void)
 {
 	stop ();
 	
@@ -76,7 +76,7 @@ const bool noware::net::node::status (void) const
 
 const bool noware::net::node::stop (void)
 {
-	if (!initialized ())
+	if (!inited ())
 		return true;
 	
 	std::cout << "noware::net::node::stop()::called" << std::endl;
@@ -94,7 +94,7 @@ const bool noware::net::node::stop (void)
 
 const bool noware::net::node::start (void)
 {
-	if (!initialized ())
+	if (!inited ())
 		return false;
 	
 	if (!running)
@@ -110,7 +110,7 @@ const bool noware::net::node::start (void)
 
 const bool noware::net::node::leave (const std::string & group)
 {
-	if (!initialized () || !status ())
+	if (!inited () || !status ())
 		return false;
 	
 	zyre_leave (_node, group.c_str ());
@@ -120,7 +120,7 @@ const bool noware::net::node::leave (const std::string & group)
 
 const bool noware::net::node::join (const std::string & group)
 {
-	if (!initialized () || !status ())
+	if (!inited () || !status ())
 		return false;
 	
 	zyre_join (_node, group.c_str ());
@@ -128,13 +128,13 @@ const bool noware::net::node::join (const std::string & group)
 	return true;
 }
 
-const bool noware::net::node::unicast (const noware::tree <> & message, const std::string & peer/* peer id*/) const
+const bool noware::net::node::unicast (const std::string & message, const std::string & peer/* peer id*/) const
 {
-	if (!initialized () || !status ())
+	if (!inited () || !status ())
 		return false;
 	
 	zmsg_t * msg = zmsg_new ();
-	zmsg_addstr (msg, message.serialize ().c_str ());
+	zmsg_addstr (msg, message.c_str ());
 	
 	//  0 == success
 	// -1 == failure
@@ -143,16 +143,16 @@ const bool noware::net::node::unicast (const noware::tree <> & message, const st
 	//return true;
 }
 
-const bool noware::net::node::multicast (const noware::tree <> & message, const std::string & group) const
+const bool noware::net::node::multicast (const std::string & message, const std::string & group) const
 {
 	//std::cout << "noware::net::node::multicast()::called" << std::endl;
 	
-	if (!initialized () || !status ())
+	if (!inited () || !status ())
 		return false;
 	
 	zmsg_t * msg = zmsg_new ();
 	//std::cout << "noware::net::node::multicast()::2" << std::endl;
-	zmsg_addstr (msg, message.serialize ().c_str ());
+	zmsg_addstr (msg, message.c_str ());
 	//zmsg_addstr (msg, "Hello, World.");
 	
 	signed short int result;
@@ -317,6 +317,6 @@ void noware::net::node::receive (void)
 	}
 	//while (true);
 	//while (event != nullptr);
-	while (initialized ());
+	while (inited ());
 }
 

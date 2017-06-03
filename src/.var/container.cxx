@@ -1,6 +1,7 @@
+//
 // constructors
-
-noware::any::container::container (void)
+//
+noware::container::any::container::container (void)
 {
 	text = "";
 	number = 0;
@@ -8,36 +9,35 @@ noware::any::container::container (void)
 	t = type::generic;
 }
 /*
-noware::any::container::container (const container & other)
+noware::container::any::container::container (const container & other)
 {
 	*this = other;
 }
 */
-
+//
 // seralization
-
+//
 template <typename archive>
-void noware::any::container::serialize (archive & arch, const unsigned int & version)
+void noware::container::any::container::serialize (archive & arch, const unsigned int & version)
 {
 	arch & text;
 	arch & number;
-	arch & t;
 }
 
-const std::string noware::any::container::serialize (void) const
+const std::string noware::container::any::container::serialize (void) const
 {
-	return noware::serialize <noware::any::container> (*this);
+	return noware::serialize <noware::container::any::container> (*this);
 }
 
-const bool noware::any::container::deserialize (const std::string & serial)
+const bool noware::container::any::container::deserialize (const std::string & serial)
 {
-	return noware::deserialize <noware::any::container> (serial, *this);
+	return noware::deserialize <noware::container::any::container> (serial, *this);
 }
 /*
-
+//
 // operator =
-
-const any & noware::any::container::operator = (const container & other)
+//
+const any & noware::container::any::container::operator = (const container & other)
 {
 	text = other.text;
 	number = other.number;
@@ -47,7 +47,7 @@ const any & noware::any::container::operator = (const container & other)
 	return other;
 }
 
-const bool & noware::any::container::operator = (const bool & other)
+const bool & noware::container::any::container::operator = (const bool & other)
 {
 	text = other.text;
 	number = other.number;
@@ -57,7 +57,7 @@ const bool & noware::any::container::operator = (const bool & other)
 	return *this;
 }
 
-const text & noware::any::container::operator = (const text & other)
+const text & noware::container::any::container::operator = (const text & other)
 {
 	text = other.text;
 	number = other.number;
@@ -67,7 +67,7 @@ const text & noware::any::container::operator = (const text & other)
 	return *this;
 }
 
-const std::string & noware::any::container::operator = (const std::string & other)
+const std::string & noware::container::any::container::operator = (const std::string & other)
 {
 	text = other.text;
 	number = other.number;
@@ -77,7 +77,7 @@ const std::string & noware::any::container::operator = (const std::string & othe
 	return *this;
 }
 
-const math::nr & noware::any::container::operator = (const math::nr & other)
+const math::number & noware::container::any::container::operator = (const math::number & other)
 {
 	text = other.text;
 	number = other.number;

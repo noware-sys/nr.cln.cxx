@@ -33,19 +33,19 @@
 #include <boost/serialization/version.hpp>
 #include <boost/serialization/split_member.hpp>
 
-#include "serial/cln/complex.hdr.cxx"
-#include "serial/cln/real.hdr.cxx"
-#include "serial/cln/integer.hdr.cxx"
+#include ".serial/cln/complex.hxx"
+#include ".serial/cln/real.hxx"
+#include ".serial/cln/integer.hxx"
 
 namespace noware
 {
 	//namespace tool
 	//{
 		template <typename type>
-		const std::string serialize (const type &);
+		const bool serialize (std::string &/* serial*/, const type &/* object*/);
 		
 		template <typename type>
-		const bool deserialize (const std::string &, type &);
+		const bool deserialize (type &/* object*/, const std::string &/* serial*/);
 		
 		//template <typename type>
 		//bool unserialize (std::string, type &);
@@ -58,10 +58,22 @@ namespace noware
 		
 		//template <typename type>
 		//std::string serialize (const type &);
+		
+		class serial
+		{
+			public:
+				virtual const std::string serialize (void) const;
+				virtual const bool deserialize (const std::string &/* serial*/);
+			protected:
+				friend class boost::serialization::access;
+				
+				template <typename archive>
+				void serialize (archive &, const unsigned int &/* version*/);
+		};
 	//}
 }
 
 //#include "serial.txx"
-#include "serial.cxx"
+//#include "serial.cxx"
 
 //#endif

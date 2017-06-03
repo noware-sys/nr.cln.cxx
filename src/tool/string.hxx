@@ -4,6 +4,7 @@
 // #include <iostream>
 // #include <fstream>
 
+//#include "../var.hxx"
 // #include "../nr.hxx"
 //#include <boost/random/random_device.hpp>
 
@@ -12,15 +13,19 @@
 
 namespace noware
 {
-	namespace tool
-	{
+	//namespace tool
+	//{
 		// Converions to string:
-		const std::string string (const signed int &);
+		const std::string string (const unsigned short int &);
 		const std::string string (const unsigned int &);
-		const std::string string (const signed long int &);
 		const std::string string (const unsigned long int &);
-		const std::string string (const signed long long int &);
 		const std::string string (const unsigned long long int &);
+		
+		const std::string string (const signed short int &);
+		const std::string string (const signed int &);
+		const std::string string (const signed long int &);
+		const std::string string (const signed long long int &);
+		
 		const std::string string (const float &);
 		const std::string string (const double &);
 		const std::string string (const long double &);
@@ -31,5 +36,8 @@ namespace noware
 		// const std::string string (const noware::number &);
 		//std::string String	(const signed char);
 		//std::string String	(const unsigned char);
-	}
+		
+		// Concatenation
+		//const noware::var cat (const noware::var &, const noware::var &);
+	//}
 }

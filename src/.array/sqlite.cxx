@@ -8,40 +8,40 @@ template <typename value, typename key>
 const noware::var noware::array <value, key>::sqlite::group_default = "";
 
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity
-	#include "entity.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity =
+	#include ".sqlite/entity.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_id
-	#include "entity.id.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_id =
+	#include ".sqlite/entity.id.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_used_seq
-	#include "entity.group.used.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_used_seq =
+	#include ".sqlite/entity.group.used.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_used_seq
-	#include "entity.key.used.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_used_seq =
+	#include ".sqlite/entity.key.used.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_used_expl_seq
-	#include "entity.key.used.expl.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_used_expl_seq =
+	#include ".sqlite/entity.key.used.expl.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_avail_seq
-	#include "entity.group.avail.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_avail_seq =
+	#include ".sqlite/entity.group.avail.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_avail_seq
-	#include "entity.key.avail.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_avail_seq =
+	#include ".sqlite/entity.key.avail.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_next_seq
-	#include "entity.group.next.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_group_next_seq =
+	#include ".sqlite/entity.group.next.seq.hxx"
 ;
 template <typename value, typename key>
-static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_next_seq
-	#include "entity.key.next.seq.hxx"
+static const std::string noware::array <value, key>::sqlite::query_sql_initial_entity_key_next_seq =
+	#include ".sqlite/entity.key.next.seq.hxx"
 ;
 
 template <typename value, typename key>

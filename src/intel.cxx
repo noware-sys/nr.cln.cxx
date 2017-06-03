@@ -1,9 +1,12 @@
 //#pragma once
 
-#include "computer.hxx"
-//#include "any.cxx"
-//#include "db/sqlite.cxx"
+#include "intel.hxx"
 
+#include "var.cxx"
+#include "db/sqlite.cxx"
+#include "zmq/zyre.cxx"
+
+/*
 const std::string noware::computer::query_sql_initial = //"";
 //const std::string noware::computer::sql1 = //"";
 			"\
@@ -28,9 +31,11 @@ const std::string noware::computer::query_sql_initial = //"";
 			commit transaction;\
 			"
 ;
+*/
 
-noware::computer::computer (void)
+noware::intel::intel (void)
 {
+/*
 	//std::cout << "memory.query: " << 
 	if (knowledge.connect ("knowledge.db"))
 	{
@@ -60,16 +65,17 @@ noware::computer::computer (void)
 			"
 		);
 		*/
-	}
+	//}
 	
 	// << std::endl;
+	//*/
 }
 
-noware::computer::~computer (void)
+noware::intel::~intel (void)
 {
 }
 
-const noware::any noware::computer::evaluate (const noware::any & expression)
+const noware::var noware::intel::val (const noware::var & xpr)
 {
 	return "";
 }
@@ -80,4 +86,3 @@ const bool good (/*action?* /)
 	return true;
 }
 */
-

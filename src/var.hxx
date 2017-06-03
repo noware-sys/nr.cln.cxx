@@ -38,17 +38,22 @@
 
 //#include"../name.hxx"
 // #include "text.hxx"
+//#include "tool.hdr.cxx"
+//#include "tool/.hxx"
+//#include "content/value.hdr.cxx"
+//#include "serial.hxx"
+//#include "misc/serial.hxx"
 #include "nr.hxx"
 #include "serial.hxx"
-//#include "tool.hdr.cxx"
-#include "tool/.hxx"
-//#include "content/value.hdr.cxx"
+#include "tool/string.hxx"
+
+//#include ".var/incl.hxx"
 
 //dynamic ~!= static
 //constant ~!= variable
 
 //#define BOOST_FORCE_SYMMETRIC_OPERATORS 1
-
+/*
 #ifndef NAME_V
 	#define NAME_V var
 #endif
@@ -56,7 +61,7 @@
 #ifndef any
 	#define any var
 #endif
-
+*/
 namespace noware
 {
 	//class NAME_V;
@@ -66,31 +71,69 @@ namespace noware
 	//namespace container
 	//{
 		// type: fundamental primitive built-in intrinsic basic
-		// (container of a value) all any container value category var[iable] struct[ure] class obj[ect] it[e]m id[entifier
+		// (container of a value) all any/ne container/contnr val[ue] cat[egory] var[iable] [con]struct[ure] class obj[ect] it[e]m id[entifier]
 		class var
-		// id[entifier]
+			: protected serial
+			, public nr
+			, boost::equality_comparable <var>
+			, boost::equality_comparable <var, nr>
+			/*
+			, boost::less_than_comparable <var>
+			, boost::less_than_comparable <nr>
+			*/
+			, boost::addable <var>
+			, boost::addable <var, nr>
+			, boost::addable <var, char []>
+			, boost::addable <var, int>
+			, boost::subtractable <var>
+			, boost::subtractable <var, nr>
+			, boost::subtractable2_left <var, nr>
+			, boost::multipliable <nr>
+			, boost::multipliable <var, nr>
+			, boost::dividable <var>
+			, boost::dividable <var, nr>
+			, boost::dividable2_left <var, nr>
+			, boost::modable <var>
+			, boost::modable <var, nr>
+			, boost::modable2_left <var, nr>
+			, boost::xorable <var>
+			, boost::xorable <var, nr>
+			, boost::incrementable <var>
+			//, boost::incrementable <var, nr>
+			, boost::decrementable <var>
+			//, boost::decrementable <var, nr>
+		//	, boost::equivalent <var>
+		//	, boost::equivalent <var, nr>
+			, boost::partially_ordered <var>
+			, boost::partially_ordered <var, nr>
 		{
 			public:
-				#include ".var/container.hxx"
+				enum class type
+				{
+					txt,
+					nr
+				};
 				
-				friend class boost::serialization::access;
+				#include ".var/.hxx"
 				
-				const std::string serialize (void) const;
-				const bool deserialize (const std::string &);
+				//#include ".var/container.hxx"
+				//const std::string serialize (void) const;
+				//const bool deserialize (const std::string &);
 				
-				const container::type & type (void) const;
+				//const t & type (void) const;
+				//const bool is_text (void) const;
+				//const bool is_nr (void) const;
 				
-				//const nr size (void) const;
-				const nr length (void) const;
+				const nr size (void) const;
 				
-				// Return the textual representation of the content.
-				const std::string text (void) const;
-				
+				/*
 				#include ".var/constructor.hxx"
 				#include ".var/destructor.hxx"
 				
 				#include ".var/set.hxx"
+				
 				#include ".var/conversion.hxx"
+				
 				#include ".var/comparison.hxx"
 				
 				#include ".var/addition.hxx"
@@ -103,21 +146,44 @@ namespace noware
 				#include ".var/modulo.hxx"
 				
 				#include ".var/special.hxx"
+				*/
+				
+				/*
+				#include ".var/constr.hxx"
+				#include ".var/destr.hxx"
+				
+				#include ".var/set.hxx"
+				
+				#include ".var/conver.hxx"
+				
+				#include ".var/compar.hxx"
+				
+				#include ".var/add.hxx"
+				#include ".var/substr.hxx"
+				//
+				#include ".var/multi.hxx"
+				#include ".var/div.hxx"
+				//
+				#include ".var/exponent.hxx"
+				#include ".var/modulo.hxx"
+				
+				#include ".var/special.hxx"
+				*/
 				
 				//_type GetType (void);
-
+				
 				//bool		GetValueBoolean (void);
 				//long double	GetValueNumeric (void);
 				//::std::string	GetValueGeneric (void);
-
+				
 				//::std::istream	&	getline (::std::istream &, const ::std::string = "\n");
 				//::std::istream	&	getline (::std::istream &, const unsigned int, const ::std::string = "\n");
 				//::std::istream	&	getline (::std::istream &, const unsigned int);
-
+				
 				//bool	Is_Generic	(void);
 				//bool	Is_Numeric	(void);
 				//bool	Is_Boolean	(void);
-
+				
 				// Returns a string representation of the content, whatever type it may be.
 				// const std::string to_string (void) const;
 				
@@ -128,14 +194,18 @@ namespace noware
 				// size length
 				// const math::nr size (void) const;
 				
-				template <typename archive>
-				void serialize (archive &, const unsigned int &);
-				
 				//std::ostream & operator << (std::ostream &) const;
 				//std::istream & operator >> (std::istream &);
+				
+				//const var & operator += (const var &);
 			protected:
 			//private:
-				container content;
+				friend class boost::serialization::access;
+				
+				template <typename archive>
+				void serialize (archive &, const unsigned int &/* version*/);
+				
+				//container content;
 				//boost::any content;
 				
 				// Default values:
@@ -151,7 +221,12 @@ namespace noware
 				// determine specify
 			//	const type determine (const std::string &) const;
 				//_type Determine (const long double);
-			
+				
+				
+				type t;
+				
+				std::string txt;
+				nr nr;
 		};
 	//}
 	
@@ -165,4 +240,3 @@ std::istream & getline (std::istream &, noware::var &, const char = '\n');
 //std::string		toupper (const noware::any &);
 
 //#endif
-

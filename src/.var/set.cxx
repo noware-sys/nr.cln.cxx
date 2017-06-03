@@ -1,203 +1,321 @@
 // operator =
 
-const noware::any & noware::any::operator = (const any & other)
+const noware::var & noware::var::operator = (const var & other)
 {
-	content.text = other.content.text;
-	content.number = other.content.number;
+	txt = other.txt;
+	nr = other.nr;
+	t = other.t;
 	
-	content.t = other.content.t;
-	
-	return other;
+	return *this;
 }
-/*
-const noware::any & noware::any::operator = (const text & other)
+
+const noware::var & noware::var::operator = (const noware::nr & other)
 {
-	content.text = other;
-	content.number = 0;
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
-	content.t = container::type::generic;
+	return *this;
+}
+
+/*
+const noware::nr & noware::nr::operator = (const text & other)
+{
+	contnt.text = other;
+	contnt.nr = 0;
+	
+	contnt.t = container::type::generic;
 	
 	return *this;
 }
 */
-const noware::any & noware::any::operator = (const std::string & other)
+const noware::var & noware::var::operator = (const std::string & other)
 {
-	if (tool::is_nr (other))
+	if (nr::is (other))
 	{
-		content.text = "";
-		//content.number = other;
-		content.number = std::stold (other);
-		
-		content.t = container::type::numeric;
+		txt = "";
+		nr = other;
+		t = type::nr;
 	}
 	else
 	{
-		content.text = other;
-		content.number = 0;
-		
-		content.t = container::type::generic;
+		txt = other;
+		nr = 0;
+		t = type::txt;
 	}
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const char other [])
+const noware::var & noware::var::operator = (const char * other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 /*
-const noware::any & noware::any::operator = (const signed char other [])
+const noware::nr & noware::nr::operator = (const unsigned char other [])
+{
+	contnt = cln::cl_N (other);
+	
+	return *this;
+}
+
+const noware::nr & noware::nr::operator = (const signed char other [])
+{
+	contnt = cln::cl_N (other);
+	
+	return *this;
+}
+*/
+/*
+const noware::nr & noware::nr::operator = (const signed char other [])
 {
 	*this = noware::tool::string (other);
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned char other [])
+const noware::nr & noware::nr::operator = (const unsigned char other [])
 {
 	*this = noware::tool::string (other);
 	
 	return *this;
 }
 *//*
-const noware::any & noware::any::operator = (const char *& other)
+const noware::nr & noware::nr::operator = (const char *& other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const signed char *& other)
+const noware::nr & noware::nr::operator = (const signed char *& other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned char *& other)
+const noware::nr & noware::nr::operator = (const unsigned char *& other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 */
-const noware::any & noware::any::operator = (const char & other)
+
+const noware::var & noware::var::operator = (const char & other)
 {
-	*this = noware::tool::string (other);
+	*this = noware::string (other);
 	
 	return *this;
 }
 /*
-const noware::any & noware::any::operator = (const signed char & other)
+const noware::nr & noware::nr::operator = (const signed char & other)
 {
-	*this = noware::tool::string (char (other));
+	//if (noware::tool::is_numeric (other))
+	try
+	{
+		contnt = noware::tool::string (other).c_str ();
+	}
+	catch (...)
+	{
+	}
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned char & other)
+const noware::nr & noware::nr::operator = (const unsigned char & other)
 {
-	*this = noware::tool::string (char (other));
+	//if (noware::tool::is_numeric (other))
+	try
+	{
+		contnt = noware::tool::string (other).c_str ();
+	}
+	catch (...)
+	{
+	}
 	
 	return *this;
 }
 */
-const noware::any & noware::any::operator = (const nr & other)
+const noware::var & noware::var::operator = (const complex & other)
 {
-	content.text = "";
-	content.number = other;
-	
-	content.t = container::type::numeric;
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const long double & other)
+const noware::var & noware::var::operator = (const real & other)
 {
-	//*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const double & other)
+const noware::var & noware::var::operator = (const rational & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const float & other)
+const noware::var & noware::var::operator = (const integer & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const signed long long int & other)
+const noware::var & noware::var::operator = (const _float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned long long int & other)
+const noware::var & noware::var::operator = (const short_float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const signed long int & other)
+const noware::var & noware::var::operator = (const single_float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned long int & other)
+const noware::var & noware::var::operator = (const double_float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const signed int & other)
+const noware::var & noware::var::operator = (const long_float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned int & other)
+const noware::var & noware::var::operator = (const long double & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const signed short int & other)
+const noware::var & noware::var::operator = (const double & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const unsigned short int & other)
+const noware::var & noware::var::operator = (const float & other)
 {
-	*this = nr (other);
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator = (const bool & other)
+const noware::var & noware::var::operator = (const signed long long int & other)
 {
-	content.text = "";
-	content.number = other/* ? 1 : 0*/;
-	
-	content.t = container::type::numeric;
+	txt = "";
+	nr = other;
+	t = type::nr;
 	
 	return *this;
 }
 
+const noware::var & noware::var::operator = (const unsigned long long int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const signed long int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const unsigned long int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const signed int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const unsigned int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const signed short int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}
+
+const noware::var & noware::var::operator = (const unsigned short int & other)
+{
+	txt = "";
+	nr = other;
+	t = type::nr;
+	
+	return *this;
+}

@@ -1,65 +1,97 @@
 #pragma once
 
-#include <sstream>
-#include <string>
-
+//#include <string>
 #include "string.hxx"
+
+#include <sstream>
+
 //#include "containers/variable.h++"
 
+//#include "../var.cxx"
 // #include "../nr.cxx"
 
 namespace noware
 {
-	namespace tool
-	{
+	//namespace tool
+	//{
 		const std::string string (const signed short int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const unsigned short int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const signed int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const unsigned int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const signed long int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const unsigned long int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const signed long long int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const unsigned long long int & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const float & value)
 		{
-			return string ((double) value);
+			//return string ((double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const double & value)
 		{
-			return string ((long double) value);
+			//return string ((long double) value);
+			std::stringstream ss;
+			ss << value;
+			return ss.str ();
 		}
 		
 		const std::string string (const long double & value)
@@ -168,5 +200,11 @@ namespace noware
 			return txt;
 		}
 		*/
-	}
+		/*
+		const var cat (const var & first, const var & second)
+		{
+			return first.to_text () + second.to_text ();
+		}
+		*/
+	//}
 }

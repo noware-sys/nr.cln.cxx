@@ -1,129 +1,145 @@
-// Complement.
-const noware::any noware::any::operator ~ (void) const
+/*
+const bool noware::var::is (const type & t) const
 {
-	if (content.t == container::type::numeric)
-		//return noware::tool::complement (content.nr);
-		return *this;
-	else
-		return *this;
+	return this -> t == t;
+}
+*/
+
+const noware::var::type noware::var::kind (void) const
+{
+	return t;
 }
 
 /*
-// Modulus.
-const noware::any noware::any::operator | (void) const
+// Complement.
+const noware::nr noware::nr::operator ~ (void) const
 {
-	if (content.t == container::type::numeric)
-		return noware::tool::modulus (content.nr);
+	if (content.t == math::type::numeric)
+		return noware::tool::complement (content.number);
 	else
 		return *this;
 }
 */
-
-const bool noware::any::operator ! (void) const
+/*
+// Modulus.
+const noware::nr noware::nr::operator | (void) const
 {
-	if (content.t == container::type::numeric)
-		//return content.nr == 0 ? true : false;
+	if (content.t == math::type::numeric)
+		return noware::tool::modulus (content.number);
+	else
+		return *this;
+}
+*/
+/*
+const bool noware::nr::operator ! (void) const
+{
+	if (content.t == math::type::numeric)
+		//return content.number == 0 ? true : false;
 		return false;
 	else
 		return content.text.length () == 0;
 }
 
-const bool noware::any::operator && (const any & other) const
+const bool noware::nr::operator && (const nr & other) const
 {
 	return bool (*this) && bool (other);
 }
 
-const bool noware::any::operator && (const bool & other) const
+const bool noware::nr::operator && (const bool & other) const
 {
 	return bool (*this) && other;
 }
 
-const bool noware::any::operator || (const any & other) const
+const bool noware::nr::operator || (const nr & other) const
 {
 	return bool (*this) || bool (other);
 }
 
-const bool noware::any::operator || (const bool & other) const
+const bool noware::nr::operator || (const bool & other) const
 {
 	return bool (*this) || other;
 }
+*/
 
-const noware::any & noware::any::operator ++ (void)
+const noware::var & noware::var::operator ++ (void)
 {
-	if (content.t == container::type::numeric)
-		++content.number;
+	++contnt;
 	
 	return *this;
 }
 
-const noware::any & noware::any::operator -- (void)
+const noware::var & noware::var::operator -- (void)
 {
-	if (content.t == container::type::numeric)
-		--content.number;
+	--contnt;
 	
 	return *this;
 }
 
-const noware::any noware::any::operator ++ (signed int other)
+/*
+const noware::nr noware::nr::operator ++ (const int other)
 {
-	any previous (*this);
+	nr previous (*this);
 	
-	++*this;
+	++ *this;
 	
 	return previous;
 }
 
-const noware::any noware::any::operator -- (signed int other)
+const noware::nr noware::nr::operator -- (const int other)
 {
-	any previous (*this);
+	nr previous (*this);
 	
-	--*this;
+	-- *this;
 	
 	return previous;
 }
+*/
 
 // Friends:
 namespace noware
 {
-	//namespace container
+	//namespace math
 	//{
-		const bool operator && (const bool & other, const noware::any & self)
+		/*
+		const bool operator && (const bool & other, const noware::nr & self)
 		{
 			return other && bool (self);
 		}
 		
-		const bool operator || (const bool & other, const noware::any & self)
+		const bool operator || (const bool & other, const noware::nr & self)
 		{
 			return other || bool (self);
 		}
-		
+		*/
 		// operator <<
-		std::ostream & operator << (std::ostream & stream, const noware::any & self)
+		std::ostream & operator << (std::ostream & stream, const var & self)
 		{
-			switch (self.content.t)
-			{
-				case noware::any::container::type::numeric:
-					stream << self.content.number;
-					break;
-				case noware::any::container::type::generic:
-				default:
-					stream << self.content.text;
-			}
+			if (self.t == var::type::nr)
+				stream << self.nr;
+			else
+				stream << self.txt;
 			
 			return stream;
 		}
 		
 		// operator >>
-		std::istream & operator >> (std::istream & stream, noware::any & self)
+		std::istream & operator >> (std::istream & stream, var & self)
 		{
-			//text txt;
-			std::string txt;
+			std::string str;
 			
-			stream >> txt;
-			self = txt;
+			stream >> str;
+			self = str;
+			/*
+			try
+			{
+				stream >> self.contnt;
+			}
+			catch (...)
+			{
+			}
+			*/
 			
 			return stream;
 		}
 	//}
 }
-

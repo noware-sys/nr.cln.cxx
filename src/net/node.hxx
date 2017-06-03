@@ -6,8 +6,8 @@
 #include <boost/thread.hpp>
 #include <string>
 //#include "cluster.hxx"
-#include "../tree.hxx"
-#include "../var.hxx"
+//#include "../tree.hxx"
+//#include "../var.hxx"
 
 namespace noware
 {
@@ -19,9 +19,9 @@ namespace noware
 					node (void);
 					~node (void);
 					
-					const bool finalize (void);
-					const bool initialized (void) const;
-					const bool initialize (void);
+					const bool fin (void);
+					const bool inited (void) const;
+					const bool init (void);
 					
 					const bool stop (void);
 					const bool status (void) const;
@@ -30,8 +30,8 @@ namespace noware
 					const bool leave (const std::string &);
 					const bool join (const std::string &);
 					
-					const bool unicast (const noware::tree <> &/* message*/, const std::string &/* peer (id)*/) const;
-					const bool multicast (const noware::tree <> &/* message*/, const std::string &/* group*/) const;
+					const bool unicast (const std::string &/* message*/, const std::string &/* peer id*/) const;
+					const bool multicast (const std::string &/* message*/, const std::string &/* group*/) const;
 					
 					const zyre_t * zyre (void) const;
 					

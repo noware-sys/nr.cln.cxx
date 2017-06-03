@@ -61,6 +61,6 @@
 //#include "../name.hxx"
 //#include "../math.hxx"
 //#include "serial.hdr.cxx"
-#include "var.hxx"
-#include "nr.hxx"
+#include "../var.hxx"
+#include "../nr.hxx"
 #include "../db/sqlite.hxx"

@@ -1,3 +1,42 @@
+const bool noware::nr::is (const std::string & str)
+{
+	complex test;
+	
+	try
+	{
+		test = str.c_str ();
+		
+		return true;
+	}
+	catch (...)
+	{
+		return false;
+	}
+}
+
+/*
+const bool noware::nr::is (const type & t) const
+{
+	return true;
+}
+
+const bool noware::nr::is (const category & cat) const
+{
+	return false;
+}
+*/
+
+const noware::nr::type noware::nr::kind (void) const
+{
+	return type::complex;
+}
+
+const noware::nr::category noware::nr::cat (void) const
+{
+	return category::zero;
+}
+
+
 /*
 // Complement.
 const noware::nr noware::nr::operator ~ (void) const
@@ -48,20 +87,22 @@ const bool noware::nr::operator || (const bool & other) const
 	return bool (*this) || other;
 }
 */
+
 const noware::nr & noware::nr::operator ++ (void)
 {
-	++ content;
+	++contnt;
 	
 	return *this;
 }
 
 const noware::nr & noware::nr::operator -- (void)
 {
-	-- content;
+	--contnt;
 	
 	return *this;
 }
 
+/*
 const noware::nr noware::nr::operator ++ (const int other)
 {
 	nr previous (*this);
@@ -79,6 +120,7 @@ const noware::nr noware::nr::operator -- (const int other)
 	
 	return previous;
 }
+*/
 
 // Friends:
 namespace noware
@@ -99,7 +141,7 @@ namespace noware
 		// operator <<
 		std::ostream & operator << (std::ostream & stream, const nr & self)
 		{
-			stream << self.content;
+			stream << self.contnt;
 			
 			return stream;
 		}
@@ -107,20 +149,21 @@ namespace noware
 		// operator >>
 		std::istream & operator >> (std::istream & stream, nr & self)
 		{
-			//std::string txt;
+			std::string str;
 			
-			//stream >> txt;
-			//self = txt;
+			stream >> str;
+			self = str;
+			/*
 			try
 			{
-				stream >> self.content;
+				stream >> self.contnt;
 			}
 			catch (...)
 			{
 			}
+			*/
 			
 			return stream;
 		}
 	//}
 }
-

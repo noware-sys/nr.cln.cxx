@@ -1,12 +1,12 @@
 const nr & operator = (const nr &);
 
 const nr & operator = (const std::string &);
-const nr & operator = (const char []);
+const nr & operator = (const char *);
 //const nr & operator = (const unsigned char []);
 //const nr & operator = (const signed char []);
 const nr & operator = (const char &);
-const nr & operator = (const unsigned char &);
-const nr & operator = (const signed char &);
+//const nr & operator = (const unsigned char &);
+//const nr & operator = (const signed char &);
 
 const nr & operator = (const complex &);
 const nr & operator = (const real &);

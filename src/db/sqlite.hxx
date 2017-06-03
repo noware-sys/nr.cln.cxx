@@ -51,11 +51,12 @@ namespace noware
 					
 					const bool connect (const std::string &);
 					const bool disconnect (void);
+					// get the connected state
 					const bool connected (void) const;
 					
-					const bool query (noware::list <noware::list <noware::var, noware::var>, noware::var> &/* result*/, const std::string &/* query*/, const noware::list <noware::var, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
-					const bool query (noware::list <noware::list <noware::var, noware::var>, noware::var> &/* result*/, const std::string &/* query*/, const noware::nr::integer &/* tries*/ = tries_default);
-					const bool query (const std::string &/* query*/, const noware::list <noware::var, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
+					const bool query (noware::array <noware::array <>> &/* result*/, const std::string &/* query*/, const noware::array <std::string, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
+					const bool query (noware::array <noware::array <>> &/* result*/, const std::string &/* query*/, const noware::nr::integer &/* tries*/ = tries_default);
+					const bool query (const std::string &/* query*/, const noware::array <std::string, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
 					const bool query (const std::string &/* query*/, const noware::nr::integer &/* tries*/ = tries_default);
 					
 					const noware::nr::integer effect (void) const;	// Affected rows
@@ -74,6 +75,8 @@ namespace noware
 					sqlite3 * db;
 					//noware::methematics::nr::integer success;
 					
+					// set the connected state
+					//const bool connected (const bool &/* new_value*/);
 					bool _connected;
 			};
 		}
