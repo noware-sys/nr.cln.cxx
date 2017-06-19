@@ -9,8 +9,9 @@
 
 //#include "array.txx"
 #include "var.cxx"
-#include "nr.cxx"
+//#include "nr.cxx"
 //#include "container/list/sqlite.cxx"
+#include ".mach/.incl.cxx"
 #include ".mach/.cxx"
 
 noware::mach::mach (void)

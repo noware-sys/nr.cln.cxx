@@ -1,10 +1,11 @@
-//#pragma once
+#pragma once
 
 #include "intel.hxx"
 
 #include "var.cxx"
 #include "db/sqlite.cxx"
-#include "zmq/zyre.cxx"
+//#include "zmq/zyre.cxx"
+#include "net/node.cxx"
 
 /*
 const std::string noware::computer::query_sql_initial = //"";

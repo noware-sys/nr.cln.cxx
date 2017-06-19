@@ -47,22 +47,25 @@
 
 //#include "list.hdr.cxx"
 
+/*
 // For device.
 #include "var.hxx"
 #include "net/node.hxx"
 #include "nr.hxx"
 //// For devices.
 //#include <zmqpp/zmqpp.hpp>
+*/
 
+/*
 // For storage
-#include <zyre/zyre.h>
+#include <imatix/zyre/zyre.h>
 #include <zmq.hpp>
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 //#include <boost/function_equal.hpp>
 #include <boost/thread/mutex.hpp>
 #include <cstring>	// For std::memcpy()
-
+*/
 //// For storage::sqlite
 //#include "container/list/sqlite.hdr.cxx"
 

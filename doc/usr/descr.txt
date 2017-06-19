@@ -1,1 +1,10 @@
-description.txt
+A C++ Library
+
+Notable Components
+	var (a container for a string or a number at any time; like a PHP variable)
+	array[<[value[, key]]>] (a templated, associative, single-dimensional, and dynamically-allocated array)
+	tree[<[value[, key]]>] (a templated, associative, multi-dimensional (recursive), and dynamically-allocated array; like a JSON object)
+	db::sqlite (an SQLite (3) wrapper)
+	net::node (a ZMQ Zyre wrapper)
+	intel (an AI)
+	mach (a clustered VM hypervisor)

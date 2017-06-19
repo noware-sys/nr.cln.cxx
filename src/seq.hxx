@@ -6,6 +6,7 @@
 
 namespace noware
 {
+	/*
 	template <typename value_t>
 	// str[ing] seq[uence]
 	class seq
@@ -14,4 +15,8 @@ namespace noware
 			//seq (void);
 			//~seq (void);
 	};
+	*/
+	
+	template <typename value_t>
+	typedef array <value_t> seq <value_t>;
 }

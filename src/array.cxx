@@ -28,8 +28,8 @@ key noware::array <value_t, key_t>::key;
 //
 //const std::string noware::array::group_default = "array";
 
-template <typename value_t, typename key_t>
-const std::string noware::array <value_t, key_t>::srv_id = "srv";
+//template <typename value_t, typename key_t>
+//const std::string noware::array <value_t, key_t>::srv_id = "srv";
 
 template <typename value_t, typename key_t>
 noware::array <value_t, key_t>::array (void)

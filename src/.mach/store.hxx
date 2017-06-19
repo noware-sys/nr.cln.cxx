@@ -4,47 +4,52 @@
 // storage space
 // remembers memories
 
-class storage : /*virtual*/ public device//, public misc::iterator <noware::var>//, public array
+class store
+	: /*virtual*/ public dev
+	//, public misc::iterator <noware::var>
+	, public contnr::array <std::string, std::string>
 {
 	public:
-		#include ".storage/.hxx"
+		//#include ".store/.hxx"
 		
-		storage (void);
-		~storage (void);
+		store (void);
+		~store (void);
 		
 		// Getters.
-		//const bool empty (void) const;
-		//const bool full (void) const;
+		const bool empty (void) const;
+		const bool full (void) const;
 		
 		// magnitude size
 		//const noware::nr::natural magnitude (void) const;
 		const noware::nr size (void) const;
-		const noware::nr size (const noware::var &/* group*/) const;
+		const noware::nr size (const std::string &/* group*/) const;
 		//const unsigned int magnitude (void) const;
 		
 		// existence presence
 		// exist present
-		const bool exist (const noware::var &/* group*/, const noware::var &/* key*/) const;
-		const bool exist (const noware::var &/* key*/) const;
-		const bool exist_group (const noware::var &/* group*/) const;
+		//const bool exist (const noware::var &/* group*/, const noware::var &/* key*/) const;
+		const bool exist (const std::string &/* key*/) const;
+		const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
+		//const bool exist_group (const noware::var &/* group*/) const;
 		
 		// obtain attain get
-		const noware::var/* value*/ get (const noware::var &/* group*/, const noware::var &/* key*/) const;
-		const noware::var/* value*/ get (const noware::var &/* key*/) const;
+		const std::string/* value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
+		const std::string/* value*/ get (const std::string &/* key*/) const;
 		
 		
 		// Modifiers.
 		
 		// reinitialize reset clear flush clean
 		const bool clear (void);
+		const bool clear (const std::string &/* group*/);
 		
 		// delete remove unset
-		const bool remove (const noware::var &/* group*/, const noware::var &/* key*/);
-		const bool remove (const noware::var &/* key*/);
+		const bool remove (const std::string &/* group*/, const std::string &/* key*/);
+		const bool remove (const std::string &/* key*/);
 		
 		// assign associate map set
-		const bool/* success*/ set (const noware::var &/* group*/, const noware::var &/* key*/, const noware::var &/* content/value*/);
-		const bool/* success*/ set (const noware::var &/* key*/, const noware::var &/* content/value*/);
+		const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
+		const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
 		
 		// Transmit a message to one node.
 		//const noware::var unicast (const noware::tree <> &/* message*/, const std::string &/* peer*/);
@@ -55,21 +60,22 @@ class storage : /*virtual*/ public device//, public misc::iterator <noware::var>
 		
 		//using device::evaluate;
 		//static const noware::var group_zmq_default;
-		static const noware::var group_default;
+		static const std::string grp_dft;
 	protected:
 		// content value data container
 		//noware::list <> data;
 		//noware::list <noware::list <>> data;
-		noware::array <noware::array <>> data;
+		//noware::array <noware::array <>> data;
+		std::map <std::string, std::map <std::string, std::string>> data;
 	//public:
 		// Manager of received messages.
 		//void receive (const zyre_event_t */* zyre_event*/);
-	public:
-	//protected:
-		const bool/* success*/ respond (const noware::tree <> &/* message*/, const zyre_event_t */* (zyre) event*/);
-		const bool/* success*/ search (noware::var &/* result*/, const noware::tree <> &/* message*/);// const
-		const bool/* success*/ search_local (noware::var &/* result*/, const noware::tree <> &/* message/expression*/);// const
-		const noware::var/* result*/ aggregate (const noware::var &/* result*/, noware::nr::natural &/* responses_count*/, const noware::var &/* response*/, const noware::tree <> &/* expression*/);
+	//public:
+	protected:
+		virtual const bool/* success*/ respond (const zmq::msg &/* message*/, const zyre_event_t */* (zyre) event*/);
+		virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
+		virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
+		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
 		
 		/*
 			// Iteration-related:

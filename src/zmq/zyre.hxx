@@ -36,8 +36,8 @@ namespace noware
 					const zyre_t * operator * (void) const;
 					
 					// units count cluster_size peers_count
-					const unsigned int peers_count (void) const;
-					const unsigned int peers_count (const std::string &/* group*/) const;
+					const unsigned int peer_count (void) const;
+					const unsigned int peer_count (const std::string &/* group*/) const;
 					// groups
 					
 					// These three functions (internally) refer to "exoreception".

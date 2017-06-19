@@ -28,10 +28,11 @@
 
 # Executables
 *.exe
-*.out
-*.elf
+*.do
 *.act
 *.app
+*.out
+*.elf
 
 # Logs
 *.log
@@ -40,7 +41,14 @@
 # Custom
 known_hosts
 exclusion.cxx.git
+
+cfg
+lib
+
 other
 
 # Temporary
 noware.hxx
+src/list*
+src/pc*
+src/.pc

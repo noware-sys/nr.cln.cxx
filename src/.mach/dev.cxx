@@ -8,9 +8,9 @@ const std::string noware::mach::dev::grp_dft = "";
 
 noware::mach::dev::dev (void)
 {
-	node.initialize ();
-	node.start ();
+	node.init ();
 	node.reception_set (boost::bind (boost::mem_fn (&noware::mach::dev::receive), this, _1));
+	node.start ();
 	
 	//nodes.add (node);
 }
@@ -23,9 +23,9 @@ noware::mach::dev::~dev (void)
 	//nodes.remove (node);
 }
 
-const std::string noware::mach::dev::val (const std::string & expression, const std::string & group)
+const zmq::msg noware::mach::dev::multival (const zmq::msg & expression, const std::string & group)
 {
-	std::string result;
+	zmq::msg result;
 	
 	if (search_local (result, expression))
 		return result;
@@ -44,37 +44,40 @@ const std::string noware::mach::dev::val (const std::string & expression, const 
 	//return nodes.respond ();
 }
 
-const std::string noware::mach::dev::aggregate (const std::string & result, noware::nr & responses_count, const std::string & response, const std::string & expression)
+const zmq::msg noware::mach::dev::aggregate (const zmq::msg & result, noware::nr & responses_count, const zmq::msg & response, const zmq::msg & expression)
 {
 	return response;
 }
 
-const std::string noware::mach::dev::unicast (const std::string & message, /*const std::string & filter, */const std::string & peer)
+const zmq::msg noware::mach::dev::unicast (const zmq::msg & msg_req, /*const std::string & filter, */const std::string & peer)
 {
 	std::cout << "noware::mach::dev::unicast()::called" << std::endl;
 	
-	return "";
+	zmq::msg msg_resp;
 	
-	if (!node.unicast (/*filter + */message, peer))
+	return msg_resp;
+	
+	if (!node.unicast (/*filter + */msg_req, peer))
 	{
 		std::cout << "noware::mach::dev::unicast()::node.unicast()::failure" << std::endl;
-		return "";
+		return msg_resp;
 	}
 	
 	std::cout << "noware::mach::dev::unicast()::node.unicast()::success" << std::endl;
 	//return receive_local (message ["subject"].get_value (), filter);
 	//return receive_local (message, filter);
 	
-	return "";
+	return msg_resp;
 	//return receive_local_uni (peer, filter);
 }
 
-const std::string noware::mach::dev::multicast (const std::string & message, noware::nr & responses_count, const std::string & group, const std::string & filter)
+const zmq::msg noware::mach::dev::multicast (const zmq::msg & msg_req, noware::nr & responses_count, const std::string & group, const std::string & filter)
 {
 	std::cout << "noware::mach::dev::multicast()::called" << std::endl;
 	//if (!message.is_group ())
 	//	return "";
 	
+	zmq::msg msg_resp;
 	
 //	std::string filter;
 	
@@ -95,10 +98,10 @@ const std::string noware::mach::dev::multicast (const std::string & message, now
 	// Data, collapsed into a string.
 	//message ["filter"] = filter;
 	
-	if (!node.multicast (/*filter + */message, group))
+	if (!node.multicast (/*filter + */msg_req, group))
 	{
 		std::cout << "noware::mach::dev::multicast()::node.multicast()::failure" << std::endl;
-		return "";
+		return msg_resp;
 	}
 	
 	std::cout << "noware::mach::dev::multicast()::node.multicast()::success" << std::endl;
@@ -135,11 +138,13 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 {
 	std::cout << "noware::mach::dev::receive()::called" << std::endl;
 	
-	std::string event_type = zyre_event_type (event);
+	const char * event_type = zyre_event_type (event);
 	//noware::tree <> message_zyre;
 	//noware::tree <> message;
-	zmsg_t * zmq_msg;
-	std::string msg;
+	zmsg_t * zmsg;
+	zframe_t * zframe;
+	zmq::msg msg;
+	noware::nr frame_ndx;
 	bool result;
 	
 	std::cout << "noware::mach::dev::receive()::event_type==[" << event_type << ']' << std::endl;
@@ -150,16 +155,24 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 		
 		//zmsg_t * zmq_msg;
 		
-		if (zmq_msg != nullptr)
-		{
-			std::cout << "noware::mach::dev::receive()::zmq_msg!=nullptr" << std::endl;
+		//if (zmq_msg != nullptr)
+		//{
+		//	std::cout << "noware::mach::dev::receive()::zmq_msg!=nullptr" << std::endl;
 			//std::string msg;
 			//noware::tree <> msg;
 			
 			// First, get the message from the zyre peer.
-			zmq_msg = zyre_event_msg (event);
+			zmsg = zyre_event_msg (event);
+			frame_ndx = 1;
+			zframe = zmsg_first (zmsg);
 			
-			msg = zmsg_popstr (zmq_msg);
+			while (zframe != nullptr)
+			{
+				msg.data [frame_ndx] = *zframe;
+				zframe = zmsg_next (zmsg);
+				++frame_ndx;
+			}
+			
 			//if (msg.deserialize (zmsg_popstr (zmq_msg)))
 			//{
 				//std::cout << "*zmq_msg==" << '[' << (const char *) zmq_msg << ']' << std::endl;
@@ -179,22 +192,23 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 			//	std::cout << "noware::mach::dev::receive()::msg.deserialize()==False" << std::endl;
 			//}
 			//std::cout << "noware::mach::dev::receive()::msg[subject]==[" << msg ["subject"] << ']' << std::endl;
-		}
-		else
-		{
-			std::cout << "noware::mach::dev::receive()::zmq_msg==nullptr" << std::endl;
-		}
+		//}
+		//else
+		//{
+		//	std::cout << "noware::mach::dev::receive()::zmq_msg==nullptr" << std::endl;
+		//}
+		free (event_type);
 	}
 }
 
-const bool noware::mach::dev::respond (const std::string & message, const zyre_event_t * event)
+const bool noware::mach::dev::respond (const zmq::msg &/* msg*/, const zyre_event_t */* event*/)
 {
 	std::cout << "noware::mach::dev::respond()::called" << std::endl;
 	
 	return false;
 }
 
-const std::string noware::mach::dev::receive_local (noware::nr & responses_count, const std::string & group, /*const std::string & response_type, */const std::string & filter) const
+const zmq::msg noware::mach::dev::receive_local (noware::nr & responses_count, const std::string & group, /*const std::string & response_type, */const std::string & filter) const
 {
 	std::cout << "noware::mach::dev::receive_local(filter==[" << filter << "])::called" << std::endl;
 	//std::cout << "noware::mach::dev::receive_local(response_type=[" << response_type << "], filter=[" << filter << "])::called" << std::endl;
@@ -230,8 +244,8 @@ const std::string noware::mach::dev::receive_local (noware::nr & responses_count
 	//assert (zlist_size (peers) == 1);
 	//zlist_destroy (&peers);
 	
-	std::string message;
-	std::string response;
+	zmq::msg message;
+	zmq::msg response;
 	//noware::nr::natural n;
 	zmq::message_t message_filter;
 	zmq::message_t message_content;
@@ -260,8 +274,8 @@ const std::string noware::mach::dev::receive_local (noware::nr & responses_count
 	}
 	*/
 	
-	//std::cout << "noware::mach::dev::receive_local(response_type=[" << response_type << "], filter=[" << filter << "])::node.peers_count()==[" << node.peers_count () << ']' << std::endl;
-	std::cout << "noware::mach::dev::receive_local(filter=[" << filter << "])::node.peers_count()==[" << node.peers_count () << ']' << std::endl;
+	//std::cout << "noware::mach::dev::receive_local(response_type=[" << response_type << "], filter=[" << filter << "])::node.size()==[" << node.size () << ']' << std::endl;
+	std::cout << "noware::mach::dev::receive_local(filter=[" << filter << "])::node.size()==[" << node.size () << ']' << std::endl;
 	
 	/*
 	//zlist_t * peers;
@@ -277,16 +291,16 @@ const std::string noware::mach::dev::receive_local (noware::nr & responses_count
 	//n = 0;
 	//result = "";
   std::cout << "noware::mach::dev::receive_local()::pre-loop" << std::endl;
-	for (/*noware::nr::natural n*/responses_count = 0; responses_count < /*zlist_size (peers)*/ node.peers_count (group); ++responses_count)
+	for (/*noware::nr::natural n*/responses_count = 0; responses_count < /*zlist_size (peers)*/ node.size (group); ++responses_count)
 	{
 		std::cout << "noware::mach::dev::receive_local()::while::responses_count==[" << responses_count << ']' << std::endl;
 		
 		//zmq::message_t message_filter;
 		//zmq::message_t message_content;
 		
-		std::cout << "noware::mach::dev::receive_local()::loop::receiving::filter" << std::endl;
-		receiver.recv (&message_filter);
-		std::cout << "noware::mach::dev::receive_local()::loop:: received::filter" << std::endl;
+		//std::cout << "noware::mach::dev::receive_local()::loop::receiving::filter" << std::endl;
+		//receiver.recv (&message_filter);
+		//std::cout << "noware::mach::dev::receive_local()::loop:: received::filter" << std::endl;
 		
 		std::cout << "noware::mach::dev::receive_local()::loop::receiving::message" << std::endl;
 		receiver.recv (&message_content);
@@ -294,11 +308,12 @@ const std::string noware::mach::dev::receive_local (noware::nr & responses_count
 		
 		std::cout << "noware::mach::dev::receive_local()::message_tree.deserialize()::pre-call" << std::endl;
 		
-		std::cout << "noware::mach::dev::receive_local()::message_filter.data()==[" << static_cast <const char *> (message_filter.data ())	<< ']' << std::endl;
+		//std::cout << "noware::mach::dev::receive_local()::message_filter.data()==[" << static_cast <const char *> (message_filter.data ())	<< ']' << std::endl;
 		
 		std::cout << "noware::mach::dev::receive_local()::message_content.data()==[" << static_cast <const char *> (message_content.data ()) << ']' << std::endl;
 		
-		message = static_cast <const char *> (message_content.data ());
+		//message = static_cast <const char *> (message_content.data ());
+		message = message_content;
 		//if (!message_tree.deserialize (static_cast <const char *> (message_content.data ())))
 		//{
 		//	std::cout << "noware::mach::dev::receive_local()::message_tree.deserialize()==False" << std::endl;
@@ -337,22 +352,23 @@ const std::string noware::mach::dev::receive_local (noware::nr & responses_count
 	
 	//zlist_destroy (&peers);
 	
-  std::cout << "noware::mach::dev::receive_local()::return response==[" << response << ']' << std::endl;
+  //std::cout << "noware::mach::dev::receive_local()::return response==[" << response << ']' << std::endl;
 	return response;
 	
 	//std::istringstream iss(static_cast<char*>(update.data()));
 	//std::cout << "Message=" << '[' << static_cast <char *> (update.data ()) << ']' << std::endl;
 }
 
-const bool noware::mach::dev::unicast_local (const std::string & msg) const
+const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
 {
-	std::string filter;
+	//zmq::msg filter;
 	//std::string msg_serial;
 	std::string conn;	// Connection string.
 	//noware::tree <> msg_tree;
 	bool result;
 	
-	filter = "";
+	//filter = "";
+	
 	//filter += (noware::var) '/' + "response";
 	//msg_tree.deserialize (msg);
 	
@@ -370,7 +386,7 @@ const bool noware::mach::dev::unicast_local (const std::string & msg) const
 	//conn = (std::string) "inproc://" + filter;
 	//conn = "inproc://connection1";
 	
-	std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg << ']' << std::endl;
+//	std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg << ']' << std::endl;
 	//std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
 	////std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
 	
@@ -388,27 +404,27 @@ const bool noware::mach::dev::unicast_local (const std::string & msg) const
 	//transmitter.bind ("tcp://*:5555");
 	
 	
-	//zmq::message_t filter_msg (sizeof (filter.c_str ()));
-	zmq::message_t filter_msg (filter.length ());
-	//zmq::message_t message (sizeof (msg_serial.c_str ()));
-	zmq::message_t message (msg.length ());
+	/////zmq::message_t filter_msg (sizeof (filter.c_str ()));
+	//zmq::message_t filter_msg (filter.length ());
+	////zmq::message_t message (sizeof (msg_serial.c_str ()));
+	//zmq::message_t message (msg.length ());
 
 	//snprintf ((char *) message.data(), 20 ,
 	//	"%05d %d %d", zipcode, temperature, relhumidity);
 	//std::memcpy (filter_msg.data (), filter.c_str (), sizeof (filter.c_str ()));
-	std::memcpy (filter_msg.data (), filter.c_str (), filter.length ());
+//	std::memcpy (filter_msg.data (), filter.c_str (), filter.length ());
 	//std::memcpy (message.data (), msg_serial.c_str (), sizeof (msg_serial.c_str ()));
-	std::memcpy (message.data (), msg.c_str (), msg.length ());
+//	std::memcpy (message.data (), msg.c_str (), msg.length ());
 	
-	std::cout << "message==" << '[' << static_cast <const char *> (message.data ()) << ']' << std::endl;
+//	std::cout << "message==" << '[' << static_cast <const char *> (message.data ()) << ']' << std::endl;
 	
 	
   std::cout << "noware::mach::dev::unicast_local()::send()" << std::endl;
 	//return
 	result =
-		transmitter.send (filter_msg, ZMQ_SNDMORE)
-		&&
-		transmitter.send (message)
+		//transmitter.send (filter_msg, ZMQ_SNDMORE)
+		//&&
+		transmitter.send (msg.operator zmq::message_t & ())
 	;
 	
 	//zclock_sleep (1500);
@@ -420,14 +436,14 @@ const bool noware::mach::dev::unicast_local (const std::string & msg) const
 }
 
 // Short-circuited (triggered by success).
-const bool noware::mach::dev::search (std::string & result, const std::string & message)// const
+const bool noware::mach::dev::search (zmq::msg & result, const zmq::msg & message)// const
 {
 	std::cout << "noware::mach::dev::search()::called" << std::endl;
 	
 	return false;
 }
 
-const bool noware::mach::dev::search_local (std::string & result, const std::string & message)// const
+const bool noware::mach::dev::search_local (zmq::msg & result, const zmq::msg & message)// const
 {
 	std::cout << "noware::mach::dev::search_local()::called" << std::endl;
 	

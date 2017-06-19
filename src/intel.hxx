@@ -27,7 +27,8 @@
 //#include "../containers/memory.h++"
 #include "db/sqlite.hxx"
 //#include <sqlite3.h>
-#include "zmq/zyre.hxx"
+//#include "zmq/zyre.hxx"
+#include "net/node.hxx"
 
 // #include "container/entity_2.h++"
 
@@ -53,8 +54,8 @@
 
 namespace noware
 {
-	// aware[ness] consc[iousness] [artificial/synthetic]intel[ligence]
-	// calculator [personal]comp[uter][pc] mach[ine] rob[ot]
+	// aware[ness] consc[iousness] [a[rtificial]/synth[etic]]i[ntel[ligence]]
+	// calc[ulator] [p[ersonal]]c[omp[uter]] mach[ine] rob[ot]
 	// dev[ice]
 	class intel
 	{
@@ -108,7 +109,8 @@ namespace noware
 			db::sqlite sci;
 			//sqlite3 * sci;
 			
-			zmq::zyre node;
+			net::node node;
+			//zmq::zyre node;
 		//public:
 			//#include ".machine/postinnerindex.h++"
 	};

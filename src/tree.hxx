@@ -7,9 +7,9 @@
 //#include <boost/any.hpp>
 
 //#include "content/value.h++"
-#include "serial.hdr.cxx"
-#include "list.hdr.cxx"
-#include "var.hdr.cxx"
+#include "serial.hxx"
+#include "array.hxx"
+#include "var.hxx"
 //#include "entity_container.h++"
 
 //#include "../machine/resources/memory.h++"

@@ -8,8 +8,8 @@
 #include <ostream>
 //#include <fstream>
 #include <algorithm>
-#include <omp.h>
-#include <list>
+//#include <omp.h>
+//#include <list>
 //#include <unordered_map>
 
 //#include <algorithm>
@@ -99,9 +99,9 @@ namespace noware
 	//template <typename value, key> 
 	template <typename value_t = var, typename key_t = var>
 	class array
-		//: public mach::dev
-		//: public net::node
 		: public contnr::array <value_t, key_t>
+		//, public net::node
+		, public mach::dev
 	{
 		public:
 			#include ".array/.hxx"
@@ -117,10 +117,10 @@ namespace noware
 			//const std::string/* result*/ aggregate (const std::string &/* result*/, nr &/* responses_count*//* number of peers who answered*/, const std::string &/* response*/, //const std::string &/* expression*/);
 			
 			
-			zmq::context_t * ctx;
-			zmq::socket_t * sock_rx;
-			zmq::socket_t * sock_tx_all;
-			zmq::socket_t * sock_tx_any;
+			//zmq::context_t * ctx;
+			//zmq::socket_t * sock_rx;
+			//zmq::socket_t * sock_tx_all;
+			//zmq::socket_t * sock_tx_any;
 		protected:
 			//
 			// For array functionality
@@ -128,13 +128,17 @@ namespace noware
 		//	const bool _search_local (const key_t &, value_t &) const;
 			//const bool add (const key_t &, value_t &) const;
 			//const bool search_key (const key &, key *&) const;
-			unsigned short int nodes_count;
-			node * _node;
+			//unsigned short int nodes_count;
+			//node * _node;
+			virtual const bool/* success*/ respond (const zmq::msg &/* message*/, const zyre_event_t */* (zyre) event*/);
+			virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
+			virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
+			virtual const std::string/* result*/ aggregate (const zmq::msg &/* result*/, noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
 		public:
-			static const std::string srv_id;
+			//static const std::string srv_id;
 			
 			array (void);
-			~array (void);
+			virtual ~array (void);
 			
 			virtual const noware::nr size (void) const;
 			//virtual const bool/* success*/ exist (const key_t &/* key*/) const;
