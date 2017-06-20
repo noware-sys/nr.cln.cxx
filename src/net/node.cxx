@@ -132,6 +132,7 @@ const bool noware::net::node::join (const std::string & group)
 }
 
 const bool noware::net::node::unicast (const zmq::msg & msg, const std::string & peer/* peer id*/) const
+//const bool noware::net::node::unicast (const zmsg_t * zmsg, const std::string & peer/* peer id*/) const
 {
 	if (!inited () || !status ())
 		return false;
@@ -141,9 +142,12 @@ const bool noware::net::node::unicast (const zmq::msg & msg, const std::string &
 	
 	//  0 == success
 	// -1 == failure
+	
+	
 	zmsg_t * zmsg;
 	
-	zmsg = &((zmsg_t) msg);
+	//zmsg = (zmsg_t *) msg;
+	zmsg = msg.operator const zmsg_t * ();
 	
 	return zyre_whisper (_node, peer.c_str (), &zmsg) == 0;
 	
@@ -151,6 +155,7 @@ const bool noware::net::node::unicast (const zmq::msg & msg, const std::string &
 }
 
 const bool noware::net::node::multicast (const zmq::msg & msg, const std::string & group) const
+//const bool noware::net::node::multicast (const zmsg_t * zmsg, const std::string & group) const
 {
 	std::cout << "noware::net::node::multicast()::called" << std::endl;
 	
@@ -169,10 +174,11 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	//zclock_sleep (250);
 	
 	//std::cout << "noware::net::node::multicast()::4(last)" << std::endl;
-	/*
 	zmsg_t * zmsg;
 	
-	zmsg = &((zmsg_t) msg);
+	//zmsg = (zmsg_t *) msg;
+	zmsg = msg.operator const zmsg_t * ();
+	/*
 	
 	//assert (zframe_is (zmsg_first (zmsg)));
 	zframe_t * frm;
@@ -187,6 +193,8 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	assert (zframe_is (frm));
 	//assert (frm -> tag == ZFRAME_TAG);
 	*/
+
+	/*
 	zmsg_t * zmsg;
 	zframe_t * frame_p;
 	zframe_t ** frame_pp;
@@ -206,7 +214,7 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 		
 		zmsg_append (zmsg, frame_pp);
 	}
-	
+	*/
 	//return *zmsg;
 	//printf ("noware::net::node::multicast::str==[%s]\n", cstr);
 	//free (cstr);

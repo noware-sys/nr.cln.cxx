@@ -138,19 +138,20 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 {
 	std::cout << "noware::mach::dev::receive()::called" << std::endl;
 	
-	const char * event_type = zyre_event_type (event);
+	//const char * event_type = zyre_event_type (event);
+	std::string event_type = zyre_event_type (event);
 	//noware::tree <> message_zyre;
 	//noware::tree <> message;
-	zmsg_t * zmsg;
-	zframe_t * zframe;
+	//zmsg_t * zmsg;
+	//zframe_t * zframe;
 	zmq::msg msg;
 	noware::nr frame_ndx;
 	bool result;
 	
 	std::cout << "noware::mach::dev::receive()::event_type==[" << event_type << ']' << std::endl;
 	
-	if (event_type == "WHISPER" || event_type == "SHOUT")
-	{
+	//if (event_type == "WHISPER" || event_type == "SHOUT")
+	//{
 		std::cout << "noware::mach::dev::receive()::event_type==(WHISPER||SHOUT)==[" << event_type << ']' << "::in scope" << std::endl;
 		
 		//zmsg_t * zmq_msg;
@@ -162,7 +163,8 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 			//noware::tree <> msg;
 			
 			// First, get the message from the zyre peer.
-			zmsg = zyre_event_msg (event);
+			//zmsg = zyre_event_msg (event);
+			/*
 			frame_ndx = 1;
 			zframe = zmsg_first (zmsg);
 			
@@ -172,6 +174,7 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 				zframe = zmsg_next (zmsg);
 				++frame_ndx;
 			}
+			*/
 			
 			//if (msg.deserialize (zmsg_popstr (zmq_msg)))
 			//{
@@ -183,9 +186,12 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 				//bool result;
 				
 				//result = node.unicast (respond (msg), zyre_event_peer_uuid (event));
-				result = respond (msg, event);
+				std::cout << "noware::mach::dev::receive()::responding()..." << std::endl;
+				//result = respond (zmsg, event);
+				result = respond (event);
+				std::cout << "noware::mach::dev::receive()::responded()==" << '[' << (result ? "success" : "failure") << ']' << std::endl;
+				//std::cout << "noware::mach::dev::receive()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
 				
-				std::cout << "noware::mach::dev::receive()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
 			//}
 			//else
 			//{
@@ -197,11 +203,16 @@ void noware::mach::dev::receive (const zyre_event_t * event)
 		//{
 		//	std::cout << "noware::mach::dev::receive()::zmq_msg==nullptr" << std::endl;
 		//}
-		free (event_type);
-	}
+	//}
+	
+	std::cout << "noware::mach::dev::receive()::free()..." << std::endl;
+	//free (event_type);
+	std::cout << "noware::mach::dev::receive()::free()...OK" << std::endl;
+	std::cout << "noware::mach::dev::receive()::return" << std::endl;
 }
 
-const bool noware::mach::dev::respond (const zmq::msg &/* msg*/, const zyre_event_t */* event*/)
+//const bool noware::mach::dev::respond (const zmsg_t */* msg*/, const zyre_event_t */* event*/)
+const bool noware::mach::dev::respond (const zyre_event_t */* event*/)
 {
 	std::cout << "noware::mach::dev::respond()::called" << std::endl;
 	
@@ -290,10 +301,14 @@ const zmq::msg noware::mach::dev::receive_local (noware::nr & responses_count, c
 	// Ensure that all relevant peers respond.
 	//n = 0;
 	//result = "";
+	unsigned int responses_nr;
+	
   std::cout << "noware::mach::dev::receive_local()::pre-loop" << std::endl;
-	for (/*noware::nr::natural n*/responses_count = 0; responses_count < /*zlist_size (peers)*/ node.size (group); ++responses_count)
+	//for (/*noware::nr::natural n*/responses_count = 0; responses_count < /*zlist_size (peers)*/ noware::nr (node.size (group)); ++responses_count)
+	for (/*noware::nr::natural n*/responses_nr = 0; responses_nr < /*zlist_size (peers)*/ node.size (group); ++responses_nr)
 	{
-		std::cout << "noware::mach::dev::receive_local()::while::responses_count==[" << responses_count << ']' << std::endl;
+		//std::cout << "noware::mach::dev::receive_local()::while::responses_count==[" << responses_count << ']' << std::endl;
+		std::cout << "noware::mach::dev::receive_local()::while::responses_count==[" << responses_nr << ']' << std::endl;
 		
 		//zmq::message_t message_filter;
 		//zmq::message_t message_content;
@@ -345,11 +360,13 @@ const zmq::msg noware::mach::dev::receive_local (noware::nr & responses_count, c
 	  	std::cout << "noware::mach::dev::receive_local()::if(search())::break" << std::endl;
 			break;
 		}
+  	std::cout << "noware::mach::dev::receive_local()::if(search())::post-call" << std::endl;
 		
 		//++n;
 	}
   std::cout << "noware::mach::dev::receive_local()::post-loop" << std::endl;
 	
+	responses_count = responses_nr;
 	//zlist_destroy (&peers);
 	
   //std::cout << "noware::mach::dev::receive_local()::return response==[" << response << ']' << std::endl;
@@ -360,9 +377,12 @@ const zmq::msg noware::mach::dev::receive_local (noware::nr & responses_count, c
 }
 
 const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
+//const bool noware::mach::dev::unicast_local (const zmsg_t * msg) const
 {
 	//zmq::msg filter;
+	zmq::message_t message;
 	//std::string msg_serial;
+	//zframe_t * zframe;
 	std::string conn;	// Connection string.
 	//noware::tree <> msg_tree;
 	bool result;
@@ -389,6 +409,9 @@ const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
 //	std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg << ']' << std::endl;
 	//std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
 	////std::cout << "noware::mach::dev::unicast_local()::msg[content].get_value ().text ()==[" << msg ["content"].get_value ().text () << ']' << std::endl;
+	
+	//zframe = zmsg_first (msg);
+	//message.rebuild (zframe_data (zframe), zframe_size (zframe));
 	
 	
 	std::cout << "noware::mach::dev::unicast_local()::conn==[" << conn << ']' << std::endl;
@@ -417,6 +440,7 @@ const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
 //	std::memcpy (message.data (), msg.c_str (), msg.length ());
 	
 //	std::cout << "message==" << '[' << static_cast <const char *> (message.data ()) << ']' << std::endl;
+	std::cout << "noware::mach::dev::unicast_local()::message==" << '[' << static_cast <const char *> (msg.operator zmq::message_t & ().data ()) << ']' << std::endl;
 	
 	
   std::cout << "noware::mach::dev::unicast_local()::send()" << std::endl;
@@ -424,7 +448,9 @@ const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
 	result =
 		//transmitter.send (filter_msg, ZMQ_SNDMORE)
 		//&&
-		transmitter.send (msg.operator zmq::message_t & ())
+		//transmitter.send (msg.operator zmq::message_t & ())
+		//transmitter.send (message);
+		transmitter.send (msg.operator zmq::message_t & ());
 	;
 	
 	//zclock_sleep (1500);
@@ -436,14 +462,14 @@ const bool noware::mach::dev::unicast_local (const zmq::msg & msg) const
 }
 
 // Short-circuited (triggered by success).
-const bool noware::mach::dev::search (zmq::msg & result, const zmq::msg & message)// const
+const bool noware::mach::dev::search (zmq::msg &/* result*/, const zmq::msg &/* message*/)// const
 {
 	std::cout << "noware::mach::dev::search()::called" << std::endl;
 	
 	return false;
 }
 
-const bool noware::mach::dev::search_local (zmq::msg & result, const zmq::msg & message)// const
+const bool noware::mach::dev::search_local (zmq::msg &/* result*/, const zmq::msg &/* message*/)// const
 {
 	std::cout << "noware::mach::dev::search_local()::called" << std::endl;
 	

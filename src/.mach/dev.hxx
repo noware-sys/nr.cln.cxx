@@ -42,6 +42,7 @@
 					
 					// Transmits responses to the thread who queried.
 					virtual const bool unicast_local (const zmq::msg &/* message*/) const;
+					//virtual const bool unicast_local (const zmsg_t */* message*/) const;
 					
 					
 					//
@@ -49,8 +50,9 @@
 					// need to be implemented
 					// by the inheriting class:
 					//
-					//virtual const noware::tree <>/* response*/ respond (const noware::tree <> &/* message*/);
-					virtual const bool/* success*/ respond (const zmq::msg &/* message*/, const zyre_event_t */* (zyre) event*/);
+					////virtual const noware::tree <>/* response*/ respond (const noware::tree <> &/* message*/);
+					//virtual const bool/* success*/ respond (const /*zmq::msg &*/zmsg_t */* message*/, const zyre_event_t */* (zyre) event*/);
+					virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/);
 					virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 					virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 					virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);

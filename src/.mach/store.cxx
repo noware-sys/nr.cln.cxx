@@ -73,21 +73,73 @@ const zmq::msg noware::mach::store::aggregate (const zmq::msg & result/* from se
 	return response;
 }
 
-const bool noware::mach::store::respond (const zmq::msg & msg_rx/* received message*/, const zyre_event_t * event)
+const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received message*//*, */const zyre_event_t * event)
 {
 	std::cout << "noware::mach::store::respond()::called" << std::endl;
+	
+	zmq::msg msg;
+	zmsg_t * zmsg;
+	//zmsg_t * zmsg_response;
+	//zframe_t * zframe_response;
+	std::string event_type;
+	
+	zmsg = zyre_event_msg (event);
+	//msg = zyre_event_msg (event);
+	//msg = zmsg;
+	//event_type = zyre_event_type (event);
+	//assert (event);
+	//assert (zmsg);
+	
+	std::cout << "noware::mach::store::respond()::event==" << event_type << std::endl;
+	if (zmsg == nullptr)
+	{
+		std::cout << "noware::mach::store::respond()::event_msg==nullptr" << std::endl;
+		
+		return false;
+	}
+	
+	event_type = zyre_event_type (event);
+	if (event_type != "WHISPER" && event_type != "SHOUT")
+	{
+		std::cout << "noware::mach::store::respond()::event not of interest" << std::endl;
+	}
+	std::cout << "noware::mach::store::respond()::event of interest" << std::endl;
+	msg = zmsg;
 	
 	//noware::tree <std::string, std::string> response;
 	std::map <std::string, std::string> response;
 	//noware::tree <std::string, std::string> message;
 	std::map <std::string, std::string> message;
+	noware::var result_tmp;
 	bool result;
 	
-	//if (!message.deserialize (msg_rx))
-	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg_rx)))
+//	zframe_t * frm;
+	//noware::nr ndx;
+	
+	//data.clear ();
+	//frm = zmsg_first (msg_rx);
+//	frm = zmsg_first (zmsg);
+	//ndx = 1;
+	//while (frm != nullptr)
+	//{
+		// This makes a copy of the frame.
+		//data [ndx] = *frm;
+		
+		//zframe_destroy (&f);
+		
+	//	frm = zmsg_next (&other);
+	//	++ndx;
+	//}
+	
+	//return other;
+	////if (!message.deserialize (msg_rx))
+	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg)))
+	//if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string ((char *) zframe_data (frm), zframe_size (frm))))
 		return false;
 	
 	result = false;
+	
+	std::cout << "noware::mach::store::respond()::if::message[subject]==[" << message ["subject"] << ']' << std::endl;
 	
 	if (message ["type"] == "response")
 	{
@@ -101,14 +153,15 @@ const bool noware::mach::store::respond (const zmq::msg & msg_rx/* received mess
 			//zclock_sleep (1500);
 			
 			// Redirect the message to the function which asked for it.
-			//unicast_local (zmsg_popstr (zmq_msg));
-			result = unicast_local (msg_rx);
+			////unicast_local (zmsg_popstr (zmq_msg));
+			//result = unicast_local (msg_rx);
+			result = unicast_local (msg);
 			std::cout << "noware::mach::store::respond()::unicast_local (message)==" << (result ? "Success" : "Failure") << std::endl;
 		//}
 	}
 	else	// if (message ["type"] == "request")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
+		//std::cout << "noware::mach::store::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
 		
 		if (message ["subject"] == "existence")
 		{
@@ -158,19 +211,32 @@ const bool noware::mach::store::respond (const zmq::msg & msg_rx/* received mess
 			
 			if (message.count ("group") > 0)
 			{
-				try
+				std::cout << "noware::mach::store::respond()::group[ed]" << std::endl;
+				
+				if (data.count (message ["group"]) > 0)
 				{
-					data.at (message ["group"]);
-					response ["value"] = data.at (message ["group"]).size ();
+					std::cout << "noware::mach::store::respond()::group::exist" << std::endl;
+					response ["value"] = data [message ["group"]].size ();
 				}
-				catch (...)
+				else
 				{
+					std::cout << "noware::mach::store::respond()::group::not exist" << std::endl;
 					response ["value"] = "0";
 				}
 			}
 			else
 			{
-				response ["value"] = data.size ();
+				std::cout << "noware::mach::store::respond()::not group[ed]" << std::endl;
+				//response ["value"] = data.size ();
+				//std::cout << "noware::mach::store::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+				result_tmp = 0;
+				for (const std::pair <std::string, std::map <std::string, std::string>> & group : data)
+				{
+					result_tmp += group.second.size ();
+				}
+				response ["value"] = result_tmp.operator const std::string ();
+				std::cout << "noware::mach::store::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+				std::cout << "noware::mach::store::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
 			}
 		}
 		else if (message ["subject"] == "obtainment")
@@ -265,6 +331,12 @@ const bool noware::mach::store::respond (const zmq::msg & msg_rx/* received mess
 		if (!noware::serialize <std::map <std::string, std::string>> (response_serial, response))
 			return false;
 		result = node.unicast (zmq::msg (response_serial), zyre_event_peer_uuid (event));
+		
+		//zmsg_response = zmsg_new ();
+		//zframe_response = zframe_new (response_serial.data (), response_serial.size ());
+		//zmsg_append (zmsg_response, &zframe_response);
+		
+		//result = node.unicast (zmsg_response, zyre_event_peer_uuid (event));
 		std::cout << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
 		//return result;
 	}
@@ -285,7 +357,11 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 	
 	//if (!resp.deserialize (msg_resp))
 	if (!noware::deserialize <std::map <std::string, std::string>> (resp, std::string (msg_resp)))
+	{
+		std::cout << "noware::mach::store::search()::deserialize::failure" << std::endl;
 		return false;
+	}
+	std::cout << "noware::mach::store::search()::deserialize::success" << std::endl;
 	
 	
 	//result ["subject"] = resp ["subject"];
@@ -306,6 +382,8 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 	*/
 	else if (resp ["subject"] == "magnitude")
 	{
+		std::cout << "noware::mach::store::search()::subject==magnitude" << std::endl;
+		
 		result_tmp = msg_result;
 		if (result_tmp.kind () != noware::var::type::nr)
 			result_tmp = 0;
@@ -314,6 +392,9 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 		//result ["value"] += resp ["value"];
 		result_tmp += noware::var (resp ["value"]);
 		msg_result = result_tmp;
+		
+		std::cout << "noware::mach::store::search()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::store::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
 		
 		return false;
 	}
@@ -436,6 +517,8 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 		//resp ["value"] = result;
 		//msg_resp = resp.serialize ();
 		msg_resp = result;
+		std::cout << "noware::mach::store::search_local()::magnitude::result==[" << result << ']' << std::endl;
+		std::cout << "noware::mach::store::search_local()::magnitude::msg_resp==[" << std::string (msg_resp) << ']' << std::endl;
 		return false;
 	}
 	else if (req ["subject"] == "obtainment")
@@ -637,9 +720,14 @@ const noware::nr noware::mach::store::size (void) const
 	
 	std::string expression_serial;
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+	{
+		std::cout << "noware::mach::store::size()::serialize::failure" << std::endl;
+		
 		return 0;
+	}
+	std::cout << "noware::mach::store::size()::serialize::success" << std::endl;
 	
-	
+	/*
 	expression.clear ();
 	std::cout << "noware::mach::store::size()::expression.size ()==[" << expression.size () << ']' << std::endl;
 	
@@ -667,7 +755,7 @@ const noware::nr noware::mach::store::size (void) const
 	std::cout << "noware::mach::store::size()::assert()..." << std::endl;
 	assert (expression_serial == std::string (zmq::msg (expression_serial)));
 	std::cout << "noware::mach::store::size()::assert()...OK" << std::endl;
-	
+	*/
 	//return multival (zmq::msg (expression.serialize ()), noware::mach::store::grp_dft);
 	return std::string (multival (zmq::msg (expression_serial), noware::mach::store::grp_dft));
 }

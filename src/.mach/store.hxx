@@ -72,7 +72,8 @@ class store
 		//void receive (const zyre_event_t */* zyre_event*/);
 	//public:
 	protected:
-		virtual const bool/* success*/ respond (const zmq::msg &/* message*/, const zyre_event_t */* (zyre) event*/);
+		//virtual const bool/* success*/ respond (const /*zmq::msg &*/zmsg_t */* message*/, const zyre_event_t */* (zyre) event*/);
+		virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/);
 		virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 		virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);

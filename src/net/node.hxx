@@ -37,7 +37,9 @@ namespace noware
 				const bool join (const std::string &);
 				
 				const bool unicast (const zmq::msg &/* multipart message*/, const std::string &/* peer id*/) const;
+				//const bool unicast (const zmsg_t */* multipart message*/, const std::string &/* peer id*/) const;
 				const bool multicast (const zmq::msg &/* multipart message*/, const std::string &/* group*/) const;
+				//const bool multicast (const zmsg_t */* multipart message*/, const std::string &/* group*/) const;
 				
 				const zyre_t * operator * (void) const;
 				
