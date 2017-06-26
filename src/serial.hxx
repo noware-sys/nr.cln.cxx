@@ -62,9 +62,14 @@ namespace noware
 		class serial
 		{
 			public:
+				//serial (void);
+				//virtual ~serial (void);
+				
 				virtual const std::string serialize (void) const;
 				virtual const bool deserialize (const std::string &/* serial*/);
-			protected:
+			//protected:
+				// These need to be redeclared
+				// in the inheriting class:
 				friend class boost::serialization::access;
 				
 				template <typename archive>

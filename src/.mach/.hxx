@@ -6,3 +6,4 @@
 #include "queue.hxx"
 //#include ".device/processor.h++"
 //#include "processor.hdr.cxx"
+#include "cpu.hxx"

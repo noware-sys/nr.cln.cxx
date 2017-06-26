@@ -5,3 +5,4 @@
 //#include ".storage/.cxx"
 #include "queue.cxx"
 //#include "processor.cxx"
+#include "cpu.cxx"

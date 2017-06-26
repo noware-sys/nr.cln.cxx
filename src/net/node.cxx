@@ -276,7 +276,7 @@ const bool noware::net::node::anycast (const zmq::msg & msg) const
 	peers_list = peers ();
 	peers_list_size = peers_list.size ();
 	
-	if (peers_list_size < 1)
+	if ((unsigned int) peers_list_size < 1)
 		return false;
 	
 	boost::random::random_device randev;
@@ -293,7 +293,7 @@ const bool noware::net::node::anycast (const zmq::msg & msg, const std::string &
 	peers_list = peers (group);
 	peers_list_size = peers_list.size ();
 	
-	if (peers_list_size < 1)
+	if ((unsigned int) peers_list_size < 1)
 		return false;
 	
 	boost::random::random_device randev;

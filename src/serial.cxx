@@ -118,6 +118,16 @@ bool noware::unserialize (std::string serial, type & object)
 //	return noware::serialize (const_cast <const type> (object));
 //}
 
+/*
+noware::serial::serial (void)
+{
+}
+
+noware::serial::~serial (void)
+{
+}
+*/
+
 template <typename archive>
 void noware::serial::serialize (archive &, const unsigned int &/* version*/)
 {
