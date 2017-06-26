@@ -3,4 +3,5 @@
 //#include "entity.c++"
 #include "store.cxx"
 //#include ".storage/.cxx"
+#include "queue.cxx"
 //#include "processor.cxx"

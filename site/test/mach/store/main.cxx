@@ -55,11 +55,11 @@
 int main (int argc, char * argv [])
 {
 	//using boost::any_cast;
-	using namespace std;
+	//using namespace std;
 	//using boost;
-	using namespace noware;
+	//using namespace noware;
 	
-	for (/*unsigned long long*/ int i = 0; i < argc; ++ i)
+	for (/*unsigned long long*/ int i = 0; i < argc; ++i)
 		std::cout << argv [i] << ' ';
 	std::cout << std::endl;
 	std::cout << "Argument Count: " << argc << std::endl;

@@ -32,6 +32,10 @@ class store
 		const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
 		//const bool exist_group (const noware::var &/* group*/) const;
 		
+		// Returns the nodes which have the key.
+		//const std::map <std::string, std::string> own (const std::string &/* key*/) const;
+		//const std::map <std::string, std::string> own (const std::string &/* group*/, const std::string &/* key*/) const;
+		
 		// obtain attain get
 		const std::string/* value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
 		const std::string/* value*/ get (const std::string &/* key*/) const;
@@ -76,7 +80,7 @@ class store
 		virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/);
 		virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 		virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
-		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
+		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, const noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
 		
 		/*
 			// Iteration-related:

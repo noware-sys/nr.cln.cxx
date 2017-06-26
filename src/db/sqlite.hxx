@@ -4,6 +4,7 @@
 
 //#include <cstdarg>
 #include <string>
+#include <map>
 //#include <stdio.h>
 #include <sqlite3.h>
 
@@ -11,7 +12,7 @@
 //#include "../../content/value.h++"
 //#include "../../../math.h++"
 #include "../var.hxx"
-#include "../array.hxx"
+//#include "../array.hxx"
 //#include "../../containers/entity.h++"
 //#include "../../communication/messaging.h++"
 //#include "../network/peers.h++"
@@ -54,19 +55,20 @@ namespace noware
 					// get the connected state
 					const bool connected (void) const;
 					
-					const bool query (noware::array <noware::array <>> &/* result*/, const std::string &/* query*/, const noware::array <std::string, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
-					const bool query (noware::array <noware::array <>> &/* result*/, const std::string &/* query*/, const noware::nr::integer &/* tries*/ = tries_default);
-					const bool query (const std::string &/* query*/, const noware::array <std::string, int> &/* arguments*/, const noware::nr::integer &/* tries*/ = tries_default);
-					const bool query (const std::string &/* query*/, const noware::nr::integer &/* tries*/ = tries_default);
+					const bool query (std::map <std::string, std::map <std::string, std::string>> &/* result*/, const std::string &/* query*/, const std::map <int, std::string> &/* arguments*/, const noware::nr &/* tries_max*/ = tries_dft);
+					const bool query (std::map <std::string, std::map <std::string, std::string>> &/* result*/, const std::string &/* query*/, const noware::nr &/* tries_max*/ = tries_dft);
+					const bool query (const std::string &/* query*/, const std::map <int, std::string> &/* arguments*/, const noware::nr &/* tries_max*/ = tries_dft);
+					const bool query (const std::string &/* query*/, const noware::nr &/* tries_max*/ = tries_dft);
 					
-					const noware::nr::integer effect (void) const;	// Affected rows
+					const noware::nr effect (void) const;	// Affected rows
 					
-					//static const unsigned short int tries_default= 3;
-					static const noware::nr::integer tries_default;
+					//static const unsigned short int tries_dft= 3;
+					static const noware::nr tries_dft;
 					//math::nr::integer tries;
 					
 					//const sqlite & operator = (const sqlite &);
 					const bool operator == (const sqlite &) const;
+					const sqlite3 * operator * (void);
 				protected:
 					//#if defined (SQLITE_CHANGES_SET) && SQLITE_CHANGES_SET
 					//	const bool effect/*_set*/ (const int &/* = 0*/);

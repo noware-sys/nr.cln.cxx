@@ -4,12 +4,12 @@ lib_path = /usr/include/noware/noware.cxx
 cxx = g++
 
 obj = main.obj
-src = 
+src =
 #tool.string.obj tool.nr.obj
 out = main.elf
 
 #cxx_arg = -g -ggdb -pedantic -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I. -I$(quex_path) -I$(lib_path) $(CCFLAG_ASSERTS) -L. -L/usr/local/lib -lboost_system -lboost_serialization -lboost_thread -lboost_random -lcln -fopenmp -pthread -ldl -lsqlite3 -lczmq -lzmq -lzyre
-cxx_arg = -g -ggdb -pedantic -pthread -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I. -I$(quex_path) -I$(lib_path) -I/usr/include/noware/zmq.cxx -I/root/Projects/iMatix/czmq/src -L. -lboost_system -lboost_serialization -lboost_thread -lcln -lzyre -lczmq -lzmq
+cxx_arg = -g -ggdb -pedantic -pthread -fpermissive -W -Wall -Wmain -Wcomment -Wconversion -Wunused-parameter -Wparentheses -std=c++14 -I. -I$(quex_path) -I$(lib_path) -I/usr/include/noware/zmq.cxx -I/root/Projects/iMatix/czmq/src -L. -lboost_system -lboost_serialization -lboost_thread -lboost_random -lcln -lzyre -lczmq -lzmq
 
 all: $(out)
 $(out): $(obj) $(src)

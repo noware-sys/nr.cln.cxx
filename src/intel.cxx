@@ -36,6 +36,7 @@ const std::string noware::computer::query_sql_initial = //"";
 
 noware::intel::intel (void)
 {
+	//sci.connect ("");
 /*
 	//std::cout << "memory.query: " << 
 	if (knowledge.connect ("knowledge.db"))

@@ -3,5 +3,6 @@
 //#include "entity.h++"
 #include "store.hxx"
 //#include ".storage/.hdr.cxx"
+#include "queue.hxx"
 //#include ".device/processor.h++"
 //#include "processor.hdr.cxx"

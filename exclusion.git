@@ -44,6 +44,11 @@ exclusion.cxx.git
 
 cfg
 lib
+doc.html
+
+src/db/sqlite.c
+
+#LICENSE.txt
 
 other
 
@@ -52,3 +57,5 @@ noware.hxx
 src/list*
 src/pc*
 src/.pc
+src/calculator*
+src/zmq*

@@ -8,6 +8,7 @@
 #include <zmq/msg.cxx>
 
 noware::net::node::node (void)
+//	: gentor ()
 {
 	running = false;
 	_node = nullptr;
@@ -116,9 +117,24 @@ const bool noware::net::node::leave (const std::string & group)
 	if (!inited () || !status ())
 		return false;
 	
-	zyre_leave (_node, group.c_str ());
+	return zyre_leave (_node, group.c_str ()) == 0;
 	
-	return true;
+	//return true;
+}
+
+const bool noware::net::node::joined (const std::string & group) const
+{
+	std::map <const noware::nr, const std::string> grps;
+	
+	grps = groups_own ();
+	
+	for (const std::pair <const noware::nr, const std::string> & grp : grps)
+	{
+		if (grp.second == group)
+			return true;
+	}
+	
+	return false;
 }
 
 const bool noware::net::node::join (const std::string & group)
@@ -126,9 +142,107 @@ const bool noware::net::node::join (const std::string & group)
 	if (!inited () || !status ())
 		return false;
 	
-	zyre_join (_node, group.c_str ());
+	return zyre_join (_node, group.c_str ()) == 0;
+}
+
+const std::map <const noware::nr, const std::string> noware::net::node::groups_own (void) const
+{
+	std::map <const noware::nr, const std::string> groups;
 	
-	return true;
+	if (!inited () || !status ())
+		return groups;
+	
+	zlist_t * groups_list;
+	void * group;
+	noware::nr ndx;
+	
+	groups_list = zyre_own_groups (_node);
+	
+	if (groups_list == nullptr)
+		return groups;
+	
+	for (group = zlist_first (groups_list), ndx = 1; group != nullptr; group = zlist_next (groups_list), ++ndx)
+	{
+		groups [ndx] = static_cast <const char *> (group);
+	}
+	
+	zlist_destroy (&groups_list);
+	return groups;
+}
+
+const std::map <const noware::nr, const std::string> noware::net::node::groups_peers (void) const
+{
+	std::map <const noware::nr, const std::string> groups;
+	
+	if (!inited () || !status ())
+		return groups;
+	
+	zlist_t * groups_list;
+	void * group;
+	noware::nr ndx;
+	
+	groups_list = zyre_peer_groups (_node);
+	
+	if (groups_list == nullptr)
+		return groups;
+	
+	for (group = zlist_first (groups_list), ndx = 1; group != nullptr; group = zlist_next (groups_list), ++ndx)
+	{
+		groups [ndx] = static_cast <const char *> (group);
+	}
+	
+	zlist_destroy (&groups_list);
+	return groups;
+}
+
+const std::map <const noware::nr, const std::string> noware::net::node::peers (void) const
+{
+	std::map <const noware::nr, const std::string> peers;
+	
+	if (!inited () || !status ())
+		return peers;
+	
+	zlist_t * peers_list;
+	void * peer;
+	noware::nr ndx;
+	
+	peers_list = zyre_peers (_node);
+	
+	if (peers_list == nullptr)
+		return peers;
+	
+	for (peer = zlist_first (peers_list), ndx = 1; peer != nullptr; peer = zlist_next (peers_list), ++ndx)
+	{
+		peers [ndx] = static_cast <const char *> (peer);
+	}
+	
+	zlist_destroy (&peers_list);
+	return peers;
+}
+
+const std::map <const noware::nr, const std::string> noware::net::node::peers (const std::string & group) const
+{
+	std::map <const noware::nr, const std::string> peers;
+	
+	if (!inited () || !status ())
+		return peers;
+	
+	zlist_t * peers_list;
+	void * peer;
+	noware::nr ndx;
+	
+	peers_list = zyre_peers_by_group (_node, group.c_str ());
+	
+	if (peers_list == nullptr)
+		return peers;
+	
+	for (peer = zlist_first (peers_list), ndx = 1; peer != nullptr; peer = zlist_next (peers_list), ++ndx)
+	{
+		peers [ndx] = static_cast <const char *> (peer);
+	}
+	
+	zlist_destroy (&peers_list);
+	return peers;
 }
 
 const bool noware::net::node::unicast (const zmq::msg & msg, const std::string & peer/* peer id*/) const
@@ -152,6 +266,40 @@ const bool noware::net::node::unicast (const zmq::msg & msg, const std::string &
 	return zyre_whisper (_node, peer.c_str (), &zmsg) == 0;
 	
 	//return true;
+}
+
+const bool noware::net::node::anycast (const zmq::msg & msg) const
+{
+	std::map <const noware::nr, const std::string> peers_list;
+	noware::nr peers_list_size;
+	
+	peers_list = peers ();
+	peers_list_size = peers_list.size ();
+	
+	if (peers_list_size < 1)
+		return false;
+	
+	boost::random::random_device randev;
+	boost::random::uniform_int_distribution <unsigned int> distr (1, peers_list_size);
+	
+	return unicast (msg, peers_list [distr (randev)]);
+}
+
+const bool noware::net::node::anycast (const zmq::msg & msg, const std::string & group) const
+{
+	std::map <const noware::nr, const std::string> peers_list;
+	noware::nr peers_list_size;
+	
+	peers_list = peers (group);
+	peers_list_size = peers_list.size ();
+	
+	if (peers_list_size < 1)
+		return false;
+	
+	boost::random::random_device randev;
+	boost::random::uniform_int_distribution <unsigned int> distr (1, peers_list_size);
+	
+	return unicast (msg, peers_list [distr (randev)]);
 }
 
 const bool noware::net::node::multicast (const zmq::msg & msg, const std::string & group) const
@@ -227,12 +375,17 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 //	return result == 0;
 }
 
+const bool noware::net::node::broadcast (const zmq::msg & msg) const
+{
+	return false;
+}
+
 const zyre_t * noware::net::node::operator * (void) const
 {
 	return _node;
 }
 
-const unsigned int noware::net::node::size (void) const
+const unsigned int noware::net::node::peers_size (void) const
 {
 	unsigned int result;
 	zlist_t * peers;
@@ -254,7 +407,7 @@ const unsigned int noware::net::node::size (void) const
 	return result;
 }
 
-const unsigned int noware::net::node::size (const std::string & group) const
+const unsigned int noware::net::node::peers_size (const std::string & group) const
 {
 	unsigned int result;
 	zlist_t * peers;

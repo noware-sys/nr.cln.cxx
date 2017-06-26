@@ -29,7 +29,7 @@ noware::mach::store::~store (void)
 //}
 //
 
-const zmq::msg noware::mach::store::aggregate (const zmq::msg & result/* from search_local*/, noware::nr & responses_count, const zmq::msg & response/* from ...search*/, const zmq::msg & expression)
+const zmq::msg noware::mach::store::aggregate (const zmq::msg & result, const noware::nr & responses_count, const zmq::msg & response, const zmq::msg & expression)
 {
 	//noware::tree <std::string, std::string> xpr;
 	std::map <std::string, std::string> xpr;
@@ -83,14 +83,23 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	//zframe_t * zframe_response;
 	std::string event_type;
 	
-	zmsg = zyre_event_msg (event);
+	//zmsg = zyre_event_msg (event);
 	//msg = zyre_event_msg (event);
 	//msg = zmsg;
 	//event_type = zyre_event_type (event);
 	//assert (event);
 	//assert (zmsg);
 	
+	event_type = zyre_event_type (event);
+	if (event_type != "WHISPER" && event_type != "SHOUT")
+	{
+		std::cout << "noware::mach::store::respond()::event not of interest" << std::endl;
+		
+		return false;
+	}
 	std::cout << "noware::mach::store::respond()::event==" << event_type << std::endl;
+	
+	zmsg = zyre_event_msg (event);
 	if (zmsg == nullptr)
 	{
 		std::cout << "noware::mach::store::respond()::event_msg==nullptr" << std::endl;
@@ -98,11 +107,6 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		return false;
 	}
 	
-	event_type = zyre_event_type (event);
-	if (event_type != "WHISPER" && event_type != "SHOUT")
-	{
-		std::cout << "noware::mach::store::respond()::event not of interest" << std::endl;
-	}
 	std::cout << "noware::mach::store::respond()::event of interest" << std::endl;
 	msg = zmsg;
 	
@@ -155,8 +159,8 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 			// Redirect the message to the function which asked for it.
 			////unicast_local (zmsg_popstr (zmq_msg));
 			//result = unicast_local (msg_rx);
-			result = unicast_local (msg);
-			std::cout << "noware::mach::store::respond()::unicast_local (message)==" << (result ? "Success" : "Failure") << std::endl;
+			result = unicast_local (msg, "");
+			std::cout << "noware::mach::store::respond()::unicast_local(message)==" << (result ? "success" : "failure") << std::endl;
 		//}
 	}
 	else	// if (message ["type"] == "request")
@@ -258,7 +262,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 				response ["value.exist"] = "0";
 			}
 		}
-		else if (message ["subject"] == "settlement")
+		else if (message ["subject"] == "assignment")
 		{
 			std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 			
@@ -409,7 +413,7 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 		
 		return true;
 	}
-	else if (resp ["subject"] == "settlement")
+	else if (resp ["subject"] == "assignment")
 	{
 		msg_result = resp ["value"];
 		
@@ -542,7 +546,7 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 		//msg_resp = "0";
 		return false;
 	}
-	else if (req ["subject"] == "settlement")
+	else if (req ["subject"] == "assignment")
 	{
 		try
 		{
@@ -696,7 +700,7 @@ const bool noware::mach::store::set (const std::string & group, const std::strin
 	//noware::tree <std::string, std::string> expression;
 	std::map <std::string, std::string> expression;
 	
-	expression ["subject"] = "settlement";
+	expression ["subject"] = "assignment";
 	expression ["group"] = group;
 	expression ["key"] = key;
 	expression ["value"] = value;

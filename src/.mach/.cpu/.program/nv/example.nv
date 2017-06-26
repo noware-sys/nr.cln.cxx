@@ -31,6 +31,8 @@
 	
 	f[unctio]n
 	defn/[definition]
+	dft/[default]
+	ndx/[index]
 	return
 	bool[ean]
 	n[umbe]r::
@@ -44,7 +46,7 @@
 	[v[o]id]
 	nul[l]
 	new
-	scope(/[name]space)	// Partial class definition.
+	scope(/[name]space)	// Partial class definition. No?
 	class
 	struc[ture]
 	obj[ect]

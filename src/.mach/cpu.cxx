@@ -11,7 +11,7 @@ noware::machine::processor::instruction::~instruction (void)
 {
 }
 
-noware::machine::processor::instruction::evaluate (void)
+noware::machine::processor::instruction::val (void)
 {
 	return "";
 }
