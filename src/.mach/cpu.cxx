@@ -11,7 +11,7 @@ noware::mach::cpu::instr::instr (void)
 
 noware::mach::cpu::instr::instr (const std::string & other)
 {
-	oprn = opr::none;
+	//oprn = opr::none;
 	deserialize (other);
 }
 
@@ -57,6 +57,89 @@ noware::mach::cpu::~cpu (void)
 {
 }
 
+// Store
+const bool noware::mach::cpu::exist (const std::string & key) const
+{
+	return exist (std::string (""), key);
+}
+
+const bool noware::mach::cpu::exist (const std::string & group, const std::string & key) const
+{
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	
+	expression ["subject"] = "existence";
+	expression ["group"] = group;
+	expression ["key"] = key;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return false;
+	
+	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft)) == "1";
+}
+
+const bool noware::mach::cpu::remove (const std::string & group, const std::string & key)
+{
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	
+	expression ["subject"] = "removal";
+	expression ["group"] = group;
+	expression ["key"] = key;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return false;
+	
+	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft)) == "1";
+}
+
+const bool noware::mach::cpu::remove (const std::string & key)
+{
+	return remove (std::string (""), key);
+}
+
+const std::string/* value*/ noware::mach::cpu::get (const std::string & group, const std::string & key) const
+{
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	
+	expression ["subject"] = "obtainment";
+	expression ["group"] = group;
+	expression ["key"] = key;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return "";
+	
+	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft));
+}
+
+const std::string/* value*/ noware::mach::cpu::get (const std::string & key) const
+{
+	return get (std::string (""), key);
+}
+
+const bool/* success*/ noware::mach::cpu::set (const std::string & group, const std::string & key, const std::string & value)
+{
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	
+	expression ["subject"] = "assignment";
+	expression ["group"] = group;
+	expression ["key"] = key;
+	expression ["value"] = value;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return false;
+	
+	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft)) == "1";
+}
+
+const bool/* success*/ noware::mach::cpu::set (const std::string & key, const std::string & value)
+{
+	return set (std::string (""), key);
+}
+
+// Queue
 const noware::nr noware::mach::cpu::size (void) const
 {
 	//bool result;
@@ -264,7 +347,39 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 	
 	//result ["subject"] = resp ["subject"];
 	
-	if (resp ["subject"] == "magnitude")
+	// Store
+	if (resp ["subject"] == "existence")
+	{
+		msg_result = resp ["value"];
+		
+		return msg_result == "1";
+	}
+	else if (resp ["subject"] == "obtainment")
+	{
+		if (resp ["value.exist"] == "0")
+		{
+			return false;
+		}
+		
+		msg_result = resp ["value"];
+		
+		return true;
+	}
+	else if (resp ["subject"] == "assignment")
+	{
+		msg_result = resp ["value"];
+		
+		return msg_result == "1";
+	}
+	else if (resp ["subject"] == "removal")
+	{
+		msg_result = resp ["value"];
+		
+		//return msg_result == "1";
+		return false;
+	}
+	// Queue
+	else if (resp ["subject"] == "magnitude")
 	{
 		std::cout << "noware::mach::cpu::search()::subject==[" << resp ["subject"] << ']' << std::endl;
 		

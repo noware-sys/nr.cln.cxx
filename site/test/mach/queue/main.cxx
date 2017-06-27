@@ -72,9 +72,9 @@ int main (int argc, char * argv [])
 	do
 	{
 		std::cout << std::endl;
-		std::cout << "Storage Space:" << std::endl;
+		std::cout << "Queue:" << std::endl;
 		std::cout << std::endl;
-		std::cout << "Options:" << std::endl;
+		std::cout << " Options:" << std::endl;
 		std::cout << std::endl;
 		std::cout << "  " << "0. Exit" << std::endl;
 		std::cout << "  " << "1. Size" << std::endl;

@@ -78,9 +78,9 @@ namespace noware
 	class mach
 	{
 		/*
-			1. Resource Sharing (Server)	-- Machine (Physical Machine)
-			2. Virtual Machine (Client)		-- Machine (Software/Virtual Machine/OS)
-			3. Logic (Applied Usage)			-- Calculator/Computer (Software/OS/Application)
+			1. Resource Presentation/Aggregation/Sharing (Server) -- Machine (Physical Machine)
+			2. Virtual Machine (Client) -- Machine (Software/Virtual Machine/OS)
+			3. Logic (Applied Usage) -- Calculator/Computer (Software/OS/Application)
 		*/
 		
 		public:
@@ -98,6 +98,9 @@ namespace noware
 			
 		// protected:
 		public:
+			//store store;
+			//queue queue;
+			//cpu cpu;
 			//array <device> device;
 		//	/*LIB::machine::*//*device::*/processor processor;
 				//LIB::container::memory memory;

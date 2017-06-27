@@ -15,26 +15,32 @@
 				{
 					none,
 					// For controlling the flow of the execution:
-					// and intersection
-					// or union
+					//and,	// and intersection
+					//or, // or union
 					
-					obtainment,	// attainment obtainment get read
-					assignment,	// assignment settlement set write
-					//presence,
-					removal,		// removal resettal
+					get,				// attainment obtainment get read
+					set,				// assignment settlement set write
+					exist,			// presence existence
+					rm,					// removal resettal rm
 					
-					addition,
-					substraction,
-					multiplication,
-					division,
+					add,				// addition
+					substr,			// substraction
+					multi,			// multiplication
+					div,				// division
 					
-					exponentiation,
-					modulo,
-					modulus,
-					complement
+					exp,				//exponentiation
+					modulo,			// remainder of division
+					modulus,		// absolute value
+					complement,	// complement compl
 					
-					//cat,				// concatenate
+					cat					// concatenation cat
 					
+					// Control of the flow
+					//eql,
+					//grtr,
+					//grtr_eql,
+					//lowr,
+					//lowr_eql,
 					//output		// output set echo
 					//go,			// go[[ ]to] skip jump hop
 				};
@@ -66,7 +72,7 @@
 						
 						template <typename archive>
 						void serialize (archive &, const unsigned int &/* version*/);
-					//public:
+					public:
 						// TODO
 						// 
 						// inherit these two functions
@@ -80,6 +86,8 @@
 				virtual ~cpu (void);
 				
 				static const std::string grp_dft;
+				
+				// Queue
 			public:
 			//protected:
 				// dequeue beginning first head top pop next fetch operate
@@ -96,6 +104,20 @@
 				virtual const bool enqueue (const noware::var &/* operand1*/, const opr &/* operator*/ = opr::none, const noware::var &/* operand2*/ = "");	// Convenient.
 				// do perform execute apply evaluate
 				//const bool apply (const instruction &);
+				
+				// Store
+			public:
+				const bool exist (const std::string &/* key*/) const;
+				const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
+				
+				const bool remove (const std::string &/* group*/, const std::string &/* key*/);
+				const bool remove (const std::string &/* key*/);
+				
+				const std::string/* value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
+				const std::string/* value*/ get (const std::string &/* key*/) const;
+				
+				const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
+				const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
 			protected:
 				virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/);
 				virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const

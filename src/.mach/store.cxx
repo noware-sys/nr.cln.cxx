@@ -273,17 +273,29 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 			//response ["existence"] = data.exist (message ["group"]) && data.get (message ["group"]).exist (message ["key"]);
 			data [message ["group"]] [message ["key"]] = message ["value"];
 			
+			std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try..." << std::endl;
 			try
 			{
+				std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::in scope" << std::endl;
 				if (data.at (message ["group"]).at (message ["key"]) == message ["value"])
+				{
+					std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if" << std::endl;
 					response ["value"] = "1";
+				}
 				else
+				{
+					std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if::else" << std::endl;
 					response ["value"] = "0";
+				}
 			}
 			catch (...)
 			{
+				std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::catch" << std::endl;
 				response ["value"] = "0";
 			}
+			
+			std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::response[value]==[" << response ["value"] << ']' << std::endl;
+			//return response ["value"] == "1";
 		}
 		else if (message ["subject"] == "removal")
 		{
@@ -583,7 +595,7 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 		{
 		}
 		
-		// The group/key was absent...
+		// The group+key was absent...
 		//resp ["value"] = "1";
 		//msg_resp = resp.serialize ();
 		msg_resp = "1";

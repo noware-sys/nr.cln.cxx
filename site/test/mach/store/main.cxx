@@ -65,7 +65,8 @@ int main (int argc, char * argv [])
 	std::cout << "Argument Count: " << argc << std::endl;
 	
 	
-	noware::var selection, name, value;
+	noware::var selection;
+	std::string group, name, value;
 	noware::mach::store dam;	// Direct Access Memory.
 	
 	do
@@ -73,7 +74,7 @@ int main (int argc, char * argv [])
 		std::cout << std::endl;
 		std::cout << "Storage Space:" << std::endl;
 		std::cout << std::endl;
-		std::cout << "Options:" << std::endl;
+		std::cout << " Options:" << std::endl;
 		std::cout << std::endl;
 		std::cout << "  " << "0. Exit" << std::endl;
 		std::cout << "  " << "1. Exist" << std::endl;
@@ -81,7 +82,8 @@ int main (int argc, char * argv [])
 		std::cout << "  " << "3. Set" << std::endl;
 		std::cout << "  " << "4. Remove" << std::endl;
 		std::cout << "  " << "5. Size" << std::endl;
-		std::cout << "  " << "6. Clear" << std::endl;
+		std::cout << "  " << "6. Size of group" << std::endl;
+		std::cout << "  " << "7. Clear" << std::endl;
 		
 		std::cout << std::endl;
 		std::cout << "Selection: ";
@@ -95,30 +97,30 @@ int main (int argc, char * argv [])
 		}
 		else if (selection == noware::nr (1))
 		{
-			//std::cout << "  " << "Group: ";
-			//getline (std::cin, group);
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
 			
 			std::cout << "  " << "Name: ";
 			getline (std::cin, name);
 			
-			//std::cout << "  " << "Exists : [" << group << "][" << name << "] == " << (dam.exist (group, name) ? "True" : "False") << std::endl;
-			std::cout << "  " << "Exists : [" << name << "] == " << (dam.exist (name) ? "True" : "False") << std::endl;
+			std::cout << "  " << "Exists : [" << group << "][" << name << "] == " << (dam.exist (group, name) ? "True" : "False") << std::endl;
+			//std::cout << "  " << "Exists : [" << name << "] == " << (dam.exist (name) ? "True" : "False") << std::endl;
 		}
 		else if (selection == noware::nr (2))
 		{
-			//std::cout << "  " << "Group: ";
-			//getline (std::cin, group);
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
 			
 			std::cout << "  " << "Name: ";
 			getline (std::cin, name);
 			
-			//std::cout << "  " << "Getting : [" << group << "][" << name << "] == [" << dam.get (group, name) << ']' << std::endl;
-			std::cout << "  " << "Getting : [" << name << "] == [" << dam.get (name) << ']' << std::endl;
+			std::cout << "  " << "Getting : [" << group << "][" << name << "] == [" << dam.get (group, name) << ']' << std::endl;
+			//std::cout << "  " << "Getting : [" << name << "] == [" << dam.get (name) << ']' << std::endl;
 		}
 		else if (selection == noware::nr (3))
 		{
-			//std::cout << "  " << "Group: ";
-			//getline (std::cin, group);
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
 			
 			std::cout << "  " << "Name: ";
 			getline (std::cin, name);
@@ -126,25 +128,32 @@ int main (int argc, char * argv [])
 			std::cout << "  " << "Value: ";
 			getline (std::cin, value);
 			
-			//std::cout << "  " << "Setting : [" << group << "][" << name << "] = [" << value << "] ... " << (dam.set (group, name, value) ? "Success" : "Failure") << std::endl;
-			std::cout << "  " << "Setting : [" << name << "] = [" << value << "] ... " << (dam.set (name, value) ? "Success" : "Failure") << std::endl;
+			std::cout << "  " << "Setting : [" << group << "][" << name << "] = [" << value << "] ... " << (dam.set (group, name, value) ? "Success" : "Failure") << std::endl;
+			//std::cout << "  " << "Setting : [" << name << "] = [" << value << "] ... " << (dam.set (name, value) ? "Success" : "Failure") << std::endl;
 		}
 		else if (selection == noware::nr (4))
 		{
-			//std::cout << "  " << "Group: ";
-			//getline (std::cin, group);
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
 			
 			std::cout << "  " << "Name: ";
 			getline (std::cin, name);
 			
-			//std::cout << "  " << "Removing : [" << group << "][" << name << "] ... " << (dam.remove (group, name) ? "Success" : "Failure") << std::endl;
-			std::cout << "  " << "Removing : [" << name << "] ... " << (dam.remove (name) ? "Success" : "Failure") << std::endl;
+			std::cout << "  " << "Removing : [" << group << "][" << name << "] ... " << (dam.remove (group, name) ? "Success" : "Failure") << std::endl;
+			//std::cout << "  " << "Removing : [" << name << "] ... " << (dam.remove (name) ? "Success" : "Failure") << std::endl;
 		}
 		else if (selection == noware::nr (5))
 		{
 			std::cout << "  " << "Size == [" << dam.size () << ']' << std::endl;
 		}
 		else if (selection == noware::nr (6))
+		{
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
+			
+			std::cout << "  " << "Size of group [" << group << "] == [" << dam.size (group) << ']' << std::endl;
+		}
+		else if (selection == noware::nr (7))
 		{
 			std::cout << "  " << "Clearing ... " << (dam.clear () ? "Success" : "Failure") << std::endl;
 		}

@@ -66,24 +66,33 @@ int main (int argc, char * argv [])
 	
 	
 	noware::var selection;
+	std::string group, name, value;
 	std::string element;
 	noware::mach::cpu cpu;
 	noware::mach::cpu::instr inst;
 	
-	inst.oprn = noware::mach::cpu::opr::addition;
+	inst.oprn = noware::mach::cpu::opr::add;
 	
 	do
 	{
 		std::cout << std::endl;
-		std::cout << "Storage Space:" << std::endl;
+		std::cout << "CPU:" << std::endl;
 		std::cout << std::endl;
-		std::cout << "Options:" << std::endl;
+		std::cout << " Options:" << std::endl;
 		std::cout << std::endl;
-		std::cout << "  " << "0. Exit" << std::endl;
-		std::cout << "  " << "1. Size" << std::endl;
-		std::cout << "  " << "2. Enqueue" << std::endl;
-		std::cout << "  " << "3. Dequeue" << std::endl;
-		std::cout << "  " << "4. Next" << std::endl;
+		std::cout << "   " << "0. Exit" << std::endl;
+		std::cout << std::endl;
+		std::cout << "  Store Functionality:" << std::endl;
+		std::cout << "   " << "1. Exist" << std::endl;
+		std::cout << "   " << "2. Get" << std::endl;
+		std::cout << "   " << "3. Set" << std::endl;
+		std::cout << "   " << "4. Remove" << std::endl;
+		std::cout << std::endl;
+		std::cout << "  Queue Functionality:" << std::endl;
+		std::cout << "   " << "5. Size" << std::endl;
+		std::cout << "   " << "6. Enqueue" << std::endl;
+		std::cout << "   " << "7. Dequeue" << std::endl;
+		std::cout << "   " << "8. Next" << std::endl;
 		
 		std::cout << std::endl;
 		std::cout << "Selection: ";
@@ -97,9 +106,56 @@ int main (int argc, char * argv [])
 		}
 		else if (selection == noware::nr (1))
 		{
-			std::cout << "  " << "Size == [" << cpu.size () << ']' << std::endl;
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
+			
+			std::cout << "  " << "Name: ";
+			getline (std::cin, name);
+			
+			std::cout << "  " << "Exists : [" << group << "][" << name << "] == " << (cpu.exist (group, name) ? "True" : "False") << std::endl;
+			//std::cout << "  " << "Exists : [" << name << "] == " << (cpu.exist (name) ? "True" : "False") << std::endl;
 		}
 		else if (selection == noware::nr (2))
+		{
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
+			
+			std::cout << "  " << "Name: ";
+			getline (std::cin, name);
+			
+			std::cout << "  " << "Getting : [" << group << "][" << name << "] == [" << cpu.get (group, name) << ']' << std::endl;
+			//std::cout << "  " << "Getting : [" << name << "] == [" << cpu.get (name) << ']' << std::endl;
+		}
+		else if (selection == noware::nr (3))
+		{
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
+			
+			std::cout << "  " << "Name: ";
+			getline (std::cin, name);
+			
+			std::cout << "  " << "Value: ";
+			getline (std::cin, value);
+			
+			std::cout << "  " << "Setting : [" << group << "][" << name << "] = [" << value << "] ... " << (cpu.set (group, name, value) ? "Success" : "Failure") << std::endl;
+			//std::cout << "  " << "Setting : [" << name << "] = [" << value << "] ... " << (cpu.set (name, value) ? "Success" : "Failure") << std::endl;
+		}
+		else if (selection == noware::nr (4))
+		{
+			std::cout << "  " << "Group: ";
+			getline (std::cin, group);
+			
+			std::cout << "  " << "Name: ";
+			getline (std::cin, name);
+			
+			std::cout << "  " << "Removing : [" << group << "][" << name << "] ... " << (cpu.remove (group, name) ? "Success" : "Failure") << std::endl;
+			//std::cout << "  " << "Removing : [" << name << "] ... " << (cpu.remove (name) ? "Success" : "Failure") << std::endl;
+		}
+		else if (selection == noware::nr (5))
+		{
+			std::cout << "  " << "Size == [" << cpu.size () << ']' << std::endl;
+		}
+		else if (selection == noware::nr (6))
 		{
 			//std::cout << "  " << "Group: ";
 			//getline (std::cin, group);
@@ -120,7 +176,7 @@ int main (int argc, char * argv [])
 			//std::cout << "  " << "Exists : [" << group << "][" << name << "] == " << (dam.exist (group, name) ? "True" : "False") << std::endl;
 			std::cout << "  " << "Enqueue : " << (cpu.enqueue (inst) ? "True" : "False") << std::endl;
 		}
-		else if (selection == noware::nr (3))
+		else if (selection == noware::nr (7))
 		{
 			//std::cout << "  " << "Group: ";
 			//getline (std::cin, group);
@@ -131,7 +187,7 @@ int main (int argc, char * argv [])
 			//std::cout << "  " << "Getting : [" << group << "][" << name << "] == [" << dam.get (group, name) << ']' << std::endl;
 			std::cout << "  " << "Dequeue : " << (cpu.dequeue () ? "True" : "False") << std::endl;
 		}
-		else if (selection == noware::nr (4))
+		else if (selection == noware::nr (8))
 		{
 			//std::cout << "  " << "Group: ";
 			//getline (std::cin, group);
