@@ -16,10 +16,20 @@
 
 noware::mach::mach (void)
 {
+	/*
+	thread * t;
+	
+	t = new thread ();
+	
+	trd [t -> group ()] = t;
+	*/
+	
+	//cpu.start ();
 }
 
 noware::mach::~mach (void)
 {
+	//delete
 }
 
 //const LIB::container::NAME_V LIB::mach::evaluate (const LIB::container::NAME_V & expression)
@@ -27,3 +37,13 @@ noware::mach::~mach (void)
 //	return "";
 //}
 
+const bool noware::mach::enqueue (const std::string & file_name)
+{
+	if (!trd.load (file_name))
+		return false;
+	
+	//if (!trd.start ())
+	//	return false;
+	
+	return true;
+}

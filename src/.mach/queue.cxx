@@ -2,12 +2,12 @@
 
 //#include "processor.hdr.cxx"
 
-const std::string noware::mach::queue::grp_dft = "queue";
+const std::string noware::mach::queue::grp_dft = "noware::mach::queue";
 
 noware::mach::queue::queue (void)
 {
 	assert (node.join (grp_dft));
-	assert (node.join ("queue.nonfull"));
+	assert (node.join ("noware::mach::queue::nonfull"));
 }
 
 noware::mach::queue::~queue (void)
@@ -64,7 +64,23 @@ const std::string noware::mach::queue::next (void) const
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return "";
 	
-	return std::string (anyval (zmq::msg (expression_serial), "queue.nonempty"));
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty"));
+}
+
+const std::string noware::mach::queue::next_dequeue (void)
+{
+	if (empty ())
+		return "";
+	
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	
+	expression ["subject"] = "next_dequeue";
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return "";
+	
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty"));
 }
 
 const bool noware::mach::queue::dequeue (void)
@@ -82,19 +98,19 @@ const bool noware::mach::queue::dequeue (void)
 		return false;
 	
 	//return multival (zmq::msg (expression.serialize ()), noware::mach::store::grp_dft);
-	return std::string (anyval (zmq::msg (expression_serial), "queue.nonempty")) == "1";
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty")) == "1";
 	/*
-	result = std::string (anyval (zmq::msg (expression_serial), "queue.nonempty")) == "1";
+	result = std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty")) == "1";
 	//return "";
 	
 	if (result)
 	{
 		if (empty_local ())
-			assert (node.leave ("queue.nonempty"));
+			assert (node.leave ("noware::mach::queue::nonempty"));
 		
 		if (!full_local ())
 			// There is now, at least, one free spot.
-			assert (node.join ("queue.nonfull"));
+			assert (node.join ("noware::mach::queue::nonfull"));
 	}
 	
 	return result;
@@ -116,32 +132,32 @@ const bool noware::mach::queue::enqueue (const std::string & element)
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return false;
 	
-	return std::string (anyval (zmq::msg (expression_serial), "queue.nonfull")) == "1";
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 	/*
-	result = std::string (anyval (zmq::msg (expression_serial), "queue.nonfull")) == "1";
+	result = std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 	
 	if (result)
 	{
 		if (full_local ())
-			assert (node.leave ("queue.nonfull"));
+			assert (node.leave ("noware::mach::queue::nonfull"));
 		
 		if (!empty_local ())
-			assert (node.join ("queue.nonempty"));
+			assert (node.join ("noware::mach::queue::nonempty"));
 	}
 	
 	return result;
 	*/
 }
 
-const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event)
+const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, zmq::msg & msg_response)
 {
 	std::cout << "noware::mach::queue::respond()::called" << std::endl;
 	
-	zmq::msg msg;
-	zmsg_t * zmsg;
+	//zmq::msg msg;
+	//zmsg_t * zmsg;
 	//zmsg_t * zmsg_response;
 	//zframe_t * zframe_response;
-	std::string event_type;
+	//std::string event_type;
 	
 	//zmsg = zyre_event_msg (event);
 	//msg = zyre_event_msg (event);
@@ -149,26 +165,6 @@ const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event)
 	//event_type = zyre_event_type (event);
 	//assert (event);
 	//assert (zmsg);
-	
-	event_type = zyre_event_type (event);
-	if (event_type != "WHISPER" && event_type != "SHOUT")
-	{
-		std::cout << "noware::mach::queue::respond()::event not of interest" << std::endl;
-		
-		return false;
-	}
-	std::cout << "noware::mach::queue::respond()::event==" << event_type << std::endl;
-	
-	zmsg = zyre_event_msg (event);
-	if (zmsg == nullptr)
-	{
-		std::cout << "noware::mach::queue::respond()::event_msg==nullptr" << std::endl;
-		
-		return false;
-	}
-	
-	std::cout << "noware::mach::queue::respond()::event of interest" << std::endl;
-	msg = zmsg;
 	
 	//noware::tree <std::string, std::string> response;
 	std::map <std::string, std::string> response;
@@ -196,163 +192,87 @@ const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event)
 	//}
 	
 	//return other;
+	for (const std::pair <unsigned int, zmq::msg::frame> & element : msg_request.data)
+	{
+		std::cout << "noware::mach::queue::respond()::msg_request.data[" << element.first << "]==\"" << std::string (element.second) << "\"" << std::endl;
+	}
+	//std::cout << "noware::mach::queue::respond()::std::string(msg_request.data[1])==[" << std::string (msg_request.data [1]) << "]" << std::endl;
 	////if (!message.deserialize (msg_rx))
-	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg)))
+	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg_request)))
 	//if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string ((char *) zframe_data (frm), zframe_size (frm))))
+	{
+		std::cout << "noware::mach::queue::respond()::deserialize()==[failure]" << std::endl;
+		
 		return false;
-	
+	}
+	std::cout << "noware::mach::queue::respond()::deserialize()==[success]" << std::endl;
+
 	result = false;
 	
 	std::cout << "noware::mach::queue::respond()::if::message[subject]==[" << message ["subject"] << ']' << std::endl;
 	
-	if (message ["type"] == "response")
+	//std::cout << "noware::mach::queue::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
+	
+	if (message ["subject"] == "magnitude")
 	{
-		std::cout << "noware::mach::queue::respond()::if::message[type]==" << message ["type"] << "::in scope" << std::endl;
+		std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
-		//if (message ["subject"] == "existence")
-		//{
-			std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
-			
-			//std::cout << "noware::mach::queue::receive()::else::msg[subject]==" << msg ["subject"] << "::sleeping" << std::endl;
-			//zclock_sleep (1500);
-			
-			// Redirect the message to the function which asked for it.
-			////unicast_local (zmsg_popstr (zmq_msg));
-			//result = unicast_local (msg_rx);
-			result = unicast_local (msg, "");
-			std::cout << "noware::mach::queue::respond()::unicast_local(message)==" << (result ? "success" : "failure") << std::endl;
-		//}
+		response ["type"] = "response";
+		response ["subject"] = message ["subject"];
+		//response ["key"] = message ["key"];
+		
+		//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
+		//response ["value"] = data.size ();
+		//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+		//result_tmp = 0;
+		//result_tmp += group.second.size ();
+		result_tmp = queue.size ();
+		response ["value"] = result_tmp.operator const std::string ();
+		//response ["value"] = noware::var (queue.size ());
+		//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
 	}
-	else	// if (message ["type"] == "request")
+	else if (message ["subject"] == "next_dequeue")
 	{
-		//std::cout << "noware::mach::queue::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
+		std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
-		if (message ["subject"] == "magnitude")
+		response ["type"] = "response";
+		response ["subject"] = message ["subject"];
+		//response ["key"] = message ["key"];
+		
+		//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
+		//response ["value"] = data.size ();
+		//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+		//result_tmp = 0;
+		//result_tmp += group.second.size ();
+		
+		//result_tmp = queue.size ();
+		//response ["value"] = result_tmp.operator const std::string ();
+		if (empty_local ())
 		{
-			std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
-			
-			response ["type"] = "response";
-			response ["subject"] = message ["subject"];
-			//response ["key"] = message ["key"];
-			
-			//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
-			//response ["value"] = data.size ();
-			//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
-			//result_tmp = 0;
-			//result_tmp += group.second.size ();
-			result_tmp = queue.size ();
-			response ["value"] = result_tmp.operator const std::string ();
-			//response ["value"] = noware::var (queue.size ());
-			//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
-			std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
-		}
-		else if (message ["subject"] == "next")
-		{
-			std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
-			
-			response ["type"] = "response";
-			response ["subject"] = message ["subject"];
-			//response ["key"] = message ["key"];
-			
-			//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
-			//response ["value"] = data.size ();
-			//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
-			//result_tmp = 0;
-			//result_tmp += group.second.size ();
-			
-			//result_tmp = queue.size ();
-			//response ["value"] = result_tmp.operator const std::string ();
-			if (empty_local ())
-			{
-				response ["success"] = "0";
-			}
-			else
-			{
-				response ["value"] = queue.front ();
-				response ["success"] = "1";
-			}
-			//response ["value"] = noware::var (queue.size ());
-			//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
-			std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
-		}
-		else if (message ["subject"] == "dequeue")
-		{
-			std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
-			
-			response ["type"] = "response";
-			response ["subject"] = message ["subject"];
-			//response ["key"] = message ["key"];
-			
-			//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
-			//response ["value"] = data.size ();
-			//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
-			//result_tmp = 0;
-			//result_tmp += group.second.size ();
-			
-			//result_tmp = queue.size ();
-			//response ["value"] = result_tmp.operator const std::string ();
-			if (empty_local ())
-			{
-				response ["value"] = "0";
-			}
-			
-			queue.pop ();
-			
-			if (empty_local ())
-			{
-				assert (node.leave ("queue.nonempty"));
-			}
-			
-			assert (node.join ("queue.nonfull"));
-			
-			response ["value"] = "1";
-			
-			//response ["value"] = noware::var (queue.size ());
-			//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
-			std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
-		}
-		else if (message ["subject"] == "enqueue")
-		{
-			std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
-			
-			response ["type"] = "response";
-			response ["subject"] = message ["subject"];
-			//response ["key"] = message ["key"];
-			
-			//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
-			//response ["value"] = data.size ();
-			//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
-			//result_tmp = 0;
-			//result_tmp += group.second.size ();
-			
-			//result_tmp = queue.size ();
-			//response ["value"] = result_tmp.operator const std::string ();
-			if (full_local ())
-			{
-				response ["value"] = "0";
-			}
-			
-			queue.push (message ["element"]);
-			//response ["value"] = "1";
-			
-			if (full_local ())
-			{
-				assert (node.leave ("queue.nonfull"));
-			}
-			
-			assert (node.join ("queue.nonempty"));
-			
-			//msg_result = "1";
-			response ["value"] = "1";
-			//response ["value"] = noware::var (queue.size ());
-			//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
-			std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
+			response ["success"] = "0";
 		}
 		else
 		{
-			return false;
+			response ["value"] = queue.front ();
+			//queue.pop ();
+			
+			if (empty_local ())
+			{
+				assert (node.leave ("noware::mach::queue::nonempty"));
+			}
+			
+			assert (node.join ("noware::mach::queue::nonfull"));
+			
+			response ["success"] = "1";
+			//response ["value"] = "1";
 		}
+		//response ["value"] = noware::var (queue.size ());
+		//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[success]==[" << response ["success"] << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
 		
+		/*
 		// Send back the answer.
 		//result = node.unicast (zmq::msg (response.serialize ()), zyre_event_peer_uuid (event));
 		std::string response_serial;
@@ -365,11 +285,168 @@ const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event)
 		//zmsg_append (zmsg_response, &zframe_response);
 		
 		//result = node.unicast (zmsg_response, zyre_event_peer_uuid (event));
-		std::cout << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
+		std::cout << "noware::mach::queue::respond()::node.unicast(response,zyre_event_peer_uuid(event)==[" << (result ? "success" : "failure") << "]" << std::endl;
 		//return result;
+		
+		if (result)
+		{
+			queue.pop ();
+			
+			return true;
+		}
+		
+		return false;
+		*/
+		//return true;
+	}
+	else if (message ["subject"] == "next")
+	{
+		std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		
+		response ["type"] = "response";
+		response ["subject"] = message ["subject"];
+		//response ["key"] = message ["key"];
+		
+		//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
+		//response ["value"] = data.size ();
+		//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+		//result_tmp = 0;
+		//result_tmp += group.second.size ();
+		
+		//result_tmp = queue.size ();
+		//response ["value"] = result_tmp.operator const std::string ();
+		if (empty_local ())
+		{
+			response ["success"] = "0";
+		}
+		else
+		{
+			response ["value"] = queue.front ();
+			response ["success"] = "1";
+		}
+		//response ["value"] = noware::var (queue.size ());
+		//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
+	}
+	else if (message ["subject"] == "dequeue")
+	{
+		std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		
+		response ["type"] = "response";
+		response ["subject"] = message ["subject"];
+		//response ["key"] = message ["key"];
+		
+		//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
+		//response ["value"] = data.size ();
+		//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+		//result_tmp = 0;
+		//result_tmp += group.second.size ();
+		
+		//result_tmp = queue.size ();
+		//response ["value"] = result_tmp.operator const std::string ();
+		if (empty_local ())
+		{
+			response ["value"] = "0";
+		}
+		else
+		{
+			queue.pop ();
+			
+			if (empty_local ())
+			{
+				assert (node.leave ("noware::mach::queue::nonempty"));
+			}
+			
+			assert (node.join ("noware::mach::queue::nonfull"));
+			
+			response ["value"] = "1";
+		}
+		//response ["value"] = noware::var (queue.size ());
+		//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
+	}
+	else if (message ["subject"] == "enqueue")
+	{
+		std::cout << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		
+		response ["type"] = "response";
+		response ["subject"] = message ["subject"];
+		//response ["key"] = message ["key"];
+		
+		//std::cout << "noware::mach::queue::respond()::not group[ed]" << std::endl;
+		//response ["value"] = data.size ();
+		//std::cout << "noware::mach::queue::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+		//result_tmp = 0;
+		//result_tmp += group.second.size ();
+		
+		//result_tmp = queue.size ();
+		//response ["value"] = result_tmp.operator const std::string ();
+		if (full_local ())
+		{
+			response ["value"] = "0";
+		}
+		else
+		{
+			queue.push (message ["element"]);
+			//response ["value"] = "1";
+			
+			if (full_local ())
+			{
+				assert (node.leave ("noware::mach::queue::nonfull"));
+			}
+			
+			assert (node.join ("noware::mach::queue::nonempty"));
+			
+			//msg_result = "1";
+			response ["value"] = "1";
+		}
+		//response ["value"] = noware::var (queue.size ());
+		//std::cout << "noware::mach::queue::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
+	}
+	else
+	{
+		return false;
 	}
 	
+	// Send back the answer.
+	//result = node.unicast (zmq::msg (response.serialize ()), zyre_event_peer_uuid (event));
+	std::string response_serial;
+	if (!noware::serialize <std::map <std::string, std::string>> (response_serial, response))
+		return false;
+	//result = node.unicast (zmq::msg (response_serial), zyre_event_peer_uuid (event));
+	
+	msg_response = response_serial;
+	
+	result = true;
+	
+	//zmsg_response = zmsg_new ();
+	//zframe_response = zframe_new (response_serial.data (), response_serial.size ());
+	//zmsg_append (zmsg_response, &zframe_response);
+	
+	//result = node.unicast (zmsg_response, zyre_event_peer_uuid (event));
+	//std::cout << "noware::mach::queue::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
+	//return result;
+	
 	return result;
+}
+
+const bool/* success*/ noware::mach::queue::respond_post (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, const zmq::msg & msg_response)
+{
+	std::map <std::string, std::string> message;
+	
+	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg_request)))
+	//if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string ((char *) zframe_data (frm), zframe_size (frm))))
+		return false;
+	
+	if (message ["subject"] == "next_dequeue")
+	{
+		queue.pop ();
+		
+		return true;
+	}
+	
+	return true;
 }
 
 const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
@@ -412,7 +489,29 @@ const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const
 		
 		return false;
 	}
-	else if (resp ["subject"] == "next")
+	/*
+	else if (resp ["subject"] == "next_dequeue")
+	{
+		std::cout << "noware::mach::queue::search()::subject==[" << resp ["subject"] << ']' << std::endl;
+		
+		//std::cout << "noware::mach::queue::search()::queue.front ()==[" << queue.front () << ']' << std::endl;
+		
+		//result_tmp = queue.front ();
+		//std::cout << "noware::mach::queue::search()::result_tmp==[" << result_tmp << ']' << std::endl;
+		
+		if (resp ["success"] == "0")
+			return false;
+		
+		//msg_result = result_tmp;
+		//msg_result = queue.front ();
+		msg_result = resp ["value"];
+		std::cout << "noware::mach::queue::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
+		
+		return true;
+		//return false;
+	}
+	*/
+	else if (resp ["subject"] == "next_dequeue" || resp ["subject"] == "next")
 	{
 		std::cout << "noware::mach::queue::search()::subject==[" << resp ["subject"] << ']' << std::endl;
 		
@@ -441,10 +540,10 @@ const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const
 		
 		if (empty_local ())
 		{
-			assert (node.leave ("queue.nonempty"));
+			assert (node.leave ("noware::mach::queue::nonempty"));
 		}
 		
-		assert (node.join ("queue.nonfull"));
+		assert (node.join ("noware::mach::queue::nonfull"));
 		
 		
 		msg_result = "1";
@@ -468,10 +567,10 @@ const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const
 		
 		if (full_local ())
 		{
-			assert (node.leave ("queue.nonfull"));
+			assert (node.leave ("noware::mach::queue::nonfull"));
 		}
 		
-		assert (node.join ("queue.nonempty"));
+		assert (node.join ("noware::mach::queue::nonempty"));
 		
 		
 		msg_result = "1";
@@ -533,6 +632,37 @@ const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result,
 		//std::cout << "noware::mach::queue::search_local()::magnitude::msg_resp==[" << std::string (msg_resp) << ']' << std::endl;
 		return false;
 	}
+	else if (req ["subject"] == "next_dequeue")
+	{
+		//if (result.type () != noware::var::container::type::numeric)
+		//result = queue.size ();
+		
+		if (empty_local ())
+		{
+			//msg_result = "";
+			
+			return false;
+		}
+		
+		
+		msg_result = queue.front ();
+		queue.pop ();
+		
+		if (empty_local ())
+		{
+			assert (node.leave ("noware::mach::queue::nonempty"));
+		}
+		
+		assert (node.join ("noware::mach::queue::nonfull"));
+		
+		//resp ["value"] = result;
+		//msg_resp = resp.serialize ();
+		//msg_resp = result;
+		//std::cout << "noware::mach::queue::search_local()::magnitude::result==[" << result << ']' << std::endl;
+		std::cout << "noware::mach::queue::search_local()::[" << req ["subject"] << "]::result==[" << std::string (msg_result) << ']' << std::endl;
+		//std::cout << "noware::mach::queue::search_local()::magnitude::msg_resp==[" << std::string (msg_resp) << ']' << std::endl;
+		return true;
+	}
 	else if (req ["subject"] == "next")
 	{
 		//if (result.type () != noware::var::container::type::numeric)
@@ -572,10 +702,10 @@ const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result,
 		
 		if (empty_local ())
 		{
-			assert (node.leave ("queue.nonempty"));
+			assert (node.leave ("noware::mach::queue::nonempty"));
 		}
 		
-		assert (node.join ("queue.nonfull"));
+		assert (node.join ("noware::mach::queue::nonfull"));
 		
 		msg_result = "1";
 		//resp ["value"] = result;
@@ -603,10 +733,10 @@ const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result,
 		
 		if (full_local ())
 		{
-			assert (node.leave ("queue.nonfull"));
+			assert (node.leave ("noware::mach::queue::nonfull"));
 		}
 		
-		assert (node.join ("queue.nonempty"));
+		assert (node.join ("noware::mach::queue::nonempty"));
 		
 		msg_result = "1";
 		//resp ["value"] = result;

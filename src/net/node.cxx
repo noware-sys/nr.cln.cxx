@@ -112,6 +112,11 @@ const bool noware::net::node::start (void)
 	return running;
 }
 
+const std::string noware::net::node::id (void) const
+{
+	return zyre_uuid (_node);
+}
+
 const bool noware::net::node::leave (const std::string & group)
 {
 	if (!inited () || !status ())
@@ -164,6 +169,7 @@ const std::map <const noware::nr, const std::string> noware::net::node::groups_o
 	for (group = zlist_first (groups_list), ndx = 1; group != nullptr; group = zlist_next (groups_list), ++ndx)
 	{
 		groups [ndx] = static_cast <const char *> (group);
+		//groups.insert_or_assign (ndx, std::string (static_cast <const char *> (group)));
 	}
 	
 	zlist_destroy (&groups_list);
@@ -189,6 +195,7 @@ const std::map <const noware::nr, const std::string> noware::net::node::groups_p
 	for (group = zlist_first (groups_list), ndx = 1; group != nullptr; group = zlist_next (groups_list), ++ndx)
 	{
 		groups [ndx] = static_cast <const char *> (group);
+		//groups.insert_or_assign (ndx, std::string (static_cast <const char *> (group)));
 	}
 	
 	zlist_destroy (&groups_list);
@@ -214,6 +221,7 @@ const std::map <const noware::nr, const std::string> noware::net::node::peers (v
 	for (peer = zlist_first (peers_list), ndx = 1; peer != nullptr; peer = zlist_next (peers_list), ++ndx)
 	{
 		peers [ndx] = static_cast <const char *> (peer);
+		//peers.insert_or_assign (ndx, std::string (static_cast <const char *> (peer)));
 	}
 	
 	zlist_destroy (&peers_list);
@@ -239,6 +247,7 @@ const std::map <const noware::nr, const std::string> noware::net::node::peers (c
 	for (peer = zlist_first (peers_list), ndx = 1; peer != nullptr; peer = zlist_next (peers_list), ++ndx)
 	{
 		peers [ndx] = static_cast <const char *> (peer);
+		//peers.insert_or_assign (ndx, std::string (static_cast <const char *> (peer)));
 	}
 	
 	zlist_destroy (&peers_list);
@@ -288,17 +297,24 @@ const bool noware::net::node::anycast (const zmq::msg & msg) const
 const bool noware::net::node::anycast (const zmq::msg & msg, const std::string & group) const
 {
 	std::map <const noware::nr, const std::string> peers_list;
-	noware::nr peers_list_size;
+	//noware::nr peers_list_size;
+	unsigned int peers_list_size;
 	
 	peers_list = peers (group);
 	peers_list_size = peers_list.size ();
 	
-	if ((unsigned int) peers_list_size < 1)
+	//if ((unsigned int) peers_list_size < 1)
+	if (peers_list_size < 1)
+	{
+		std::cout << "noware::net::node::anycast()::peers_list_size < 1::true" << std::endl;
 		return false;
+	}
+	std::cout << "noware::net::node::anycast()::peers_list_size < 1::false" << std::endl;
 	
 	boost::random::random_device randev;
 	boost::random::uniform_int_distribution <unsigned int> distr (1, peers_list_size);
 	
+	std::cout << "noware::net::node::anycast()::return" << std::endl;
 	return unicast (msg, peers_list [distr (randev)]);
 }
 
@@ -315,7 +331,7 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 //	zmsg_addstr (msg, message.c_str ());
 	//zmsg_addstr (msg, "Hello, World.");
 	
-//	signed short int result;
+	signed short int result;
 	//std::cout << "noware::net::node::multicast()::3" << std::endl;
 //	std::cout << "noware::net::node::multicast::zyre_shout()==" << '[' << (result = zyre_shout (_node, group.c_str (), &msg)) << ']' << std::endl;
 	//zyre_shout (_node, "storage", &msg);
@@ -366,13 +382,16 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	//return *zmsg;
 	//printf ("noware::net::node::multicast::str==[%s]\n", cstr);
 	//free (cstr);
-	std::cout << "noware::net::node::multicast::zyre_shout()..." << std::endl;
+//	std::cout << "noware::net::node::multicast::zyre_shout()..." << std::endl;
 	//  0 == success
 	// -1 == failure
 	//return true;
 	//return zyre_shout (_node, group.c_str (), &(msg.operator const zmsg_t ())) == 0;
-	return zyre_shout (_node, group.c_str (), &zmsg) == 0;
-//	return result == 0;
+	
+	//return zyre_shout (_node, group.c_str (), &zmsg) == 0;
+	result = zyre_shout (_node, group.c_str (), &zmsg);
+	std::cout << "noware::net::node::multicast::zyre_shout()[" << (result == 0 ? "success" : "failure") << "]" << std::endl;
+	return result == 0;
 }
 
 const bool noware::net::node::broadcast (const zmq::msg & msg) const

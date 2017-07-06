@@ -2,3 +2,4 @@
 #include ".store.cxx"
 #include ".queue.cxx"
 #include ".cpu.cxx"
+#include ".thread.cxx"

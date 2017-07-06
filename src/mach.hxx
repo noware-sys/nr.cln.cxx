@@ -94,13 +94,23 @@ namespace noware
 			//const bool evaluate (const LIB::containers::NAME_V &);
 		//	const LIB::container::NAME_V evaluate (const LIB::container::NAME_V &);
 			
+			const bool enqueue (const std::string &/* file_name*/);
+			
+			// copies copy redundancy
+			//const noware::nr redundancy (void) const;
+			//const bool redundancy (const noware::nr);
+			
 			//computer computer;
 			
 		// protected:
 		public:
-			//store store;
-			//queue queue;
-			//cpu cpu;
+			store store;
+			queue queue;
+			cpu cpu;
+			
+			//std::map <std::string, thread *> trd;
+			thread trd;
+			
 			//array <device> device;
 		//	/*LIB::machine::*//*device::*/processor processor;
 				//LIB::container::memory memory;

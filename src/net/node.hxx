@@ -4,6 +4,7 @@
 #include <zhelpers.hpp>
 #include <zyre.h>
 
+#include <boost/bind.hpp>
 #include <boost/function.hpp>
 //#include <boost/function_equal.hpp>
 #include <boost/thread.hpp>
@@ -39,6 +40,8 @@ namespace noware
 				const bool leave (const std::string &);
 				const bool join (const std::string &);
 				const bool joined (const std::string &) const;
+				
+				virtual const std::string id (void) const;
 				
 				// Own groups.
 				const std::map <const noware::nr, const std::string> groups_own (void) const;

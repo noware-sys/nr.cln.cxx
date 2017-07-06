@@ -24,20 +24,20 @@
 					//virtual const bool/* success*/ set (const noware::var &/* key*/, const noware::var &/* value*/);
 					
 					// Transmit a message to one node.
-					virtual const zmq::msg/* message: response*/ unicast (const zmq::msg &/* message: request*/, const std::string &/* peer (id)*/);
+					virtual const zmq::msg/* message: response*/ unicast (zmq::msg/* message: request*/, const std::string &/* peer (id)*/);
 					
 					// Transmit a message to any one node amongst all nodes.
-					virtual const zmq::msg/* message: response*/ anycast (const zmq::msg &/* message: request*/);
+					virtual const zmq::msg/* message: response*/ anycast (zmq::msg/* message: request*/);
 					
 					// Transmit a message to any one node belonging to a group.
-					virtual const zmq::msg/* message: response*/ anycast (const zmq::msg &/* message: request*/, const std::string &/* group*/);
+					virtual const zmq::msg/* message: response*/ anycast (zmq::msg/* message: request*/, const std::string &/* group*/);
 					
 					// Transmit a message to all nodes belonging to a group.
 					// Main usage: request other nodes to perform an operation.
-					virtual const zmq::msg/* message: response*/ multicast (const zmq::msg &/* message: request*/, noware::nr &/* responses_count*//* number of peers who answered*/, const std::string &/* (zyre) group*/ = /*noware::machine::device::*/grp_dft);
+					virtual const zmq::msg/* message: response*/ multicast (zmq::msg/* message: request*/, noware::nr &/* responses_count*//* number of peers who answered*/, const std::string &/* (zyre) group*/ = /*noware::machine::device::*/grp_dft);
 					
 					// Transmit a message to all nodes.
-					virtual const zmq::msg/* message: response*/ broadcast (const zmq::msg &/* message: request*/, noware::nr &/* responses_count*//* number of peers who answered*/);
+					virtual const zmq::msg/* message: response*/ broadcast (zmq::msg/* message: request*/, noware::nr &/* responses_count*//* number of peers who answered*/);
 					
 				//protected:
 					//static net::cluster nodes;
@@ -59,6 +59,13 @@
 					//virtual const bool unicast_local (const zmsg_t */* message*/) const;
 					
 					static const std::string grp_dft;
+					static const noware::nr token_size_dft;
+					
+					// local proxy
+					zmq::context_t * local_context;
+					//zmq::context_t local_context {1};
+					zmq::socket_t * local_socket;
+					//void local_reception (void);
 					
 					//
 					// Only these functions
@@ -67,7 +74,13 @@
 					//
 					////virtual const noware::tree <>/* response*/ respond (const noware::tree <> &/* message*/);
 					//virtual const bool/* success*/ respond (const /*zmq::msg &*/zmsg_t */* message*/, const zyre_event_t */* (zyre) event*/);
-					virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/);
+					
+					virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, zmq::msg &/* response*/);
+					virtual const bool/* success*/ respond_post (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, const zmq::msg &/* response; read-only*/);
+					//virtual const bool/* success*/ rx_response (const zyre_event_t */* (zyre) event*/);
+					//virtual const bool/* success*/ rx_request (const zyre_event_t */* (zyre) event*/);
+					//virtual const bool/* success*/ request (const zyre_event_t */* (zyre) event*/);
+					virtual const bool/* success*/ infrastruct (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/);
 					virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 					virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 					virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, const noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);

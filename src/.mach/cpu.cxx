@@ -2,17 +2,20 @@
 
 //#include "processor.hdr.cxx"
 
-const std::string noware::mach::cpu::grp_dft = "cpu";
+const std::string noware::mach::cpu::grp_dft = "noware::mach::cpu";
 
 noware::mach::cpu::instr::instr (void)
 {
 	oprn = opr::none;
+	//oprnd_src_ref = false;
+	thread_id = "";
 }
 
 noware::mach::cpu::instr::instr (const std::string & other)
 {
 	//oprn = opr::none;
-	deserialize (other);
+	//deserialize (other);
+	*this = other;
 }
 
 noware::mach::cpu::instr::~instr (void)
@@ -26,6 +29,10 @@ void noware::mach::cpu::instr::serialize (archive & arch, const unsigned int &/*
 	
 	arch & oprnd [0];
 	arch & oprnd [1];
+	//arch & oprnd [2];
+	arch & thread_id;
+	
+	//arch & oprnd_src_ref;
 }
 
 const bool noware::mach::cpu::instr::deserialize (const std::string & serial)
@@ -43,18 +50,156 @@ const std::string noware::mach::cpu::instr::serialize (void) const
 		return "";
 }
 
-const noware::var noware::mach::cpu::instr::val (void) const
+const std::string noware::mach::cpu::instr::val (void) const
 {
 	return oprnd [0];
 }
 
+const noware::mach::cpu::instr & noware::mach::cpu::instr::operator = (const instr & other)
+{
+	oprn = other.oprn;
+	
+	oprnd [0] = other.oprnd [0];
+	oprnd [1] = other.oprnd [1];
+	
+	thread_id = other.thread_id;
+	
+	return *this;
+}
+
+const std::string & noware::mach::cpu::instr::operator = (const std::string & other)
+{
+	deserialize (other);
+	return other;
+}
+
+noware::mach::cpu::instr::operator const std::string (void) const
+{
+	return serialize ();
+}
+
 noware::mach::cpu::cpu (void)
 {
+	exen = nullptr;
 	//assert (node.join (grp_dft));
+	//node.join ("noware::mach::thread::1");
 }
 
 noware::mach::cpu::~cpu (void)
 {
+	stop ();
+}
+
+const bool noware::mach::cpu::stop (void)
+{
+	if (!status ())
+		return true;
+	
+	delete exen;
+	exen = nullptr;
+	
+	return true;
+}
+
+const bool noware::mach::cpu::status (void) const
+{
+	return exen != nullptr;
+}
+
+const bool noware::mach::cpu::start (void)
+{
+	if (status ())
+		return true;
+	
+	exen = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::exe), this));
+	
+	return true;
+}
+
+void noware::mach::cpu::exe (void)
+{
+	std::cout << "noware::mach::cpu::exe()::in scope" << std::endl;
+	
+	instr inst;
+	//instr instr_next;
+	//zmq::msg msg_thread;
+	std::map <std::string, std::string> map_thread;
+	std::string map_thread_serial;
+	zmq::msg msg;
+	
+	
+	map_thread ["subject"] = "notification";
+	map_thread ["success"] = "1";
+	
+	noware::serialize <std::map <std::string, std::string>> (map_thread_serial, map_thread);
+	
+	msg = map_thread_serial;
+	
+	msg.prepend (zmq::msg::frame ("dummy_request_token"));
+	
+	
+	while (true)
+	{
+		std::cout << "noware::mach::cpu::exe()::while(true)::in scope" << std::endl;
+		
+		while (!empty ())
+		{
+			std::cout << "noware::mach::cpu::exe()::while(!empty())::in scope" << std::endl;
+			
+			// fetch (and dequeue)
+			std::cout << "noware::mach::cpu::next_dequeue()" << std::endl;
+			inst = next_dequeue ();
+			
+			// there is not a decode step
+			
+			// execute
+			//inst.val ();
+			/*
+			if (inst.oprnd_src_ref)
+			{
+				inst.oprnd [0] = get (inst.oprnd [0]);
+			}
+			*/
+			//set (inst.oprnd [2]/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
+			////set (grp, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
+			//if ()
+			//set (inst.oprnd [2]/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
+			std::cout << "noware::mach::cpu::exe::set(" << inst.thread_id << "," << inst.oprnd [1] << "," << inst.oprnd [0] << ")" << std::endl;
+			set (inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
+			
+			// remove the instruction from the queue
+			// it is now processed
+			// it is no longer needed
+			//dequeue ();
+			
+			//// synchronize with our cpu group
+			//node.multicast (msg_cpu_serial, grp);
+			
+			//// synchronize all the members of the thread group
+			// tell the caller that we have successfully executed the instruction
+			//node.unicast (, inst.thread_id);
+			//node.multicast (msg_thread_serial, inst.oprnd [2]);
+		//	map_thread ["subject"] = "notification";
+		//	map_thread ["success"] = "1";
+			//map_thread ["instr.ndx"] = inst.ndx;
+			
+		//	noware::serialize <std::map <std::string, std::string>> (map_thread_serial, map_thread);
+			std::cout << "noware::mach::cpu::node.multicast(" << map_thread_serial << "," << inst.thread_id << ")" << std::endl;
+			//std::cout << "noware::mach::cpu::multicast(" << map_thread_serial << "," << inst.thread_id << ")" << std::endl;
+			
+		//	msg = map_thread_serial;
+		//	msg.prepend (zmq::msg::frame ("dummy_request_token"));
+			//msg.prepend (zmq::msg::frame (noware::random::string (noware::mach::dev::token_size_dft)));
+			
+			node.multicast (msg, inst.thread_id);
+			//node.unicast (msg, inst.thread_id);
+			//multival (msg, inst.thread_id);
+			//map_thread.clear ();
+		}
+		
+		std::cout << "noware::mach::cpu::sleeping..." << std::endl;
+		boost::this_thread::sleep_for (boost::chrono::seconds (5));
+	}
 }
 
 // Store
@@ -120,6 +265,8 @@ const std::string/* value*/ noware::mach::cpu::get (const std::string & key) con
 
 const bool/* success*/ noware::mach::cpu::set (const std::string & group, const std::string & key, const std::string & value)
 {
+	std::cout << "noware::mach::cpu::set()::in scope" << std::endl;
+	
 	std::map <std::string, std::string> expression;
 	std::string expression_serial;
 	
@@ -129,8 +276,13 @@ const bool/* success*/ noware::mach::cpu::set (const std::string & group, const 
 	expression ["value"] = value;
 	
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+	{
+		std::cout << "noware::mach::cpu::set()::serialize()::false" << std::endl;
+		
 		return false;
+	}
 	
+	std::cout << "noware::mach::cpu::set()::return" << std::endl;
 	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft)) == "1";
 }
 
@@ -164,6 +316,20 @@ const bool noware::mach::cpu::full (void) const
 	return false;
 }
 
+const noware::mach::cpu::instr noware::mach::cpu::next_dequeue (void)
+{
+	std::map <std::string, std::string> expression;
+	std::string expression_serial;
+	instr inst;
+	
+	expression ["subject"] = "next_dequeue";
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		return inst;
+	
+	return instr (std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty")));
+}
+
 const noware::mach::cpu::instr noware::mach::cpu::next (void) const
 {
 	instr inst;
@@ -180,7 +346,7 @@ const noware::mach::cpu::instr noware::mach::cpu::next (void) const
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return inst;
 	
-	return instr (std::string (anyval (zmq::msg (expression_serial), "queue.nonempty")));
+	return instr (std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty")));
 }
 
 const bool noware::mach::cpu::dequeue (void)
@@ -197,7 +363,7 @@ const bool noware::mach::cpu::dequeue (void)
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return false;
 	
-	return std::string (anyval (zmq::msg (expression_serial), "queue.nonempty")) == "1";
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonempty")) == "1";
 }
 
 const bool noware::mach::cpu::enqueue (const instr & inst)
@@ -217,56 +383,26 @@ const bool noware::mach::cpu::enqueue (const instr & inst)
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return false;
 	
-	return std::string (anyval (zmq::msg (expression_serial), "queue.nonfull")) == "1";
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 }
 
-const bool noware::mach::cpu::enqueue (const noware::var & operand1, const opr & op, const noware::var & operand2)
+const bool noware::mach::cpu::enqueue (const std::string & operand1, const opr & op, const std::string & operand2, const std::string & thread_id)
 {
 	instr inst;
 	
 	inst.oprn = op;
 	inst.oprnd [0] = operand1;
 	inst.oprnd [1] = operand2;
+	//inst.oprnd [2] = operand3;
+	inst.thread_id = thread_id;
 	
 	return enqueue (inst);
 }
 
-const bool/* success*/ noware::mach::cpu::respond (const zyre_event_t * event)
+/*
+const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, zmq::msg & msg_response)
 {
 	std::cout << "noware::mach::cpu::respond()::called" << std::endl;
-	
-	zmq::msg msg;
-	zmsg_t * zmsg;
-	//zmsg_t * zmsg_response;
-	//zframe_t * zframe_response;
-	std::string event_type;
-	
-	//zmsg = zyre_event_msg (event);
-	//msg = zyre_event_msg (event);
-	//msg = zmsg;
-	//event_type = zyre_event_type (event);
-	//assert (event);
-	//assert (zmsg);
-	
-	event_type = zyre_event_type (event);
-	if (event_type != "WHISPER" && event_type != "SHOUT")
-	{
-		std::cout << "noware::mach::cpu::respond()::event not of interest" << std::endl;
-		
-		return false;
-	}
-	std::cout << "noware::mach::cpu::respond()::event==" << event_type << std::endl;
-	
-	zmsg = zyre_event_msg (event);
-	if (zmsg == nullptr)
-	{
-		std::cout << "noware::mach::cpu::respond()::event_msg==nullptr" << std::endl;
-		
-		return false;
-	}
-	
-	std::cout << "noware::mach::cpu::respond()::event of interest" << std::endl;
-	msg = zmsg;
 	
 	//noware::tree <std::string, std::string> response;
 	std::map <std::string, std::string> response;
@@ -295,7 +431,7 @@ const bool/* success*/ noware::mach::cpu::respond (const zyre_event_t * event)
 	
 	//return other;
 	////if (!message.deserialize (msg_rx))
-	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg)))
+	if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string (msg_request)))
 	//if (!noware::deserialize <std::map <std::string, std::string>> (message, std::string ((char *) zframe_data (frm), zframe_size (frm))))
 		return false;
 	
@@ -324,6 +460,7 @@ const bool/* success*/ noware::mach::cpu::respond (const zyre_event_t * event)
 	
 	return result;
 }
+*/
 
 const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
 {
@@ -397,6 +534,31 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 		
 		return false;
 	}
+	else if (resp ["subject"] == "next_dequeue")
+	{
+		std::cout << "noware::mach::cpu::search()::subject==[" << resp ["subject"] << ']' << std::endl;
+		
+		//std::cout << "noware::mach::cpu::search()::queue.front ()==[" << queue.front () << ']' << std::endl;
+		
+		//result_tmp = queue.front ();
+		//std::cout << "noware::mach::cpu::search()::result_tmp==[" << result_tmp << ']' << std::endl;
+		
+		
+		if (resp ["success"] == "0")
+			return false;
+		
+		//msg_result = result_tmp;
+		//msg_result = queue.front ();
+		msg_result = resp ["value"];
+		std::cout << "noware::mach::cpu::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
+		
+		return true;
+		//return false;
+		
+		
+		//std::cout << "noware::mach::cpu::search()::resp[success]==[" << resp ["success"] << ']' << std::endl;
+		//return resp ["success"] == "1";
+	}
 	else if (resp ["subject"] == "next")
 	{
 		std::cout << "noware::mach::cpu::search()::subject==[" << resp ["subject"] << ']' << std::endl;
@@ -431,10 +593,10 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 		
 		if (empty_local ())
 		{
-			assert (node.leave ("queue.nonempty"));
+			assert (node.leave ("noware::mach::queue::nonempty"));
 		}
 		
-		assert (node.join ("queue.nonfull"));
+		assert (node.join ("noware::mach::queue::nonfull"));
 		
 		
 		msg_result = "1";
@@ -458,10 +620,10 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 		
 		if (full_local ())
 		{
-			assert (node.leave ("queue.nonfull"));
+			assert (node.leave ("noware::mach::queue::nonfull"));
 		}
 		
-		assert (node.join ("queue.nonempty"));
+		assert (node.join ("noware::mach::queue::nonempty"));
 		
 		
 		msg_result = "1";
