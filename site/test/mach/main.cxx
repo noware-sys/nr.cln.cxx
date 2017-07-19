@@ -77,7 +77,8 @@ int main (int argc, char * argv [])
 	
 	noware::pause ("Press [Enter] to enqueue the instructions . . . ");
 	
-	if (!m.enqueue (argv [1]))
+	//if (!m.enqueue (argv [1]))
+	if (!m.cpu.load (argv [1]))
 	{
 		std::cout << argv [0] << ": error: could not load the instructions file" << std::endl;
 		
@@ -86,21 +87,22 @@ int main (int argc, char * argv [])
 	
 	noware::pause ("Press [Enter] to start the thread . . . ");
 	
-	if (!m.trd.start ())
+	//if (!m.trd.start ())
+	if (!m.cpu.enqueue (noware::mach::cpu::instr (m.cpu.get ("thread 1", "instr 1"))) || !m.cpu.set ("thread 1", "running", "1"))
 	{
 		std::cout << argv [0] << ": error: could not start the thread" << std::endl;
 		
 		return EXIT_FAILURE;
 	}
-	
+	/*
 	noware::pause ("Press [Enter] to view values (pre) . . . ");
 	
 	std::cout << " eax , [" << m.store.get (m.trd.group (), "eax") << ']' << std::endl;
-	//std::cout << " ebx , [" << m.store.get (m.trd.group (), "ebx") << ']' << std::endl;
+	std::cout << " ebx , [" << m.store.get (m.trd.group (), "ebx") << ']' << std::endl;
 	std::cout << " ecx , [" << m.store.get (m.trd.group (), "ecx") << ']' << std::endl;
-	//std::cout << " edx , [" << m.store.get (m.trd.group (), "edx") << ']' << std::endl;
+	std::cout << " edx , [" << m.store.get (m.trd.group (), "edx") << ']' << std::endl;
 	std::cout << "  dl , [" << m.store.get (m.trd.group (), "dl") << ']' << std::endl;
-	
+	*/
 	noware::pause ("Press [Enter] to start the CPU . . . ");
 	
 	if (!m.cpu.start ())
@@ -117,11 +119,20 @@ int main (int argc, char * argv [])
 	
 	noware::pause ("Press [Enter] to view values (post) . . . ");
 	
+	m.cpu.stop ();
+	
+	std::cout << " eax , [" << m.store.get ("thread 1", "eax") << ']' << std::endl;
+	std::cout << " ebx , [" << m.store.get ("thread 1", "ebx") << ']' << std::endl;
+	std::cout << " ecx , [" << m.store.get ("thread 1", "ecx") << ']' << std::endl;
+	std::cout << " edx , [" << m.store.get ("thread 1", "edx") << ']' << std::endl;
+	std::cout << "  dl , [" << m.store.get ("thread 1", "dl") << ']' << std::endl;
+	/*
 	std::cout << " eax , [" << m.store.get (m.trd.group (), "eax") << ']' << std::endl;
-	//std::cout << " ebx , [" << m.store.get (m.trd.group (), "ebx") << ']' << std::endl;
+	std::cout << " ebx , [" << m.store.get (m.trd.group (), "ebx") << ']' << std::endl;
 	std::cout << " ecx , [" << m.store.get (m.trd.group (), "ecx") << ']' << std::endl;
-	//std::cout << " edx , [" << m.store.get (m.trd.group (), "edx") << ']' << std::endl;
+	std::cout << " edx , [" << m.store.get (m.trd.group (), "edx") << ']' << std::endl;
 	std::cout << "  dl , [" << m.store.get (m.trd.group (), "dl") << ']' << std::endl;
+	*/
 	
 	noware::pause ("Press [Enter] to exit . . . ");
 	

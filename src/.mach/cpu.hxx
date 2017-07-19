@@ -115,6 +115,7 @@
 				virtual const bool status (void) const;
 				virtual const bool start (void);
 				
+				virtual const bool load (const std::string &/* file_name*/);
 				// Queue
 			public:
 			//protected:
@@ -144,9 +145,13 @@
 				
 				virtual const std::string/* value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
 				virtual const std::string/* value*/ get (const std::string &/* key*/) const;
+				//virtual const std::pair <std::string/* value*/, bool/* reference*/> get (const std::string &/* group*/, const std::string &/* key*/) const;
+				//virtual const std::pair <std::string/* value*/, bool/* reference*/> get (const std::string &/* key*/) const;
 				
 				virtual const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
 				virtual const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
+				//virtual const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
+				//virtual const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
 			protected:
 				//virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, zmq::msg &/* response*/);
 				virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const

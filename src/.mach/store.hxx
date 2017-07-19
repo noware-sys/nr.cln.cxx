@@ -37,8 +37,10 @@ class store
 		//const std::map <std::string, std::string> own (const std::string &/* group*/, const std::string &/* key*/) const;
 		
 		// obtain attain get
-		const std::string/* value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
-		const std::string/* value*/ get (const std::string &/* key*/) const;
+		const std::string/*value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
+		const std::string/*value*/ get (const std::string &/* key*/) const;
+		//const std::pair <std::string/*value*/, bool/*reference*/> get (const std::string &/* group*/, const std::string &/* key*/) const;
+		//const std::pair <std::string/*value*/, bool/*reference*/> get (const std::string &/* key*/) const;
 		
 		
 		// Modifiers.
@@ -54,6 +56,8 @@ class store
 		// assign associate map set
 		const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
 		const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
+		//const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
+		//const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
 		
 		// Transmit a message to one node.
 		//const noware::var unicast (const noware::tree <> &/* message*/, const std::string &/* peer*/);
@@ -70,7 +74,9 @@ class store
 		//noware::list <> data;
 		//noware::list <noware::list <>> data;
 		//noware::array <noware::array <>> data;
+		
 		std::map <std::string, std::map <std::string, std::string>> data;
+		//std::map <std::string/*group*/, std::map <std::string/*key*/, std::pair <std::string/*value*/, bool/*reference*/>>> data;
 	//public:
 		// Manager of received messages.
 		//void receive (const zyre_event_t */* zyre_event*/);

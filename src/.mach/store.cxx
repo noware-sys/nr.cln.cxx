@@ -215,7 +215,10 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		
 		try
 		{
+			//std::pair <std::string, bool> value = data.at (message ["group"]).at (message ["key"]);
 			response ["value"] = data.at (message ["group"]).at (message ["key"]);
+			//response ["value"] = value.first;
+			//response ["value.reference"] = value.second ? "1" : "0";
 			response ["value.exist"] = "1";
 		}
 		catch (...)
@@ -235,8 +238,10 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		response ["group"] = message ["group"];
 		response ["key"] = message ["key"];
 		//response ["existence"] = data.exist (message ["group"]) && data.get (message ["group"]).exist (message ["key"]);
-		data [message ["group"]] [message ["key"]] = message ["value"];
 		
+		data [message ["group"]] [message ["key"]] = message ["value"];
+		//data [message ["group"]] [message ["key"]] = std::pair <std::string, bool> (message ["value"], message ["reference"] == "1" ? true : false);
+		/*
 		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try..." << std::endl;
 		try
 		{
@@ -262,6 +267,8 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		
 		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::response[value]==[" << response ["value"] << ']' << std::endl;
 		//return response ["value"] == "1";
+		*/
+		response ["value"] = "1";
 	}
 	else if (message ["subject"] == "removal")
 	{
@@ -518,16 +525,26 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 	{
 		try
 		{
-			const std::string group_name = req.at ("group");
-			const std::map <std::string, std::string> group = data.at (req.at ("group"));
+			// const std::string group_name = req.at ("group");
+			// const std::map <std::string, std::string> group = data.at (req.at ("group"));
 			const std::string value = data.at (req.at ("group")).at (req.at ("key"));
+			//const std::pair <std::string, bool> value = data.at (req.at ("group")).at (req.at ("key"));
 			//const std::string value = group.at (req.at ("key"));
+			
+			//std::string value_serial;
+			//if (!noware::serialize <std::pair <std::string, bool>> (value_serial, value))
+			//	return false;
 			
 			//resp ["value"] = value;
 			//msg_resp = resp.serialize ();
+			
 			msg_resp = value;
+			//msg_resp = value_serial;
+			
 			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value << "]" << std::endl;
+			//std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value_serial << "]" << std::endl;
 			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::return true" << std::endl;
+			
 			return true;
 		}
 		catch (...)
@@ -542,7 +559,9 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 	{
 		try
 		{
+			//data [req.at ("group")] [req.at ("key")] = std::pair <bool, std::string> (req.at ("reference") == "1" ? true : false, req.at ("value"));
 			data [req.at ("group")] [req.at ("key")] = req.at ("value");
+			
 			//const std::map <std::string, std::string> & group = data.at (req.at ("group"));
 			//std::string & value = data.at (req.at ("group")).at (req.at ("key"));
 			
@@ -660,15 +679,19 @@ const bool noware::mach::store::exist (const std::string & group, const std::str
 	return multival (zmq::msg (expression_serial), noware::mach::store::grp_dft) == "1";
 }
 
-const std::string noware::mach::store::get (const std::string & key) const
+const std::string/*value*/ noware::mach::store::get (const std::string & key) const
+//const std::pair <std::string/*value*/, bool/*reference*/> noware::mach::store::get (const std::string & key) const
 {
 	return get (std::string (""), key);
 }
 
-const std::string noware::mach::store::get (const std::string & group, const std::string & key) const
+const std::string/*value*/ noware::mach::store::get (const std::string & group, const std::string & key) const
+//const std::pair <std::string/*value*/, bool/*reference*/> noware::mach::store::get (const std::string & group, const std::string & key) const
 {
 	//noware::tree <std::string, std::string> expression;
 	std::map <std::string, std::string> expression;
+	//std::string response;
+	//std::pair <std::string, bool> returned_value ("", false);
 	
 	expression ["subject"] = "obtainment";
 	expression ["group"] = group;
@@ -679,15 +702,36 @@ const std::string noware::mach::store::get (const std::string & group, const std
 		return "";
 	
 	//return multival (zmq::msg (expression.serialize ()), noware::mach::store::grp_dft);
+	
 	return multival (zmq::msg (expression_serial), noware::mach::store::grp_dft);
+	/*
+	std::string expression_serial;
+	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
+		//return std::pair <std::string, bool> ("", false);
+		return returned_value;
+	
+	//return multival (zmq::msg (expression.serialize ()), noware::mach::store::grp_dft);
+	
+	//return multival (zmq::msg (expression_serial), noware::mach::store::grp_dft);
+	response = multival (zmq::msg (expression_serial), noware::mach::store::grp_dft);
+	
+	if (!noware::deserialize <std::pair <std::string, bool>> (returned_value, response))
+		//return std::pair <std::string, bool> ("", false);
+		return returned_value;
+	
+	return returned_value;
+	*/
 }
 
 const bool noware::mach::store::set (const std::string & key, const std::string & value)
+//const bool noware::mach::store::set (const std::string & key, const std::string & value, const bool & reference)
 {
 	return set ("", key, value);
+	//return set ("", key, value, reference);
 }
 
 const bool noware::mach::store::set (const std::string & group, const std::string & key, const std::string & value)
+//const bool noware::mach::store::set (const std::string & group, const std::string & key, const std::string & value, const bool & reference)
 {
 	//noware::tree <std::string, std::string> expression;
 	std::map <std::string, std::string> expression;
@@ -696,6 +740,7 @@ const bool noware::mach::store::set (const std::string & group, const std::strin
 	expression ["group"] = group;
 	expression ["key"] = key;
 	expression ["value"] = value;
+	//expression ["reference"] = reference ? "1" : "0";
 	
 	std::string expression_serial;
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))

@@ -39,8 +39,8 @@ noware::mach::~mach (void)
 
 const bool noware::mach::enqueue (const std::string & file_name)
 {
-	if (!trd.load (file_name))
-		return false;
+//	if (!trd.load (file_name))
+//		return false;
 	
 	//if (!trd.start ())
 	//	return false;

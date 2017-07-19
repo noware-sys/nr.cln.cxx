@@ -6,7 +6,9 @@
 #include <boost/function.hpp>
 //#include <boost/function_equal.hpp>
 #include <boost/thread/mutex.hpp>
+
 #include <cstring>	// For std::memcpy()
+#include <utility>
 
 #include "../contnr/array.hxx"
 //#include "../tree.hxx"

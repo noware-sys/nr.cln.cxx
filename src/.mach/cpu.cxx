@@ -121,12 +121,13 @@ void noware::mach::cpu::exe (void)
 	std::cout << "noware::mach::cpu::exe()::in scope" << std::endl;
 	
 	instr inst;
-	//instr instr_next;
+	instr inst_next;
 	//zmq::msg msg_thread;
 	std::map <std::string, std::string> map_thread;
 	std::string map_thread_serial;
 	zmq::msg msg;
-	
+	noware::nr index_max;
+	noware::nr index;
 	
 	map_thread ["subject"] = "notification";
 	map_thread ["success"] = "1";
@@ -164,8 +165,9 @@ void noware::mach::cpu::exe (void)
 			////set (grp, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
 			//if ()
 			//set (inst.oprnd [2]/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
-			std::cout << "noware::mach::cpu::exe::set(" << inst.thread_id << "," << inst.oprnd [1] << "," << inst.oprnd [0] << ")" << std::endl;
-			set (inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
+			std::cout << "noware::mach::cpu::exe::set(\"thread " << inst.thread_id << "\"," << inst.oprnd [1] << "," << inst.oprnd [0] << ")" << std::endl;
+			assert (set (std::string ("thread ") + inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
+			//assert (set (inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
 			
 			// remove the instruction from the queue
 			// it is now processed
@@ -184,21 +186,43 @@ void noware::mach::cpu::exe (void)
 			//map_thread ["instr.ndx"] = inst.ndx;
 			
 		//	noware::serialize <std::map <std::string, std::string>> (map_thread_serial, map_thread);
+		
 			std::cout << "noware::mach::cpu::node.multicast(" << map_thread_serial << "," << inst.thread_id << ")" << std::endl;
+		//	std::cout << "noware::mach::cpu::node.unicast(" << map_thread_serial << "," << inst.thread_id << ")" << std::endl;
 			//std::cout << "noware::mach::cpu::multicast(" << map_thread_serial << "," << inst.thread_id << ")" << std::endl;
 			
 		//	msg = map_thread_serial;
 		//	msg.prepend (zmq::msg::frame ("dummy_request_token"));
 			//msg.prepend (zmq::msg::frame (noware::random::string (noware::mach::dev::token_size_dft)));
 			
-			node.multicast (msg, inst.thread_id);
+		//	node.multicast (msg, inst.thread_id);
+			index_max = get (std::string ("thread ") + inst.thread_id/* group*/, "index.max"/* key*/);
+			index = get (std::string ("thread ") + inst.thread_id/* group*/, "index"/* key*/);
+			++index;
+			std::cout << "noware::mach::cpu::exen()::index_max==[" << index_max << "]" << std::endl;
+			std::cout << "noware::mach::cpu::exen()::index==[" << index << "]" << std::endl;
+			if (index.operator const unsigned int () > index_max.operator const unsigned int ())
+			{
+				std::cout << "noware::mach::cpu::exen()::resetting index=1" << std::endl;
+				assert (set (std::string ("thread ") + inst.thread_id/* group*/, "running"/* key*/, "0"/* value*/));
+				index = 1;
+			}
+			assert (set (std::string ("thread ") + inst.thread_id/* group*/, "index"/* key*/, index/* value*/));
+			
+			inst_next = get (std::string ("thread ") + inst.thread_id/* group*/, std::string ("instr ") + index.operator const std::string ()/* key*/);
+			
+			if (get (std::string ("thread ") + inst.thread_id/* group*/, "running"/* key*/) == "1")
+				assert (enqueue (inst_next));
+			
 			//node.unicast (msg, inst.thread_id);
 			//multival (msg, inst.thread_id);
 			//map_thread.clear ();
+			
+			
 		}
 		
 		std::cout << "noware::mach::cpu::sleeping..." << std::endl;
-		boost::this_thread::sleep_for (boost::chrono::seconds (5));
+		boost::this_thread::sleep_for (boost::chrono::seconds (3));
 	}
 }
 
@@ -373,7 +397,7 @@ const bool noware::mach::cpu::enqueue (const instr & inst)
 	if (full ())
 		return false;
 	
-	bool result;
+	//bool result;
 	std::map <std::string, std::string> expression;
 	std::string expression_serial;
 	
@@ -461,6 +485,48 @@ const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::st
 	return result;
 }
 */
+
+const bool noware::mach::cpu::load (const std::string & file_name)
+{
+	std::ifstream file;
+	std::string dest, src;
+	cpu::instr _instr;
+	unsigned int _ndx;
+	
+	file.open (file_name);
+	
+	if (!file.is_open ())
+		return false;
+	
+	_ndx = 0;
+	//_instr.thread_id = noware::random::string (16);
+	_instr.thread_id = "1";
+	while (file >> dest >> src)
+	{
+		++_ndx;
+		
+		_instr.oprnd [0] = src;
+		_instr.oprnd [1] = dest;
+		//_instr.ndx = _ndx;
+		
+		//_instr.thread_id = std::string ("thread ") + grp;
+		//_instr.thread_id = id ();
+		
+	//	instr [_ndx] = _instr;
+		set (std::string ("thread ") + _instr.thread_id, std::string ("instr ") + noware::nr (_ndx).operator const std::string (), _instr.serialize ());
+	}
+	
+	file.close ();
+	
+	assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
+	assert (set (std::string ("thread ") + _instr.thread_id, "index", "1"));
+	//set (std::string ("thread ") + _instr.thread_id, "running", "0");
+	assert (set (std::string ("thread ") + _instr.thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
+	
+	//_loaded = true;
+	
+	return true;
+}
 
 const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
 {

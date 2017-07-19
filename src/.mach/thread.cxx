@@ -64,7 +64,7 @@ const bool noware::mach::thread::start (void)
 	
 	ndx = 1;
 	std::cout << "noware::mach::thread::start()::enqueue()::pre" << std::endl;
-	enqueue (instr [ndx]);
+	assert (enqueue (instr [ndx]));
 	std::cout << "noware::mach::thread::start()::enqueue()::post" << std::endl;
 	
 	running = true;
@@ -236,7 +236,7 @@ const bool/* success*/ noware::mach::thread::respond (const zyre_event_t * event
 		{
 			std::cout << "noware::mach::thread::respond()::running::true" << std::endl;
 			std::cout << "noware::mach::thread::respond()::enqueue(ndx==[" << ndx << "])" << std::endl;
-			enqueue (instr [ndx]);
+			assert (enqueue (instr [ndx]));
 		}
 		else
 		{
@@ -273,15 +273,64 @@ const bool/* success*/ noware::mach::thread::respond (const zyre_event_t * event
 	return false;
 }
 
-const bool/* success*/ noware::mach::thread::search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/)
+const bool/* success*/ noware::mach::thread::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
 {
 	std::cout << "noware::mach::thread::search()::called" << std::endl;
+	
+	//noware::tree <std::string, std::string> resp;
+	std::map <std::string, std::string> resp;
+	//noware::tree <std::string, std::string> result;
+	//std::string result;
+	noware::var result_tmp;
+	//bool result;
+	
+	//if (!resp.deserialize (msg_resp))
+	if (!noware::deserialize <std::map <std::string, std::string>> (resp, std::string (msg_resp)))
+	{
+		std::cout << "noware::mach::thread::search()::deserialize::failure" << std::endl;
+		return false;
+	}
+	std::cout << "noware::mach::thread::search()::deserialize::success" << std::endl;
+	
+	
+	//result ["subject"] = resp ["subject"];
+	
+	if (resp ["subject"] == "enqueue")
+	{
+		std::cout << "noware::mach::thread::search()::subject==[" << resp ["subject"] << ']' << std::endl;
+		
+		/*
+		queue.push (resp ["element"]);
+		
+		if (full_local ())
+		{
+			assert (node.leave ("noware::mach::queue::nonfull"));
+		}
+		
+		assert (node.join ("noware::mach::queue::nonempty"));
+		
+		
+		msg_result = "1";
+		
+		std::cout << "noware::mach::queue::search()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cout << "noware::mach::queue::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
+		
+		return true;
+		*/
+		
+		msg_result = resp ["value"];
+		
+		return msg_result == "1";
+	}
+	
 	return false;
+	//return true;
 }
 
 const bool/* success*/ noware::mach::thread::search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/)
 {
 	std::cout << "noware::mach::thread::search_local()::called" << std::endl;
+	
 	return false;
 }
 

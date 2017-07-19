@@ -109,7 +109,7 @@ namespace noware
 			cpu cpu;
 			
 			//std::map <std::string, thread *> trd;
-			thread trd;
+			//thread trd;
 			
 			//array <device> device;
 		//	/*LIB::machine::*//*device::*/processor processor;
