@@ -1,5 +1,5 @@
-eax 111
-ebx 222
-ecx 333
-edx 444
-dl 555
+move 0 eax 0 111
+move 0 ebx 0 222
+move 0 ecx 0 333
+move 0 edx 0 444
+move 0 dl 0 555

@@ -20,7 +20,7 @@
 					//or, // or union
 					/*
 					get,				// attainment obtainment get read load
-					set,				// assignment settlement set write store
+					set,				// assignment settlement set write store move
 					//exist,			// presence existence exist
 					rm,					// removal resettal rm
 					
@@ -37,7 +37,7 @@
 					cat					// concatenation cat
 					*/
 					
-					move
+					set,
 					
 					// Control of the flow
 					//eql,
@@ -47,7 +47,7 @@
 					//lowr_eql,
 					
 					//output,		// output set echo
-					//go			// go[[ ]to] skip jump hop
+					go			// go[[ ]to] skip jump hop
 				};
 				
 				class instr
@@ -73,6 +73,7 @@
 						//noware::var operand2;	// Optional.
 						std::string oprnd [2];
 						//std::string oprnd [3];
+						bool ref [2];
 						
 						// Does the source operand
 						// represent a reference?
@@ -116,6 +117,7 @@
 				virtual const bool start (void);
 				
 				virtual const bool load (const std::string &/* file_name*/);
+				
 				// Queue
 			public:
 			//protected:
@@ -139,6 +141,9 @@
 			public:
 				virtual const bool exist (const std::string &/* key*/) const;
 				virtual const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
+				
+				virtual const bool clear (void);
+				virtual const bool clear (const std::string &/* group*/);
 				
 				virtual const bool remove (const std::string &/* group*/, const std::string &/* key*/);
 				virtual const bool remove (const std::string &/* key*/);
