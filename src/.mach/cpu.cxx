@@ -35,8 +35,14 @@ void noware::mach::cpu::instr::serialize (archive & arch, const unsigned int &/*
 	arch & oprnd [1];
 	//arch & oprnd [2];
 	
-	arch & ref [0];
-	arch & ref [1];
+	arch & _ref [0];
+	arch & _ref [1];
+	
+	arch & _offset [0];
+	arch & _offset [1];
+	
+	arch & offset [0];
+	arch & offset [1];
 	
 	arch & thread_id;
 	
@@ -137,8 +143,11 @@ void noware::mach::cpu::exe (void)
 	noware::nr index_max;
 	noware::nr index;
 	
-	std::string src;
-	std::string dest;
+	noware::var src;
+	noware::var dest;
+	
+	noware::var src_offset;
+	noware::var dest_offset;
 	
 	std::string thread_id;
 	/*
@@ -191,11 +200,26 @@ void noware::mach::cpu::exe (void)
 				case cpu::opr::set:
 					std::cout << "noware::mach::cpu::exe::instr.opr==set" << std::endl;
 					
-					if (inst.ref [0]/* source*/)
+					if (inst._ref [0]/* source*/)
 					{
 						std::cout << "noware::mach::cpu::exe::instr.ref[src]==true" << std::endl;
 						
-						src = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [0]);
+						if (inst._offset [0])
+							if
+							(
+								//inst.oprnd [0].kind () == noware::var::type::nr
+								//&&
+								inst.offset [0].kind () == noware::var::type::nr
+							)
+								src = get (thread_id, inst.oprnd [0] + inst.offset [0]);
+							else
+							{
+								//src_offset = get (thread_id, inst.offset [0]);
+								//src = get (thread_id, src_offset);
+								src = get (thread_id, inst.oprnd [0] + get (thread_id, inst.offset [0]));
+							}
+						else
+							src = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [0]);
 					}
 					else
 					{
@@ -204,11 +228,28 @@ void noware::mach::cpu::exe (void)
 						src = inst.oprnd [0];
 					}
 					
-					if (inst.ref [1]/* destination*/)
+					if (inst._ref [1]/* destination*/)
 					{
 						std::cout << "noware::mach::cpu::exe::instr.ref[dest]==true" << std::endl;
 						
-						dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [1]);
+						//dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [1]);
+						
+						if (inst._offset [1])
+							if
+							(
+								//inst.oprnd [0].kind () == noware::var::type::nr
+								//&&
+								inst.offset [1].kind () == noware::var::type::nr
+							)
+								dest = get (thread_id, inst.oprnd [1] + inst.offset [1]);
+							else
+							{
+								//src_offset = get (thread_id, inst.offset [0]);
+								//src = get (thread_id, src_offset);
+								dest = get (thread_id, inst.oprnd [1] + get (thread_id, inst.offset [1]));
+							}
+						else
+							dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [1]);
 					}
 					else
 					{
@@ -220,7 +261,8 @@ void noware::mach::cpu::exe (void)
 					std::cout << "noware::mach::cpu::exe::thread_id==[" << thread_id << "]" << std::endl;
 					std::cout << "noware::mach::cpu::exe::instr.dest==[" << dest << "]" << std::endl;
 					std::cout << "noware::mach::cpu::exe::instr.src==[" << src << "]" << std::endl;
-					std::cout << "noware::mach::cpu::exe::ref[dest],ref[src]==[" << inst.ref [1] << "],[" << inst.ref [0] << "]" << std::endl;
+					std::cout << "noware::mach::cpu::exe::ref[dest],ref[src]==[" << inst._ref [1] << "],[" << inst._ref [0] << "]" << std::endl;
+					std::cout << "noware::mach::cpu::exe::offset[dest],offset[src]==[" << inst.offset [1] << "],[" << inst.offset [0] << "]" << std::endl;
 					
 					//assert (set (std::string ("thread ") + inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
 					assert (set (/*std::string ("thread ") + inst.*/thread_id/* group*/, dest/* key*/, src/* value*/));
@@ -283,8 +325,8 @@ void noware::mach::cpu::exe (void)
 			
 			if (get (/*std::string ("thread ") + inst.*/thread_id/* group*/, "running"/* key*/) == "1")
 				assert (enqueue (inst_next));
-			//else
-			//	assert (clear (/*std::string ("thread ") + inst.*/thread_id/* group*/));
+			else
+				assert (clear (/*std::string ("thread ") + inst.*/thread_id/* group*/));
 			//node.unicast (msg, inst.thread_id);
 			//multival (msg, inst.thread_id);
 			//map_thread.clear ();
@@ -588,14 +630,16 @@ const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::st
 }
 */
 
-const bool noware::mach::cpu::load (const std::string & file_name)
+const bool noware::mach::cpu::load_file (const std::string & file_name)
 {
 	std::ifstream file;
 	std::string dest, src;
-	bool dest_ref, src_ref;
+	bool dest_is_ref, src_is_ref;
+	bool dest_is_offset, src_is_offset;
 	cpu::instr _instr;
 	unsigned int _ndx;
 	std::string operation;
+	std::string dest_offset_location, src_offset_location;
 	
 	file.open (file_name);
 	
@@ -603,21 +647,27 @@ const bool noware::mach::cpu::load (const std::string & file_name)
 		return false;
 	
 	_ndx = 0;
-	//_instr.thread_id = noware::random::string (16);
-	_instr.thread_id = "1";
+	_instr.thread_id = noware::random::string (16);
+	//_instr.thread_id = "1";
 	//_instr.oprn = cpu::opr::set;
-	while (file >> operation >> dest_ref >> dest >> src_ref >> src)
+	while (file >> operation >> dest >> dest_ref >> dest_is_offset >> dest_offset_location >> src >> src_ref >> src_is_offset >> src_offset_location)
 	{
 		++_ndx;
 		
 		_instr.oprnd [0] = src;
 		_instr.oprnd [1] = dest;
 		//_instr.ndx = _ndx;
-		   
+		
 		std::cout << "noware::mach::cpu::load::ref[dest],ref[src]==[" << dest_ref << "],[" << src_ref << "]" << std::endl;
 		
-		_instr.ref [0] = src_ref;
-		_instr.ref [1] = dest_ref;
+		_instr._ref [0] = src_is_ref;
+		_instr._ref [1] = dest_is_ref;
+		
+		_instr._offset [0] = src_is_offset;
+		_instr._offset [1] = dest_is_offset;
+		
+		_instr.offset [0] = src_offset_location;
+		_instr.offset [1] = dest_offset_location;
 		
 		if (operation == "SET" || operation == "set" || operation == "MOVE" || operation == "move" || operation == "MOV" || operation == "mov")
 			_instr.oprn = cpu::opr::set;
@@ -635,8 +685,8 @@ const bool noware::mach::cpu::load (const std::string & file_name)
 	
 	file.close ();
 	
-	assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
-	//assert (set (std::string ("thread ") + _instr.thread_id, "running", "1"));
+	//assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
+	assert (set (std::string ("thread ") + _instr.thread_id, "running", "1"));
 	assert (set (std::string ("thread ") + _instr.thread_id, "index", "1"));
 	//set (std::string ("thread ") + _instr.thread_id, "running", "0");
 	assert (set (std::string ("thread ") + _instr.thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));

@@ -78,14 +78,14 @@ int main (int argc, char * argv [])
 	noware::pause ("Press [Enter] to enqueue the instructions . . . ");
 	
 	//if (!m.enqueue (argv [1]))
-	if (!m.cpu.load (argv [1]))
+	if (!m.cpu.load_file (argv [1]))
 	{
 		std::cout << "'" << argv [0] << "': error: could not load the instructions file" << std::endl;
 		
 		return EXIT_FAILURE;
 	}
 	
-	///*
+	/*
 	noware::pause ("Press [Enter] to start the thread . . . ");
 	
 	//if (!m.trd.start ())
@@ -95,7 +95,7 @@ int main (int argc, char * argv [])
 		
 		return EXIT_FAILURE;
 	}
-	//*/
+	*/
 	
 	/*
 	noware::pause ("Press [Enter] to view values (pre) . . . ");

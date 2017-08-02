@@ -5,8 +5,9 @@
 //#include "../contnr/array.cxx"
 //#include "../tree.cxx"
 #include "../serial.cxx"
-#include "../var.cxx"
-#include "../nr.cxx"
+//#include "../var.cxx"
+//#include "../nr.cxx"
 
 #include <string>
+#include <iostream>
 #include <map>

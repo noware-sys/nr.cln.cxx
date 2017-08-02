@@ -46,8 +46,11 @@
 					//lowr,
 					//lowr_eql,
 					
-					//output,		// output set echo
-					go			// go[[ ]to] skip jump hop
+					//output,		// output set echo cout
+					go//,			// go[[ ]to] skip jump hop
+					
+					//tx,
+					//exe
 				};
 				
 				class instr
@@ -71,9 +74,12 @@
 						// oprnd [2] == destination, group
 						//noware::var operand1;
 						//noware::var operand2;	// Optional.
-						std::string oprnd [2];
+						//std::string oprnd [2];
+						noware::var oprnd [2];
 						//std::string oprnd [3];
-						bool ref [2];
+						bool _ref [2];
+						bool _offset [2];
+						noware::var offset [2];
 						
 						// Does the source operand
 						// represent a reference?
@@ -116,7 +122,7 @@
 				virtual const bool status (void) const;
 				virtual const bool start (void);
 				
-				virtual const bool load (const std::string &/* file_name*/);
+				virtual const bool load_file (const std::string &/* file_name*/);
 				
 				// Queue
 			public:

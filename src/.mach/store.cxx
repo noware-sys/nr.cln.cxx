@@ -338,7 +338,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	//zmsg_append (zmsg_response, &zframe_response);
 	
 	//result = node.unicast (zmsg_response, zyre_event_peer_uuid (event));
-	std::cout << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
+//	std::cout << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
 	//return result;
 	
 	return result;
