@@ -132,13 +132,13 @@ int main (int argc, char * argv [])
 	std::cout << "  dl , [" << m.store.get ("", "dl") << ']' << std::endl;
 	*/
 	
-	///*
+	/*
 	std::cout << " eax , [" << m.store.get ("thread 1", "eax") << ']' << std::endl;
 	std::cout << " ebx , [" << m.store.get ("thread 1", "ebx") << ']' << std::endl;
 	std::cout << " ecx , [" << m.store.get ("thread 1", "ecx") << ']' << std::endl;
 	std::cout << " edx , [" << m.store.get ("thread 1", "edx") << ']' << std::endl;
 	std::cout << "  dl , [" << m.store.get ("thread 1", "dl") << ']' << std::endl;
-	//*/
+	*/
 	
 	/*
 	std::cout << " eax , [" << m.store.get (m.trd.group (), "eax") << ']' << std::endl;
@@ -148,7 +148,7 @@ int main (int argc, char * argv [])
 	std::cout << "  dl , [" << m.store.get (m.trd.group (), "dl") << ']' << std::endl;
 	*/
 	
-	std::cout << "  size , [" << m.store.size () << ']' << std::endl;
+	std::cout << "  store size = [" << m.store.size () << ']' << std::endl;
 	
 	noware::pause ("Press [Enter] to exit . . . ");
 	

@@ -7,10 +7,11 @@ const std::string noware::mach::cpu::grp_dft = "noware::mach::cpu";
 noware::mach::cpu::instr::instr (void)
 {
 	oprn = opr::none;
+	device = dev::none;
 	
-	oprnd [0] = oprnd [1] = "";
-	//oprnd_src_ref = false;
-	ref [0] = ref [1] = false;
+	//oprnd [0] = oprnd [1] = "";
+	////oprnd_src_ref = false;
+	//ref [0] = ref [1] = false;
 	
 	thread_id = "";
 }
@@ -30,7 +31,11 @@ template <typename archive>
 void noware::mach::cpu::instr::serialize (archive & arch, const unsigned int &/* version*/)
 {
 	arch & oprn;
+	arch & device;
 	
+	arch & arg;
+	
+	/*
 	arch & oprnd [0];
 	arch & oprnd [1];
 	//arch & oprnd [2];
@@ -43,6 +48,7 @@ void noware::mach::cpu::instr::serialize (archive & arch, const unsigned int &/*
 	
 	arch & offset [0];
 	arch & offset [1];
+	*/
 	
 	arch & thread_id;
 	
@@ -66,18 +72,24 @@ const std::string noware::mach::cpu::instr::serialize (void) const
 
 const std::string noware::mach::cpu::instr::val (void) const
 {
-	return oprnd [0];
+	//return oprnd [0];
+	return "";
 }
 
 const noware::mach::cpu::instr & noware::mach::cpu::instr::operator = (const instr & other)
 {
 	oprn = other.oprn;
+	device = other.device;
 	
+	arg = other.arg;
+	
+	/*
 	oprnd [0] = other.oprnd [0];
 	oprnd [1] = other.oprnd [1];
 	
 	ref [0] = other.ref [0];
 	ref [1] = other.ref [1];
+	*/
 	
 	thread_id = other.thread_id;
 	
@@ -193,92 +205,16 @@ void noware::mach::cpu::exe (void)
 			////set (grp, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
 			//if ()
 			//set (inst.oprnd [2]/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/);
-			std::cout << "noware::mach::cpu::exe::set(\"thread " << inst.thread_id << "\"," << inst.oprnd [1] << "," << inst.oprnd [0] << ")" << std::endl;
 			
-			switch (inst.oprn)
+			//std::cout << "noware::mach::cpu::exe::set(\"thread " << inst.thread_id << "\"," << inst.oprnd [1] << "," << inst.oprnd [0] << ")" << std::endl;
+			
+			switch (inst.device)
 			{
-				case cpu::opr::set:
-					std::cout << "noware::mach::cpu::exe::instr.opr==set" << std::endl;
-					
-					if (inst._ref [0]/* source*/)
-					{
-						std::cout << "noware::mach::cpu::exe::instr.ref[src]==true" << std::endl;
-						
-						if (inst._offset [0])
-							if
-							(
-								//inst.oprnd [0].kind () == noware::var::type::nr
-								//&&
-								inst.offset [0].kind () == noware::var::type::nr
-							)
-								src = get (thread_id, inst.oprnd [0] + inst.offset [0]);
-							else
-							{
-								//src_offset = get (thread_id, inst.offset [0]);
-								//src = get (thread_id, src_offset);
-								src = get (thread_id, inst.oprnd [0] + get (thread_id, inst.offset [0]));
-							}
-						else
-							src = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [0]);
-					}
-					else
-					{
-						std::cout << "noware::mach::cpu::exe::instr.ref[src]==false" << std::endl;
-						
-						src = inst.oprnd [0];
-					}
-					
-					if (inst._ref [1]/* destination*/)
-					{
-						std::cout << "noware::mach::cpu::exe::instr.ref[dest]==true" << std::endl;
-						
-						//dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [1]);
-						
-						if (inst._offset [1])
-							if
-							(
-								//inst.oprnd [0].kind () == noware::var::type::nr
-								//&&
-								inst.offset [1].kind () == noware::var::type::nr
-							)
-								dest = get (thread_id, inst.oprnd [1] + inst.offset [1]);
-							else
-							{
-								//src_offset = get (thread_id, inst.offset [0]);
-								//src = get (thread_id, src_offset);
-								dest = get (thread_id, inst.oprnd [1] + get (thread_id, inst.offset [1]));
-							}
-						else
-							dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.oprnd [1]);
-					}
-					else
-					{
-						std::cout << "noware::mach::cpu::exe::instr.ref[dest]==false" << std::endl;
-						
-						dest = inst.oprnd [1];
-					}
-					
-					std::cout << "noware::mach::cpu::exe::thread_id==[" << thread_id << "]" << std::endl;
-					std::cout << "noware::mach::cpu::exe::instr.dest==[" << dest << "]" << std::endl;
-					std::cout << "noware::mach::cpu::exe::instr.src==[" << src << "]" << std::endl;
-					std::cout << "noware::mach::cpu::exe::ref[dest],ref[src]==[" << inst._ref [1] << "],[" << inst._ref [0] << "]" << std::endl;
-					std::cout << "noware::mach::cpu::exe::offset[dest],offset[src]==[" << inst.offset [1] << "],[" << inst.offset [0] << "]" << std::endl;
-					
-					//assert (set (std::string ("thread ") + inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
-					assert (set (/*std::string ("thread ") + inst.*/thread_id/* group*/, dest/* key*/, src/* value*/));
-					//assert (set (/*std::string ("thread ") + inst.*/"A 1"/* group*/, dest/* key*/, src/* value*/));
-					
-					break;
-				case cpu::opr::go:
-					std::cout << "noware::mach::cpu::exe::instr.opr==go" << std::endl;
-					break;
-				case cpu::opr::none:
-					std::cout << "noware::mach::cpu::exe::instr.opr==none" << std::endl;
-					break;
-				default:
-					std::cout << "noware::mach::cpu::exe::instr.opr==default" << std::endl;
+				case cpu::dev::cli:
+					std::cout << "noware::mach::cpu::exe::instr.dev==cli" << std::endl;
+					std::cout << inst.arg ["value"];
 			}
-			
+				
 			//assert (set (inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
 			
 			// remove the instruction from the queue
@@ -554,6 +490,7 @@ const bool noware::mach::cpu::enqueue (const instr & inst)
 	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 }
 
+/*
 const bool noware::mach::cpu::enqueue (const std::string & operand1, const opr & op, const std::string & operand2, const std::string & thread_id)
 {
 	instr inst;
@@ -562,6 +499,22 @@ const bool noware::mach::cpu::enqueue (const std::string & operand1, const opr &
 	inst.oprnd [0] = operand1;
 	inst.oprnd [1] = operand2;
 	//inst.oprnd [2] = operand3;
+	inst.thread_id = thread_id;
+	
+	return enqueue (inst);
+}
+*/
+
+const bool noware::mach::cpu::enqueue (const cpu::dev & device, const opr & op, const std::map <std::string, std::string> & arg, const std::string & thread_id)
+{
+	instr inst;
+	
+	inst.oprn = op;
+	inst.device = device;
+	//inst.oprnd [0] = operand1;
+	//inst.oprnd [1] = operand2;
+	////inst.oprnd [2] = operand3;
+	inst.arg = arg;
 	inst.thread_id = thread_id;
 	
 	return enqueue (inst);
@@ -633,13 +586,16 @@ const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::st
 const bool noware::mach::cpu::load_file (const std::string & file_name)
 {
 	std::ifstream file;
-	std::string dest, src;
-	bool dest_is_ref, src_is_ref;
-	bool dest_is_offset, src_is_offset;
+	std::string thread_id;
+	//std::string dest, src;
+	//bool dest_is_ref, src_is_ref;
+	//bool dest_is_offset, src_is_offset;
 	cpu::instr _instr;
+	//std::map <std::string, std::string> _instr;
 	unsigned int _ndx;
-	std::string operation;
-	std::string dest_offset_location, src_offset_location;
+	std::string token;
+	//std::string token_prev;
+	//std::string dest_offset_location, src_offset_location;
 	
 	file.open (file_name);
 	
@@ -648,12 +604,56 @@ const bool noware::mach::cpu::load_file (const std::string & file_name)
 	
 	_ndx = 0;
 	_instr.thread_id = noware::random::string (16);
+	thread_id = std::string ("thread ") + _instr.thread_id;
+	//token_prev = "";
 	//_instr.thread_id = "1";
 	//_instr.oprn = cpu::opr::set;
-	while (file >> operation >> dest >> dest_ref >> dest_is_offset >> dest_offset_location >> src >> src_ref >> src_is_offset >> src_offset_location)
+	//while (file >> operation >> dest >> dest_ref >> dest_is_offset >> dest_offset_location >> src >> src_ref >> src_is_offset >> src_offset_location)
+	while (file >> token)
 	{
 		++_ndx;
 		
+		
+		if (token == ";")
+		{
+			_instr.oprn = cpu::opr::none;
+			_instr.device = cpu::dev::none;
+			
+			//continue;
+		}
+		else if (token == "cpu")
+		{
+		}
+		else if (token == "cli")
+		{
+			_instr.oprn = cpu::opr::set;
+			_instr.device = cpu::dev::cli;
+			
+			// get the subsequent expected tokens
+			if (!(file >> token))
+			{
+				file.close ();
+				return false;
+			}
+			std::cout << "noware::mach::cpu::load_file::instr.arg[value]==[" << token << "]" << std::endl;
+			_instr.arg ["value"] = token;
+			
+			if (!(file >> token))
+			{
+				file.close ();
+				return false;
+			}
+			
+			if (token != ";")
+			{
+				file.close ();
+				return false;
+			}
+		}
+		
+		
+		/*
+		//_instr
 		_instr.oprnd [0] = src;
 		_instr.oprnd [1] = dest;
 		//_instr.ndx = _ndx;
@@ -675,21 +675,24 @@ const bool noware::mach::cpu::load_file (const std::string & file_name)
 			_instr.oprn = cpu::opr::go;
 		else
 			_instr.oprn = cpu::opr::none;
-		
+		*/
 		//_instr.thread_id = std::string ("thread ") + grp;
 		//_instr.thread_id = id ();
 		
 	//	instr [_ndx] = _instr;
-		assert (set (std::string ("thread ") + _instr.thread_id, std::string ("instr ") + noware::nr (_ndx).operator const std::string (), _instr.serialize ()));
+		assert (set (thread_id, std::string ("instr ") + noware::nr (_ndx).operator const std::string (), _instr.serialize ()));
 	}
 	
 	file.close ();
 	
 	//assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
-	assert (set (std::string ("thread ") + _instr.thread_id, "running", "1"));
-	assert (set (std::string ("thread ") + _instr.thread_id, "index", "1"));
+	assert (set (thread_id, "running", "1"));
+	assert (set (thread_id, "index", "1"));
 	//set (std::string ("thread ") + _instr.thread_id, "running", "0");
-	assert (set (std::string ("thread ") + _instr.thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
+	assert (set (thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
+	
+	_instr = get (thread_id, "instr 1");
+	assert (enqueue (_instr));
 	
 	//_loaded = true;
 	

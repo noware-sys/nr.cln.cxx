@@ -11,6 +11,13 @@
 		{
 			public:
 				// operator operation
+				enum class dev
+				{
+					none,
+					cpu,
+					cli
+				};
+				
 				enum class opr
 				{
 					none,
@@ -37,7 +44,7 @@
 					cat					// concatenation cat
 					*/
 					
-					set,
+					set
 					
 					// Control of the flow
 					//eql,
@@ -47,7 +54,7 @@
 					//lowr_eql,
 					
 					//output,		// output set echo cout
-					go//,			// go[[ ]to] skip jump hop
+					//go//,			// go[[ ]to] skip jump hop
 					
 					//tx,
 					//exe
@@ -66,6 +73,8 @@
 						virtual operator const std::string (void) const;
 						
 						opr oprn;	// Optional.
+						dev device;
+						/*
 						
 						// operand
 						// Convention for the move instruction.
@@ -80,12 +89,12 @@
 						bool _ref [2];
 						bool _offset [2];
 						noware::var offset [2];
-						
+						*/
 						// Does the source operand
 						// represent a reference?
 						// (or a literal?)
 						//bool oprnd_src_ref;
-						
+						std::map <std::string, std::string> arg;
 						std::string thread_id;
 						//bool reg;
 						//noware::nr reg_nr;
@@ -138,8 +147,9 @@
 				virtual const bool full (void) const;
 				
 				virtual const bool enqueue (const instr &);
-				//const bool enqueue (const operation &/* operator*/, const noware::var &/* operand1*/, const noware::var &/* operand2*/ = "");	// Accurate.
-				virtual const bool enqueue (const std::string &/* operand1 (source)*/, const opr &/* operation*/ = opr::none, const std::string &/* operand2 (key)*/ = "", const std::string &/* operand3/thread_id (group)*/ = "");	// Convenient.
+				////const bool enqueue (const operation &/* operator*/, const noware::var &/* operand1*/, const noware::var &/* operand2*/ = "");	// Accurate.
+				//virtual const bool enqueue (const std::string &/* operand1 (source)*/, const opr &/* operation*/ = opr::none, const std::string &/* operand2 (key)*/ = "", const std::string &/* operand3/thread_id (group)*/ = "");	// Convenient.
+				const bool enqueue (const cpu::dev &, const opr &, const std::map <std::string, std::string> &/* arg*/, const std::string &/* thread_id*/);
 				// do perform execute apply evaluate
 				//const bool apply (const instruction &);
 				

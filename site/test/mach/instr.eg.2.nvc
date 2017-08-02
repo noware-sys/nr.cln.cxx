@@ -1,4 +1,6 @@
 ; (text)device (text)action (var)args... (bool)more
-screen set 1x1x1 A
+;screen set 1x1x1 A
+cli set hello_world ;
 ;cpu exe set eax 0x123 1
 cpu set eax 0x123
+cli hello_world ;
