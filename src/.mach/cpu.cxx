@@ -190,7 +190,7 @@ void noware::mach::cpu::exe (void)
 			std::cout << "noware::mach::cpu::next_dequeue()" << std::endl;
 			inst = next_dequeue ();
 			
-			// there is not a decode step
+			// decode
 			thread_id = std::string ("thread ") + inst.thread_id;
 			
 			// execute
@@ -210,9 +210,49 @@ void noware::mach::cpu::exe (void)
 			
 			switch (inst.device)
 			{
+				case cpu::dev::store:
+					switch (inst.oprn)
+					{
+						case cpu::opr::set:
+							std::cout << "noware::mach::cpu::exe::instr::store::set" << std::endl;
+							//std::cout << inst.arg ["value"];
+							
+							if (inst.arg ["src.ref"] == "1"/* source*/)
+							{
+								std::cout << "noware::mach::cpu::exe::instr.ref[src]==true" << std::endl;
+								
+								src = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.arg ["src"]);
+							}
+							else
+							{
+								std::cout << "noware::mach::cpu::exe::instr.ref[src]==false" << std::endl;
+								
+								src = inst.arg ["src"];
+							}
+							
+							if (inst.arg ["dest.ref"] == "1"/* destination*/)
+							{
+								std::cout << "noware::mach::cpu::exe::instr.ref[dest]==true" << std::endl;
+								
+								dest = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, inst.arg ["dest"]);
+							}
+							else
+							{
+								std::cout << "noware::mach::cpu::exe::instr.ref[dest]==false" << std::endl;
+								
+								dest = inst.arg ["dest"];
+							}
+							
+							assert (set (thread_id/* group*/, dest/* key*/, src/* value*/));
+					}
+					break;
 				case cpu::dev::cli:
-					std::cout << "noware::mach::cpu::exe::instr.dev==cli" << std::endl;
-					std::cout << inst.arg ["value"];
+					switch (inst.oprn)
+					{
+						case cpu::opr::set:
+							std::cout << "noware::mach::cpu::exe::instr::cli::set" << std::endl;
+							std::cout << inst.arg ["value"];
+					}
 			}
 				
 			//assert (set (inst.thread_id/* group*/, inst.oprnd [1]/* key*/, inst.oprnd [0]/* value*/));
@@ -613,20 +653,81 @@ const bool noware::mach::cpu::load_file (const std::string & file_name)
 	{
 		++_ndx;
 		
-		
 		if (token == ";")
 		{
-			_instr.oprn = cpu::opr::none;
 			_instr.device = cpu::dev::none;
+			_instr.oprn = cpu::opr::none;
 			
 			//continue;
 		}
-		else if (token == "cpu")
+		else if (token == "store")
 		{
+			_instr.device = cpu::dev::store;
+			
+			// get the subsequent expected tokens
+			
+			// set
+			if (!(file >> token))
+			{
+				file.close ();
+				return false;
+			}
+			if (token == "set")
+			{
+				_instr.oprn = cpu::opr::set;
+				
+				// destination reference
+				if (!(file >> token))
+				{
+					file.close ();
+					return false;
+				}
+				std::cout << "noware::mach::cpu::load_file::cpu::set::instr.arg[dest.ref]==[" << token << "]" << std::endl;
+				_instr.arg ["dest.ref"] = token;
+				
+				// destination
+				if (!(file >> token))
+				{
+					file.close ();
+					return false;
+				}
+				std::cout << "noware::mach::cpu::load_file::cpu::set::instr.arg[dest]==[" << token << "]" << std::endl;
+				_instr.arg ["dest"] = token;
+				
+				// source reference
+				if (!(file >> token))
+				{
+					file.close ();
+					return false;
+				}
+				std::cout << "noware::mach::cpu::load_file::cpu::set::instr.arg[src.ref]==[" << token << "]" << std::endl;
+				_instr.arg ["src.ref"] = token;
+				
+				// source
+				if (!(file >> token))
+				{
+					file.close ();
+					return false;
+				}
+				std::cout << "noware::mach::cpu::load_file::cpu::set::instr.arg[src]==[" << token << "]" << std::endl;
+				_instr.arg ["src"] = token;
+			}
+			
+			// read the semicolon
+			if (!(file >> token))
+			{
+				file.close ();
+				return false;
+			}
+			
+			if (token != ";")
+			{
+				file.close ();
+				return false;
+			}
 		}
 		else if (token == "cli")
 		{
-			_instr.oprn = cpu::opr::set;
 			_instr.device = cpu::dev::cli;
 			
 			// get the subsequent expected tokens
@@ -635,9 +736,20 @@ const bool noware::mach::cpu::load_file (const std::string & file_name)
 				file.close ();
 				return false;
 			}
-			std::cout << "noware::mach::cpu::load_file::instr.arg[value]==[" << token << "]" << std::endl;
-			_instr.arg ["value"] = token;
+			if (token == "set")
+			{
+				_instr.oprn = cpu::opr::set;
+				
+				if (!(file >> token))
+				{
+					file.close ();
+					return false;
+				}
+				std::cout << "noware::mach::cpu::load_file::cli::set::instr.arg[value]==[" << token << "]" << std::endl;
+				_instr.arg ["value"] = token;
+			}
 			
+			// read the semicolon
 			if (!(file >> token))
 			{
 				file.close ();
@@ -685,14 +797,17 @@ const bool noware::mach::cpu::load_file (const std::string & file_name)
 	
 	file.close ();
 	
-	//assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
-	assert (set (thread_id, "running", "1"));
-	assert (set (thread_id, "index", "1"));
-	//set (std::string ("thread ") + _instr.thread_id, "running", "0");
-	assert (set (thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
-	
-	_instr = get (thread_id, "instr 1");
-	assert (enqueue (_instr));
+	if (_ndx > 0)
+	{
+		//assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
+		assert (set (thread_id, "running", "1"));
+		assert (set (thread_id, "index", "1"));
+		//set (std::string ("thread ") + _instr.thread_id, "running", "0");
+		assert (set (thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
+		
+		_instr = get (thread_id, "instr 1");
+		assert (enqueue (_instr));
+	}
 	
 	//_loaded = true;
 	

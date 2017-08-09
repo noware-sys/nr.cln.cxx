@@ -1,1 +1,2 @@
-cli \n\n\n\n\nhello_world_from_nvc!\n\n\n\n\n ;
+cli [set] hello_world_from_nvc! ;
+store [set] 0 eax 0 ABC ;

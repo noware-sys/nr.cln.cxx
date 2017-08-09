@@ -1,7 +1,8 @@
 //#include <Poco/any.h>
 #include <string>
 #include <iostream>
-//#include <sstream>
+#include <iomanip>
+#include <sstream>
 #include <fstream>
 //#include <algorithm>	// For for_each ()
 //#include <omp.h>
@@ -53,12 +54,48 @@
 //	int x, y;
 //};
 
+const unsigned int str_int (const std::string & block, const bool & swap = false)
+{
+	unsigned int val;
+	unsigned int size;
+	std::stringstream ss;
+	
+	//val = 0;
+	size = block.size ();
+	ss << std::hex;
+	
+	if (swap)
+	{
+		for (signed int ndx = size; ndx >= 0; --ndx)
+		{
+			//std::cout << "ndx:" << ndx << std::endl;
+			ss << int (block [ndx]);
+		}
+	}
+	else
+	{
+		for (unsigned int ndx = 0; ndx < size; ++ndx)
+		{
+			//std::cout << "ndx:" << ndx << std::endl;
+			ss << int (block [ndx]);
+		}
+	}
+	
+	ss >> val;
+	
+	return val;
+}
+
 int main (int argc, char * argv [])
 {
 	//using boost::any_cast;
 	//using namespace std;
 	//using boost;
 	//using namespace noware;
+	
+	std::cout << std::boolalpha;
+	std::cout << std::hex;
+	std::cout << std::showbase;
 	
 	for (/*unsigned long long*/ int i = 0; i < argc; ++ i)
 		std::cout << argv [i] << ' ';
@@ -73,22 +110,24 @@ int main (int argc, char * argv [])
 	}
 	
 	std::ifstream file;
-	char * block;
+	unsigned char * fileblock;
 	//char c;
 	//unsigned int b;
-	bool x64;
 	std::streampos size;
+	bool x64;
+	unsigned int phoff;
+	unsigned char * phoff_c;
+	std::string phoff_s;
 	
 	file.open (argv [1], std::ios::in | std::ios::binary | std::ios::ate);
 	
 	if (!file.is_open ())
 		return EXIT_FAILURE;
 	
-	// TODO check size of file
 	size = file.tellg ();
-	fileblock = new char [size];
+	fileblock = new unsigned char [size];
 	file.seekg (0, std::ios::beg);
-	file.read (block, size);
+	file.read (fileblock, size);
 	
 	/*
 	printf ("[%s]\n", str);
@@ -98,13 +137,63 @@ int main (int argc, char * argv [])
 	std::cout << "[" << (str [2] == 0x4c) << "]" << std::endl;
 	std::cout << "[" << (str [3] == 0x46) << "]" << std::endl;
 	*/
-	if (block [0] != 0x7f || block [1] != 0x45 /* E */ || block [2] != 0x4c /* L */ || block [3] != 0x46 /* F */)
+	
+	// the magic number
+	if (fileblock [0] != 0x7f || fileblock [1] != 0x45 /* E */ || fileblock [2] != 0x4c /* L */ || fileblock [3] != 0x46 /* F */)
 		return EXIT_FAILURE;
 	
-	x64 = block [4] == 0x2;
+	x64 = fileblock [4] == 0x2;
+	std::cout << "x64[" << x64 << "]" << std::endl;
 	
 	
 	
-	//file.close ();
-	//delete [] str;
+	file.seekg (0x20, std::ios::beg);
+	phoff_c = new unsigned char [8];
+	file.read (phoff_c, 8);
+	
+	/*
+	std::stringstream ss;
+	ss << std::hex;
+	for (signed short int ndx = 1; ndx >= 0; --ndx)
+	{
+		//std::cout << "ndx:" << ndx << std::endl;
+		ss << int (phoff_c [ndx]);
+	}
+	ss >> phoff;
+	*/
+	
+	phoff = str_int ((char *) phoff_c, true);
+	
+	std::cout << "phoff_c[0][" << int (phoff_c [0]) << "]" << std::endl;
+	std::cout << "phoff_c[1][" << int (phoff_c [1]) << "]" << std::endl;
+	/*std::cout << "phoff_c[2][" << phoff_c [2] << "]" << std::endl;
+	std::cout << "phoff_c[3][" << phoff_c [3] << "]" << std::endl;
+	std::cout << "phoff_c[4][" << phoff_c [4] << "]" << std::endl;
+	std::cout << "phoff_c[5][" << phoff_c [5] << "]" << std::endl;
+	std::cout << "phoff_c[6][" << phoff_c [6] << "]" << std::endl;
+	std::cout << "phoff_c[7][" << phoff_c [7] << "]" << std::endl;
+	*/
+	//phoff = 0;
+	//phoff += phoff_c [0];
+	//phoff += phoff_c [1];
+	
+	//phoff_s = (char *) phoff_c;
+//	std::cout << "phoff_c[" << phoff_c << "]" << std::endl;
+	//std::cout << "phoff_s[" << phoff_s << "]" << std::endl;
+	//std::cout << "phoff_c==0x40[" << (phoff_c == 0x40) << "]" << std::endl;
+	std::cout << "phoff[" << phoff << "]" << std::endl;
+	//std::cout << "ss.str()[" << ss.str () << "]" << std::endl;
+	
+	delete [] phoff_c;
+	
+	
+	file.seekg (phoff, std::ios::beg);
+	phoff_c = new unsigned char [4];
+	file.read (phoff_c, 4);
+	
+	std::cout << "ph[" << str_int ((char *) phoff_c, true) << "]" << std::endl;
+	
+	
+	file.close ();
+	delete [] fileblock;
 }

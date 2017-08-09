@@ -15,6 +15,7 @@
 				{
 					none,
 					cpu,
+					store,
 					cli
 				};
 				
@@ -25,11 +26,11 @@
 					// For controlling the flow of the execution:
 					//and,	// and intersection
 					//or, // or union
-					/*
 					get,				// attainment obtainment get read load
 					set,				// assignment settlement set write store move
 					//exist,			// presence existence exist
-					rm,					// removal resettal rm
+					remove,					// removal resettal rm remove reset unset
+					/*
 					
 					add,				// addition
 					substr,			// substraction
@@ -44,7 +45,7 @@
 					cat					// concatenation cat
 					*/
 					
-					set
+					//set,
 					
 					// Control of the flow
 					//eql,
