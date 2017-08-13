@@ -118,15 +118,13 @@ int main (int argc, char * argv [])
 	
 	//std::cout << std::boolalpha;
 	
-	//boost::this_thread::sleep_for (boost::chrono::seconds (2));
-	
 	std::cout << "'" << argv [0] << "': running" << std::endl;
 	
-	//noware::pause ("Press [Enter] to view values (post) . . . ");
+	noware::pause ("Press [Enter] to view values (post) . . . ");
 	
 	//std::cout << "  store [user] = [" << m.store.get () << ']' << std::endl;
 	
-	//m.cpu.stop ();
+	m.cpu.stop ();
 	
 	/*
 	std::cout << " eax , [" << m.store.get ("", "eax") << ']' << std::endl;
@@ -152,9 +150,8 @@ int main (int argc, char * argv [])
 	std::cout << "  dl , [" << m.store.get (m.trd.group (), "dl") << ']' << std::endl;
 	*/
 	
-	//std::cout << "  store size = [" << m.store.size () << ']' << std::endl;
+	std::cout << "  store size = [" << m.store.size () << ']' << std::endl;
 	
-	boost::this_thread::sleep_for (boost::chrono::seconds (7));
 	noware::pause ("Press [Enter] to exit . . . ");
 	
 	//return EXIT_SUCCESS;

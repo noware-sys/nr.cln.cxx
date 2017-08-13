@@ -28,6 +28,7 @@ const bool noware::net::node::init (void)
 	if (!inited ())
 	{
 		_node = zyre_new (nullptr);
+		_running = true;
 		reception = new boost::thread (boost::bind (boost::mem_fn (&noware::net::node::receive), this));
 	}
 	
@@ -36,7 +37,7 @@ const bool noware::net::node::init (void)
 
 const bool noware::net::node::inited (void) const
 {
-	//std::cout << std::endl << "_node==[" << _node << ']' << std::endl;
+	//std::cerr << std::endl << "_node==[" << _node << ']' << std::endl;
 	//return _node != nullptr;
 	return _node != nullptr && reception != nullptr;
 }
@@ -48,27 +49,36 @@ const bool noware::net::node::fin (void)
 	//if (reception_is_set ())
 		reception_unset ();
 	
-	std::cout << "noware::net::node::finalize()::reception::deletion" << std::endl;
+	/*
+	std::cerr << "noware::net::node::fin()::reception::_running=false" << std::endl;
+	_running = false;
+	std::cerr << "noware::net::node::fin()::reception::joining" << std::endl;
+	reception -> join ();
+	std::cerr << "noware::net::node::fin()::reception::joined" << std::endl;
+	*/
+	
+	std::cerr << "noware::net::node::finalize()::reception::deletion" << std::endl;
 	if (reception != nullptr)
 	{
-		std::cout << "noware::net::node::finalize()::reception::deleting" << std::endl;
+		std::cerr << "noware::net::node::finalize()::reception::deleting" << std::endl;
 		//reception -> join ();
 		delete reception;
-		std::cout << "noware::net::node::finalize()::reception::deleted" << std::endl;
+		std::cerr << "noware::net::node::finalize()::reception::deleted" << std::endl;
 		reception = nullptr;
 	}
 	
-	//stop ();
-	
-	std::cout << "noware::net::node::finalize()::zyre_destroy()::pre" << std::endl;
+	std::cerr << "noware::net::node::finalize()::zyre_destroy()::pre" << std::endl;
 	if (_node != nullptr)
 	{
-		std::cout << "noware::net::node::finalize()::zyre_destroy()::destroying" << std::endl;
+		std::cerr << "noware::net::node::finalize()::zyre_destroy()::destroying" << std::endl;
 		//zyre_stop (_node);
 		zyre_destroy (&_node);
-		std::cout << "noware::net::node::finalize()::zyre_destroy()::destroyed" << std::endl;
+		std::cerr << "noware::net::node::finalize()::zyre_destroy()::destroyed" << std::endl;
 		_node = nullptr;
 	}
+	
+	
+	//stop ();
 	
 	return _node == nullptr && reception == nullptr;
 }
@@ -83,12 +93,12 @@ const bool noware::net::node::stop (void)
 	if (!inited ())
 		return true;
 	
-	std::cout << "noware::net::node::stop()::called" << std::endl;
+	std::cerr << "noware::net::node::stop()::called" << std::endl;
 	if (running)
 	{
-		std::cout << "noware::net::node::stop()::stopping zyre node" << std::endl;
+		std::cerr << "noware::net::node::stop()::stopping zyre node" << std::endl;
 		zyre_stop (_node);
-		std::cout << "noware::net::node::stop()::stopped zyre node" << std::endl;
+		std::cerr << "noware::net::node::stop()::stopped zyre node" << std::endl;
 		
 		running = false;
 	}
@@ -105,7 +115,7 @@ const bool noware::net::node::start (void)
 	{
 		zyre_start (_node);
 		
-		//std::cout << "Started Zyre Node" << std::endl;
+		//std::cerr << "Started Zyre Node" << std::endl;
 		running = true;
 	}
 	
@@ -306,38 +316,38 @@ const bool noware::net::node::anycast (const zmq::msg & msg, const std::string &
 	//if ((unsigned int) peers_list_size < 1)
 	if (peers_list_size < 1)
 	{
-		std::cout << "noware::net::node::anycast()::peers_list_size < 1::true" << std::endl;
+		std::cerr << "noware::net::node::anycast()::peers_list_size < 1::true" << std::endl;
 		return false;
 	}
-	std::cout << "noware::net::node::anycast()::peers_list_size < 1::false" << std::endl;
+	std::cerr << "noware::net::node::anycast()::peers_list_size < 1::false" << std::endl;
 	
 	boost::random::random_device randev;
 	boost::random::uniform_int_distribution <unsigned int> distr (1, peers_list_size);
 	
-	std::cout << "noware::net::node::anycast()::return" << std::endl;
+	std::cerr << "noware::net::node::anycast()::return" << std::endl;
 	return unicast (msg, peers_list [distr (randev)]);
 }
 
 const bool noware::net::node::multicast (const zmq::msg & msg, const std::string & group) const
 //const bool noware::net::node::multicast (const zmsg_t * zmsg, const std::string & group) const
 {
-	std::cout << "noware::net::node::multicast()::called" << std::endl;
+	std::cerr << "noware::net::node::multicast()::called" << std::endl;
 	
 	if (!inited () || !status ())
 		return false;
 	
 //	zmsg_t * msg = zmsg_new ();
-	//std::cout << "noware::net::node::multicast()::2" << std::endl;
+	//std::cerr << "noware::net::node::multicast()::2" << std::endl;
 //	zmsg_addstr (msg, message.c_str ());
 	//zmsg_addstr (msg, "Hello, World.");
 	
 	signed short int result;
-	//std::cout << "noware::net::node::multicast()::3" << std::endl;
-//	std::cout << "noware::net::node::multicast::zyre_shout()==" << '[' << (result = zyre_shout (_node, group.c_str (), &msg)) << ']' << std::endl;
+	//std::cerr << "noware::net::node::multicast()::3" << std::endl;
+//	std::cerr << "noware::net::node::multicast::zyre_shout()==" << '[' << (result = zyre_shout (_node, group.c_str (), &msg)) << ']' << std::endl;
 	//zyre_shout (_node, "storage", &msg);
 	//zclock_sleep (250);
 	
-	//std::cout << "noware::net::node::multicast()::4(last)" << std::endl;
+	//std::cerr << "noware::net::node::multicast()::4(last)" << std::endl;
 	zmsg_t * zmsg;
 	
 	//zmsg = (zmsg_t *) msg;
@@ -353,7 +363,7 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	//std::string str ((char *) zframe_data (frm), zframe_size (frm));
 	zframe_data (frm);
 	zframe_size (frm);
-	//std::cout << "noware::net::node::multicast::str==[" << str << ']' << std::endl;
+	//std::cerr << "noware::net::node::multicast::str==[" << str << ']' << std::endl;
 	assert (zframe_is (frm));
 	//assert (frm -> tag == ZFRAME_TAG);
 	*/
@@ -382,7 +392,7 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	//return *zmsg;
 	//printf ("noware::net::node::multicast::str==[%s]\n", cstr);
 	//free (cstr);
-//	std::cout << "noware::net::node::multicast::zyre_shout()..." << std::endl;
+//	std::cerr << "noware::net::node::multicast::zyre_shout()..." << std::endl;
 	//  0 == success
 	// -1 == failure
 	//return true;
@@ -390,7 +400,7 @@ const bool noware::net::node::multicast (const zmq::msg & msg, const std::string
 	
 	//return zyre_shout (_node, group.c_str (), &zmsg) == 0;
 	result = zyre_shout (_node, group.c_str (), &zmsg);
-	std::cout << "noware::net::node::multicast::zyre_shout()[" << (result == 0 ? "success" : "failure") << "]" << std::endl;
+	std::cerr << "noware::net::node::multicast::zyre_shout()[" << (result == 0 ? "success" : "failure") << "]" << std::endl;
 	return result == 0;
 }
 
@@ -414,13 +424,13 @@ const unsigned int noware::net::node::peers_size (void) const
 	
 	if (peers == nullptr)
 	{
-		std::cout << "noware::net::node::peers_count::peers==nullptr" << std::endl;
+		std::cerr << "noware::net::node::peers_count::peers==nullptr" << std::endl;
 		
 		return result;
 	}
 	
 	result = zlist_size (peers);
-	std::cout << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
+	std::cerr << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
 	zlist_destroy (&peers);
 	
 	return result;
@@ -436,13 +446,13 @@ const unsigned int noware::net::node::peers_size (const std::string & group) con
 	
 	if (peers == nullptr)
 	{
-		std::cout << "noware::net::node::peers_count::peers==nullptr" << std::endl;
+		std::cerr << "noware::net::node::peers_count::peers==nullptr" << std::endl;
 		
 		return result;
 	}
 	
 	result = zlist_size (peers);
-	std::cout << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
+	std::cerr << "noware::net::node::peers_count::result=zlist_size(peers)==[" << result << ']' << std::endl;
 	zlist_destroy (&peers);
 	
 	return result;
@@ -457,16 +467,16 @@ const bool noware::net::node::reception_is_set (void) const
 
 const bool noware::net::node::reception_unset (void)
 {
-	std::cout << "noware::net::node::reception_unset()::called" << std::endl;
+	std::cerr << "noware::net::node::reception_unset()::called" << std::endl;
 	if (reception_is_set ())
 	{
-		//std::cout << "noware::net::node::reception_unset()::reception::deleting" << std::endl;
+		//std::cerr << "noware::net::node::reception_unset()::reception::deleting" << std::endl;
 		//delete reception;
-		//std::cout << "noware::net::node::reception_unset()::reception::deleted" << std::endl;
+		//std::cerr << "noware::net::node::reception_unset()::reception::deleted" << std::endl;
 		//reception = nullptr;
 		
 		//delete exoreception;
-		std::cout << "noware::net::node::reception_unset()::exoreception.clear()" << std::endl;
+		std::cerr << "noware::net::node::reception_unset()::exoreception.clear()" << std::endl;
 		exoreception.clear ();
 	}
 	
@@ -495,9 +505,9 @@ void noware::net::node::receive (void)
 	
 	do
 	{
-		std::cout << "noware::net::node::receive()::waiting for an event" << std::endl;
+		std::cerr << "noware::net::node::receive()::waiting for an event" << std::endl;
 		event = zyre_event_new (_node);
-		std::cout << "noware::net::node::receive()::received an event" << std::endl;
+		std::cerr << "noware::net::node::receive()::received an event" << std::endl;
 		
 		 // Interrupted.
 		//if (event == nullptr)
@@ -505,17 +515,17 @@ void noware::net::node::receive (void)
 		
 		if (!exoreception.empty () && event != nullptr)
 		{
-			std::cout << "noware::net::node::receive()::delegating the event to the external handler" << std::endl;
+			std::cerr << "noware::net::node::receive()::delegating the event to the external handler" << std::endl;
 			
 			// Delegate to the external handler.
 			exoreception (event);
 		}
 		else
 		{
-			std::cout << "noware::net::node::receive()::not delegating the event to the external handler::" << std::endl;
+			std::cerr << "noware::net::node::receive()::not delegating the event to the external handler::" << std::endl;
 			
-			std::cout << "noware::net::node::receive()::not delegating the event to the external handler::(exoreception.empty())==" << (exoreception.empty () ? "True" : "False") << std::endl;
-			std::cout << "noware::net::node::receive()::not delegating the event to the external handler::(event==nullptr)==" << (event == nullptr ? "True" : "False") << std::endl;
+			std::cerr << "noware::net::node::receive()::not delegating the event to the external handler::(exoreception.empty())==" << (exoreception.empty () ? "True" : "False") << std::endl;
+			std::cerr << "noware::net::node::receive()::not delegating the event to the external handler::(event==nullptr)==" << (event == nullptr ? "True" : "False") << std::endl;
 		}
 		
 		//if (verbose)
@@ -543,9 +553,12 @@ void noware::net::node::receive (void)
 		}
 		*/
 		
-		zyre_event_destroy (&event);
+		//if (event != nullptr)
+			zyre_event_destroy (&event);
 	}
 	//while (true);
 	//while (event != nullptr);
 	while (inited ());
+	//while (_running && inited ());
+	//while (_running);
 }

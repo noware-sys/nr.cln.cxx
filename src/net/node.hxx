@@ -96,6 +96,7 @@ namespace noware
 				zyre_t * _node;
 				
 				bool running;
+				bool _running;
 				
 				// For running "void receive (void)".
 				boost::thread * reception;

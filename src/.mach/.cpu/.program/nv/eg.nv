@@ -4,7 +4,7 @@
 	JavaScript Object Style Notation.
 	
 	? Uniqueness == Name + Type
-	?	Should the type be determined by the context?
+	?	Should the type be determined by the context? No(, in general).
 	
 	Garbage-collecting.
 	Type hinting.
@@ -23,7 +23,7 @@
 	{}			Scope Declaration
 	:[:]		Scope Resulution
 	
-	!Without References (Pointers)! (Like * or &)
+	!Without References (Pointers)! (Like * or &) ((Always) pass by value)
 	
 	///
 	
@@ -39,24 +39,25 @@
 		nat[ural]
 		int[eger]
 		real
-		[imaginary]/img
+		lat[eral]
+			([imaginary]/img)	<- No!
 	n[umbe]r
 	t[e]xt
 	[str[ing]]
 	[v[o]id]
 	nul[l]
 	new
-	scope(/[name]space)	// Partial class definition. No?
-	class
-	struc[ture]
-	obj[ect]
-	entity/[ntt]
+	scope(/[name]space)	// Partial class definition. No? No!
+	struct[ure]
+		class
+		obj[ect]
+		entity/[ntt]
 	[type]
 	const[ant]
 	var[iable]
 	static
 	dyn[amic]
-	label/[lbl]
+	label
 	=
 	==
 	[===	((Also compare the type?) Like in PHP)]
@@ -77,28 +78,28 @@
 	action ~= operation ~= instruction
 	actor ~= operator ~= instructor
 */
-include_once ("initialization.nv");	// Or ".ven"? No.
+include_once ("init[ialization].nv");	// Or ".ven"? No.
 
 // This is the global scope.
 
-[partial|complete/fraction]? [[name?]space/]scope(/class?/struct[ure]?) "system"
+[partial|complete/fraction]? [[name?]space/]scope(/class?/struct[ure]?) "sys[tem]"
 {
 	/*
 		// Directly declare the operator(s) instead.
 		
-		function declare/set/assign ([null])
+		f[unctio]n declare/set/assign ([null])
 		{
 			// 
 		}
 	*/
 	// Declare an entity.
-	[dyn[amic]|static] ([[variable|constant] type, ...]) (function|fn|func[t]) [operator]? "#" (null, null) [[variable|constant], [constant|variable]]
+	[dyn[amic]|static] ([[variable|constant] type, ...]) (f[unctio]n) [op[erato]r]? "#" (null, null) [[var[iable]|const[ant]], [const[ant]|vari[able]]]
 	{
 		return [null];
 	};
 	
 	// Evaluate an expression.
-	[type] function [""] ()
+	[type] f[unctio]n [""] ()
 	{
 		return [null];
 	};
@@ -127,7 +128,7 @@ include_once ("initialization.nv");	// Or ".ven"? No.
 	( 1 2 3
 	function (1, 2, 3(,) ...)
 	
-	(((cout << 1) << 2) << 3)
+	((([cout/cli/cui/txt/tui/cmd/screen] << 1) << 2) << 3)
 	
 	
 	// Declare a function without a name.

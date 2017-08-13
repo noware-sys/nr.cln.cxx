@@ -52,19 +52,19 @@ const zmq::msg noware::mach::store::aggregate (const zmq::msg & result, const no
 	}
 	else if (xpr ["subject"] == "removal" || xpr ["subject"] == "clearance")
 	{
-		std::cout << "noware::mach::store::respond()::if::expression[subject]==" << xpr ["subject"] << "::in scope" << std::endl;
-		std::cout << "noware::mach::store::respond()::if::expression[subject]==" << xpr ["subject"] << "::in scope::reponses_count==[" << responses_count << "]" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::expression[subject]==" << xpr ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::expression[subject]==" << xpr ["subject"] << "::in scope::reponses_count==[" << responses_count << "]" << std::endl;
 		
 		//if (responses_count > noware::nr::natural (0))
 		if (responses_count > 0)
 		{
-			std::cout << "noware::mach::store::respond()::if::(responses_count > noware::nr::natural (0))" << "::in scope" << std::endl;
+			std::cerr << "noware::mach::store::respond()::if::(responses_count > noware::nr::natural (0))" << "::in scope" << std::endl;
 			
 			return zmq::msg ((result == "1" && response == "1") ? "1" : "0");
 		}
 		else
 		{
-			std::cout << "noware::mach::store::respond()::if::(responses_count > noware::nr::natural (0))" << "::else::in scope" << std::endl;
+			std::cerr << "noware::mach::store::respond()::if::(responses_count > noware::nr::natural (0))" << "::else::in scope" << std::endl;
 			
 			return result;
 		}
@@ -75,7 +75,7 @@ const zmq::msg noware::mach::store::aggregate (const zmq::msg & result, const no
 
 const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received message*//*, */const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, zmq::msg & msg_response)
 {
-	std::cout << "noware::mach::store::respond()::called" << std::endl;
+	std::cerr << "noware::mach::store::respond()::called" << std::endl;
 	
 	//zmq::msg msg;
 	//zmsg_t * zmsg;
@@ -123,13 +123,13 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	
 	result = false;
 	
-	std::cout << "noware::mach::store::respond()::if::message[subject]==[" << message ["subject"] << ']' << std::endl;
+	std::cerr << "noware::mach::store::respond()::if::message[subject]==[" << message ["subject"] << ']' << std::endl;
 	
-	//std::cout << "noware::mach::store::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
+	//std::cerr << "noware::mach::store::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
 	
 	if (message ["subject"] == "existence")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		response = message;
 		response ["type"] = "response";
@@ -153,7 +153,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	/*
 	else if (message ["subject"] == "existence.group")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		response ["type"] = "response";
 		response ["subject"] = message ["subject"];
@@ -167,7 +167,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	*/
 	else if (message ["subject"] == "magnitude")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		response ["type"] = "response";
 		response ["subject"] = message ["subject"];
@@ -175,24 +175,24 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		
 		if (message.count ("group") > 0)
 		{
-			std::cout << "noware::mach::store::respond()::group[ed]" << std::endl;
+			std::cerr << "noware::mach::store::respond()::group[ed]" << std::endl;
 			
 			if (data.count (message ["group"]) > 0)
 			{
-				std::cout << "noware::mach::store::respond()::group::exist" << std::endl;
+				std::cerr << "noware::mach::store::respond()::group::exist" << std::endl;
 				response ["value"] = data [message ["group"]].size ();
 			}
 			else
 			{
-				std::cout << "noware::mach::store::respond()::group::not exist" << std::endl;
+				std::cerr << "noware::mach::store::respond()::group::not exist" << std::endl;
 				response ["value"] = "0";
 			}
 		}
 		else
 		{
-			std::cout << "noware::mach::store::respond()::not group[ed]" << std::endl;
+			std::cerr << "noware::mach::store::respond()::not group[ed]" << std::endl;
 			//response ["value"] = data.size ();
-			//std::cout << "noware::mach::store::respond()::data.size ()==[" << data.size () << ']' << std::endl;
+			//std::cerr << "noware::mach::store::respond()::data.size ()==[" << data.size () << ']' << std::endl;
 			result_tmp = 0;
 			for (const std::pair <std::string, std::map <std::string, std::string>> & group : data)
 			{
@@ -200,13 +200,13 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 			}
 			response ["value"] = result_tmp.operator const std::string ();
 			
-			std::cout << "noware::mach::store::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
-			std::cout << "noware::mach::store::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
+			std::cerr << "noware::mach::store::respond()::result_tmp==[" << result_tmp << ']' << std::endl;
+			std::cerr << "noware::mach::store::respond()::response[value]==[" << response ["value"] << ']' << std::endl;
 		}
 	}
 	else if (message ["subject"] == "obtainment")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		response ["type"] = "response";
 		response ["subject"] = message ["subject"];
@@ -226,12 +226,12 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 			response ["value.exist"] = "0";
 		}
 		
-		std::cout << "noware::mach::store::respond()::message[subject]==" << message ["subject"] << "::response[value.exist]==" << response ["value.exist"] << std::endl;
-		std::cout << "noware::mach::store::respond()::message[subject]==" << message ["subject"] << "::response[value]==" << response ["value"] << std::endl;
+		std::cerr << "noware::mach::store::respond()::message[subject]==" << message ["subject"] << "::response[value.exist]==" << response ["value.exist"] << std::endl;
+		std::cerr << "noware::mach::store::respond()::message[subject]==" << message ["subject"] << "::response[value]==" << response ["value"] << std::endl;
 	}
 	else if (message ["subject"] == "assignment")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		response ["type"] = "response";
 		response ["subject"] = message ["subject"];
@@ -242,40 +242,40 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 		data [message ["group"]] [message ["key"]] = message ["value"];
 		//data [message ["group"]] [message ["key"]] = std::pair <std::string, bool> (message ["value"], message ["reference"] == "1" ? true : false);
 		/*
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try..." << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try..." << std::endl;
 		try
 		{
-			std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::in scope" << std::endl;
+			std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::in scope" << std::endl;
 			if (data.at (message ["group"]).at (message ["key"]) == message ["value"])
 			{
-				std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if" << std::endl;
+				std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if" << std::endl;
 				response ["value"] = "1";
 			}
 			else
 			{
-				std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if::else" << std::endl;
+				std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::if::else" << std::endl;
 				response ["value"] = "0";
 			}
 		}
 		catch (...)
 		{
-			std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::catch" << std::endl;
+			std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::try::catch" << std::endl;
 			response ["value"] = "0";
 		}
 		
 		//response ["value"] = "1";
 		
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::response[value]==[" << response ["value"] << ']' << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::response[value]==[" << response ["value"] << ']' << std::endl;
 		//return response ["value"] == "1";
 		*/
 		response ["value"] = "1";
 	}
 	else if (message ["subject"] == "removal")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
-		std::cout << "noware::mach::store::respond()::message[group]==" << message ["group"] << "" << std::endl;
-		std::cout << "noware::mach::store::respond()::message[key]==" << message ["key"] << "" << std::endl;
+		std::cerr << "noware::mach::store::respond()::message[group]==" << message ["group"] << "" << std::endl;
+		std::cerr << "noware::mach::store::respond()::message[key]==" << message ["key"] << "" << std::endl;
 		
 		response ["type"] = "response";
 		response ["subject"] = message ["subject"];
@@ -299,7 +299,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	}
 	else if (message ["subject"] == "clearance")
 	{
-		std::cout << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
+		std::cerr << "noware::mach::store::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
 		if (message.count ("group") > 0 && data.count (message.at ("group")) > 0)
 		{
@@ -338,7 +338,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 	//zmsg_append (zmsg_response, &zframe_response);
 	
 	//result = node.unicast (zmsg_response, zyre_event_peer_uuid (event));
-//	std::cout << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
+//	std::cerr << "noware::mach::store::respond()::node.unicast (response, zyre_event_peer_uuid (event)==" << (result ? "Success" : "Failure") << std::endl;
 	//return result;
 	
 	return result;
@@ -346,7 +346,7 @@ const bool noware::mach::store::respond (/*const zmsg_t * msg_rx*//* received me
 
 const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
 {
-	std::cout << "noware::mach::store::search()::called" << std::endl;
+	std::cerr << "noware::mach::store::search()::called" << std::endl;
 	
 	//noware::tree <std::string, std::string> resp;
 	std::map <std::string, std::string> resp;
@@ -358,10 +358,10 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 	//if (!resp.deserialize (msg_resp))
 	if (!noware::deserialize <std::map <std::string, std::string>> (resp, std::string (msg_resp)))
 	{
-		std::cout << "noware::mach::store::search()::deserialize::failure" << std::endl;
+		std::cerr << "noware::mach::store::search()::deserialize::failure" << std::endl;
 		return false;
 	}
-	std::cout << "noware::mach::store::search()::deserialize::success" << std::endl;
+	std::cerr << "noware::mach::store::search()::deserialize::success" << std::endl;
 	
 	
 	//result ["subject"] = resp ["subject"];
@@ -382,7 +382,7 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 	*/
 	else if (resp ["subject"] == "magnitude")
 	{
-		std::cout << "noware::mach::store::search()::subject==magnitude" << std::endl;
+		std::cerr << "noware::mach::store::search()::subject==magnitude" << std::endl;
 		
 		result_tmp = msg_result;
 		if (result_tmp.kind () != noware::var::type::nr)
@@ -393,8 +393,8 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 		result_tmp += noware::var (resp ["value"]);
 		msg_result = result_tmp;
 		
-		std::cout << "noware::mach::store::search()::result_tmp==[" << result_tmp << ']' << std::endl;
-		std::cout << "noware::mach::store::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
+		std::cerr << "noware::mach::store::search()::result_tmp==[" << result_tmp << ']' << std::endl;
+		std::cerr << "noware::mach::store::search()::msg_result==[" << std::string (msg_result) << ']' << std::endl;
 		
 		return false;
 	}
@@ -435,52 +435,52 @@ const bool noware::mach::store::search (zmq::msg & msg_result, const zmq::msg & 
 
 const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::msg & msg_req)
 {
-	std::cout << "noware::mach::store::search_local()::called" << std::endl;
+	std::cerr << "noware::mach::store::search_local()::called" << std::endl;
 	
-	//std::cout << "noware::mach::store::search_local()::message[subject]==[" << message ["subject"] << ']' << std::endl;
+	//std::cerr << "noware::mach::store::search_local()::message[subject]==[" << message ["subject"] << ']' << std::endl;
 	
 	
 	//noware::tree <std::string, std::string> req;
 	std::map <std::string, std::string> req;
 	//noware::tree <std::string, std::string> resp;
 	//noware::var resp;
-	std::cout << "noware::mach::store::search_local()::req" << std::endl;
+	std::cerr << "noware::mach::store::search_local()::req" << std::endl;
 	noware::var result;
 	//bool result;
-	std::cout << "noware::mach::store::search_local()::result" << std::endl;
+	std::cerr << "noware::mach::store::search_local()::result" << std::endl;
 	
 	//if (!req.deserialize (msg_req))
 	if (!noware::deserialize <std::map <std::string, std::string>> (req, std::string (msg_req)))
 	{
-		std::cout << "noware::mach::store::search_local()::deserialize::false" << std::endl;
+		std::cerr << "noware::mach::store::search_local()::deserialize::false" << std::endl;
 		return false;
 	}
 	
-	std::cout << "noware::mach::store::search_local()::deserialize" << std::endl;
+	std::cerr << "noware::mach::store::search_local()::deserialize" << std::endl;
 	
 	//resp ["subject"] = req ["subject"];
 	
-	std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << std::endl;
+	std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << std::endl;
 	
 	if (req ["subject"] == "existence")
 	{
-		std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << std::endl;
+		std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << std::endl;
 		
 		try
 		{
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::req.group" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::req.group" << std::endl;
 			const std::string group_name = req.at ("group");
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::data.group" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::data.group" << std::endl;
 			const std::map <std::string, std::string> group = data.at (req.at ("group"));
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::data.key" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::data.key" << std::endl;
 			const std::string value = data.at (req.at ("group")).at (req.at ("key"));
 			//const std::string value = group.at (req.at ("key"));
 			
 			//resp ["value"] = "1";
 			//msg_resp = resp.serialize ();
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::msg_resp=\"1\"" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::msg_resp=\"1\"" << std::endl;
 			msg_resp = "1";
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::return" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << "::return" << std::endl;
 			return true;
 		}
 		catch (...)
@@ -517,8 +517,8 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 		//resp ["value"] = result;
 		//msg_resp = resp.serialize ();
 		msg_resp = result;
-		std::cout << "noware::mach::store::search_local()::magnitude::result==[" << result << ']' << std::endl;
-		std::cout << "noware::mach::store::search_local()::magnitude::msg_resp==[" << std::string (msg_resp) << ']' << std::endl;
+		std::cerr << "noware::mach::store::search_local()::magnitude::result==[" << result << ']' << std::endl;
+		std::cerr << "noware::mach::store::search_local()::magnitude::msg_resp==[" << std::string (msg_resp) << ']' << std::endl;
 		return false;
 	}
 	else if (req ["subject"] == "obtainment")
@@ -541,9 +541,9 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 			msg_resp = value;
 			//msg_resp = value_serial;
 			
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value << "]" << std::endl;
-			//std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value_serial << "]" << std::endl;
-			std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::return true" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value << "]" << std::endl;
+			//std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::value==[" << value_serial << "]" << std::endl;
+			std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::return true" << std::endl;
 			
 			return true;
 		}
@@ -552,7 +552,7 @@ const bool noware::mach::store::search_local (zmq::msg & msg_resp, const zmq::ms
 		}
 		
 		//msg_resp = "0";
-		std::cout << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::return false" << std::endl;
+		std::cerr << "noware::mach::store::search_local()::req[\"subject\"]==[" << req ["subject"] << "]::return false" << std::endl;
 		return false;
 	}
 	else if (req ["subject"] == "assignment")
@@ -764,40 +764,40 @@ const noware::nr noware::mach::store::size (void) const
 	std::string expression_serial;
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 	{
-		std::cout << "noware::mach::store::size()::serialize::failure" << std::endl;
+		std::cerr << "noware::mach::store::size()::serialize::failure" << std::endl;
 		
 		return 0;
 	}
-	std::cout << "noware::mach::store::size()::serialize::success" << std::endl;
+	std::cerr << "noware::mach::store::size()::serialize::success" << std::endl;
 	
 	/*
 	expression.clear ();
-	std::cout << "noware::mach::store::size()::expression.size ()==[" << expression.size () << ']' << std::endl;
+	std::cerr << "noware::mach::store::size()::expression.size ()==[" << expression.size () << ']' << std::endl;
 	
-	std::cout << "noware::mach::store::size()::expression.deserialize()::..." << std::endl;
+	std::cerr << "noware::mach::store::size()::expression.deserialize()::..." << std::endl;
 	if (!noware::deserialize <std::map <std::string, std::string>> (expression, expression_serial))
 	{
-		std::cout << "noware::mach::store::size()::deserialize::failure" << std::endl;
+		std::cerr << "noware::mach::store::size()::deserialize::failure" << std::endl;
 		return 0;
 	}
 	
-	std::cout << "noware::mach::store::size()::deserialized:" << std::endl;
-	std::cout << '[' << std::endl;
-	std::cout << expression_serial << std::endl;
-	std::cout << ']' << std::endl;
-	std::cout << "noware::mach::store::size()::expression.size ()==[" << expression.size () << ']' << std::endl;
+	std::cerr << "noware::mach::store::size()::deserialized:" << std::endl;
+	std::cerr << '[' << std::endl;
+	std::cerr << expression_serial << std::endl;
+	std::cerr << ']' << std::endl;
+	std::cerr << "noware::mach::store::size()::expression.size ()==[" << expression.size () << ']' << std::endl;
 	
-	std::cout << "noware::mach::store::size()::zmq::msg(str):" << std::endl;
-	std::cout << '[' << std::endl;
-	std::cout << std::string (zmq::msg (expression_serial)) << std::endl;
+	std::cerr << "noware::mach::store::size()::zmq::msg(str):" << std::endl;
+	std::cerr << '[' << std::endl;
+	std::cerr << std::string (zmq::msg (expression_serial)) << std::endl;
 	//zmq::msg test (expression_serial);
-	//std::cout << '}' << std::endl;
-	//std::cout << test.data [1].operator const std::string ();
-	std::cout << ']' << std::endl;
+	//std::cerr << '}' << std::endl;
+	//std::cerr << test.data [1].operator const std::string ();
+	std::cerr << ']' << std::endl;
 	
-	std::cout << "noware::mach::store::size()::assert()..." << std::endl;
+	std::cerr << "noware::mach::store::size()::assert()..." << std::endl;
 	assert (expression_serial == std::string (zmq::msg (expression_serial)));
-	std::cout << "noware::mach::store::size()::assert()...OK" << std::endl;
+	std::cerr << "noware::mach::store::size()::assert()...OK" << std::endl;
 	*/
 	//return multival (zmq::msg (expression.serialize ()), noware::mach::store::grp_dft);
 	return std::string (multival (zmq::msg (expression_serial), noware::mach::store::grp_dft));

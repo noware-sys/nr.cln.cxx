@@ -11,6 +11,7 @@
 		{
 			public:
 				// operator operation
+				/*
 				enum class dev
 				{
 					none,
@@ -18,7 +19,8 @@
 					store,
 					cli
 				};
-				
+				*/
+				/*
 				enum class opr
 				{
 					none,
@@ -30,7 +32,7 @@
 					set,				// assignment settlement set write store move
 					//exist,			// presence existence exist
 					remove,					// removal resettal rm remove reset unset
-					/*
+					///*
 					
 					add,				// addition
 					substr,			// substraction
@@ -43,7 +45,7 @@
 					complement,	// complement compl
 					
 					cat					// concatenation cat
-					*/
+					//* /
 					
 					//set,
 					
@@ -60,6 +62,7 @@
 					//tx,
 					//exe
 				};
+				*/
 				
 				class instr
 					: public noware::serial
@@ -73,8 +76,10 @@
 						virtual const std::string & operator = (const std::string &/* other*/);
 						virtual operator const std::string (void) const;
 						
-						opr oprn;	// Optional.
-						dev device;
+						//opr oprn;	// Optional.
+						//dev device;
+						std::string opr ;	// Optional.
+						std::string dev;
 						/*
 						
 						// operand
@@ -96,6 +101,7 @@
 						// (or a literal?)
 						//bool oprnd_src_ref;
 						std::map <std::string, std::string> arg;
+						std::map <std::string, bool> arg_type;
 						std::string thread_id;
 						//bool reg;
 						//noware::nr reg_nr;
@@ -132,6 +138,8 @@
 				virtual const bool status (void) const;
 				virtual const bool start (void);
 				
+				//virtual const bool join (void);
+				
 				virtual const bool load_file (const std::string &/* file_name*/);
 				
 				// Queue
@@ -150,7 +158,10 @@
 				virtual const bool enqueue (const instr &);
 				////const bool enqueue (const operation &/* operator*/, const noware::var &/* operand1*/, const noware::var &/* operand2*/ = "");	// Accurate.
 				//virtual const bool enqueue (const std::string &/* operand1 (source)*/, const opr &/* operation*/ = opr::none, const std::string &/* operand2 (key)*/ = "", const std::string &/* operand3/thread_id (group)*/ = "");	// Convenient.
-				const bool enqueue (const cpu::dev &, const opr &, const std::map <std::string, std::string> &/* arg*/, const std::string &/* thread_id*/);
+				
+				//const bool enqueue (const cpu::dev &, const opr &, const std::map <std::string, std::string> &/* arg*/, const std::string &/* thread_id*/);
+				//const bool enqueue (const std::string &, const std::string &, const std::map <std::string, std::string> &/* arg*/, const std::string &/* thread_id*/);
+				
 				// do perform execute apply evaluate
 				//const bool apply (const instruction &);
 				
@@ -184,7 +195,7 @@
 				// Do not store an instruction queue.
 				//std::queue <instruction> queue;
 			protected:
-				//bool running;
+				bool running;
 				
 				// 'EXEcutioN' thread
 				// For running "void exe (void)".
