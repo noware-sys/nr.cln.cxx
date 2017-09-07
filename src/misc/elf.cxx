@@ -2,8 +2,9 @@
 
 #include "elf.hxx"
 
+#include <fstream>
 #include <iostream>
-//#include <iomainp>
+#include <iomanip>
 
 #include "../unsigned_string.cxx"
 
@@ -19,13 +20,16 @@ noware::elf::~elf (void)
 const bool noware::elf::load (const noware::unsigned_string & data)
 {
 	bool x64;
-	unsigned int offset;
-	unsigned int offset_section;
-	unsigned int e_shnum;
-	unsigned int e_phnum;
-	std::cout << std::boolalpha;
-	std::cout << std::hex;
-	std::cout << std::showbase;
+	unsigned long int offset;
+	unsigned long int offset_section;
+	unsigned long int section_size;
+	unsigned long int offset_segment;
+	unsigned long int segment_size;
+	unsigned long int e_shnum;
+	unsigned long int e_phnum;
+	std::cerr << std::boolalpha;
+	std::cerr << std::hex;
+	std::cerr << std::showbase;
 	
 	// there should be at least the magic number present,
 	// I guess
@@ -33,20 +37,20 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 	// 0x7F 0x45 0x4C 0x46
 	if (data.size () < 4)
 	{
-		std::cout << "debug::noware::elf::load::(data.size () < 4)::true" << std::endl;
+		std::cerr << "debug::noware::elf::load::(data.size () < 4)::true" << std::endl;
 		return false;
 	}
 	
 	// read the ELF fields and save them
 	// in the appropriate class fields
 	offset = 0;
-	offset_section = 0;
+	//offset_section = 0;
 	
 	// e_ident[EI_MAG]
 	// the magic number
 	hdr.id_sign.data = data.substr (offset, 4);
 	hdr.id_sign.offset = offset;
-	std::cout << "debug::noware::elf::header::ELF=" << "[" << hdr.id_sign.data << "]" << std::endl;
+	//std::cerr << "debug::noware::elf::header::ELF=" << "[" << hdr.id_sign.data << "]" << std::endl;
 	offset += 4;
 	
 	// e_ident[EI_CLASS]
@@ -106,7 +110,7 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 	
 	if (x64)
 	{
-		std::cout << "debug::noware::elf::load::(x64)::true" << std::endl;
+		std::cerr << "debug::noware::elf::load::(x64)::true" << std::endl;
 		
 		// e_entry
 		// the entry point of the program
@@ -118,8 +122,8 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 		// the program header table location
 		hdr.phoff.data = data.substr (offset, 8);
 		hdr.phoff.offset = offset;
-		std::cout << "debug::noware::elf::load::e_phoff=" << "[" << offset << "]" << std::endl;
-		std::cout << "debug::noware::elf::load::e_phoff.value=" << "[" << str_int (hdr.phoff.data, true) << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::e_phoff=" << "[" << offset << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::e_phoff.value=" << "[" << str_int (hdr.phoff.data, true) << "]" << std::endl;
 		offset += 8;
 		
 		// e_shoff
@@ -137,11 +141,11 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 		*/
 		hdr.shoff.offset = offset;
 		/*
-		std::cout << "debug::noware::elf::load::e_shoff=" << "[" << offset << "]" << std::endl;
-		std::cout << "debug::noware::elf::load::hdr.shoff.data=" << "[" << hdr.shoff.data << "]" << std::endl;
-		std::cout << "debug::noware::elf::load::hdr.shoff.data[1]=" << "[" << ((unsigned long int) (hdr.shoff.data [1])) << "]" << std::endl;
-		std::cout << "debug::noware::elf::load::data[offset+1]=" << "[" << ((unsigned long int) (data [offset + 1])) << "]" << std::endl;
-		std::cout << "debug::noware::elf::load::e_shoff.value=" << "[" << str_int (hdr.shoff.data, true) << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::e_shoff=" << "[" << offset << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::hdr.shoff.data=" << "[" << hdr.shoff.data << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::hdr.shoff.data[1]=" << "[" << ((unsigned long int) (hdr.shoff.data [1])) << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::data[offset+1]=" << "[" << ((unsigned long int) (data [offset + 1])) << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::e_shoff.value=" << "[" << str_int (hdr.shoff.data, true) << "]" << std::endl;
 		*/
 		offset += 8;
 		
@@ -152,7 +156,7 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 	}
 	else
 	{
-		std::cout << "debug::noware::elf::load::(x64)::false" << std::endl;
+		std::cerr << "debug::noware::elf::load::(x64)::false" << std::endl;
 		
 		return false;
 	}
@@ -190,7 +194,7 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 	
 	if (!x64)
 	{
-		std::cout << "debug::noware::elf::load::(!x64)::true" << std::endl;
+		std::cerr << "debug::noware::elf::load::(!x64)::true" << std::endl;
 		
 		return false;
 	}
@@ -199,12 +203,12 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 	offset = str_int (hdr.shoff.data, true);
 	e_shnum = str_int (hdr.shnum.data, true);
 	
-	std::cout << "debug::noware::elf::load::shoff==" << "[" << offset << "]" << std::endl;
-	std::cout << std::dec;
-	std::cout << "debug::noware::elf::load::shnum==" << "[" << e_shnum << "]" << std::endl;
-	std::cout << std::hex;
+	std::cerr << "debug::noware::elf::load::shoff==" << "[" << offset << "]" << std::endl;
+	std::cerr << std::dec;
+	std::cerr << "debug::noware::elf::load::shnum==" << "[" << e_shnum << "]" << std::endl;
+	std::cerr << std::hex;
 	
-	for (unsigned int i = 0; i < e_shnum; ++i)
+	for (unsigned long int i = 0; i < e_shnum; ++i)
 	{
 		// sh_name
 		sect [i].name.data = data.substr (offset, 4);
@@ -255,19 +259,30 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 		sect [i].entsize.data = data.substr (offset, 8);
 		sect [i].entsize.offset = offset;
 		offset += 8;
+		
+		// the actual section
+		// which is referred by this header entry
+		offset_section = str_int (sect [i].offset.data, true);
+		section_size = str_int (sect [i].size.data, true);
+		sect [i].data.offset = offset_section;
+		sect [i].data.data = data.substr (offset_section, section_size);
+		std::cerr << "debug::noware::elf::load::sect[" << i << "]::offset[" << offset_section << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::sect[" << i << "]::size[" << section_size << "]" << std::endl;
 	}
 	
 	// now, the program header table
 	offset = str_int (hdr.phoff.data, true);
 	e_phnum = str_int (hdr.phnum.data, true);
 	
-	std::cout << "debug::noware::elf::load::phoff==" << "[" << offset << "]" << std::endl;
-	std::cout << std::dec;
-	std::cout << "debug::noware::elf::load::phnum==" << "[" << e_phnum << "]" << std::endl;
-	std::cout << std::hex;
+	std::cerr << "debug::noware::elf::load::phoff==" << "[" << offset << "]" << std::endl;
+	std::cerr << std::dec;
+	std::cerr << "debug::noware::elf::load::phnum==" << "[" << e_phnum << "]" << std::endl;
+	std::cerr << std::hex;
 	
-	for (unsigned int i = 0; i < e_phnum; ++i)
+	for (unsigned long int i = 0; i < e_phnum; ++i)
 	{
+		//std::cerr << "debug::noware::elf::load::e_phnum==" << "[" << i << "]" << std::endl;
+		
 		// p_type
 		prog [i].type.data = data.substr (offset, 4);
 		prog [i].type.offset = offset;
@@ -306,8 +321,56 @@ const bool noware::elf::load (const noware::unsigned_string & data)
 		// p_align
 		prog [i].align.data = data.substr (offset, 8);
 		prog [i].align.offset = offset;
-		std::cout << "debug::noware::elf::load::p_align==" << "[" << str_int (prog [i].align.data, true) << "]" << std::endl;
+		//std::cerr << "debug::noware::elf::load::p_align==" << "[" << str_int (prog [i].align.data, true) << "]" << std::endl;
 		offset += 8;
+		
+		// the actual segment
+		// which is referred by this header entry
+		offset_segment = str_int (prog [i].offset.data, true);
+		segment_size = str_int (prog [i].filesz.data, true);
+		prog [i].data.offset = offset_segment;
+		prog [i].data.data = data.substr (offset_segment, segment_size);
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::offset[" << offset_segment << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::size[" << segment_size << "]" << std::endl;
+		
+		/*
+		//std::cerr << "debug::noware::elf::load::prog[" << i << "]::vaddr.data[" << prog [i].vaddr.data << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::vaddr.data[";
+		std::cerr << "h";
+		//std::cerr << std::dec;
+		std::cerr << std::noshowbase;
+		for (unsigned int ndx = prog [i].vaddr.data.size () - 1; ndx > 0; --ndx)
+		{
+			std::cerr << ",";
+			std::cerr << ((unsigned int) (prog [i].vaddr.data [ndx]));
+		}
+		std::cerr << ",";
+		std::cerr << ((unsigned int) (prog [i].vaddr.data [0]));
+		std::cerr << "]";
+		std::cerr << std::endl;
+		//std::cerr << std::hex;
+
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::memsz.data[";
+		std::cerr << "h";
+		//std::cerr << std::dec;
+		std::cerr << std::noshowbase;
+		for (unsigned int ndx = prog [i].memsz.data.size () - 1; ndx > 0; --ndx)
+		{
+			std::cerr << ",";
+			std::cerr << ((unsigned int) (prog [i].memsz.data [ndx]));
+		}
+		std::cerr << ",";
+		std::cerr << ((unsigned int) (prog [i].memsz.data [0]));
+		std::cerr << "]";
+		std::cerr << std::endl;
+		//std::cerr << std::hex;
+		
+		std::cerr << std::showbase;
+		*/
+		
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::vaddr.data.size[" << prog [i].vaddr.data.size () << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::vaddr[" << str_int (prog [i].vaddr.data, true) << "]" << std::endl;
+		std::cerr << "debug::noware::elf::load::prog[" << i << "]::memsz[" << str_int (prog [i].memsz.data, true) << "]" << std::endl;
 	}
 	
 	return true;
@@ -332,14 +395,14 @@ const noware::unsigned_string noware::elf::read (const std::string & file_name)
 	file.close ();
 	
 	value = noware::unsigned_string (data, size);
-	//std::cout << std::hex;
-	//std::cout << "debug::noware::elf::read::data[0x29]=" << "[" << ((unsigned long int) (data [0x29])) << "]" << std::endl;
-	//std::cout << "debug::noware::elf::read::value[0x29]=" << "[" << ((unsigned long int) (value [0x29])) << "]" << std::endl;
+	//std::cerr << std::hex;
+	//std::cerr << "debug::noware::elf::read::data[0x29]=" << "[" << ((unsigned long int) (data [0x29])) << "]" << std::endl;
+	//std::cerr << "debug::noware::elf::read::value[0x29]=" << "[" << ((unsigned long int) (value [0x29])) << "]" << std::endl;
 	delete [] data;
 	return value;
 }
 
-const unsigned long int noware::elf::str_int (const noware::unsigned_string & data, const bool & swap) const
+const unsigned long int noware::elf::str_int (const noware::unsigned_string & data, const bool & swap)
 {
 	unsigned long int value;
 	unsigned long int size;
@@ -348,27 +411,31 @@ const unsigned long int noware::elf::str_int (const noware::unsigned_string & da
 	//val = 0;
 	size = data.size ();
 	ss << std::hex;
+	//ss << std::showbase;
+	//ss << std::noshowbase;
+	//ss << std::setw (2);
+	//ss << std::setfill ('0');
 	
 	if (swap)
 	{
 		for (unsigned long int ndx = size - 1; ndx > 0; --ndx)
 		{
-			//std::cout << "ndx:" << ndx << std::endl;
-			//std::cout << "(data[" << ndx << "]):" << (data [ndx]) << std::endl;
-			//std::cout << "((unsigned int) (data[" << ndx << "])):" << ((unsigned int) (data [ndx])) << std::endl;
-			ss << ((unsigned int) (data [ndx]));
+			//std::cerr << "ndx:" << ndx << std::endl;
+			//std::cerr << "(data[" << ndx << "]):" << (data [ndx]) << std::endl;
+			//std::cerr << "((unsigned int) (data[" << ndx << "])):" << ((unsigned int) (data [ndx])) << std::endl;
+			ss << std::setw (2) << std::setfill ('0') << ((unsigned int) (data [ndx]));
 		}
-		//std::cout << "ndx:" << 0 << std::endl;
-		//std::cout << "(data[" << 0 << "]):" << (data [0]) << std::endl;
-		//std::cout << "((unsigned int) (data[" << 0 << "])):" << ((unsigned int) (data [0])) << std::endl;
-		ss << ((unsigned int) (data [0]));
+		//std::cerr << "ndx:" << 0 << std::endl;
+		//std::cerr << "(data[" << 0 << "]):" << (data [0]) << std::endl;
+		//std::cerr << "((unsigned int) (data[" << 0 << "])):" << ((unsigned int) (data [0])) << std::endl;
+		ss << std::setw (2) << std::setfill ('0') << ((unsigned int) (data [0]));
 	}
 	else
 	{
 		for (unsigned long int ndx = 0; ndx < size; ++ndx)
 		{
-			//std::cout << "ndx:" << ndx << std::endl;
-			ss << ((unsigned int) (data [ndx]));
+			//std::cerr << "ndx:" << ndx << std::endl;
+			ss << std::setw (2) << std::setfill ('0') << ((unsigned int) (data [ndx]));
 		}
 	}
 	

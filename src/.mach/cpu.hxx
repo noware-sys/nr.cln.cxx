@@ -7,7 +7,7 @@
 		// processor cpu
 		// thread task job
 		class cpu
-			: public dev
+			: virtual public dev
 		{
 			public:
 				// operator operation
@@ -122,12 +122,15 @@
 					public:
 						// TODO
 						// 
-						// inherit these two functions
+						// also inherit
+						// these two functions
 						// from noware::serial
 						// (do not reimplement)
 						virtual const std::string serialize (void) const;
 						virtual const bool deserialize (const std::string &/* serial*/);
 				};
+				
+				#include ".cpu/.hxx"
 				
 				cpu (void);
 				virtual ~cpu (void);
@@ -135,12 +138,10 @@
 				static const std::string grp_dft;
 				
 				virtual const bool stop (void);
-				virtual const bool status (void) const;
+				virtual const bool running (void) const;
 				virtual const bool start (void);
 				
 				//virtual const bool join (void);
-				
-				virtual const bool load_file (const std::string &/* file_name*/);
 				
 				// Queue
 			public:
@@ -151,7 +152,7 @@
 				virtual const bool dequeue (void);
 				//const instruction dequeue (void);
 			public:
-				virtual const noware::nr size (void) const;
+				virtual const noware::nr count (void) const;
 				virtual const bool empty (void) const;
 				virtual const bool full (void) const;
 				
@@ -185,17 +186,24 @@
 				virtual const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
 				//virtual const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
 				//virtual const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
+				
+				
+				// /Command Prompt/Terminal/Console/CLI/CUI/ functionality
+				// set
+				virtual const bool cout (const std::string &/* value*/);
+				// get
+				virtual const std::string cin (const char &/* delimiter*/ = '\n');
 			protected:
-				//virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, zmq::msg &/* response*/);
-				virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
+				virtual const bool/* success*/ respond (zmq::msg &/* response*/, const zmq::msg &/* rx'd*/, const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const std::string &/* src*/, const net::cast &/* src_cast*/);
+				virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/, const std::string &/* src*/, const net::cast &/* src_cast*/);// const
 				//virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
 				//virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, const noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
 			protected:
-				// Process/Find/Search for/ the next instruction on-the-fly.
+				// /Process/Find/Search for/ the next instruction on-the-fly.
 				// Do not store an instruction queue.
 				//std::queue <instruction> queue;
 			protected:
-				bool running;
+				//bool _running;
 				
 				// 'EXEcutioN' thread
 				// For running "void exe (void)".
@@ -204,6 +212,9 @@
 				// executer of instructions
 				void exe (void);
 				
+				std::mutex mutex;
+				void mutex_unlock (const unsigned int &/* seconds to wait*/);
+				boost::thread * mutex_unlock_timed;
 				//// redundancy group
 				//std::string grp;
 		};

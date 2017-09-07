@@ -74,11 +74,21 @@ int main (int argc, char * argv [])
 	}
 	
 	noware::mach m;
+	//noware::mach::cmd cli;
+	noware::mach::cpu::loader loader;
+	/*
+	assert (cli.init ());
+	assert (cli.enable ());
+	assert (cli.start ());
+	*/
+	assert (loader.init ());
+	assert (loader.enable ());
+	assert (loader.start ());
 	
 	noware::pause ("Press [Enter] to enqueue the instructions . . . ");
 	
 	//if (!m.enqueue (argv [1]))
-	if (!m.cpu.load_file (argv [1]))
+	if (!loader.load_file (argv [1]))
 	{
 		std::cout << "'" << argv [0] << "': error: could not load the instructions file" << std::endl;
 		
@@ -106,21 +116,24 @@ int main (int argc, char * argv [])
 	std::cout << " edx , [" << m.store.get (m.trd.group (), "edx") << ']' << std::endl;
 	std::cout << "  dl , [" << m.store.get (m.trd.group (), "dl") << ']' << std::endl;
 	*/
-	noware::pause ("Press [Enter] to start the CPU . . . ");
 	
+	//noware::pause ("Press [Enter] to start the CPU . . . ");
+	noware::pause ("Press [Enter] to sleep . . . ");
+	
+	/*
 	if (!m.cpu.start ())
 	{
 		std::cout << "'" << argv [0] << "': error: could not start the processor" << std::endl;
 		
 		return EXIT_FAILURE;
 	}
-	
+	*/
 	
 	//std::cout << std::boolalpha;
 	
 	//boost::this_thread::sleep_for (boost::chrono::seconds (2));
 	
-	std::cout << "'" << argv [0] << "': running" << std::endl;
+//	std::cout << "'" << argv [0] << "': running" << std::endl;
 	
 	//noware::pause ("Press [Enter] to view values (post) . . . ");
 	

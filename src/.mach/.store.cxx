@@ -1,3 +1,5 @@
+#include <climits> // for CHAR_BIT
+
 //#include ".storage/.incl.cxx"
 
 #include "../contnr/array.cxx"

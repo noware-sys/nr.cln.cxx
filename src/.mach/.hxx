@@ -8,3 +8,4 @@
 //#include "processor.hdr.cxx"
 #include "cpu.hxx"
 //#include "thread.hxx"
+#include "cmd.hxx"

@@ -2,15 +2,17 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include <sstream>
-#include <fstream>
+//#include <sstream>
+//#include <fstream>
 //#include <algorithm>	// For for_each ()
 //#include <omp.h>
 //#include <unordered_map>
 //#include <typeinfo>
 //#include <list>
+#include <map>
 //#include <string>
 //#include <stack>
+#include <assert.h>
 
 // #include <cln/cln.h>
 
@@ -100,28 +102,29 @@ int main (int argc, char * argv [])
 	
 	std::cout << std::boolalpha;
 	//std::cout << std::hex;
-	std::cout << std::showbase;
+	//std::cout << std::showbase;
 	
-	for (/*unsigned long long*/ int i = 0; i < argc; ++ i)
+	for (/*unsigned long long*/ int i = 0; i < argc; ++i)
 		std::cout << argv [i] << ' ';
 	std::cout << std::endl;
 	std::cout << "argument count [" << argc << ']' << std::endl;
 	
 	if (argc < 2)
 	{
-		std::cout << "'" << argv [0] << "'" << " '<file.elf>'" << std::endl;
+		std::cerr << "'" << argv [0] << "'" << " '<file.elf>'" << std::endl;
 		
 		return EXIT_FAILURE;
 	}
 	
 	noware::elf file;
 	noware::unsigned_string content;
-	
+	// Direct-Access Memory for the program
+	std::map <unsigned long int, unsigned char> dam;
 	content = file.read (argv [1]);
 	
 	if (content.empty ())
 	{
-		std::cout << "'" << argv [0] << "': error: could not read file '" << argv [1] << "'" << std::endl;
+		std::cerr << "'" << argv [0] << "': error: could not read file '" << argv [1] << "'" << std::endl;
 		return EXIT_FAILURE;
 	}
 	
@@ -129,12 +132,57 @@ int main (int argc, char * argv [])
 	
 	if (!file.load (content))
 	{
-		std::cout << "'" << argv [0] << "': error: could not load file '" << argv [1] << "'" << std::endl;
+		std::cerr << "'" << argv [0] << "': error: could not load file '" << argv [1] << "'" << std::endl;
 		
-		std::cout << "the content was:" << std::endl;
+		//std::cout << "the content was:" << std::endl;
 		//std::cout << content << std::endl;
 		return EXIT_FAILURE;
 	}
 	
 	std::cout << "'" << argv [0] << "': success: loaded file '" << argv [1] << "'" << std::endl;
+	
+	
+	
+	// Load all 'LOAD' program segments into memory
+	unsigned long int phndx, phnum;
+	unsigned long int j;
+	unsigned long int vaddr;
+	unsigned long int filesz, memsz;
+	
+	phnum = noware::elf::str_int (file.hdr.phnum.data, true);
+	for (phndx = 0; phndx < phnum; ++phndx)
+	{
+		// If this program segment is of the type 'LOAD', then load it
+		if (noware::elf::str_int (file.prog [phndx].type.data, true) == 0x1/*PT_LOAD*/)
+		{
+			// Copy the program segment into memory
+			filesz = noware::elf::str_int (file.prog [phndx].filesz.data, true);
+			vaddr = noware::elf::str_int (file.prog [phndx].vaddr.data, true);
+			for (j = 0; j < filesz; ++j, ++vaddr)
+			{
+				// 8 bits (1 byte) at a time
+				//dam [vaddr] = file.prog [phndx].data.data.substr (j, 1/* 8 bits (1 byte) at a time*/);
+				dam [vaddr] = file.prog [phndx].data.data [j];
+			}
+			
+			// Pad the remaining space with zeroes
+			memsz = noware::elf::str_int (file.prog [phndx].memsz.data, true);
+			for (; j < memsz; ++j, ++vaddr)
+			{
+				dam [vaddr] = (unsigned char) '0';
+			}
+		}
+	}
+	
+	
+	// Commence the program
+	unsigned long int entry;
+	entry = noware::elf::str_int (file.hdr.entry.data, true);
+	assert (dam.count (entry) > 0);
+	std::cout << std::hex;
+	std::cout << std::showbase;
+	std::cout << "entry[" << entry << "]==[";
+	std::cout << noware::elf::str_int (noware::unsigned_string (1, dam [entry]), true);
+	std::cout << "]";
+	std::cout << std::endl;
 }

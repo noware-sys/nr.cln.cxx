@@ -7,3 +7,4 @@
 //#include "processor.cxx"
 #include "cpu.cxx"
 //#include "thread.cxx"
+#include "cmd.cxx"

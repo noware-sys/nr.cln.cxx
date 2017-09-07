@@ -7,6 +7,7 @@
 #include "../serial.cxx"
 #include "../var.cxx"
 #include "../nr.cxx"
+#include "../random/string.hxx"
 
 #include <string>
 #include <map>

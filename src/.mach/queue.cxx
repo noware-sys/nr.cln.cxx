@@ -6,17 +6,31 @@ const std::string noware::mach::queue::grp_dft = "noware::mach::queue";
 
 noware::mach::queue::queue (void)
 {
-	assert (node.join (grp_dft));
-	assert (node.join ("noware::mach::queue::nonfull"));
+	//assert (node.join (grp_dft));
+	//assert (node.join ("noware::mach::queue::nonfull"));
 }
 
 noware::mach::queue::~queue (void)
 {
 }
 
+const bool noware::mach::queue::start (void)
+{
+	if (!dev::start ())
+		return false;
+	
+	if (!node.join (/*noware::mach::store::*/grp_dft))
+		return false;
+	
+	if (!node.join ("noware::mach::queue::nonfull")) // Temporary: dynamically find when needed.
+		return false;
+	
+	return true;
+}
+
 const bool noware::mach::queue::empty (void) const
 {
-	return size () <= 0;
+	return count () <= 0;
 }
 
 const bool noware::mach::queue::empty_local (void) const
@@ -34,12 +48,12 @@ const bool noware::mach::queue::full_local (void) const
 	return false;
 }
 
-const noware::nr noware::mach::queue::size (void) const
+const noware::nr noware::mach::queue::count (void) const
 {
 	//noware::tree <std::string, std::string> expression;
 	std::map <std::string, std::string> expression;
 	
-	expression ["subject"] = "magnitude";
+	expression ["subject"] = "size::count";
 	//expression ["group"] = group;
 	
 	std::string expression_serial;
@@ -132,7 +146,23 @@ const bool noware::mach::queue::enqueue (const std::string & element)
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return false;
 	
-	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
+	if (std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1")
+	{
+		// Enqueuing notice.
+		zmq::msg notice;
+		
+		notice = "enqueued(instr)";
+		notice.prepend (noware::random::string (16));
+		
+		// Try to transmit: "An instruction was enqueued.".
+		node.multicast (notice, "noware::mach::cpu");
+		
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 	/*
 	result = std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 	
@@ -149,7 +179,7 @@ const bool noware::mach::queue::enqueue (const std::string & element)
 	*/
 }
 
-const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, zmq::msg & msg_response)
+const bool/* success*/ noware::mach::queue::respond (zmq::msg & msg_response, const zmq::msg & msg_request, const zyre_event_t * event, const std::string & event_type, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	std::cerr << "noware::mach::queue::respond()::called" << std::endl;
 	
@@ -213,7 +243,7 @@ const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event,
 	
 	//std::cerr << "noware::mach::queue::respond()::if::message[type]==" << message ["type"] << "::else::in scope" << std::endl;
 	
-	if (message ["subject"] == "magnitude")
+	if (message ["subject"] == "size::count")
 	{
 		std::cerr << "noware::mach::queue::respond()::if::message[subject]==" << message ["subject"] << "::in scope" << std::endl;
 		
@@ -431,7 +461,7 @@ const bool/* success*/ noware::mach::queue::respond (const zyre_event_t * event,
 	return result;
 }
 
-const bool/* success*/ noware::mach::queue::respond_post (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, const zmq::msg & msg_response)
+const bool/* success*/ noware::mach::queue::respond_post (const zmq::msg & msg_response, const zmq::msg & msg_request, const zyre_event_t * event, const std::string & event_type, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	std::map <std::string, std::string> message;
 	
@@ -449,7 +479,7 @@ const bool/* success*/ noware::mach::queue::respond_post (const zyre_event_t * e
 	return true;
 }
 
-const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
+const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const zmq::msg & msg_resp, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	std::cerr << "noware::mach::queue::search()::called" << std::endl;
 	
@@ -471,7 +501,7 @@ const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const
 	
 	//result ["subject"] = resp ["subject"];
 	
-	if (resp ["subject"] == "magnitude")
+	if (resp ["subject"] == "size::count")
 	{
 		std::cerr << "noware::mach::queue::search()::subject==[" << resp ["subject"] << ']' << std::endl;
 		
@@ -589,7 +619,7 @@ const bool/* success*/ noware::mach::queue::search (zmq::msg & msg_result, const
 	return false;
 }
 
-const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result, const zmq::msg & msg_req)
+const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result, const zmq::msg & msg_req, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	std::cerr << "noware::mach::queue::search_local()::called" << std::endl;
 	
@@ -618,7 +648,7 @@ const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result,
 	
 	std::cerr << "noware::mach::queue::search_local()::req[\"subject\"]==[" << req ["subject"] << ']' << std::endl;
 	
-	if (req ["subject"] == "magnitude")
+	if (req ["subject"] == "size::count")
 	{
 		//if (result.type () != noware::var::container::type::numeric)
 		msg_result = noware::nr (queue.size ());
@@ -751,7 +781,7 @@ const bool/* success*/ noware::mach::queue::search_local (zmq::msg & msg_result,
 	return false;
 }
 
-const zmq::msg/* result*/ noware::mach::queue::aggregate (const zmq::msg & result, const noware::nr & responses_count/* number of peers who answered*/, const zmq::msg & response, const zmq::msg & expression)
+const zmq::msg/* result*/ noware::mach::queue::aggregate (const zmq::msg & result, const zmq::msg & response, const zmq::msg & expression, const noware::nr & responses_count/* number of peers who answered*/, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	//noware::tree <std::string, std::string> xpr;
 	std::map <std::string, std::string> xpr;
@@ -770,7 +800,7 @@ const zmq::msg/* result*/ noware::mach::queue::aggregate (const zmq::msg & resul
 	if (!noware::deserialize <std::map <std::string, std::string>> (xpr, std::string (expression)))
 		return response;
 	
-	if (xpr ["subject"] == "magnitude")
+	if (xpr ["subject"] == "size::count")
 	{
 		return (reslt + resp).operator const std::string ();
 	}

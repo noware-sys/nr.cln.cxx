@@ -69,6 +69,8 @@
 //// For storage::sqlite
 //#include "container/list/sqlite.hdr.cxx"
 
+//#include <zmq/msg.hxx>
+
 #include ".mach/.incl.hxx"
 
 namespace noware
@@ -76,6 +78,9 @@ namespace noware
 	// calculator computer mach[ine] robot
 	// dev[ice]
 	class mach
+		//: public dev
+		//: public mach::store
+		//, public mach::queue
 	{
 		/*
 			1. Resource Presentation/Aggregation/Sharing (Server) -- Machine (Physical Machine)
@@ -87,47 +92,21 @@ namespace noware
 			#include ".mach/.hxx"
 			
 			mach (void);
-			~mach (void);
-			
-			// do evaluate calculate compute solve perform process execute query enqueue go ok request demand command input
-			//const LIB::containers::NAME_V query (const LIB::containers::NAME_V &);
-			//const bool evaluate (const LIB::containers::NAME_V &);
-		//	const LIB::container::NAME_V evaluate (const LIB::container::NAME_V &);
-			
-			const bool enqueue (const std::string &/* file_name*/);
-			
-			// copies copy redundancy
-			//const noware::nr redundancy (void) const;
-			//const bool redundancy (const noware::nr);
-			
-			//computer computer;
-			
-		// protected:
+			virtual ~mach (void);
+		
 		public:
-			store store;
-			queue queue;
-			cpu cpu;
+			//store _store;
+			std::map <unsigned int, store> _store;
+			
+			//queue _queue;
+			std::map <unsigned int, queue> _queue;
+			
+			//cpu _cpu;
+			std::map <unsigned int, cpu> _cpu;
 			
 			//std::map <std::string, thread *> trd;
 			//thread trd;
-			
-			//array <device> device;
-		//	/*LIB::machine::*//*device::*/processor processor;
-				//LIB::container::memory memory;
-			//	LIB::container::entity_2 memory;
-			//LIB::network::mpi mpi;
-			
-			//manager mngr;
-			//noware::list <manager> mngr;
-			//noware::list <storage::sqlite> memory;
-			//noware::list <processor> cpu;
-			// display sight vision view
-			//noware::list <display> view;
-			// net network
-			//noware::list <net> network;
-			
-		//public:
-		//	#include ".machine/inner footer.hxx"
+		
 	};
 }
 

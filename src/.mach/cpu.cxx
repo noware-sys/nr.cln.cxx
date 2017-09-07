@@ -1,6 +1,7 @@
 #pragma once
 
 //#include "processor.hdr.cxx"
+#include ".cpu/.cxx"
 
 const std::string noware::mach::cpu::grp_dft = "noware::mach::cpu";
 
@@ -115,8 +116,9 @@ noware::mach::cpu::instr::operator const std::string (void) const
 
 noware::mach::cpu::cpu (void)
 {
-	running = false;
+	//running = false;
 	exen = nullptr;
+	mutex_unlock_timed = nullptr;
 	//assert (node.join (grp_dft));
 	//node.join ("noware::mach::thread::1");
 }
@@ -124,34 +126,67 @@ noware::mach::cpu::cpu (void)
 noware::mach::cpu::~cpu (void)
 {
 	stop ();
+	//fin ();
+	mutex.unlock ();
 }
 
 const bool noware::mach::cpu::stop (void)
 {
-	if (!status ())
-		return true;
+	//if (!running ())
+	//	return true;
 	
-	running = false;
-	exen -> join ();
+	if (!dev::stop ());
+		return false;
+	
+	//running = false;
+	//exen -> join ();
 	delete exen;
+	delete mutex_unlock_timed;
 	exen = nullptr;
+	mutex_unlock_timed = nullptr;
 	
 	return true;
 }
 
-const bool noware::mach::cpu::status (void) const
+const bool noware::mach::cpu::running (void) const
 {
-	return exen != nullptr;
+	if (!dev::running ())
+		return false;
+	
+	if (exen == nullptr)
+		return false;
+	
+	if (mutex_unlock_timed == nullptr)
+		return false;
+	
+	return true;
 }
 
 const bool noware::mach::cpu::start (void)
 {
-	if (status ())
+	//if (running ())
+	//	return true;
+	if (exen != nullptr)
 		return true;
 	
-	running = true;
-	exen = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::exe), this));
+	//assert (dev::start ());
+	if (!dev::start ())
+		return false;
 	
+	//running = true;
+	mutex_unlock_timed = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::mutex_unlock), this, 5));
+	if (mutex_unlock_timed == nullptr)
+		return false;
+	
+	exen = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::exe), this));
+	if (exen == nullptr)
+	{
+		delete mutex_unlock_timed;
+		return false;
+	}
+	
+	//return exen != nullptr;
+	//assert (exen != nullptr);
 	return true;
 }
 
@@ -196,12 +231,13 @@ void noware::mach::cpu::exe (void)
 	
 	result = false;
 	
-	//while (true)
-	while (running)
+	while (true)
+	//while (running)
 	{
 		std::cerr << "noware::mach::cpu::exe()::while(true)::in scope" << std::endl;
 		std::cerr << "noware::mach::cpu::exe()::while(running)::in scope" << std::endl;
 		
+		std::cerr << "noware::mach::cpu::exe()::empty()==[" << empty () << "]==noware::mach::cpu::exe()::empty()" << std::endl;
 		while (!empty ())
 		{
 			std::cerr << "noware::mach::cpu::exe()::while(!empty())::in scope" << std::endl;
@@ -306,11 +342,12 @@ void noware::mach::cpu::exe (void)
 					result = exist (thread_id/* group*/, inst.arg ["2"]);
 				}
 			}
-			else if (inst.dev == "cli")
+			else if (inst.dev == "cmd")
 			{
 				if (inst.opr == "set")
 				{
-					std::cerr << "noware::mach::cpu::exe::instr::cli::set[" << inst.arg ["2"] << "]" << std::endl;
+					std::cerr << "noware::mach::cpu::exe::instr::cmd::set[" << inst.arg ["2"] << "]" << std::endl;
+					
 					// space
 					if (inst.arg ["2"] == "\\_")
 					{
@@ -332,27 +369,32 @@ void noware::mach::cpu::exe (void)
 						std::cout << std::endl;
 					}
 					else
+					{
+						std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::cout[" << inst.arg ["2"] << "]" << std::endl;
 						std::cout << inst.arg ["2"];
+					}
+					
 					result = true;
 				}
 				else if (inst.opr == "get")
 				{
-					std::cerr << "noware::mach::cpu::exe::instr::cli::get(std::cin," << input << "," << inst.arg ["3"] [0] << ")" << std::endl;
+					std::cerr << "noware::mach::cpu::exe::instr::cmd::get(std::cin," << input << "," << inst.arg ["3"] [0] << ")" << std::endl;
 					if (inst.arg ["3"] == "\\n")
 						std::getline (std::cin, input, '\n');
 					else
 						std::getline (std::cin, input, inst.arg ["3"] [0]);
-					std::cerr << "noware::mach::cpu::exe::instr::cli::get::set(" << thread_id << "," << inst.arg ["2"] << "," << input << ")" << std::endl;
+					std::cerr << "noware::mach::cpu::exe::instr::cmd::get::set(" << thread_id << "," << inst.arg ["2"] << "," << input << ")" << std::endl;
 					result = set (thread_id/* group*/, inst.arg ["2"], input);
-					std::cerr << "noware::mach::cpu::exe::instr::cli::get::set()::result==[" << result << "]" << std::endl;
+					std::cerr << "noware::mach::cpu::exe::instr::cmd::get::set()::result==[" << result << "]" << std::endl;
 					//result = true;
 				}
 			}
 			
-			// if the destination is a reference;
-			// if the result is requested to be set
+			// if the destination is a reference:
+			// if the result was requested to be saved in a variable
 			if (inst.arg ["1"] != "null")
 			{
+				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::save result[" << result << "] into var [" << inst.arg ["1"] << "]" << std::endl;
 				assert (set (thread_id, inst.arg ["1"], result ? "1" : "0"));
 			}
 			
@@ -386,16 +428,19 @@ void noware::mach::cpu::exe (void)
 			
 		//	node.multicast (msg, inst.thread_id);
 		
+			std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::stop/continue?" << std::endl;
 			if (inst.arg ["4"] == "0")
 			{
 				// "0" means "stop";
 				// end the execution of the thread
 				
+				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::stop(clear)::thread_id[" << thread_id << "]" << std::endl;
 				//assert (set (/*std::string ("thread ") + inst.*/thread_id/* group*/, "running"/* key*/, "0"/* value*/));
 				assert (clear (thread_id));
 			}
 			else
 			{
+				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::continue" << std::endl;
 				index_max = get (/*std::string ("thread ") + inst.*/thread_id/* group*/, "index.max"/* key*/);
 				
 				if (inst.arg ["4"] == "next")
@@ -408,8 +453,8 @@ void noware::mach::cpu::exe (void)
 					index = inst.arg ["4"];
 				}
 				
-				std::cerr << "noware::mach::cpu::exen()::index_max==[" << index_max << "]" << std::endl;
-				std::cerr << "noware::mach::cpu::exen()::index==[" << index << "]" << std::endl;
+				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe()::index_max==[" << index_max << "]" << std::endl;
+				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe()::index==[" << index << "]" << std::endl;
 				if (index.operator const unsigned int () > index_max.operator const unsigned int ())
 				{
 					std::cerr << "noware::mach::cpu::exen()::resetting index=1" << std::endl;
@@ -432,8 +477,23 @@ void noware::mach::cpu::exe (void)
 			}
 		}
 		
-		std::cerr << "noware::mach::cpu::sleeping..." << std::endl;
-		boost::this_thread::sleep_for (boost::chrono::seconds (3));
+		std::cerr << "noware::mach::cpu::exe()::empty()" << std::endl;
+		
+		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::sleeping..." << std::endl;
+		//boost::this_thread::sleep_for (boost::chrono::seconds (3));
+		std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::mutex.lock()" << std::endl;
+		mutex.lock ();
+		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::mutex.lock()ed" << std::endl;
+	}
+}
+
+void noware::mach::cpu::mutex_unlock (const unsigned int & seconds)
+{
+	while (true)
+	{
+		boost::this_thread::sleep_for (boost::chrono::seconds (seconds));
+		
+		mutex.unlock ();
 	}
 }
 
@@ -521,7 +581,7 @@ const std::string/* value*/ noware::mach::cpu::get (const std::string & group, c
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return "";
 	
-	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft));
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::store::nonempty"));
 }
 
 const std::string/* value*/ noware::mach::cpu::get (const std::string & key) const
@@ -549,7 +609,7 @@ const bool/* success*/ noware::mach::cpu::set (const std::string & group, const 
 	}
 	
 	std::cerr << "noware::mach::cpu::set()::return" << std::endl;
-	return std::string (anyval (zmq::msg (expression_serial), noware::mach::store::grp_dft)) == "1";
+	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::store::nonfull")) == "1";
 }
 
 const bool/* success*/ noware::mach::cpu::set (const std::string & key, const std::string & value)
@@ -558,23 +618,23 @@ const bool/* success*/ noware::mach::cpu::set (const std::string & key, const st
 }
 
 // Queue
-const noware::nr noware::mach::cpu::size (void) const
+const noware::nr noware::mach::cpu::count (void) const
 {
 	//bool result;
 	std::map <std::string, std::string> expression;
 	std::string expression_serial;
 	
-	expression ["subject"] = "magnitude";
+	expression ["subject"] = "size::count";
 	
 	if (!noware::serialize <std::map <std::string, std::string>> (expression_serial, expression))
 		return 0;
 	
-	return std::string (anyval (zmq::msg (expression_serial), noware::mach::queue::grp_dft));
+	return std::string (multival (zmq::msg (expression_serial), noware::mach::queue::grp_dft));
 }
 
 const bool noware::mach::cpu::empty (void) const
 {
-	return size () <= 0;
+	return count () <= 0;
 }
 
 const bool noware::mach::cpu::full (void) const
@@ -652,6 +712,38 @@ const bool noware::mach::cpu::enqueue (const instr & inst)
 	return std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1";
 }
 
+const bool noware::mach::cpu::cout (const std::string & value)
+{
+	zmq::msg msg;
+	std::map <std::string, std::string> xpr;
+	std::string xpr_serial;
+	
+	xpr ["subject"] = "cout";
+	xpr ["value"] = value;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (xpr_serial, xpr))
+		return false;
+	
+	msg = xpr_serial;
+	return multival (msg, "noware::mach::cmd") == "1";
+}
+
+const std::string noware::mach::cpu::cin (const char & delimiter)
+{
+	zmq::msg msg;
+	std::map <std::string, std::string> xpr;
+	std::string xpr_serial;
+	
+	xpr ["subject"] = "cin";
+	xpr ["delimiter"] = delimiter;
+	
+	if (!noware::serialize <std::map <std::string, std::string>> (xpr_serial, xpr))
+		return "";
+	
+	msg = xpr_serial;
+	return locval (msg);
+}
+
 /*
 const bool noware::mach::cpu::enqueue (const std::string & operand1, const opr & op, const std::string & operand2, const std::string & thread_id)
 {
@@ -684,7 +776,7 @@ const bool noware::mach::cpu::enqueue (const cpu::dev & device, const opr & op, 
 */
 
 /*
-const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::string & event_type, const zmq::msg & msg_request, zmq::msg & msg_response)
+const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::string & event_type, const std::string & shouted_group, const zmq::msg & msg_request, zmq::msg & msg_response)
 {
 	std::cerr << "noware::mach::cpu::respond()::called" << std::endl;
 	
@@ -746,75 +838,24 @@ const bool noware::mach::cpu::respond (const zyre_event_t * event, const std::st
 }
 */
 
-const bool noware::mach::cpu::load_file (const std::string & file_name)
+const bool/* success*/ noware::mach::cpu::respond (zmq::msg &/* response*/, const zmq::msg & rxd, const zyre_event_t */* (zyre) event*/, const std::string & event_type, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
-	std::ifstream file;
-	std::string thread_id;
-	std::string device, operation, arg1, arg2, arg3, arg4;
-	bool arg1type, arg2type, arg3type, arg4type;
-	//std::string dest, src;
-	//bool dest_is_ref, src_is_ref;
-	//bool dest_is_offset, src_is_offset;
-	cpu::instr _instr;
-	//std::map <std::string, std::string> _instr;
-	unsigned int _ndx;
-	std::string token;
-	//std::string token_prev;
-	//std::string dest_offset_location, src_offset_location;
+	std::cerr << "noware::mach::cpu::respond()::in scope" << std::endl;
+	std::cerr << "noware::mach::cpu::respond()::event_type==[" << event_type << "]" << std::endl;
 	
-	file.open (file_name);
-	
-	if (!file.is_open ())
-		return false;
-	
-	_ndx = 0;
-	_instr.thread_id = noware::random::string (16);
-	thread_id = std::string ("thread ") + _instr.thread_id;
-	//token_prev = "";
-	//_instr.thread_id = "1";
-	//_instr.oprn = cpu::opr::set;
-	//while (file >> operation >> dest >> dest_ref >> dest_is_offset >> dest_offset_location >> src >> src_ref >> src_is_offset >> src_offset_location)
-	while (file >> device >> operation >> arg1type >> arg1 >> arg2type >> arg2 >> arg3type >> arg3 >> arg4type >> arg4)
-	//while (file >> token)
+	std::cerr << "noware::mach::cpu::respond()::rxd==[" << std::string (rxd) << "]" << std::endl;
+	//std::cerr << "noware::mach::cpu::respond()::rxd.data[1]==[" << std::string (rxd.data [1]) << "]" << std::endl;
+	if (rxd == "enqueued(instr)")
 	{
-		++_ndx;
-		
-		_instr.dev = device;
-		_instr.opr = operation;
-		
-		_instr.arg ["1"] = arg1;
-		_instr.arg ["2"] = arg2;
-		_instr.arg ["3"] = arg3;
-		_instr.arg ["4"] = arg4;
-		
-		_instr.arg_type ["1"] = arg1type;
-		_instr.arg_type ["2"] = arg2type;
-		_instr.arg_type ["3"] = arg3type;
-		_instr.arg_type ["4"] = arg4type;
-		
-		assert (set (thread_id, std::string ("instr ") + noware::nr (_ndx).operator const std::string (), _instr.serialize ()));
+		// There are instructions to execute.
+		std::cerr << "noware::mach::cpu::respond()::mutex.unlock()" << std::endl;
+		mutex.unlock ();
 	}
-	
-	file.close ();
-	
-	if (_ndx > 0)
-	{
-		//assert (set (std::string ("thread ") + _instr.thread_id, "running", "0"));
-		assert (set (thread_id, "running", "1"));
-		assert (set (thread_id, "index", "1"));
-		//set (std::string ("thread ") + _instr.thread_id, "running", "0");
-		assert (set (thread_id, "index.max", noware::nr (_ndx).operator const std::string ()));
-		
-		_instr = get (thread_id, "instr 1");
-		assert (enqueue (_instr));
-	}
-	
-	//_loaded = true;
 	
 	return true;
 }
 
-const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const zmq::msg & msg_resp)
+const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const zmq::msg & msg_resp, const std::string &/* src*/, const net::cast &/* src_cast*/)
 {
 	std::cerr << "noware::mach::cpu::search()::called" << std::endl;
 	
@@ -875,7 +916,7 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 		return false;
 	}
 	// Queue
-	else if (resp ["subject"] == "magnitude")
+	else if (resp ["subject"] == "size::count")
 	{
 		std::cerr << "noware::mach::cpu::search()::subject==[" << resp ["subject"] << ']' << std::endl;
 		
@@ -996,6 +1037,21 @@ const bool/* success*/ noware::mach::cpu::search (zmq::msg & msg_result, const z
 		msg_result = resp ["value"];
 		
 		return msg_result == "1";
+	}
+	else if (resp ["subject"] == "cout")
+	{
+		//std::cout << request ["value"];
+		msg_result = resp ["value"];
+		//return msg_result == "1";
+		//return true;
+		return false;
+	}
+	else if (resp ["subject"] == "cin")
+	{
+		//std::cout << request ["value"];
+		msg_result = resp ["value"];
+		//return msg_result == "1";
+		return true;
 	}
 	
 	return false;

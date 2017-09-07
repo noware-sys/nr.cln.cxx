@@ -5,7 +5,7 @@
 // remembers memories
 
 class store
-	: /*virtual*/ public dev
+	: virtual public dev
 	//, public misc::iterator <noware::var>
 	, public contnr::array <std::string, std::string>
 {
@@ -13,49 +13,74 @@ class store
 		//#include ".store/.hxx"
 		
 		store (void);
-		~store (void);
+		virtual ~store (void);
 		
-		// Getters.
-		const bool empty (void) const;
-		const bool full (void) const;
+		virtual const bool start (void);
 		
-		// magnitude size
-		//const noware::nr::natural magnitude (void) const;
-		const noware::nr size (void) const;
-		const noware::nr size (const std::string &/* group*/) const;
+		// Obtainers
+		
+		virtual const bool empty (void) const;
+		virtual const bool empty_local (void) const;
+		virtual const bool full (void) const;
+		virtual const bool full_local (void) const;
+		
+		// size mag[nitude]
+		// total size (available + used) (in bits)
 		//const unsigned int magnitude (void) const;
+		//const noware::nr::natural magnitude (void) const;
+		virtual const noware::nr size (void) const;
+		virtual const noware::nr size_local (void) const;
+		
+		// occ[upied] use[d]
+		// used size (in bits)
+		virtual const noware::nr used (void) const;
+		virtual const noware::nr used_local (void) const;
+		//const noware::nr used (const std::string &/* group*/) const;
+		//const noware::nr used_local (const std::string &/* group*/) const;
+		
+		// free avail[able]
+		// available size (in bits)
+		virtual const noware::nr avail (void) const;
+		virtual const noware::nr avail_local (void) const;
+		
+		// count
+		// number of present elements
+		virtual const noware::nr count (void) const;
+		virtual const noware::nr count_local (void) const;
+		virtual const noware::nr count (const std::string &/* group*/) const;
+		virtual const noware::nr count_local (const std::string &/* group*/) const;
 		
 		// existence presence
 		// exist present
 		//const bool exist (const noware::var &/* group*/, const noware::var &/* key*/) const;
-		const bool exist (const std::string &/* key*/) const;
-		const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
+		virtual const bool exist (const std::string &/* key*/) const;
+		virtual const bool exist (const std::string &/* group*/, const std::string &/* key*/) const;
 		//const bool exist_group (const noware::var &/* group*/) const;
 		
-		// Returns the nodes which have the key.
-		//const std::map <std::string, std::string> own (const std::string &/* key*/) const;
-		//const std::map <std::string, std::string> own (const std::string &/* group*/, const std::string &/* key*/) const;
+		// Returns the nodes which have a certain key.
+		virtual const std::map <unsigned int/* map (array) index*/, std::string/* peer.id*/> owner (const std::string &/* key*/) const;
+		virtual const std::map <unsigned int/* map (array) index*/, std::string/* peer.id*/> owner (const std::string &/* group*/, const std::string &/* key*/) const;
 		
 		// obtain attain get
-		const std::string/*value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
-		const std::string/*value*/ get (const std::string &/* key*/) const;
+		virtual const std::string/*value*/ get (const std::string &/* group*/, const std::string &/* key*/) const;
+		virtual const std::string/*value*/ get (const std::string &/* key*/) const;
 		//const std::pair <std::string/*value*/, bool/*reference*/> get (const std::string &/* group*/, const std::string &/* key*/) const;
 		//const std::pair <std::string/*value*/, bool/*reference*/> get (const std::string &/* key*/) const;
 		
 		
-		// Modifiers.
+		// Modifiers
 		
 		// reinitialize reset clear flush clean
-		const bool clear (void);
-		const bool clear (const std::string &/* group*/);
+		virtual const bool clear (void);
+		virtual const bool clear (const std::string &/* group*/);
 		
 		// delete remove unset
-		const bool remove (const std::string &/* group*/, const std::string &/* key*/);
-		const bool remove (const std::string &/* key*/);
+		virtual const bool remove (const std::string &/* group*/, const std::string &/* key*/);
+		virtual const bool remove (const std::string &/* key*/);
 		
 		// assign associate map set
-		const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
-		const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
+		virtual const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/);
+		virtual const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/);
 		//const bool/* success*/ set (const std::string &/* group*/, const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
 		//const bool/* success*/ set (const std::string &/* key*/, const std::string &/* content/value*/, const bool &/* reference*/ = false);
 		
@@ -83,13 +108,14 @@ class store
 	//public:
 	protected:
 		//virtual const bool/* success*/ respond (const /*zmq::msg &*/zmsg_t */* message*/, const zyre_event_t */* (zyre) event*/);
-		virtual const bool/* success*/ respond (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, zmq::msg &/* response*/);
-		//virtual const bool/* success*/ respond_post (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/, const zmq::msg &/* response; read-only*/);
+		virtual const bool/* success*/ respond (zmq::msg &/* response*/, const zmq::msg &/* rx'd*/, const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const std::string &/* shouted_group*/, const net::cast &/* src_cast*/);
+		//virtual const bool/* success*/ respond_post (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const std::string &/* shouted_group*/, const zmq::msg &/* rx'd*/, const zmq::msg &/* response; read-only*/);
 		//virtual const bool/* success*/ infrastruct (const zyre_event_t */* (zyre) event*/, const std::string &/* event_type*/, const zmq::msg &/* rx'd*/);
-		virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
-		virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/);// const
-		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, const noware::nr &/* responses_count*//* number of peers who answered*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/);
-		
+		virtual const bool/* success*/ search (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/, const std::string &/* src*/, const net::cast &/* src_cast*/);// const
+		virtual const bool/* success*/ search_local (zmq::msg &/* result*/, const zmq::msg &/* message/expression*/, const std::string &/* src*/, const net::cast &/* src_cast*/);// const
+		virtual const zmq::msg/* result*/ aggregate (const zmq::msg &/* result*/, const zmq::msg &/* response*/, const zmq::msg &/* expression*/, const noware::nr &/* responses_count*//* number of peers who answered*/, const std::string &/* src*/, const net::cast &/* src_cast*/);
+	public:
+		bool writable;
 		/*
 			// Iteration-related:
 			//virtual const iterator <value> begin (void) const;

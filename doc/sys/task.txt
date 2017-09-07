@@ -1,6 +1,12 @@
-net::node
-mach::dev
-array
-db::sqlite
-intel
+misc::elf
+	try to use unsigned int
+mach::cpu
+	? externally separate load_file
 mach
+	? group per machine instead of per resource
+mach
+	dev
+	...
+		use multiple zmq frames instead of one serialized zmq frame
+change extension: .[class].[hc]xx -> .incl.[class].[hc]xx
+make virtual all functions for all classes

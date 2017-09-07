@@ -69,6 +69,10 @@ int main (int argc, char * argv [])
 	std::string group, name, value;
 	noware::mach::store dam;	// Direct Access Memory.
 	
+	assert (dam.init ());
+	assert (dam.enable ());
+	assert (dam.start ());
+	
 	do
 	{
 		std::cout << std::endl;
@@ -144,14 +148,14 @@ int main (int argc, char * argv [])
 		}
 		else if (selection == noware::nr (5))
 		{
-			std::cout << "  " << "Size == [" << dam.size () << ']' << std::endl;
+			std::cout << "  " << "Size == [" << dam.count () << ']' << std::endl;
 		}
 		else if (selection == noware::nr (6))
 		{
 			std::cout << "  " << "Group: ";
 			getline (std::cin, group);
 			
-			std::cout << "  " << "Size of group [" << group << "] == [" << dam.size (group) << ']' << std::endl;
+			std::cout << "  " << "Size of group [" << group << "] == [" << dam.count (group) << ']' << std::endl;
 		}
 		else if (selection == noware::nr (7))
 		{
