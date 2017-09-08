@@ -79,11 +79,11 @@ int main (int argc, char * argv [])
 	/*
 	assert (cli.init ());
 	assert (cli.enable ());
-	assert (cli.start ());
+	assert (cli.activate ());
 	*/
 	assert (loader.init ());
 	assert (loader.enable ());
-	assert (loader.start ());
+	assert (loader.activate ());
 	
 	noware::pause ("Press [Enter] to enqueue the instructions . . . ");
 	
@@ -98,7 +98,7 @@ int main (int argc, char * argv [])
 	/*
 	noware::pause ("Press [Enter] to start the thread . . . ");
 	
-	//if (!m.trd.start ())
+	//if (!m.trd.activate ())
 	if (!m.cpu.enqueue (noware::mach::cpu::instr (m.cpu.get ("thread 1", "instr 1"))) || !m.cpu.set ("thread 1", "running", "1"))
 	{
 		std::cout << "'" << argv [0] << "': error: could not start the thread" << std::endl;
@@ -121,7 +121,7 @@ int main (int argc, char * argv [])
 	noware::pause ("Press [Enter] to sleep . . . ");
 	
 	/*
-	if (!m.cpu.start ())
+	if (!m.cpu.activate ())
 	{
 		std::cout << "'" << argv [0] << "': error: could not start the processor" << std::endl;
 		

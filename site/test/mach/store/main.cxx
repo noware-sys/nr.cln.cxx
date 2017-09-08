@@ -71,7 +71,7 @@ int main (int argc, char * argv [])
 	
 	assert (dam.init ());
 	assert (dam.enable ());
-	assert (dam.start ());
+	assert (dam.activate ());
 	
 	do
 	{

@@ -8,7 +8,7 @@ const std::string noware::mach::store::grp_dft = "noware::mach::store";
 noware::mach::store::store (void)
 {
 ////	node.initialize ();
-////	node.start ();
+////	node.activate ();
 //	assert (node.join (/*noware::mach::store::*/grp_dft));
 	////assert (node.join (/*store::*/grp_dft));
 //	assert (node.join ("noware::mach::store::nonfull")); // Temporary: dynamically find when needed.
@@ -22,13 +22,13 @@ noware::mach::store::~store (void)
 {
 //	node.reception_unset ();
 	// node.leave (/*noware::mach::store::*/grp_dft);
-//	node.stop ();
+//	node.deactivate ();
 //	node.finalize ();
 }
 
-const bool noware::mach::store::start (void)
+const bool noware::mach::store::activate (void)
 {
-	if (!dev::start ())
+	if (!dev::activate ())
 		return false;
 	
 	if (!node.join (/*noware::mach::store::*/grp_dft))

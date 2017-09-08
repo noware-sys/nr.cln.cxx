@@ -14,9 +14,9 @@ noware::mach::queue::~queue (void)
 {
 }
 
-const bool noware::mach::queue::start (void)
+const bool noware::mach::queue::activate (void)
 {
-	if (!dev::start ())
+	if (!dev::activate ())
 		return false;
 	
 	if (!node.join (/*noware::mach::store::*/grp_dft))

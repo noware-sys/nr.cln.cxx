@@ -33,7 +33,7 @@ noware::mach::mach (void)
 	*/
 	
 	
-	//cpu.start ();
+	//cpu.activate ();
 	
 	
 	unsigned int n;
@@ -57,8 +57,8 @@ noware::mach::mach (void)
 				
 				assert (s -> init ());
 				assert (s -> enable ());
-				assert (s -> start ());
-				assert (s -> running ());
+				assert (s -> activate ());
+				assert (s -> active ());
 			}
 			
 			#pragma omp critical
@@ -67,8 +67,8 @@ noware::mach::mach (void)
 				
 				assert (q -> init ());
 				assert (q -> enable ());
-				assert (q -> start ());
-				assert (q -> running ());
+				assert (q -> activate ());
+				assert (q -> active ());
 			}
 			
 			#pragma omp critical
@@ -77,8 +77,8 @@ noware::mach::mach (void)
 				
 				assert (p -> init ());
 				assert (p -> enable ());
-				assert (p -> start ());
-				assert (p -> running ());
+				assert (p -> activate ());
+				assert (p -> active ());
 				assert (p -> node.join (noware::mach::cpu::grp_dft));
 			}
 		}

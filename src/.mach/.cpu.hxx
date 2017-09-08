@@ -6,8 +6,10 @@
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
 #include <boost/thread.hpp>
+//#include <boost/thread/thread.hpp>
 //#include <boost/function_equal.hpp>
-//#include <boost/thread/mutex.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
 //#include <cstring>	// For std::memcpy()
 
 //#include "../contnr/array.hxx"

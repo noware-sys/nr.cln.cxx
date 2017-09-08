@@ -15,7 +15,7 @@ class store
 		store (void);
 		virtual ~store (void);
 		
-		virtual const bool start (void);
+		virtual const bool activate (void);
 		
 		// Obtainers
 		
