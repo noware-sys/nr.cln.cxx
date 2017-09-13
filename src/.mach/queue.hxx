@@ -11,7 +11,7 @@
 				queue (void);
 				virtual ~queue (void);
 				
-				virtual const bool activate (void);
+				virtual const bool start (void);
 				
 				static const std::string grp_dft;
 				

@@ -19,9 +19,9 @@
 					virtual const bool inited (void) const;
 					virtual const bool init (void);
 					
-					virtual const bool deactivate (void);
-					virtual const bool active (void) const;
-					virtual const bool activate (void);
+					virtual const bool stop (void);
+					virtual const bool running (void) const;
+					virtual const bool start (void);
 					
 					// Could be reimplemented in the inheriting, device-specific, class.
 					virtual const bool disable (void);

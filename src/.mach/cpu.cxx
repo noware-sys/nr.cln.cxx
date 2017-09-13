@@ -118,31 +118,34 @@ noware::mach::cpu::instr::operator const std::string (void) const
 
 noware::mach::cpu::cpu (void)
 {
-	running = false;	// Not strictly needed
-	//running = true;
-	exen = nullptr;
-	notification = nullptr;
+	_running = false;	// Not strictly needed
+	//_running = true;
+	_exen = nullptr;
+	_notification = nullptr;
 	//assert (node.join (grp_dft));
 	//node.join ("noware::mach::thread::1");
 }
 
 noware::mach::cpu::~cpu (void)
 {
-	//-running = false;
-	deactivate ();
+	//_running = false;
+	stop ();
 	//fin ();
-	//mutex.unlock ();
+	//_mutex.unlock ();
 }
 
-const bool noware::mach::cpu::deactivate (void)
+const bool noware::mach::cpu::stop (void)
 {
-	//if (!active ())
+	//if (!running ())
 	//	return true;
 	
-	if (!dev::deactivate ());
-		return false;
+	//if (_exen == nullptr && _notification == nullptr)
+	//	return true;
 	
-	running = false;
+	//if (!dev::stop ());
+	//	return false;
+	
+	//_running = false;
 	
 	/*
 	#pragma omp parallel
@@ -152,88 +155,119 @@ const bool noware::mach::cpu::deactivate (void)
 		{
 			#pragma omp critical
 			{
-				exen -> interrupt ();
-				exen -> join ();
-				delete exen;
-				exen = nullptr;
+				_exen -> interrupt ();
+				_exen -> join ();
+				delete _exen;
+				_exen = nullptr;
 			}
 			
 			#pragma omp critical
 			{
-				notification -> interrupt ();
-				notification -> join ();
-				delete notification;
-				notification = nullptr;
+				_notification -> interrupt ();
+				_notification -> join ();
+				delete _notification;
+				_notification = nullptr;
 			}
 		}
 	}
 	*/
 	
-	//mutex.unlock ();
-	//condition_instr_enqueued.notify_all ();
+	//_mutex.unlock ();
+	//_condition_instr_enqueued.notify_all ();
 	
-	exen -> interrupt ();
-	notification -> interrupt ();
-	
-	exen -> join ();
-	notification -> join ();
-	
-	delete exen;
-	delete notification;
-	
-	exen = nullptr;
-	notification = nullptr;
-	
-	return true;
-}
-
-const bool noware::mach::cpu::active (void) const
-{
-	if (!dev::active ())
-		return false;
-	
-	if (exen == nullptr)
-		return false;
-	
-	if (notification == nullptr)
-		return false;
-	
-	return true;
-}
-
-const bool noware::mach::cpu::activate (void)
-{
-	running = true;
-	
-	//if (active ())
-	//	return true;
-	if (exen != nullptr)
-		return true;
-	
-	//assert (dev::activate ());
-	if (!dev::activate ())
-		return false;
-	
-	//running = true;
-	notification = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::notify), this, notification_delay));
-	if (notification == nullptr)
-		return false;
-	
-	exen = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::exe), this));
-	if (exen == nullptr)
+	if (_exen != nullptr)
 	{
-		notification -> interrupt ();
-		notification -> join ();
-		delete notification;
-		notification = nullptr;
+		std::cerr << "noware::mach::cpu::stop()::_exen->interrupt()ing" << std::endl;
+		_exen -> interrupt ();
+		std::cerr << "noware::mach::cpu::stop()::_exen->interrupt()ed" << std::endl;
 		
-		running = false;	// Not strictly needed
+		std::cerr << "noware::mach::cpu::stop()::_exen->join()ing" << std::endl;
+		_exen -> join ();
+		std::cerr << "noware::mach::cpu::stop()::_exen->join()ed" << std::endl;
 		
-		return false;
+		std::cerr << "noware::mach::cpu::stop()::delete-ing _exen" << std::endl;
+		delete _exen;
+		std::cerr << "noware::mach::cpu::stop()::delete-ed _exen" << std::endl;
+		_exen = nullptr;
 	}
 	
-	//return exen != nullptr;
-	//assert (exen != nullptr);
+	if (_notification != nullptr)
+	{
+		std::cerr << "noware::mach::cpu::stop()::_notification->interrupt()ing" << std::endl;
+		_notification -> interrupt ();
+		std::cerr << "noware::mach::cpu::stop()::_notification->interrupt()ed" << std::endl;
+		
+		std::cerr << "noware::mach::cpu::stop()::_notification->join()ing" << std::endl;
+		_notification -> join ();
+		std::cerr << "noware::mach::cpu::stop()::_notification->join()ed" << std::endl;
+		
+		std::cerr << "noware::mach::cpu::stop()::delete-ing _notification" << std::endl;
+		delete _notification;
+		std::cerr << "noware::mach::cpu::stop()::delete-ed _notification" << std::endl;
+		_notification = nullptr;
+	}
+	
+	if (!dev::stop ());
+		return false;
+	
+	_running = false;
+	
+	return true;
+}
+
+const bool noware::mach::cpu::running (void) const
+{
+	if (_exen == nullptr || _notification == nullptr)
+		return false;
+	
+	if (!dev::running ())
+		return false;
+	
+	return true;
+}
+
+const bool noware::mach::cpu::start (void)
+{
+	_running = true;
+	
+	//if (running ())
+	//	return true;
+	
+	//if (_exen != nullptr && _notification != nullptr)
+	//	return true;
+	
+	//assert (dev::start ());
+	if (!dev::start ())
+		return false;
+	
+	//_running = true;
+	if (_notification == nullptr)
+	{
+		_notification = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::notify), this, notification_delay));
+		
+		if (_notification == nullptr)
+			return false;
+	}
+	
+	if (_exen == nullptr)
+	{
+		_exen = new boost::thread (boost::bind (boost::mem_fn (&noware::mach::cpu::exe), this));
+		
+		if (_exen == nullptr)
+		{
+			_notification -> interrupt ();
+			_notification -> join ();
+			delete _notification;
+			_notification = nullptr;
+			
+			_running = false;	// Not strictly needed
+			
+			return false;
+		}
+	}
+	
+	//return _exen != nullptr;
+	//assert (_exen != nullptr);
 	return true;
 }
 
@@ -260,7 +294,7 @@ void noware::mach::cpu::exe (void)
 	
 	bool result;
 	
-	boost::unique_lock <boost::mutex> lock (mutex);
+	boost::unique_lock <boost::mutex> lock (_mutex);
 	
 	/*
 	//zmq::msg msg_thread;
@@ -280,12 +314,12 @@ void noware::mach::cpu::exe (void)
 	
 	result = false;
 	
-	//while (true)
-	//while (running)
-	while (!boost::this_thread::interruption_requested ())
+	while (true)
+	//while (_running)
+	//while (!boost::this_thread::interruption_requested ())
 	{
 		std::cerr << "noware::mach::cpu::exe()::while(true)::in scope" << std::endl;
-		std::cerr << "noware::mach::cpu::exe()::while(running)::in scope" << std::endl;
+		std::cerr << "noware::mach::cpu::exe()::while(_running)::in scope" << std::endl;
 		
 		//std::cerr << "noware::mach::cpu::exe()::empty()==[" << empty () << "]==noware::mach::cpu::exe()::empty()" << std::endl;
 		while (!empty ())
@@ -507,7 +541,7 @@ void noware::mach::cpu::exe (void)
 				std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe()::index==[" << index << "]" << std::endl;
 				if (index.operator const unsigned int () > index_max.operator const unsigned int ())
 				{
-					std::cerr << "noware::mach::cpu::exen()::resetting index=1" << std::endl;
+					std::cerr << "noware::mach::cpu::_exen()::resetting index=1" << std::endl;
 					// assert (set (/*std::string ("thread ") + inst.*/thread_id/* group*/, "running"/* key*/, "0"/* value*/));
 					index = 1;
 				}
@@ -527,36 +561,36 @@ void noware::mach::cpu::exe (void)
 			}
 		}
 		
-		std::cerr << "noware::mach::cpu::exe()::empty()" << std::endl;
+		//std::cerr << "noware::mach::cpu::exe()::empty()" << std::endl;
 		
 		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::sleeping..." << std::endl;
 		//boost::this_thread::sleep_for (boost::chrono::seconds (3));
-		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::mutex.lock()" << std::endl;
-		//mutex.lock ();
+		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::_mutex.lock()" << std::endl;
+		//_mutex.lock ();
 		std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::exe::condition.wait(lock)" << std::endl;
-		condition_instr_enqueued.wait (lock);
-		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::mutex.lock()ed" << std::endl;
+		_condition_instr_enqueued.wait (lock);
+		//std::cerr << "[" << boost::this_thread::get_id () << "]noware::mach::cpu::_mutex.lock()ed" << std::endl;
 	}
 	
-	//condition_instr_enqueued.notify_all ();
+	//_condition_instr_enqueued.notify_all ();
 }
 
 void noware::mach::cpu::notify (const unsigned int & delay)
 {
 	//boost::this_thread::disable_interruption non_interrupt;
-	//boost::lock_guard <boost::mutex> lock (mutex);
+	//boost::lock_guard <boost::mutex> lock (_mutex);
 	
-	//while (true)
-	//while (running)
-	while (!boost::this_thread::interruption_requested ())
+	while (true)
+	//while (_running)
+	//while (!boost::this_thread::interruption_requested ())
 	{
 		boost::this_thread::sleep_for (boost::chrono::seconds (delay));
 		
-		//mutex.unlock ();
-		condition_instr_enqueued.notify_all ();
+		//_mutex.unlock ();
+		_condition_instr_enqueued.notify_all ();
 	}
 	
-	//condition_instr_enqueued.notify_all ();
+	//_condition_instr_enqueued.notify_all ();
 }
 
 // Store
@@ -773,7 +807,7 @@ const bool noware::mach::cpu::enqueue (const instr & inst)
 	
 	if (std::string (anyval (zmq::msg (expression_serial), "noware::mach::queue::nonfull")) == "1")
 	{
-		condition_instr_enqueued.notify_all ();
+		_condition_instr_enqueued.notify_all ();
 		
 		return true;
 	}
@@ -919,10 +953,10 @@ const bool/* success*/ noware::mach::cpu::respond (zmq::msg &/* response*/, cons
 	if (rxd == "enqueued(instr)")
 	{
 		// There are instructions to execute.
-		//std::cerr << "noware::mach::cpu::respond()::mutex.unlock()" << std::endl;
-		//mutex.unlock ();
-		std::cerr << "noware::mach::cpu::respond()::condition_instr_enqueued.notify_all()" << std::endl;
-		condition_instr_enqueued.notify_all ();
+		//std::cerr << "noware::mach::cpu::respond()::_mutex.unlock()" << std::endl;
+		//_mutex.unlock ();
+		std::cerr << "noware::mach::cpu::respond()::_condition_instr_enqueued.notify_all()" << std::endl;
+		_condition_instr_enqueued.notify_all ();
 	}
 	
 	return true;

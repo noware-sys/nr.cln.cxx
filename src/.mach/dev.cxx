@@ -27,13 +27,13 @@ noware::mach::dev::dev (void)
 
 noware::mach::dev::~dev (void)
 {
-	//node.deactivate ();
+	//node.stop ();
 	//node.finalize ();
 	
 	//nodes.remove (node);
 	//assert (node.fin ());
 	
-	//deactivate ();
+	//stop ();
 	fin ();
 	assert (node.reception_unset ());
 }
@@ -71,12 +71,12 @@ const bool noware::mach::dev::init (void)
 	return true;
 }
 
-const bool noware::mach::dev::deactivate (void)
+const bool noware::mach::dev::stop (void)
 {
-//	if (!active ())
+//	if (!running ())
 //		return true;
 	
-	if (!node.deactivate ())
+	if (!node.stop ())
 		return false;
 	
 	//if (!node.fin ())
@@ -88,12 +88,12 @@ const bool noware::mach::dev::deactivate (void)
 	return true;
 }
 
-const bool noware::mach::dev::active (void) const
+const bool noware::mach::dev::running (void) const
 {
 //	if (!inited ())
 //		return false;
 	
-	if (!node.active ())
+	if (!node.running ())
 		return false;
 	
 	//if (!node.reception_is_set ())
@@ -105,20 +105,20 @@ const bool noware::mach::dev::active (void) const
 	return true;
 }
 
-const bool noware::mach::dev::activate (void)
+const bool noware::mach::dev::start (void)
 {
 	//local_context = new zmq::context_t (1);
 	//local_socket = new zmq::socket_t (*local_context, ZMQ_);
 	//
 	//local_socket -> bind ("");
 	
-//	if (active ())
+//	if (running ())
 //		return true;
 	
 	//if (!node.init ())
 	//	return false;
 	
-	//if (!node.activate ())
+	//if (!node.start ())
 	//	return false;
 	
 	//if (node.reception_is_set ())
@@ -133,7 +133,7 @@ const bool noware::mach::dev::activate (void)
 	if (!enabled ())
 		return false;
 	
-	if (!node.activate ())
+	if (!node.start ())
 		return false;
 	
 	//nodes.add (node);
@@ -143,7 +143,7 @@ const bool noware::mach::dev::activate (void)
 
 const bool noware::mach::dev::disable (void)
 {
-	if (!node.deactivate ())
+	if (!node.stop ())
 		return false;
 	
 	return false;

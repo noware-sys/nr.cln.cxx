@@ -137,9 +137,9 @@
 				
 				static const std::string grp_dft;
 				
-				virtual const bool deactivate (void);
-				virtual const bool active (void) const;
-				virtual const bool activate (void);
+				virtual const bool stop (void);
+				virtual const bool running (void) const;
+				virtual const bool start (void);
 				
 				// In seconds
 				static const unsigned int notification_delay;
@@ -206,19 +206,19 @@
 				// Do not store an instruction queue.
 				//std::queue <instruction> queue;
 			protected:
-				bool running;
+				bool _running;
 				
 				// 'EXEcutioN' thread
 				// For running "void exe (void)".
-				boost::thread * exen;
+				boost::thread * _exen;
 				
 				// executer of instructions
 				void exe (void);
 				
-				boost::condition_variable condition_instr_enqueued;
-				boost::mutex mutex;
+				boost::condition_variable _condition_instr_enqueued;
+				boost::mutex _mutex;
 				void notify (const unsigned int &/* seconds to delay between notifications*/);
-				boost::thread * notification;
+				boost::thread * _notification;
 				//// redundancy group
 				//std::string grp;
 		};

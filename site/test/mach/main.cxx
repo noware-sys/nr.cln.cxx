@@ -79,11 +79,11 @@ int main (int argc, char * argv [])
 	/*
 	assert (cli.init ());
 	assert (cli.enable ());
-	assert (cli.activate ());
+	assert (cli.start ());
 	*/
 	assert (loader.init ());
 	assert (loader.enable ());
-	assert (loader.activate ());
+	assert (loader.start ());
 	
 	noware::pause ("Press [Enter] to enqueue the instructions . . . ");
 	
@@ -98,7 +98,7 @@ int main (int argc, char * argv [])
 	/*
 	noware::pause ("Press [Enter] to start the thread . . . ");
 	
-	//if (!m.trd.activate ())
+	//if (!m.trd.start ())
 	if (!m.cpu.enqueue (noware::mach::cpu::instr (m.cpu.get ("thread 1", "instr 1"))) || !m.cpu.set ("thread 1", "running", "1"))
 	{
 		std::cout << "'" << argv [0] << "': error: could not start the thread" << std::endl;
@@ -118,10 +118,10 @@ int main (int argc, char * argv [])
 	*/
 	
 	//noware::pause ("Press [Enter] to start the CPU . . . ");
-	noware::pause ("Press [Enter] to sleep . . . ");
+//	noware::pause ("Press [Enter] to sleep . . . ");
 	
 	/*
-	if (!m.cpu.activate ())
+	if (!m.cpu.start ())
 	{
 		std::cout << "'" << argv [0] << "': error: could not start the processor" << std::endl;
 		
@@ -167,7 +167,7 @@ int main (int argc, char * argv [])
 	
 	//std::cout << "  store size = [" << m.store.size () << ']' << std::endl;
 	
-	boost::this_thread::sleep_for (boost::chrono::seconds (7));
+//	boost::this_thread::sleep_for (boost::chrono::seconds (7));
 	noware::pause ("Press [Enter] to exit . . . ");
 	
 	//return EXIT_SUCCESS;
