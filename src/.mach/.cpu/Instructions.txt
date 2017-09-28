@@ -1,7 +1,0 @@
-
-source code
-object code
-
-byte code
-machine code
-
