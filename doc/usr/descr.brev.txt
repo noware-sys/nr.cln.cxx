@@ -1,1 +1,1 @@
-C++ library
+CLN wrapper

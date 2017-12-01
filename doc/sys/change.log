@@ -1,4 +1,0 @@
-mach::cpu:
-	changed from using a std::mutex to using a boost::condition_variable to notify of newly enqueued instructions
-	set a boost::condition_variable notfication from within cpu::enqueue()
-	apparently fixed shutdown sequence to gracefully quit without errors

@@ -97,7 +97,7 @@ namespace noware
 		};
 		*/
 		class nr
-			: protected serial
+			: virtual public serial
 			, boost::equality_comparable <nr>
 			, boost::equality_comparable <nr, std::string>
 			, boost::equality_comparable <nr, char *>

@@ -1,6 +1,1 @@
-Packages:
-	boost
-	boost-libs
-
-libboost/ contains required libraries for building for Windows.
-
+CLN, a Class Library for Numbers: https://www.ginac.de/CLN/cln.html
