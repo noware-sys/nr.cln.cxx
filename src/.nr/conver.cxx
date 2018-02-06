@@ -4,7 +4,7 @@
 	conversion operator functions
 */
 /*
-noware::nr::operator const text (void) const
+cln::nr::operator const text (void) const
 {
 	if (content.t == container::type::numeric)
 		//return noware::tool::complement (content.number);
@@ -13,7 +13,7 @@ noware::nr::operator const text (void) const
 		return content.text;
 }
 */
-noware::nr::operator const std::string (void) const
+cln::nr::operator std::string const (void) const
 {
 	//if (content.t == container::type::numeric)
 	//	//return noware::tool::complement (content.nr);
@@ -21,19 +21,19 @@ noware::nr::operator const std::string (void) const
 	//else
 	//	return content.text;
 	std::stringstream ss;
-	ss << contnt;
+	ss << val;
 	return ss.str ();
 }
 
-//noware::nr::operator const char [] (void) const
+//cln::nr::operator const char [] (void) const
 //{
 //	return std::string (*this).c_str ();
 //}
 
-noware::nr::operator const char (void) const
+cln::nr::operator char const (void) const
 {
 	//std::string str = std::string (*this);
-	std::string str = operator const std::string ();
+	std::string const str = operator std::string const ();
 	
 	if (str.size () == 1)
 		return str [0];
@@ -41,12 +41,12 @@ noware::nr::operator const char (void) const
 		return '\0';
 }
 
-noware::nr::operator const char * (void) const
+cln::nr::operator char const * const (void) const
 {
-	return operator const std::string ().c_str ();
+	return operator std::string const ().data ();
 }
 
-//noware::nr::operator const nrs::natural (void) const
+//cln::nr::operator const nrs::natural (void) const
 //{
 //	if (content.t == container::type::numeric)
 //		return floor1 (content.number);
@@ -54,16 +54,16 @@ noware::nr::operator const char * (void) const
 //		return 0;	// A default value.
 //}
 
-noware::nr::operator const complex (void) const
+cln::nr::operator complex const (void) const
 {
-	return contnt;
+	return val;
 }
 
-noware::nr::operator const real (void) const
+cln::nr::operator real const (void) const
 {
 	try
 	{
-		return cln::the <real> (contnt);
+		return cln::the <real> (val);
 	}
 	catch (...)
 	{
@@ -73,11 +73,11 @@ noware::nr::operator const real (void) const
 	return 0;
 }
 
-noware::nr::operator const rational (void) const
+cln::nr::operator rational const (void) const
 {
 	try
 	{
-		return cln::the <rational> (contnt);
+		return cln::the <rational> (val);
 	}
 	catch (...)
 	{
@@ -87,11 +87,11 @@ noware::nr::operator const rational (void) const
 	return 0;
 }
 
-noware::nr::operator const integer (void) const
+cln::nr::operator integer const (void) const
 {
 	try
 	{
-		return cln::the <integer> (contnt);
+		return cln::the <integer> (val);
 	}
 	catch (...)
 	{
@@ -101,86 +101,93 @@ noware::nr::operator const integer (void) const
 	return 0;
 }
 
-noware::nr::operator const _float (void) const
+cln::nr::operator _float const (void) const
 {
 	try
 	{
-		return cln::the <_float> (contnt);
+		return cln::the <_float> (val);
 	}
 	catch (...)
 	{
 	}
 	
 	// A default value.
+	//return 0;
 	return _float (float (0));
 }
 
-noware::nr::operator const short_float (void) const
+cln::nr::operator short_float const (void) const
 {
 	try
 	{
-		return cln::the <short_float> (contnt);
+		return cln::the <short_float> (val);
 	}
 	catch (...)
 	{
 	}
 	
 	// A default value.
+	//return 0;
 	return short_float ("0");
 }
 
-noware::nr::operator const single_float (void) const
+cln::nr::operator single_float const (void) const
 {
 	try
 	{
-		return cln::the <single_float> (contnt);
+		return cln::the <single_float> (val);
 	}
 	catch (...)
 	{
 	}
 	
 	// A default value.
+	//return 0;
 	return single_float (float (0));
 }
 
-noware::nr::operator const double_float (void) const
+cln::nr::operator double_float const (void) const
 {
 	try
 	{
-		return cln::the <double_float> (contnt);
+		return cln::the <double_float> (val);
 	}
 	catch (...)
 	{
 	}
 	
 	// A default value.
+	//return 0;
 	return double_float (double (0));
 }
 
-noware::nr::operator const long_float (void) const
+cln::nr::operator long_float const (void) const
 {
 	try
 	{
-		return cln::the <long_float> (contnt);
+		return cln::the <long_float> (val);
 	}
 	catch (...)
 	{
 	}
 	
 	// A default value.
+	//return 0;
 	return long_float ("0");
 }
 
-noware::nr::operator const long double (void) const
+/*
+cln::nr::operator long double const (void) const
 {
 	return double (*this);
 }
+*/
 
-noware::nr::operator const double (void) const
+cln::nr::operator double const (void) const
 {
 	try
 	{
-		return cln::double_approx (cln::the <real> (contnt));
+		return cln::double_approx (cln::the <real> (val));
 	}
 	catch (...)
 	{
@@ -190,11 +197,11 @@ noware::nr::operator const double (void) const
 	return 0;
 }
 
-noware::nr::operator const float (void) const
+cln::nr::operator float const (void) const
 {
 	try
 	{
-		return cln::float_approx (cln::the <real> (contnt));
+		return cln::float_approx (cln::the <real> (val));
 	}
 	catch (...)
 	{
@@ -205,7 +212,7 @@ noware::nr::operator const float (void) const
 }
 
 /*
-noware::nr::operator const signed long long int (void) const
+cln::nr::operator signed long long int const (void) const
 {
 	//if (content.t == container::type::numeric)
 	//	return double_approx (content);
@@ -213,7 +220,7 @@ noware::nr::operator const signed long long int (void) const
 		return 0;	// A default value.
 }
 
-noware::nr::operator const unsigned long long int (void) const
+cln::nr::operator unsigned long long int const (void) const
 {
 	//if (content.t == container::type::numeric)
 	//	return double_approx (content);
@@ -222,11 +229,11 @@ noware::nr::operator const unsigned long long int (void) const
 }
 */
 
-noware::nr::operator const signed long int (void) const
+cln::nr::operator signed long int const (void) const
 {
 	try
 	{
-		return cln::cl_I_to_long (cln::the <integer> (contnt));
+		return cln::cl_I_to_long (cln::the <integer> (val));
 	}
 	catch (...)
 	{
@@ -236,11 +243,11 @@ noware::nr::operator const signed long int (void) const
 	return 0;
 }
 
-noware::nr::operator const unsigned long int (void) const
+cln::nr::operator unsigned long int const (void) const
 {
 	try
 	{
-		return cln::cl_I_to_ulong (cln::the <integer> (contnt));
+		return cln::cl_I_to_ulong (cln::the <integer> (val));
 	}
 	catch (...)
 	{
@@ -250,11 +257,11 @@ noware::nr::operator const unsigned long int (void) const
 	return 0;
 }
 
-noware::nr::operator const signed int (void) const
+cln::nr::operator signed int const (void) const
 {
 	try
 	{
-		return cln::cl_I_to_int (cln::the <integer> (contnt));
+		return cln::cl_I_to_int (cln::the <integer> (val));
 	}
 	catch (...)
 	{
@@ -264,11 +271,11 @@ noware::nr::operator const signed int (void) const
 	return 0;
 }
 
-noware::nr::operator const unsigned int (void) const
+cln::nr::operator unsigned int const (void) const
 {
 	try
 	{
-		return cln::cl_I_to_uint (cln::the <integer> (contnt));
+		return cln::cl_I_to_uint (cln::the <integer> (val));
 	}
 	catch (...)
 	{
@@ -279,7 +286,7 @@ noware::nr::operator const unsigned int (void) const
 }
 
 /*
-noware::nr::operator const signed short int (void) const
+cln::nr::operator signed short int const (void) const
 {
 	//if (content.t == container::type::numeric)
 	//	return double_approx (content);
@@ -287,7 +294,7 @@ noware::nr::operator const signed short int (void) const
 		return 0;	// A default value.
 }
 
-noware::nr::operator const unsigned short int (void) const
+cln::nr::operator unsigned short int const (void) const
 {
 	//if (content.t == container::type::numeric)
 	//	return double_approx (content);
@@ -296,7 +303,7 @@ noware::nr::operator const unsigned short int (void) const
 }
 */
 /*
-noware::nr::operator const bool (void) const
+cln::nr::operator bool const (void) const
 {
 	if (content.t == container::type::numeric)
 	{

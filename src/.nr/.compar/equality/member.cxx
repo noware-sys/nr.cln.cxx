@@ -1,157 +1,157 @@
 // operator ==
 
-const bool noware::nr::operator == (const nr & other) const
+bool const cln::nr::operator == (nr const & other) const
 {
-	return contnt == other.contnt;
+	return val == other.val;
 }
 /*
-const bool noware::nr::operator == (const text & other) const
+bool const cln::nr::operator == (text const & other) const
 {
 	return *this == nr (other);
 }
 */
-const bool noware::nr::operator == (const std::string & other) const
+bool const cln::nr::operator == (std::string const & other) const
 {
 	return *this == nr (other);
-	//return contnt == nr (other);
+	//return val == nr (other);
 }
 
-const bool noware::nr::operator == (const char * other) const
+bool const cln::nr::operator == (char const * const other) const
 {
 	return *this == nr (other);
-	//return contnt == nr (other);
+	//return val == nr (other);
 }
 /*
-const bool noware::nr::operator == (const unsigned char other []) const
+bool const cln::nr::operator == (unsigned char other []) const
 {
 	//return *this == nr (other);
-	return contnt == nr (other);
+	return val == nr (other);
 }
 
-const bool noware::nr::operator == (const signed char other []) const
+bool const cln::nr::operator == (signed char other []) const
 {
 	//return *this == nr (other);
-	return contnt == nr (other);
+	return val == nr (other);
 }
 */
-//const bool noware::nr::operator == (const char *& other) const
+//bool const cln::nr::operator == (char const * const other) const
 //{
 //	return *this == nr (other);
 //}
 
-const bool noware::nr::operator == (const char & other) const
+bool const cln::nr::operator == (char const & other) const
 {
 	return *this == nr (other);
 }
 /*
-const bool noware::nr::operator == (const signed char & other) const
+bool const cln::nr::operator == (signed char const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const unsigned char & other) const
+bool const cln::nr::operator == (unsigned char const & other) const
 {
 	return *this == nr (other);
 }
 */
 
-const bool noware::nr::operator == (const complex & other) const
+bool const cln::nr::operator == (complex const & other) const
 {
 	return *this == nr (other);
 }
 
 
-const bool noware::nr::operator == (const real & other) const
+bool const cln::nr::operator == (real const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const rational & other) const
+bool const cln::nr::operator == (rational const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const integer & other) const
+bool const cln::nr::operator == (integer const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const _float & other) const
+bool const cln::nr::operator == (_float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const short_float & other) const
+bool const cln::nr::operator == (short_float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const single_float & other) const
+bool const cln::nr::operator == (single_float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const double_float & other) const
+bool const cln::nr::operator == (double_float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const long_float & other) const
+bool const cln::nr::operator == (long_float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const long double & other) const
+bool const cln::nr::operator == (long double const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const double & other) const
+bool const cln::nr::operator == (double const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const float & other) const
+bool const cln::nr::operator == (float const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const signed long long int & other) const
+bool const cln::nr::operator == (signed long long int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const unsigned long long int & other) const
+bool const cln::nr::operator == (unsigned long long int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const signed long int & other) const
+bool const cln::nr::operator == (signed long int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const unsigned long int & other) const
+bool const cln::nr::operator == (unsigned long int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const signed int & other) const
+bool const cln::nr::operator == (signed int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const unsigned int & other) const
+bool const cln::nr::operator == (unsigned int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const signed short int & other) const
+bool const cln::nr::operator == (signed short int const & other) const
 {
 	return *this == nr (other);
 }
 
-const bool noware::nr::operator == (const unsigned short int & other) const
+bool const cln::nr::operator == (unsigned short int const & other) const
 {
 	return *this == nr (other);
 }

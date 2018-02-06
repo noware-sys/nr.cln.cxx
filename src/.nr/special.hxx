@@ -1,9 +1,11 @@
-static const bool is (const std::string &);
+static bool const is (std::string const &);
 //const bool is (const type &) const;
 //const bool is (const category &) const;
 
+/*
 const type kind (void) const;
 const category cat (void) const;
+*/
 
 /*
 const nr operator ~ (void) const;	// Complement.
@@ -21,14 +23,16 @@ const bool operator || (const bool &) const;
 friend const bool operator || (const bool &, const nr &);
 */
 
+std::string const format (void) const;
+
 /*
 // Incrementation
 // Decrementation
 //
 */
 // Prefix:
-const nr & operator ++ (void);
-const nr & operator -- (void);
+virtual nr const & operator ++ (void);
+virtual nr const & operator -- (void);
 //
 // Postfix / Suffix:
 /*
@@ -36,5 +40,5 @@ const nr operator ++ (const int);
 const nr operator -- (const int);
 */
 
-friend std::ostream & operator << (std::ostream &, const nr &)/* const*/;
-friend std::istream & operator >> (std::istream &, nr &);
+/*virtual */friend std::ostream & operator << (std::ostream &, nr const &)/* const*/;
+/*virtual */friend std::istream & operator >> (std::istream &, nr &);

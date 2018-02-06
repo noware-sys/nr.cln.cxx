@@ -1,34 +1,34 @@
 // Conversion functions:
 
-//operator const noware::container::text (void) const;
-operator const std::string (void) const;
-//operator const char [] (void) const;
-operator const char * (void) const;
+//virtual operator const noware::container::text (void) const;
+virtual operator std::string const (void) const;
+//virtual operator  char const [] const (void) const;
+virtual operator char const * const (void) const;
 
-operator const char (void) const;
-//operator const unsigned char (void) const;
-//operator const signed char (void) const;
+virtual operator char const (void) const;
+//virtual operator const unsigned char (void) const;
+//virtual operator const signed char (void) const;
 
-operator const complex (void) const;
-operator const real (void) const;
-operator const rational (void) const;
-operator const integer (void) const;
-operator const _float (void) const;
-operator const short_float (void) const;
-operator const single_float (void) const;
-operator const double_float (void) const;
-operator const long_float (void) const;
+virtual operator complex const (void) const;
+virtual operator real const (void) const;
+virtual operator rational const (void) const;
+virtual operator integer const (void) const;
+virtual operator _float const (void) const;
+virtual operator short_float const (void) const;
+virtual operator single_float const (void) const;
+virtual operator double_float const (void) const;
+virtual operator long_float const (void) const;
 
-operator const long double (void) const;
-operator const double (void) const;
-operator const float (void) const;
+//virtual operator long double const (void) const;
+virtual operator double const (void) const;
+virtual operator float const (void) const;
 
-operator const unsigned long long int (void) const;
-operator const unsigned long int (void) const;
-operator const unsigned int (void) const;
-//operator const unsigned short int (void) const;
+//virtual operator unsigned long long int const (void) const;
+virtual operator unsigned long int const (void) const;
+virtual operator unsigned int const (void) const;
+//virtual operator const unsigned short int (void) const;
 
-operator const signed long long int (void) const;
-operator const signed long int (void) const;
-operator const signed int (void) const;
-//operator const signed short int (void) const;
+//virtual operator signed long long int const (void) const;
+virtual operator signed long int const (void) const;
+virtual operator signed int const (void) const;
+//virtual operator signed short int const (void) const;

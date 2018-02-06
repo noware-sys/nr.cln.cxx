@@ -15,7 +15,7 @@ const bool noware::nr::operator != (const std::string & other) const
 	return !(*this == other);
 }
 
-const bool noware::nr::operator != (const char other []) const
+const bool noware::nr::operator != (char other const * const) const
 {
 	return !(*this == other);
 }
@@ -45,49 +45,49 @@ const bool noware::nr::operator != (const unsigned char & other) const
 	return !(*this == other);
 }
 */
-const bool noware::nr::operator != (const cln::cl_N & other) const
+const bool noware::nr::operator != (complex const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 /*
-const bool noware::nr::operator != (const cln::cl_R & other) const
+const bool noware::nr::operator != (real const & other) const
 {
 	return content != other;
 }
 */
-const bool noware::nr::operator != (const cln::cl_RA & other) const
+const bool noware::nr::operator != (rational const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 
-const bool noware::nr::operator != (const cln::cl_I & other) const
+const bool noware::nr::operator != (integer const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 /*
-const bool noware::nr::operator != (const cln::cl_F & other) const
+const bool noware::nr::operator != (_float const & other) const
 {
 	return content != other;
 }
 */
-const bool noware::nr::operator != (const cln::cl_SF & other) const
+const bool noware::nr::operator != (short_float const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 
-const bool noware::nr::operator != (const cln::cl_FF & other) const
+const bool noware::nr::operator != (single_float const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 
-const bool noware::nr::operator != (const cln::cl_DF & other) const
+const bool noware::nr::operator != (double_float const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 
-const bool noware::nr::operator != (const cln::cl_LF & other) const
+const bool noware::nr::operator != (long_float const & other) const
 {
-	return content != other;
+	return !(*this == other);
 }
 
 const bool noware::nr::operator != (const long double & other) const
@@ -144,4 +144,3 @@ const bool noware::nr::operator != (const unsigned short int & other) const
 {
 	return !(*this == other);
 }
-

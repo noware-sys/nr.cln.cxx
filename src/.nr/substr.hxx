@@ -6,4 +6,3 @@
 //#include ".substraction/friend.hxx"
 
 #include ".substr/self/member.hxx"
-

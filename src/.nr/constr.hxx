@@ -1,39 +1,39 @@
 //nr (void) = default;
 nr (void);
 
-nr (const nr &);
+nr (nr const &);
 
-//nr (const noware::container::text &);
-nr (const std::string &);
-//nr (const char []);
-nr (const char *);
-//nr (const unsigned char []);
-//nr (const signed char []);
+//nr (noware::container::text const &);
+nr (std::string const &);
+nr (char const []);
+//nr (char *);
+//nr (unsigned char []);
+//nr (signed char []);
 
-nr (const char &);
-//nr (const unsigned char &);
-//nr (const signed char &);
+nr (char const &);
+//nr (unsigned char const &);
+//nr (signed char const &);
 
-nr (const complex &);
-nr (const real &);
-nr (const rational &);
-nr (const integer &);
-nr (const _float &);
-nr (const short_float &);
-nr (const single_float &);
-nr (const double_float &);
-nr (const long_float &);
+nr (complex const &);
+nr (real const &);
+nr (rational const &);
+nr (integer const &);
+nr (_float const &);
+nr (short_float const &);
+nr (single_float const &);
+nr (double_float const &);
+nr (long_float const &);
 
-nr (const long double &);
-nr (const double &);
-nr (const float &);
+nr (long double const &);
+nr (double const &);
+nr (float const &);
 
-nr (const unsigned long long int &);
-nr (const unsigned long int &);
-nr (const unsigned int &);
-nr (const unsigned short int &);
+nr (unsigned long long int const &);
+nr (unsigned long int const &);
+nr (unsigned int const &);
+nr (unsigned short int const &);
 
-nr (const signed long long int &);
-nr (const signed long int &);
-nr (const signed int &);
-nr (const signed short int &);
+nr (signed long long int const &);
+nr (signed long int const &);
+nr (signed int const &);
+nr (signed short int const &);

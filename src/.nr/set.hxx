@@ -1,33 +1,33 @@
-const nr & operator = (const nr &);
+virtual nr const & operator = (nr const &);
 
-const nr & operator = (const std::string &);
-const nr & operator = (const char *);
-//const nr & operator = (const unsigned char []);
-//const nr & operator = (const signed char []);
-const nr & operator = (const char &);
-//const nr & operator = (const unsigned char &);
-//const nr & operator = (const signed char &);
+virtual nr const & operator = (std::string const &);
+virtual nr const & operator = (char const * const);
+//virtual nr const & operator = (const unsigned char []);
+//virtual nr const & operator = (const signed char []);
+virtual nr const & operator = (char const &);
+//virtual nr const & operator = (const unsigned char &);
+//virtual nr const & operator = (const signed char &);
 
-const nr & operator = (const complex &);
-const nr & operator = (const real &);
-const nr & operator = (const rational &);
-const nr & operator = (const integer &);
-const nr & operator = (const _float &);
-const nr & operator = (const short_float &);
-const nr & operator = (const single_float &);
-const nr & operator = (const double_float &);
-const nr & operator = (const long_float &);
+virtual nr const & operator = (complex const &);
+virtual nr const & operator = (real const &);
+virtual nr const & operator = (rational const &);
+virtual nr const & operator = (integer const &);
+virtual nr const & operator = (_float const &);
+virtual nr const & operator = (short_float const &);
+virtual nr const & operator = (single_float const &);
+virtual nr const & operator = (double_float const &);
+virtual nr const & operator = (long_float const &);
 
-const nr & operator = (const long double &);
-const nr & operator = (const double &);
-const nr & operator = (const float &);
+virtual nr const & operator = (long double const &);
+virtual nr const & operator = (double const &);
+virtual nr const & operator = (float const &);
 
-const nr & operator = (const unsigned long long int &);
-const nr & operator = (const unsigned long int &);
-const nr & operator = (const unsigned int &);
-const nr & operator = (const unsigned short int &);
+virtual nr const & operator = (unsigned long long int const &);
+virtual nr const & operator = (unsigned long int const &);
+virtual nr const & operator = (unsigned int const &);
+virtual nr const & operator = (unsigned short int const &);
 
-const nr & operator = (const signed long long int &);
-const nr & operator = (const signed long int &);
-const nr & operator = (const signed int &);
-const nr & operator = (const signed short int &);
+virtual nr const & operator = (signed long long int const &);
+virtual nr const & operator = (signed long int const &);
+virtual nr const & operator = (signed int const &);
+virtual nr const & operator = (signed short int const &);

@@ -1,4 +1,4 @@
-const nr operator - (void) const;
+virtual nr const operator - (void) const;
 /*
 const nr operator - (const nr &) const;
 //const nr operator - (const text &) const;

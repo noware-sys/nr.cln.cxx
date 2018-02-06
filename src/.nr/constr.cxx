@@ -1,182 +1,182 @@
 // constructors
 
-noware::nr::nr (void)
+cln::nr::nr (void)
 {
 	//_exact = true;
 }
 
-noware::nr::nr (const noware::nr & other)
+cln::nr::nr (cln::nr const & other)
 {
 	*this = other;
 }
 /*
-noware::nr::nr (const noware::container::text & other)
+cln::nr::nr (noware::container::text const & other)
 {
 	*this = other;
 }
 */
-noware::nr::nr (const std::string & other)
+cln::nr::nr (std::string const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const char * other)
+cln::nr::nr (char const other [])
 {
 	//*this = std::string (other);
 	*this = other;
 }
 /*
-noware::nr::nr (const unsigned char other [])
+cln::nr::nr (unsigned char other [])
 {
 	*this = other;
 }
 
-noware::nr::nr (const signed char other [])
+cln::nr::nr (signed char other [])
 {
 	*this = other;
 }
 */
 
 /*
-noware::nr::nr (const signed char other [])
+cln::nr::nr (signed char other [])
 {
 	*this = std::string (other);
 }
 
-noware::nr::nr (const unsigned char other [])
+cln::nr::nr (unsigned char other [])
 {
 	*this = std::string (other);
 }
 */
-//noware::nr::nr (const char *& other)
+//cln::nr::nr (char *const & other)
 //{
 //	*this = noware::tool::string (other);
 //}
 /*
-noware::nr::nr (const signed char *& other)
+cln::nr::nr (signed char *const & other)
 {
 	*this = std::string (other);
 }
 
-noware::nr::nr (const unsigned char *& other)
+cln::nr::nr (unsigned char *const & other)
 {
 	*this = std::string (other);
 }
 */
-noware::nr::nr (const char & other)
+cln::nr::nr (char const & other)
 {
 	//*this = noware::tool::string (other);
 	*this = other;
 }
 /*
-noware::nr::nr (const signed char & other)
+cln::nr::nr (signed char const & other)
 {
 	//*this = noware::tool::string (char (other));
 	*this = other;
 }
 
-noware::nr::nr (const unsigned char & other)
+cln::nr::nr (unsigned char const & other)
 {
 	//*this = noware::tool::string (char (other));
 	*this = other;
 }
 */
-noware::nr::nr (const complex & other)
+cln::nr::nr (complex const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const real & other)
+cln::nr::nr (real const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const rational & other)
+cln::nr::nr (rational const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const integer & other)
+cln::nr::nr (integer const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const _float & other)
+cln::nr::nr (_float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const short_float & other)
+cln::nr::nr (short_float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const single_float & other)
+cln::nr::nr (single_float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const double_float & other)
+cln::nr::nr (double_float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const long_float & other)
+cln::nr::nr (long_float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const long double & other)
+cln::nr::nr (long double const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const double & other)
+cln::nr::nr (double const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const float & other)
+cln::nr::nr (float const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const unsigned long long int & other)
+cln::nr::nr (unsigned long long int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const unsigned long int & other)
+cln::nr::nr (unsigned long int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const unsigned int & other)
+cln::nr::nr (unsigned int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const unsigned short int & other)
+cln::nr::nr (unsigned short int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const signed long long int & other)
+cln::nr::nr (signed long long int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const signed long int & other)
+cln::nr::nr (signed long int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const signed int & other)
+cln::nr::nr (signed int const & other)
 {
 	*this = other;
 }
 
-noware::nr::nr (const signed short int & other)
+cln::nr::nr (signed short int const & other)
 {
 	*this = other;
 }

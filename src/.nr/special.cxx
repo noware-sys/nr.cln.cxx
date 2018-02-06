@@ -1,45 +1,49 @@
-const bool noware::nr::is (const std::string & str)
+bool const cln::nr::is (std::string const & str)
 {
-	complex test;
+	//complex test;
 	
 	try
 	{
-		test = str.c_str ();
+		complex test;
+		
+		test = str.data ();
 		
 		return true;
 	}
 	catch (...)
 	{
-		return false;
 	}
+	
+	return false;
 }
 
 /*
-const bool noware::nr::is (const type & t) const
+const bool cln::nr::is (const type & t) const
 {
 	return true;
 }
 
-const bool noware::nr::is (const category & cat) const
+const bool cln::nr::is (const category & cat) const
 {
 	return false;
 }
 */
 
-const noware::nr::type noware::nr::kind (void) const
+/*
+cln::nr::type const cln::nr::kind (void) const
 {
 	return type::complex;
 }
 
-const noware::nr::category noware::nr::cat (void) const
+cln::nr::category const cln::nr::cat (void) const
 {
 	return category::zero;
 }
-
+*/
 
 /*
 // Complement.
-const noware::nr noware::nr::operator ~ (void) const
+const cln::nr cln::nr::operator ~ (void) const
 {
 	if (content.t == math::type::numeric)
 		return noware::tool::complement (content.number);
@@ -49,7 +53,7 @@ const noware::nr noware::nr::operator ~ (void) const
 */
 /*
 // Modulus.
-const noware::nr noware::nr::operator | (void) const
+const cln::nr cln::nr::operator | (void) const
 {
 	if (content.t == math::type::numeric)
 		return noware::tool::modulus (content.number);
@@ -58,7 +62,7 @@ const noware::nr noware::nr::operator | (void) const
 }
 */
 /*
-const bool noware::nr::operator ! (void) const
+const bool cln::nr::operator ! (void) const
 {
 	if (content.t == math::type::numeric)
 		//return content.number == 0 ? true : false;
@@ -67,43 +71,48 @@ const bool noware::nr::operator ! (void) const
 		return content.text.length () == 0;
 }
 
-const bool noware::nr::operator && (const nr & other) const
+const bool cln::nr::operator && (const nr & other) const
 {
 	return bool (*this) && bool (other);
 }
 
-const bool noware::nr::operator && (const bool & other) const
+const bool cln::nr::operator && (const bool & other) const
 {
 	return bool (*this) && other;
 }
 
-const bool noware::nr::operator || (const nr & other) const
+const bool cln::nr::operator || (const nr & other) const
 {
 	return bool (*this) || bool (other);
 }
 
-const bool noware::nr::operator || (const bool & other) const
+const bool cln::nr::operator || (const bool & other) const
 {
 	return bool (*this) || other;
 }
 */
 
-const noware::nr & noware::nr::operator ++ (void)
+std::string const cln::nr::format (void) const
 {
-	++contnt;
+	return operator std::string const ();
+}
+
+cln::nr const & cln::nr::operator ++ (void)
+{
+	++val;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator -- (void)
+cln::nr const & cln::nr::operator -- (void)
 {
-	--contnt;
+	--val;
 	
 	return *this;
 }
 
 /*
-const noware::nr noware::nr::operator ++ (const int other)
+const cln::nr cln::nr::operator ++ (const int other)
 {
 	nr previous (*this);
 	
@@ -112,7 +121,7 @@ const noware::nr noware::nr::operator ++ (const int other)
 	return previous;
 }
 
-const noware::nr noware::nr::operator -- (const int other)
+const cln::nr cln::nr::operator -- (const int other)
 {
 	nr previous (*this);
 	
@@ -123,17 +132,17 @@ const noware::nr noware::nr::operator -- (const int other)
 */
 
 // Friends:
-namespace noware
+namespace cln
 {
 	//namespace math
 	//{
 		/*
-		const bool operator && (const bool & other, const noware::nr & self)
+		const bool operator && (const bool & other, const cln::nr & self)
 		{
 			return other && bool (self);
 		}
 		
-		const bool operator || (const bool & other, const noware::nr & self)
+		const bool operator || (const bool & other, const cln::nr & self)
 		{
 			return other || bool (self);
 		}
@@ -141,7 +150,7 @@ namespace noware
 		// operator <<
 		std::ostream & operator << (std::ostream & stream, const nr & self)
 		{
-			stream << self.contnt;
+			stream << self.val;
 			
 			return stream;
 		}
@@ -156,7 +165,7 @@ namespace noware
 			/*
 			try
 			{
-				stream >> self.contnt;
+				stream >> self.val;
 			}
 			catch (...)
 			{

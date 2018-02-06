@@ -1,169 +1,169 @@
 // operator +=
 
-const noware::nr noware::nr::operator += (const nr & other)
+cln::nr const cln::nr::operator += (nr const & other)
 {
-	contnt += other.contnt;
+	val += other.val;
 	return *this;
 }
 /*
-const noware::nr noware::nr::operator += (const text & other)
+cln::nr const cln::nr::operator += (text const & other)
 {
 	return *this += nr (other);
 }
 */
-const noware::nr noware::nr::operator += (const std::string & other)
+cln::nr const cln::nr::operator += (std::string const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const char * other)
-{
-	*this += nr (other);
-	return *this;
-}
-/*
-const noware::nr noware::nr::operator += (const unsigned char other [])
-{
-	return *this += nr (other);
-}
-
-const noware::nr noware::nr::operator += (const signed char other [])
-{
-	return *this += nr (other);
-}
-*/
-const noware::nr noware::nr::operator += (const char & other)
+cln::nr const cln::nr::operator += (char const * const other)
 {
 	*this += nr (other);
 	return *this;
 }
 /*
-const noware::nr noware::nr::operator += (const signed char & other)
+cln::nr const cln::nr::operator += (unsigned char other [])
 {
 	return *this += nr (other);
 }
 
-const noware::nr noware::nr::operator += (const unsigned char & other)
+cln::nr const cln::nr::operator += (signed char other [])
 {
 	return *this += nr (other);
 }
 */
-const noware::nr noware::nr::operator += (const complex & other)
+cln::nr const cln::nr::operator += (char const & other)
+{
+	*this += nr (other);
+	return *this;
+}
+/*
+cln::nr const cln::nr::operator += (signed char const & other)
+{
+	return *this += nr (other);
+}
+
+cln::nr const cln::nr::operator += (unsigned char const & other)
+{
+	return *this += nr (other);
+}
+*/
+cln::nr const cln::nr::operator += (complex const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const real & other)
+cln::nr const cln::nr::operator += (real const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const rational & other)
+cln::nr const cln::nr::operator += (rational const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const integer & other)
+cln::nr const cln::nr::operator += (integer const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const _float & other)
+cln::nr const cln::nr::operator += (_float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const short_float & other)
+cln::nr const cln::nr::operator += (short_float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const single_float & other)
+cln::nr const cln::nr::operator += (single_float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const double_float & other)
+cln::nr const cln::nr::operator += (double_float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const long_float & other)
+cln::nr const cln::nr::operator += (long_float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const long double & other)
+cln::nr const cln::nr::operator += (long double const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const double & other)
+cln::nr const cln::nr::operator += (double const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const float & other)
+cln::nr const cln::nr::operator += (float const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const signed long long int & other)
+cln::nr const cln::nr::operator += (signed long long int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const unsigned long long int & other)
+cln::nr const cln::nr::operator += (unsigned long long int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const signed long int & other)
+cln::nr const cln::nr::operator += (signed long int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const unsigned long int & other)
+cln::nr const cln::nr::operator += (unsigned long int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const signed int & other)
+cln::nr const cln::nr::operator += (signed int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const unsigned int & other)
+cln::nr const cln::nr::operator += (unsigned int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const signed short int & other)
+cln::nr const cln::nr::operator += (signed short int const & other)
 {
 	*this += nr (other);
 	return *this;
 }
 
-const noware::nr noware::nr::operator += (const unsigned short int & other)
+cln::nr const cln::nr::operator += (unsigned short int const & other)
 {
 	*this += nr (other);
 	return *this;

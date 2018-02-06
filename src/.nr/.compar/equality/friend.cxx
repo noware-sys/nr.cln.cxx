@@ -14,9 +14,9 @@ namespace noware
 			return self == other;
 		}
 		
-		const bool operator == (const char other [], const noware::nr & self)
+		const bool operator == (char other const * const, noware::nr const & self)
 		{
-			return self == nr (other);
+			return self == other;
 		}
 		/*
 		const bool operator == (const signed char other [], const noware::nr & self)
@@ -31,7 +31,7 @@ namespace noware
 		*/
 		const bool operator == (const char & other, const noware::nr & self)
 		{
-			return self == nr (other);
+			return self == other;
 		}
 		/*
 		const bool operator == (const signed char & other, const noware::nr & self)
@@ -44,47 +44,48 @@ namespace noware
 			return self == nr (other);
 		}
 		*/
-		const bool operator == (const cln::cl_N & other, const noware::nr & self)
+		
+		const bool operator == (const complex & other, const noware::nr & self)
 		{
-			return self == nr (other);
+			return self == other;
+		}
+		
+		const bool operator == (const real & other, const noware::nr & self)
+		{
+			return self == other;
+		}
+		
+		const bool operator == (const rational & other, const noware::nr & self)
+		{
+			return self == other;
+		}
+		
+		const bool operator == (const integer & other, const noware::nr & self)
+		{
+			return self == other;
 		}
 		/*
-		const bool operator == (const cln::cl_R & other, const noware::nr & self)
+		const bool operator == (const _float & other, const noware::nr & self)
 		{
 			return self == other;
 		}
 		*/
-		const bool operator == (const cln::cl_RA & other, const noware::nr & self)
+		const bool operator == (const short_float & other, const noware::nr & self)
 		{
 			return self == other;
 		}
 		
-		const bool operator == (const cln::cl_I & other, const noware::nr & self)
-		{
-			return self == other;
-		}
-		/*
-		const bool operator == (const cln::cl_F & other, const noware::nr & self)
-		{
-			return self == other;
-		}
-		*/
-		const bool operator == (const cln::cl_SF & other, const noware::nr & self)
+		const bool operator == (const single_float & other, const noware::nr & self)
 		{
 			return self == other;
 		}
 		
-		const bool operator == (const cln::cl_FF & other, const noware::nr & self)
+		const bool operator == (const double_float & other, const noware::nr & self)
 		{
 			return self == other;
 		}
 		
-		const bool operator == (const cln::cl_DF & other, const noware::nr & self)
-		{
-			return self == other;
-		}
-		
-		const bool operator == (const cln::cl_LF & other, const noware::nr & self)
+		const bool operator == (const long_float & other, const noware::nr & self)
 		{
 			return self == other;
 		}
@@ -145,4 +146,3 @@ namespace noware
 		}
 	//}
 }
-

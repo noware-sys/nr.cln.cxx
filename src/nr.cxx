@@ -1,9 +1,9 @@
 #pragma once
 
 //#include "tool/nr.cxx"
-#include "tool/string.cxx"
-//#include "misc/serial.cxx"
-#include "serial.cxx"
+#include <noware/tool/string.cxx>
+#include <noware/misc/serial.cxx>
+//#include <noware/serial.cxx>
 
 #include "nr.hxx"
 
@@ -31,6 +31,7 @@
 
 #include ".number/special.cxx"
 */
+#include ".nr/.incl.cxx"
 #include ".nr/.cxx"
 /*
 bool noware::nr::operator == (const nr & other)
@@ -68,10 +69,10 @@ noware::nr noware::nr::operator ^= (const nr & other)
 	return contnt ^= other.contnt;
 }
 */
-template <typename archive> 
-void noware::nr::serialize (archive & arch, const unsigned int &/* version*/)
+template <typename arch>
+void cln::nr::serialize (arch & a, unsigned int const &/* version*/)
 {
-	arch & contnt;
+	a & val;
 }
 
 /*
@@ -124,7 +125,7 @@ const bool noware::nr::categorized (const type & t) const
 }
 */
 
-std::istream & getline (std::istream & stream, noware::nr & value, const char delimiter)
+std::istream & getline (std::istream & stream, cln::nr & value, char const delimiter)
 {
 	std::string temp;
 	std::getline (stream, temp, delimiter);

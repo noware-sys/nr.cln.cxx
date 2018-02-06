@@ -1,6 +1,6 @@
 // operator -
 
-const noware::nr noware::nr::operator - (void) const
+cln::nr const cln::nr::operator - (void) const
 {
-	return -contnt;
+	return -val;
 }

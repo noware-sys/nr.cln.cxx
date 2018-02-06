@@ -53,17 +53,17 @@
 //	int x, y;
 //};
 
-int main (int argc, char * argv [])
+int main (int argc, char * argv [], char * envp [])
 {
 	//using namespace boost::any_cast;
-	using namespace std;
+	//using namespace std;
 	//using namespace boost;
-	using namespace noware;
+	//using namespace noware;
 	
 	for (/*unsigned long long*/ int i = 0; i < argc; ++i)
 		std::cout << argv [i] << ' ';
 	std::cout << std::endl;
-	std::cout << "Argument Count: " << argc << std::endl;
+	std::cout << "argc [" << argc << ']' << std::endl;
 	
 	
 	noware::nr n;

@@ -1,13 +1,13 @@
 // operator =
 
-const noware::nr & noware::nr::operator = (const nr & other)
+cln::nr const & cln::nr::operator = (nr const & other)
 {
-	contnt = other.contnt;
+	val = other.val;
 	
 	return *this;
 }
 /*
-const noware::nr & noware::nr::operator = (const text & other)
+cln::nr const & cln::nr::operator = (text const & other)
 {
 	contnt.text = other;
 	contnt.nr = 0;
@@ -17,11 +17,11 @@ const noware::nr & noware::nr::operator = (const text & other)
 	return *this;
 }
 */
-const noware::nr & noware::nr::operator = (const std::string & other)
+cln::nr const & cln::nr::operator = (std::string const & other)
 {
 	try
 	{
-		contnt = other.c_str ();
+		val = other.data ();
 	}
 	catch (...)
 	{
@@ -30,11 +30,11 @@ const noware::nr & noware::nr::operator = (const std::string & other)
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const char * other)
+cln::nr const & cln::nr::operator = (char const * const other)
 {
 	try
 	{
-		contnt = other;
+		val = other;
 	}
 	catch (...)
 	{
@@ -43,50 +43,50 @@ const noware::nr & noware::nr::operator = (const char * other)
 	return *this;
 }
 /*
-const noware::nr & noware::nr::operator = (const unsigned char other [])
+cln::nr const & cln::nr::operator = (unsigned char const other [])
 {
-	contnt = cln::cl_N (other);
+	val = cln::cl_N (other);
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed char other [])
+cln::nr const & cln::nr::operator = (signed char const other [])
 {
-	contnt = cln::cl_N (other);
+	val = cln::cl_N (other);
 	
 	return *this;
 }
 */
 /*
-const noware::nr & noware::nr::operator = (const signed char other [])
+cln::nr const & cln::nr::operator = (signed char const other [])
 {
 	*this = noware::tool::string (other);
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned char other [])
+cln::nr const & cln::nr::operator = (unsigned char const other [])
 {
 	*this = noware::tool::string (other);
 	
 	return *this;
 }
 *//*
-const noware::nr & noware::nr::operator = (const char *& other)
+cln::nr const & cln::nr::operator = ( char const * const & other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed char *& other)
+cln::nr const & cln::nr::operator = (signed char const * const & other)
 {
 	*this = std::string (other);
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned char *& other)
+cln::nr const & cln::nr::operator = (unsigned char const * const & other)
 {
 	*this = std::string (other);
 	
@@ -94,7 +94,21 @@ const noware::nr & noware::nr::operator = (const unsigned char *& other)
 }
 */
 
-const noware::nr & noware::nr::operator = (const char & other)
+cln::nr const & cln::nr::operator = (char const & other)
+{
+	//if (noware::tool::is_numeric (other))
+	try
+	{
+		val = noware::string (other).data ();
+	}
+	catch (...)
+	{
+	}
+	
+	return *this;
+}
+/*
+cln::nr const & cln::nr::operator = (signed char const & other)
 {
 	//if (noware::tool::is_numeric (other))
 	try
@@ -107,27 +121,13 @@ const noware::nr & noware::nr::operator = (const char & other)
 	
 	return *this;
 }
-/*
-const noware::nr & noware::nr::operator = (const signed char & other)
-{
-	//if (noware::tool::is_numeric (other))
-	try
-	{
-		contnt = noware::tool::string (other).c_str ();
-	}
-	catch (...)
-	{
-	}
-	
-	return *this;
-}
 
-const noware::nr & noware::nr::operator = (const unsigned char & other)
+cln::nr const & cln::nr::operator = (unsigned char const & other)
 {
 	//if (noware::tool::is_numeric (other))
 	try
 	{
-		contnt = noware::tool::string (other).c_str ();
+		contnt = noware::string (other).c_str ();
 	}
 	catch (...)
 	{
@@ -136,144 +136,144 @@ const noware::nr & noware::nr::operator = (const unsigned char & other)
 	return *this;
 }
 */
-const noware::nr & noware::nr::operator = (const complex & other)
+cln::nr const & cln::nr::operator = (complex const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const real & other)
+cln::nr const & cln::nr::operator = (real const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const rational & other)
+cln::nr const & cln::nr::operator = (rational const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const integer & other)
+cln::nr const & cln::nr::operator = (integer const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const _float & other)
+cln::nr const & cln::nr::operator = (_float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const short_float & other)
+cln::nr const & cln::nr::operator = (short_float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const single_float & other)
+cln::nr const & cln::nr::operator = (single_float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const double_float & other)
+cln::nr const & cln::nr::operator = (double_float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const long_float & other)
+cln::nr const & cln::nr::operator = (long_float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const long double & other)
+cln::nr const & cln::nr::operator = (long double const & other)
 {
-	contnt = noware::string (other).c_str ();
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const double & other)
+cln::nr const & cln::nr::operator = (double const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const float & other)
+cln::nr const & cln::nr::operator = (float const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed long long int & other)
+cln::nr const & cln::nr::operator = (signed long long int const & other)
 {
-	contnt = noware::string (other).c_str ();
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned long long int & other)
+cln::nr const & cln::nr::operator = (unsigned long long int const & other)
 {
-	contnt = noware::string (other).c_str ();
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed long int & other)
+cln::nr const & cln::nr::operator = (signed long int const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned long int & other)
+cln::nr const & cln::nr::operator = (unsigned long int const & other)
 {
-	contnt = other;
+	val = other;
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed int & other)
+cln::nr const & cln::nr::operator = (signed int const & other)
 {
-	//contnt = signed long int (other);
-	contnt = noware::string (other).c_str ();
+	//val = signed long int (other);
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned int & other)
+cln::nr const & cln::nr::operator = (unsigned int const & other)
 {
-	//contnt = unsigned long int (other);
-	contnt = noware::string (other).c_str ();
+	//val = unsigned long int (other);
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const signed short int & other)
+cln::nr const & cln::nr::operator = (signed short int const & other)
 {
-	contnt = noware::string (other).c_str ();
+	val = noware::string (other).data ();
 	
 	return *this;
 }
 
-const noware::nr & noware::nr::operator = (const unsigned short int & other)
+cln::nr const & cln::nr::operator = (unsigned short int const & other)
 {
-	contnt = noware::string (other).c_str ();
+	val = noware::string (other).data ();
 	
 	return *this;
 }
