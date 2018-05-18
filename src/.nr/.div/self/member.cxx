@@ -2,7 +2,8 @@
 
 cln::nr const cln::nr::operator /= (nr const & other)
 {
-	val /= other.val;
+	if (other.val != 0)
+		val /= other.val;
 	return *this;
 }
 

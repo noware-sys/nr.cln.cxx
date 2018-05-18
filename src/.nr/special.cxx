@@ -1,4 +1,4 @@
-bool const cln::nr::is (std::string const & str)
+bool const cln::nr::valid (std::string const & str)
 {
 	//complex test;
 	
@@ -7,6 +7,21 @@ bool const cln::nr::is (std::string const & str)
 		complex test;
 		
 		test = str.data ();
+		
+		return true;
+	}
+	catch (...)
+	{
+	}
+	
+	return false;
+}
+
+bool const cln::nr::interpret (std::string const & str)
+{
+	try
+	{
+		val = str.data ();
 		
 		return true;
 	}

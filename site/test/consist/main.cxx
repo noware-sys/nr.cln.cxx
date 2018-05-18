@@ -104,7 +104,7 @@ int main (int argc, char * argv [], char * envp [])
 	std::cout << "  " << "x -  y" << ' ' << '[' << x << " -  " << y << ']' << ' '  << '[' << (x -  y) << ']' << std::endl;
 	std::cout << "  " << "x *  y" << ' ' << '[' << x << " *  " << y << ']' << ' '  << '[' << (x *  y) << ']' << std::endl;
 	if (y == 0)
-		std::cout << "  " << "x /  y" << ' ' << '[' << x << " /  " << y << ']' << ' '  << '[' << "infinity" << ']' << std::endl;
+		std::cout << "  " << "x /  y" << ' ' << '[' << x << " /  " << y << ']' << ' '  << '[' << "undefined" << ']' << std::endl;
 	else
 		std::cout << "  " << "x /  y" << ' ' << '[' << x << " /  " << y << ']' << ' '  << '[' << (x /  y) << ']' << std::endl;
 	std::cout << "  " << "x %  y" << ' ' << '[' << x << " %  " << y << ']' << ' '  << '[' << (x %  y) << ']' << std::endl;

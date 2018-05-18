@@ -1,6 +1,7 @@
-static bool const is (std::string const &);
+static bool const valid (std::string const &);
 //const bool is (const type &) const;
 //const bool is (const category &) const;
+bool const interpret (std::string const &);
 
 /*
 const type kind (void) const;
